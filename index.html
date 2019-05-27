@@ -286,6 +286,213 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://isdaniel.github.io/2019/05/27/cache-asp-net-2/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Daniel Shih">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="石頭的coding之路">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2019/05/27/cache-asp-net-2/" class="post-title-link" itemprop="url">Asp.net使用快取 (二)</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Veröffentlicht am</span>
+              
+
+              
+                
+              
+
+              <time title="Erstellt: 2019-05-27 14:52:47 / Geändert am: 07:22:29" itemprop="dateCreated datePublished" datetime="2019-05-27T14:52:47+00:00">2019-05-27</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p><a href="https://ithelp.ithome.com.tw/articles/10198630" target="_blank" rel="noopener">前篇-Asp.net使用快取 (一)</a>向大家簡單介紹</p>
+<ol>
+<li>快取是什麼</li>
+<li>為何要使用快取</li>
+<li>使用簡單<code>HttpRuntime.Cache</code>使用快取機制</li>
+</ol>
+<p>這篇是分享把快取程式碼變得更有彈性</p>
+<hr>
+<p>第二篇大綱</p>
+<ol>
+<li>提出介面,提高可替換性</li>
+<li>使用泛型改寫快取 讀取方式</li>
+<li>使用擴充方法改寫快取</li>
+</ol>
+<hr>
+<ol>
+<li>提出介面,提高可替換性</li>
+</ol>
+<p>情境:</p>
+<p>目前有個專案使用 <code>HttpRuntime.Cache</code> 物件</p>
+<p>在記憶體快取中除了使用 Asp.Net 中<code>HttpRuntime.Cache</code>類別外還有很多解決方案.例如使用<strong>Memcache</strong>,<strong>Redis</strong>…</p>
+<p>如果我們原本使用<code>HttpRuntime.Cache</code>類別但之後要轉成其他快取方式怎麼辦?</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">public class HomeController : Controller</span><br><span class="line">&#123;</span><br><span class="line">	System.Web.Caching.Cache cacheContainer = HttpRuntime.Cache;</span><br><span class="line"></span><br><span class="line">	public ActionResult Index()</span><br><span class="line">	&#123;</span><br><span class="line"></span><br><span class="line">		string cacheData = cacheContainer.Get(&quot;data&quot;) as string;</span><br><span class="line"></span><br><span class="line">		if (cacheData==null)</span><br><span class="line">		&#123;</span><br><span class="line">			cacheContainer.Insert(&quot;test1&quot;, DateTime.Now.ToShortDateString());</span><br><span class="line">		&#125;</span><br><span class="line">  </span><br><span class="line">		return View(cacheData);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>雖然使用不同快取方式,但記得我上篇的重點<strong>快取會有兩個動作,讀和寫</strong>,所以最基本就會有讀和寫這兩個<strong>動作</strong></p>
+<p>OOP有個很重要的觀念 <strong>多個類有重複動作考慮提出父類別</strong></p>
+<p>為了方便了解我把<code>HttpRuntime.Cache</code>封裝成一個類別</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">public class NetCache &#123;</span><br><span class="line">    System.Web.Caching.Cache cacheContainer = HttpRuntime.Cache;</span><br><span class="line">    public object GetCacheObject(string key) &#123;</span><br><span class="line">        return cacheContainer.Get(key);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public void SetCache(string key,object obj) &#123;</span><br><span class="line">        cacheContainer.Insert(key, obj);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>這邊有另一個<code>Memcache</code>快取Class</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">public class MemeryCache &#123;</span><br><span class="line">	private ObjectCache _cache = MemoryCache.Default;</span><br><span class="line">	public object GetCacheObject(string key)</span><br><span class="line">	&#123;</span><br><span class="line">		return _cache[cacheKey];</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	public void SetCache(string key, object obj)</span><br><span class="line">	&#123;</span><br><span class="line">		var policy = new CacheItemPolicy();</span><br><span class="line">		policy.RemovedCallback = OnFileContentsCacheRemove;</span><br><span class="line">		// 設定快取時間2分鐘</span><br><span class="line">		policy.AbsoluteExpiration = DateTimeOffset.Now.Minute(2);</span><br><span class="line">		_cache.Set(cacheKey, fileContents, policy);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>先不關注這兩個物件裡面細節,我們可以發現他們都有 <code>GetCacheObject</code> 方法和<code>SetCache</code> 方法</p>
+<p>這時我們就可以適時提出<strong>介面(interface)</strong>,當作這兩個類別的合約</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">public interface ICache &#123;</span><br><span class="line"></span><br><span class="line">	void Set(string key,object obj);</span><br><span class="line"></span><br><span class="line">	object Get(string key);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>之後將他們兩個類別實現 <code>ICache</code> 介面</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">public class MemeryCache : ICache</span><br><span class="line">&#123;</span><br><span class="line">	private ObjectCache _cache = MemoryCache.Default;</span><br><span class="line">	public object Get(string key)</span><br><span class="line">	&#123;</span><br><span class="line">		return _cache[cacheKey];</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	public void Set(string key, object obj)</span><br><span class="line">	&#123;</span><br><span class="line">		var policy = new CacheItemPolicy();</span><br><span class="line">		policy.RemovedCallback = OnFileContentsCacheRemove;</span><br><span class="line">		// 設定快取時間2分鐘</span><br><span class="line">		policy.AbsoluteExpiration = DateTimeOffset.Now.Minute(2);</span><br><span class="line">		_cache.Set(cacheKey, fileContents, policy);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">public class NetCache : ICache</span><br><span class="line">&#123;</span><br><span class="line">    System.Web.Caching.Cache cacheContainer = HttpRuntime.Cache;</span><br><span class="line">    public object Get(string key) &#123;</span><br><span class="line">        return cacheContainer.Get(key);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    public void Set(string key,object obj) &#123;</span><br><span class="line">        cacheContainer.Insert(key, obj);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>提出介面有甚麼好處?</p>
+<p>我們可以把前面程式碼改成<strong>IOC依賴注入</strong>的方式,不要在程式碼寫死使用<code>HttpRuntime.Cache</code>,由IOC容器幫我們把物件注入程式碼中.</p>
+<p>Note:我使用建構子注入法</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">public class HomeController : Controller</span><br><span class="line">&#123;</span><br><span class="line">    //不用寫死使用  HttpRuntime.Cache</span><br><span class="line">	//System.Web.Caching.Cache cacheContainer = HttpRuntime.Cache;</span><br><span class="line">    ICache cacheContainer;</span><br><span class="line">    public HomeController(ICache Container)&#123;</span><br><span class="line">        cacheContainer = Container;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">	public ActionResult Index()</span><br><span class="line">	&#123;</span><br><span class="line"></span><br><span class="line">		string cacheData = cacheContainer.Get(&quot;data&quot;) as string;</span><br><span class="line"></span><br><span class="line">		if (cacheData==null)</span><br><span class="line">		&#123;</span><br><span class="line">			cacheContainer.Insert(&quot;test1&quot;, DateTime.Now.ToShortDateString());</span><br><span class="line">		&#125;</span><br><span class="line">  </span><br><span class="line">		return View(cacheData);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><code>ICache</code> 變成快取程式碼的潤滑劑.可讓程式變得更有彈性</p>
+<hr>
+<ol start="2">
+<li>使用泛型改寫快取 讀取方式</li>
+</ol>
+<p>我在<a href="https://stackoverflow.com/questions/51160978/sql-server-data-caching-in-asp-net/51161277#51161277" target="_blank" rel="noopener">StackOverFlow解答</a>的方式就是第二種</p>
+<p>其中最主要的技巧就是把<code>Get</code>方法返回的<code>Object</code>改成使用泛型</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"> public T GetOrSetCache&lt;T&gt;</span><br><span class="line">    (string key,T obj, int cacheTime) where T:class,new()</span><br><span class="line">&#123;</span><br><span class="line">    System.Web.Caching.Cache cacheContainer = HttpRuntime.Cache;</span><br><span class="line">    T cacheObj = cacheContainer.Get(key) as T;</span><br><span class="line"></span><br><span class="line">    if (cacheObj == null)</span><br><span class="line">    &#123;</span><br><span class="line">        cacheContainer.Insert(key,</span><br><span class="line">            obj,</span><br><span class="line">            null, </span><br><span class="line">            DateTime.Now.AddMinutes(cacheTime),</span><br><span class="line">            System.Web.Caching.Cache.NoSlidingExpiration);</span><br><span class="line">        cacheObj = obj;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    return cacheObj;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>讓我們在使用時可以變成</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">var data = DateTime.Now.ToShortDateString();</span><br><span class="line">int numberOfMinutes = 3;</span><br><span class="line">data = GetOrSetCache(&quot;name1&quot;,data,numberOfMinutes );</span><br></pre></td></tr></table></figure>
+<p>我們只需要呼叫<code>GetOrSetCache</code>方法,這個方法把<code>GetCache</code>和<code>SetCache</code>封裝起來了</p>
+<hr>
+<ol start="3">
+<li>使用擴充方法改寫快取</li>
+</ol>
+<p>.Net有提供一個很方便的機制 <strong>擴充方法</strong>,這個機制幫我們解決一個很重要的問題.<br>我們可以<strong>擴充已經封裝但沒有原始碼的類別</strong>,</p>
+<p>在這段程式碼中,使用<code>Func&lt;TObj&gt;</code> 可以使用<code>lambda</code> 表達式,讓程式碼更簡潔有力!!</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">public static TObj GetOrSetCache&lt;TObj&gt;(this Func&lt;TObj&gt; selector, string key, int cacheTime)    where TObj : class</span><br><span class="line">&#123; </span><br><span class="line">	Cache cacheContainer = HttpRuntime.Cache;</span><br><span class="line">	//get cache Object</span><br><span class="line">	var obj = cacheContainer.Get(key) as TObj;</span><br><span class="line"></span><br><span class="line">	//if there isn&apos;t cache object add this object to cache</span><br><span class="line">	if (obj == null)</span><br><span class="line">	&#123;</span><br><span class="line">		obj = selector();</span><br><span class="line">		cacheContainer.Insert(key, obj);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	return obj;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>我們使用時如下</p>
+<p>變更簡潔動作更漂亮</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">int numberOfMinutes = 3;</span><br><span class="line">data = GetOrSetCache(()=&gt; DateTime.Now.ToShortDateString(),&quot;name1&quot;,data,numberOfMinutes );</span><br></pre></td></tr></table></figure>
+<hr>
+<p>同場加映:</p>
+<p>擴展方法和介面搭配使用</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">public class WebDefaultCache : ICache</span><br><span class="line">&#123;</span><br><span class="line">	Cache cacheContainer = HttpRuntime.Cache;</span><br><span class="line">	public object Get(string key)</span><br><span class="line">	&#123;</span><br><span class="line">		return cacheContainer.Get(key);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	public void Set(string key, object obj)</span><br><span class="line">	&#123;</span><br><span class="line">		cacheContainer.Insert(key, obj);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line">public interface ICache&#123;</span><br><span class="line">	void Set(string key, object obj);</span><br><span class="line"></span><br><span class="line">	object Get(string key);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">public static class InfrastructureExtension</span><br><span class="line">&#123;</span><br><span class="line">	public static TObj GetOrSetCache&lt;TObj&gt;(this Func&lt;TObj&gt; selector, string key) where TObj : class &#123;</span><br><span class="line">		return GetOrSetCache(selector, key,10);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	public static TObj GetOrSetCache&lt;TObj&gt;(this Func&lt;TObj&gt; selector, string key, int cacheTime) where TObj : class</span><br><span class="line">	&#123;</span><br><span class="line">		return GetOrSetCache(selector, key, cacheTime, new WebDefaultCache());</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	public static TObj GetOrSetCache&lt;TObj&gt;(this Func&lt;TObj&gt; selector, string key, int cacheTime, ICache cacheContainer) where TObj : class</span><br><span class="line">	&#123;</span><br><span class="line">		//get cache Object</span><br><span class="line">		var obj = cacheContainer.Get(key) as TObj;</span><br><span class="line"></span><br><span class="line">		//if there isn&apos;t cache object add this object to cache</span><br><span class="line">		if (obj == null)</span><br><span class="line">		&#123;</span><br><span class="line">			obj = selector();</span><br><span class="line">			cacheContainer.Set(key, obj);</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		return obj;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>雖然在使用上和第三種一樣<br>但我們多了使用<strong>方法重載</strong>多傳一個參數<code>ICache</code>介面 可以讓我們在寫程式時決定要使用哪種cache方式,不用改快去那邊程式碼.</p>
+<p>同場加映<a href="https://github.com/isdaniel/ExtenionTool" target="_blank" rel="noopener">程式碼</a>我放在我自己常用的<strong>ExtenionTool</strong>專案中</p>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://isdaniel.github.io/2019/05/27/cache-asp-net-1/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -331,7 +538,7 @@
                 
               
 
-              <time title="Erstellt: 2019-05-27 08:26:31 / Geändert am: 11:19:00" itemprop="dateCreated datePublished" datetime="2019-05-27T08:26:31+08:00">2019-05-27</time>
+              <time title="Erstellt: 2019-05-27 08:26:31 / Geändert am: 07:22:29" itemprop="dateCreated datePublished" datetime="2019-05-27T08:26:31+00:00">2019-05-27</time>
             
 
             
@@ -522,7 +729,7 @@
                 
               
 
-              <time title="Erstellt: 2019-05-26 22:40:46" itemprop="dateCreated datePublished" datetime="2019-05-26T22:40:46+08:00">2019-05-26</time>
+              <time title="Erstellt: 2019-05-26 22:40:46" itemprop="dateCreated datePublished" datetime="2019-05-26T22:40:46+00:00">2019-05-26</time>
             
 
             
@@ -539,7 +746,7 @@
                 
                   <span class="post-meta-item-text">Bearbeitet am</span>
                 
-                <time title="Geändert am: 2019-05-27 11:19:00" itemprop="dateModified" datetime="2019-05-27T11:19:00+08:00">2019-05-27</time>
+                <time title="Geändert am: 2019-05-27 07:22:29" itemprop="dateModified" datetime="2019-05-27T07:22:29+00:00">2019-05-27</time>
               
             
           </span>
@@ -704,7 +911,7 @@
                 
               
 
-              <time title="Erstellt: 2019-05-26 22:31:09" itemprop="dateCreated datePublished" datetime="2019-05-26T22:31:09+08:00">2019-05-26</time>
+              <time title="Erstellt: 2019-05-26 22:31:09" itemprop="dateCreated datePublished" datetime="2019-05-26T22:31:09+00:00">2019-05-26</time>
             
 
             
@@ -721,7 +928,7 @@
                 
                   <span class="post-meta-item-text">Bearbeitet am</span>
                 
-                <time title="Geändert am: 2019-05-27 11:19:00" itemprop="dateModified" datetime="2019-05-27T11:19:00+08:00">2019-05-27</time>
+                <time title="Geändert am: 2019-05-27 07:22:29" itemprop="dateModified" datetime="2019-05-27T07:22:29+00:00">2019-05-27</time>
               
             
           </span>
@@ -934,12 +1141,24 @@
                 
               
 
-              <time title="Erstellt: 2019-05-23 19:42:00 / Geändert am: 19:46:02" itemprop="dateCreated datePublished" datetime="2019-05-23T19:42:00+08:00">2019-05-23</time>
+              <time title="Erstellt: 2019-05-23 19:42:00" itemprop="dateCreated datePublished" datetime="2019-05-23T19:42:00+00:00">2019-05-23</time>
             
 
             
               
 
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Bearbeitet am</span>
+                
+                <time title="Geändert am: 2019-05-27 07:22:29" itemprop="dateModified" datetime="2019-05-27T07:22:29+00:00">2019-05-27</time>
               
             
           </span>
@@ -1119,12 +1338,24 @@
                 
               
 
-              <time title="Erstellt: 2019-05-23 19:32:08 / Geändert am: 19:45:53" itemprop="dateCreated datePublished" datetime="2019-05-23T19:32:08+08:00">2019-05-23</time>
+              <time title="Erstellt: 2019-05-23 19:32:08" itemprop="dateCreated datePublished" datetime="2019-05-23T19:32:08+00:00">2019-05-23</time>
             
 
             
               
 
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Bearbeitet am</span>
+                
+                <time title="Geändert am: 2019-05-27 07:22:29" itemprop="dateModified" datetime="2019-05-27T07:22:29+00:00">2019-05-27</time>
               
             
           </span>
@@ -1306,7 +1537,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">5</span>
+                    <span class="site-state-item-count">6</span>
                     <span class="site-state-item-name">Artikel</span>
                   </a>
                 </div>
