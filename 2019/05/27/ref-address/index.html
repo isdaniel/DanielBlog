@@ -96,20 +96,22 @@
 
 
 
-  <meta name="description" content="IOC是一個oop重要的程式設計思想。 學一個技術或思想前我們先了解，這個技術或思想為我們解決怎樣問題。 Ioc—Inversion of Control 控制反轉控制反轉是一個設計思想 ，把對於某個物件的控制權移轉給第三方容器 簡單解釋A物件程式內部需要使用B物件 A,B物件中有依賴的成份 控制反轉是把原本A對B控制權移交給第三方容器 降低A對B物件的耦合性，讓雙方都倚賴第三方容器。  反轉概念">
-<meta name="keywords" content="C#,IOC,Autofac,Design-Pattern">
+  <meta name="description" content="傳址，傳參考，傳址  是基本但重要的概念。此概念在很多語言都通用 我使用Gif動畫檔 快速帶領大家了解 傳址，傳參考，傳址  傳值(Call By Value)  顧名思義 是把值傳到 另一個記憶體位置的值上     傳址 (Call By Adress)  是把記憶體位置傳到 另一個記憶體位置的值上  補充:嚴格來說(Call By Adress)是不正統的說法,其實傳址也是傳值但傳的是記憶體位">
+<meta name="keywords" content="C#,Memory,call by value,call by adress,call by reference">
 <meta property="og:type" content="article">
-<meta property="og:title" content="IOC(控制反轉)，DI(依賴注入) 深入淺出~~">
-<meta property="og:url" content="https://isdaniel.github.io/2019/05/26/ioc-di/index.html">
+<meta property="og:title" content="五分鐘快速了解 [傳址，傳參考，傳址]">
+<meta property="og:url" content="https://isdaniel.github.io/2019/05/27/ref-address/index.html">
 <meta property="og:site_name" content="石頭的coding之路">
-<meta property="og:description" content="IOC是一個oop重要的程式設計思想。 學一個技術或思想前我們先了解，這個技術或思想為我們解決怎樣問題。 Ioc—Inversion of Control 控制反轉控制反轉是一個設計思想 ，把對於某個物件的控制權移轉給第三方容器 簡單解釋A物件程式內部需要使用B物件 A,B物件中有依賴的成份 控制反轉是把原本A對B控制權移交給第三方容器 降低A對B物件的耦合性，讓雙方都倚賴第三方容器。  反轉概念">
+<meta property="og:description" content="傳址，傳參考，傳址  是基本但重要的概念。此概念在很多語言都通用 我使用Gif動畫檔 快速帶領大家了解 傳址，傳參考，傳址  傳值(Call By Value)  顧名思義 是把值傳到 另一個記憶體位置的值上     傳址 (Call By Adress)  是把記憶體位置傳到 另一個記憶體位置的值上  補充:嚴格來說(Call By Adress)是不正統的說法,其實傳址也是傳值但傳的是記憶體位">
 <meta property="og:locale" content="zh-tw">
-<meta property="og:image" content="https://az787680.vo.msecnd.net/user/九桃/493ce9d9-64bd-4343-a145-16ab21f3c695/1555312814_72597.png">
+<meta property="og:image" content="https://az787680.vo.msecnd.net/user/%E4%B9%9D%E6%A1%83/e39d0fd8-5258-4484-949c-3019082ff20e/1519627294_92268.gif">
+<meta property="og:image" content="https://az787680.vo.msecnd.net/user/%E4%B9%9D%E6%A1%83/e39d0fd8-5258-4484-949c-3019082ff20e/1519627835_01874.gif">
+<meta property="og:image" content="https://az787680.vo.msecnd.net/user/%E4%B9%9D%E6%A1%83/e39d0fd8-5258-4484-949c-3019082ff20e/1519627909_09266.gif">
 <meta property="og:updated_time" content="2019-05-27T14:57:34.041Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="IOC(控制反轉)，DI(依賴注入) 深入淺出~~">
-<meta name="twitter:description" content="IOC是一個oop重要的程式設計思想。 學一個技術或思想前我們先了解，這個技術或思想為我們解決怎樣問題。 Ioc—Inversion of Control 控制反轉控制反轉是一個設計思想 ，把對於某個物件的控制權移轉給第三方容器 簡單解釋A物件程式內部需要使用B物件 A,B物件中有依賴的成份 控制反轉是把原本A對B控制權移交給第三方容器 降低A對B物件的耦合性，讓雙方都倚賴第三方容器。  反轉概念">
-<meta name="twitter:image" content="https://az787680.vo.msecnd.net/user/九桃/493ce9d9-64bd-4343-a145-16ab21f3c695/1555312814_72597.png">
+<meta name="twitter:title" content="五分鐘快速了解 [傳址，傳參考，傳址]">
+<meta name="twitter:description" content="傳址，傳參考，傳址  是基本但重要的概念。此概念在很多語言都通用 我使用Gif動畫檔 快速帶領大家了解 傳址，傳參考，傳址  傳值(Call By Value)  顧名思義 是把值傳到 另一個記憶體位置的值上     傳址 (Call By Adress)  是把記憶體位置傳到 另一個記憶體位置的值上  補充:嚴格來說(Call By Adress)是不正統的說法,其實傳址也是傳值但傳的是記憶體位">
+<meta name="twitter:image" content="https://az787680.vo.msecnd.net/user/%E4%B9%9D%E6%A1%83/e39d0fd8-5258-4484-949c-3019082ff20e/1519627294_92268.gif">
 
 
 
@@ -117,7 +119,7 @@
 
   
   
-  <link rel="canonical" href="https://isdaniel.github.io/2019/05/26/ioc-di/">
+  <link rel="canonical" href="https://isdaniel.github.io/2019/05/27/ref-address/">
 
 
 
@@ -127,7 +129,7 @@
   };
 </script>
 
-  <title>IOC(控制反轉)，DI(依賴注入) 深入淺出~~ | 石頭的coding之路</title>
+  <title>五分鐘快速了解 [傳址，傳參考，傳址] | 石頭的coding之路</title>
   
 
 
@@ -353,7 +355,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://isdaniel.github.io/2019/05/26/ioc-di/">
+    <link itemprop="mainEntityOfPage" href="https://isdaniel.github.io/2019/05/27/ref-address/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Daniel Shih">
@@ -370,7 +372,7 @@
 
         
         
-          <h2 class="post-title" itemprop="name headline">IOC(控制反轉)，DI(依賴注入) 深入淺出~~
+          <h2 class="post-title" itemprop="name headline">五分鐘快速了解 [傳址，傳參考，傳址]
 
               
             
@@ -396,24 +398,12 @@
                 
               
 
-              <time title="创建时间：2019-05-26 22:31:09" itemprop="dateCreated datePublished" datetime="2019-05-26T22:31:09+00:00">2019-05-26</time>
+              <time title="创建时间：2019-05-27 21:13:34 / 修改时间：14:57:34" itemprop="dateCreated datePublished" datetime="2019-05-27T21:13:34+00:00">2019-05-27</time>
             
 
             
               
 
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：2019-05-27 14:57:34" itemprop="dateModified" datetime="2019-05-27T14:57:34+00:00">2019-05-27</time>
               
             
           </span>
@@ -447,82 +437,36 @@
       
 
       
-        <p><code>IOC</code>是一個oop重要的程式設計思想。</p>
-<p>學一個技術或思想前我們先了解，這個技術或思想為我們解決怎樣問題。</p>
-<p><code>Ioc—Inversion of Control</code> 控制反轉<br>控制反轉是一個設計思想 ，把對於某個物件的控制權移轉給第三方容器</p>
-<h2 id="簡單解釋"><a href="#簡單解釋" class="headerlink" title="簡單解釋"></a>簡單解釋</h2><p>A物件程式內部需要使用B物件 A,B物件中有依賴的成份</p>
-<p>控制反轉是把原本A對B控制權移交給第三方容器</p>
-<p>降低A對B物件的耦合性，讓雙方都倚賴第三方容器。</p>
-<ul>
-<li>反轉概念如下圖</li>
-</ul>
-<p><img src="https://az787680.vo.msecnd.net/user/九桃/493ce9d9-64bd-4343-a145-16ab21f3c695/1555312814_72597.png" alt="pic"></p>
-<blockquote>
-<p>我們可發現有兩點差異</p>
-</blockquote>
+        <p><strong>傳址，傳參考，傳址</strong>  是基本但重要的概念。此概念在很多語言都通用</p>
+<p>我使用Gif動畫檔 快速帶領大家了解 <strong>傳址，傳參考，傳址</strong></p>
 <ol>
-<li><p>使用者原本直接耦合於A，但使用IoC容器使用者就直接對容器而不是A 至於A關連於誰由容器決定<br>原本A直接控制於B,C，但透過一個IoC容器我們控制權反轉給了容器</p>
-</li>
-<li><p>IoC經典實現對象設計法則　好萊塢法則：“別找我們，我們找你”<br>系統中模組建議依賴抽象，因為各個模組間不需要知道對方太多細節（實作），知道越多耦合越強。<br>DI—Dependency Injection 依賴注入</p>
+<li><p>傳值(Call By Value)</p>
+<p> 顧名思義 是把<code>值</code>傳到 另一個<code>記憶體位置</code>的<code>值</code>上</p>
 </li>
 </ol>
+<p><img src="https://az787680.vo.msecnd.net/user/%E4%B9%9D%E6%A1%83/e39d0fd8-5258-4484-949c-3019082ff20e/1519627294_92268.gif" alt="https://az787680.vo.msecnd.net/user/%E4%B9%9D%E6%A1%83/e39d0fd8-5258-4484-949c-3019082ff20e/1519627294_92268.gif"></p>
+<ol start="2">
+<li>傳址 (Call By Adress)</li>
+</ol>
+<p>是把<code>記憶體位置</code>傳到 另一個<code>記憶體位置</code>的<code>值</code>上</p>
 <blockquote>
-<p>把被依賴物件注入被動接收物件中</p>
+<p>補充:嚴格來說(<code>Call By Adress</code>)是不正統的說法,其實傳址也是傳值但傳的是<code>記憶體位置</code>    </p>
 </blockquote>
-<h2 id="案例解釋："><a href="#案例解釋：" class="headerlink" title="案例解釋："></a>案例解釋：</h2><p>小明是個愛乾淨的人，但他工作時常加班導致</p>
-<p>學一個技術或思想前我們必須先了解，這個技術或思想可為我們解決什麼問題。</p>
-<p><code>Ioc(Inversion of Control)</code>控制反轉</p>
-<p><strong>控制反轉是一個設計思想</strong></p>
-<p>簡單解釋</p>
-<p>A物件程式內部需要使用B物件 A,B物件中有依賴的成份</p>
-<p>控制反轉把原本A對B直接控制權移交給由第三方容器</p>
-<p>降低A對B物件的耦合程度，並讓雙方都倚賴抽象。</p>
-<blockquote>
-<p>IoC經典實現對象設計法則　好萊塢法則：“別找我們，我們找你”</p>
-</blockquote>
-<blockquote>
-<p>系統中模組建議依賴抽象，因為各個模組間不需要知道對方太多細節（實作），知道越多耦合越強。</p>
-</blockquote>
-<hr>
-<p>DI—Dependency Injection 依賴注入</p>
-<p>把<strong>被依賴物件</strong>注入<strong>被動接收物件</strong>中</p>
-<p>案例解釋：</p>
-<p>小明是個愛乾淨的人，但他工作時常加班導致房間雜亂，他不能忍受此狀況，所以小明去找一個清潔阿姨每天幫忙他打掃家裡</p>
-<p>哪天阿姨哪天有事不能打掃，小明就必須要再去找人來幫忙打掃，由此可知小明耦合阿姨</p>
-<hr>
-<p>如果今天是….</p>
-<p>小明把他要的條件給「打掃仲介公司」，仲介公司幫他尋找有沒有符合小明需求的打掃阿姨，假如今天A阿姨請假了，仲介公司會自動找另一個符合需求B阿姨幫忙打掃…</p>
-<p>原本小明需耦合於打掃阿姨，現在被「仲介公司」做了控制反轉讓「仲介公司」來提供打掃阿姨。</p>
-<p>小明不用管是否今天有人會來打掃，「仲介公司」會幫小明找到一個掃地阿姨。</p>
+<p><img src="https://az787680.vo.msecnd.net/user/%E4%B9%9D%E6%A1%83/e39d0fd8-5258-4484-949c-3019082ff20e/1519627835_01874.gif" alt="https://az787680.vo.msecnd.net/user/%E4%B9%9D%E6%A1%83/e39d0fd8-5258-4484-949c-3019082ff20e/1519627835_01874.gif"></p>
+<ol>
+<li><p>傳參考(Call By Reference)</p>
+<p>是把<code>記憶體位置</code>傳到  移到另一個<code>記憶體位置</code>上 (可看作同一個物件)</p>
+</li>
+</ol>
+<p><img src="https://az787680.vo.msecnd.net/user/%E4%B9%9D%E6%A1%83/e39d0fd8-5258-4484-949c-3019082ff20e/1519627909_09266.gif" alt="https://az787680.vo.msecnd.net/user/%E4%B9%9D%E6%A1%83/e39d0fd8-5258-4484-949c-3019082ff20e/1519627909_09266.gif"></p>
+<p>在C#廣義來說</p>
 <ul>
-<li>「仲介公司」可看作 依賴注入容器</li>
-<li>「小明」可看作 被動接收物件</li>
+<li><p>基本型別 Struct (int,double,float,byte …)  可看作 傳值</p>
+</li>
+<li><p>一般型別 Class (自訂Class ,SqlConnection….)  可看作 傳址  更精確來說是傳Stack的值(指向Heap的記憶體位置)</p>
+</li>
 </ul>
-<p>「打掃阿姨」可看作 被依賴物件</p>
-<p>在使用IOC容器前需先了解雙方的依賴關係(誰依賴誰?)</p>
-<p>上述還有一個很重要的觀念是，依賴和被接收對象要倚賴抽象。</p>
-<hr>
-<p>範例使用：VS2015</p>
-<p>IOC容器：AutoFac</p>
-<p>下面範例來說明上面的例子</p>
-<p>小明自己依賴於掃地阿姨<br>依賴程式碼寫在小明類別內部日後要更改只能動內部程式碼。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">/// &lt;summary&gt;</span><br><span class="line">/// 小明直接依賴 Aunt 不是依賴抽象</span><br><span class="line">/// 日後要改必須動內部</span><br><span class="line">/// &lt;/summary&gt;</span><br><span class="line">public class Mine</span><br><span class="line">&#123;</span><br><span class="line">    public Aunt aunt = new Aunt();</span><br><span class="line"></span><br><span class="line">    public void Room()</span><br><span class="line">    &#123;</span><br><span class="line">        aunt.Swapping();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>呼叫使用時</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Mine mine = new Mine();</span><br><span class="line">mine.Room();</span><br></pre></td></tr></table></figure>
-<p>小明找仲介公司</p>
-<p><strong>仲介公司(Ioc容器)</strong></p>
-<p>在仲介公司內註冊需求，讓仲介公司日後幫你找人（註冊的類別）</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">/// &lt;summary&gt;</span><br><span class="line">/// 仲介公司</span><br><span class="line">/// &lt;/summary&gt;</span><br><span class="line">/// &lt;returns&gt;&lt;/returns&gt;</span><br><span class="line">private static IContainer MiddleCompany()</span><br><span class="line">&#123;</span><br><span class="line">    ContainerBuilder builder = new ContainerBuilder();</span><br><span class="line"></span><br><span class="line">    //在仲介公司裡寫需求人申請單</span><br><span class="line">    builder.RegisterType&lt;MineWithMiddle&gt;();</span><br><span class="line">    //小明所需打掃阿姨需求</span><br><span class="line">    builder.RegisterType&lt;Aunt&gt;().As&lt;ISwapable&gt;();</span><br><span class="line"></span><br><span class="line">    return builder.Build();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>使用起來</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">IContainer middleCompany = MiddleCompany();</span><br><span class="line">//仲介公司(IOC AutoFac)自動幫小明注入一個打掃阿姨</span><br><span class="line">MineWithMiddle mineWithMiddle = middleCompany.Resolve&lt;MineWithMiddle&gt;();</span><br><span class="line"></span><br><span class="line">mineWithMiddle.Room();</span><br></pre></td></tr></table></figure>
-<p>總結：</p>
-<p>雖然上面程式碼執行結果一樣，但內部結構和日後擴展性卻截然不同</p>
-<blockquote>
-<p>重點：系統中模組建議依賴抽象，因為各個模組間不需要知道對方太多細節（實作），知道越多耦合越強。</p>
-</blockquote>
-<p>像網頁瀏覽器和伺服器是依賴<strong>Http</strong>協議，用戶端不管是手機.電腦,平板，伺服器端php,asp.net,java都可互相交信，依賴<strong>Http</strong>協議共用的合約</p>
-<p><span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2lzZGFuaWVsL0lPQ19TYW1wbGU=" title="https://github.com/isdaniel/IOC_Sample">範例原始碼<i class="fa fa-external-link"></i></span></p>
-<p><span class="exturl" data-url="aHR0cDovL3d3dy5jbmJsb2dzLmNvbS94ZHAtZ2FjbC9wLzQyNDk5MzkuaHRtbA==" title="http://www.cnblogs.com/xdp-gacl/p/4249939.html">參考連結<i class="fa fa-external-link"></i></span></p>
+<p><strong>在C#中並沒傳參考，只有傳值和傳址</strong></p>
 
       
     </div>
@@ -548,11 +492,13 @@
           
             <a href="/tags/C/" rel="tag"># C#</a>
           
-            <a href="/tags/IOC/" rel="tag"># IOC</a>
+            <a href="/tags/Memory/" rel="tag"># Memory</a>
           
-            <a href="/tags/Autofac/" rel="tag"># Autofac</a>
+            <a href="/tags/call-by-value/" rel="tag"># call by value</a>
           
-            <a href="/tags/Design-Pattern/" rel="tag"># Design-Pattern</a>
+            <a href="/tags/call-by-adress/" rel="tag"># call by adress</a>
+          
+            <a href="/tags/call-by-reference/" rel="tag"># call by reference</a>
           
         </div>
       
@@ -565,8 +511,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/05/23/modify-sourcecode/" rel="next" title="沒有Source Code 如何修改程式??">
-                <i class="fa fa-chevron-left"></i> 沒有Source Code 如何修改程式??
+              <a href="/2019/05/27/cache-asp-net-2/" rel="next" title="Asp.net使用快取 (二)">
+                <i class="fa fa-chevron-left"></i> Asp.net使用快取 (二)
               </a>
             
           </div>
@@ -575,8 +521,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2019/05/26/JsonConvert-SerializeObject/" rel="prev" title="JsonConvert.SerializeObject 呼叫 object.Equals 問題探討">
-                JsonConvert.SerializeObject 呼叫 object.Equals 問題探討 <i class="fa fa-chevron-right"></i>
+              <a href="/2019/05/27/own-session/" rel="prev" title="【C#】我們來土砲一個 Asp.net Session (Session核心原理)">
+                【C#】我們來土砲一個 Asp.net Session (Session核心原理) <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -625,17 +571,8 @@
       
 
       
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
-            文章目录
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
-            站点概览
-          </li>
-        </ul>
-      
 
-      <div class="site-overview-wrap sidebar-panel">
+      <div class="site-overview-wrap sidebar-panel sidebar-panel-active">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -784,23 +721,6 @@
         </div>
       </div>
 
-      
-      <!--noindex-->
-        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-
-            
-            
-            
-            
-
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#簡單解釋"><span class="nav-number">1.</span> <span class="nav-text">簡單解釋</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#案例解釋："><span class="nav-number">2.</span> <span class="nav-text">案例解釋：</span></a></li></ol></div>
-            
-
-          </div>
-        </div>
-      <!--/noindex-->
       
 
       

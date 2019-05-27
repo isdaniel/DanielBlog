@@ -104,7 +104,7 @@
 <meta property="og:site_name" content="石頭的coding之路">
 <meta property="og:description" content="最近回答SQL Server data caching in ASP.NET問題,且有人問我有關快取的問題. 所以小弟打算寫兩篇文章簡單分享我知道的快取  目錄: 第一篇   為何要使用快取 快取操作 Asp.Net中使用快取 by HttpRuntime.Cache  第二篇   提出介面,提高可替換性 使用泛型改寫快取 讀取方式 使用擴充方法改寫快取   正文 快取機制很重要,但有些觀念可能要">
 <meta property="og:locale" content="zh-tw">
-<meta property="og:updated_time" content="2019-05-27T13:35:53.746Z">
+<meta property="og:updated_time" content="2019-05-27T14:57:34.041Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Asp.net使用快取 (一)">
 <meta name="twitter:description" content="最近回答SQL Server data caching in ASP.NET問題,且有人問我有關快取的問題. 所以小弟打算寫兩篇文章簡單分享我知道的快取  目錄: 第一篇   為何要使用快取 快取操作 Asp.Net中使用快取 by HttpRuntime.Cache  第二篇   提出介面,提高可替換性 使用泛型改寫快取 讀取方式 使用擴充方法改寫快取   正文 快取機制很重要,但有些觀念可能要">
@@ -193,7 +193,7 @@
   </div>
 
   <div class="site-nav-toggle">
-    <button aria-label="Navigationsleiste an/ausschalten">
+    <button aria-label="切换导航栏">
       <span class="btn-bar"></span>
       <span class="btn-bar"></span>
       <span class="btn-bar"></span>
@@ -220,8 +220,67 @@
     
 
     
+      
+    
 
-    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>Startseite</a>
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-about">
+
+    
+    
+    
+      
+    
+
+    
+      
+    
+
+    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+
+    
+    
+    
+      
+    
+
+    
+      
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签<span class="badge">19</span></a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+
+    
+    
+    
+      
+    
+
+    
+      
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类<span class="badge">0</span></a>
 
   </li>
         
@@ -237,8 +296,10 @@
     
 
     
+      
+    
 
-    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archiv</a>
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档<span class="badge">8</span></a>
 
   </li>
 
@@ -294,8 +355,8 @@
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Daniel Shih">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="description" content="好點子沒價值，有價值的是把好點子實現～～">
+      <meta itemprop="image" content="https://scontent.ftpe8-3.fna.fbcdn.net/v/t1.0-9/60180310_2282070531849602_6588071415033888768_n.jpg?_nc_cat=107&_nc_ht=scontent.ftpe8-3.fna&oh=e8ad93eddc7af4887fd8ab0434374fe0&oe=5D9577FC">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
@@ -307,11 +368,11 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Asp.net使用快取 (一)
+          <h2 class="post-title" itemprop="name headline">Asp.net使用快取 (一)
 
               
             
-          </h1>
+          </h2>
         
 
         <div class="post-meta">
@@ -326,14 +387,14 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Veröffentlicht am</span>
+                <span class="post-meta-item-text">发表于</span>
               
 
               
                 
               
 
-              <time title="Erstellt: 2019-05-27 08:26:31 / Geändert am: 13:35:53" itemprop="dateCreated datePublished" datetime="2019-05-27T08:26:31+00:00">2019-05-27</time>
+              <time title="创建时间：2019-05-27 08:26:31 / 修改时间：14:57:34" itemprop="dateCreated datePublished" datetime="2019-05-27T08:26:31+00:00">2019-05-27</time>
             
 
             
@@ -372,7 +433,7 @@
       
 
       
-        <p>最近回答<a href="https://stackoverflow.com/questions/51160978/sql-server-data-caching-in-asp-net/51161277#51161277" target="_blank" rel="noopener">SQL Server data caching in ASP.NET</a>問題,且有人問我有關快取的問題.</p>
+        <p>最近回答<span class="exturl" data-url="aHR0cHM6Ly9zdGFja292ZXJmbG93LmNvbS9xdWVzdGlvbnMvNTExNjA5Nzgvc3FsLXNlcnZlci1kYXRhLWNhY2hpbmctaW4tYXNwLW5ldC81MTE2MTI3NyM1MTE2MTI3Nw==" title="https://stackoverflow.com/questions/51160978/sql-server-data-caching-in-asp-net/51161277#51161277">SQL Server data caching in ASP.NET<i class="fa fa-external-link"></i></span>問題,且有人問我有關快取的問題.</p>
 <p>所以小弟打算寫兩篇文章簡單分享我知道的<em>快取</em></p>
 <hr>
 <p><strong>目錄:</strong></p>
@@ -496,6 +557,10 @@
           
 
   
+    <div class="comments" id="gitalk-container">
+    </div>
+
+  
 
 
 
@@ -522,8 +587,10 @@
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
+              <img class="site-author-image" itemprop="image" src="https://scontent.ftpe8-3.fna.fbcdn.net/v/t1.0-9/60180310_2282070531849602_6588071415033888768_n.jpg?_nc_cat=107&_nc_ht=scontent.ftpe8-3.fna&oh=e8ad93eddc7af4887fd8ab0434374fe0&oe=5D9577FC" alt="Daniel Shih">
+            
               <p class="site-author-name" itemprop="name">Daniel Shih</p>
-              <div class="site-description motion-element" itemprop="description"></div>
+              <div class="site-description motion-element" itemprop="description">好點子沒價值，有價值的是把好點子實現～～</div>
           </div>
 
           
@@ -533,8 +600,8 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">6</span>
-                    <span class="site-state-item-name">Artikel</span>
+                    <span class="site-state-item-count">8</span>
+                    <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
               
@@ -580,8 +647,18 @@
                     
                       
                     
-                    <span class="site-state-item-count">14</span>
-                    <span class="site-state-item-name">schlagwörter</span>
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">19</span>
+                    <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
               
@@ -592,6 +669,54 @@
 
           
 
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2lzZGFuaWVs" title="GitHub &rarr; https://github.com/isdaniel"><i class="fa fa-fw fa-github"></i>GitHub</span>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <span class="exturl" data-url="bWFpbHRvOmRvZzgzMDAyMjhAZ21haWwuY29t" title="Email &rarr; mailto:dog8300228@gmail.com"><i class="fa fa-fw fa-envelope"></i>Email</span>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <span class="exturl" data-url="aHR0cHM6Ly93d3cuZmFjZWJvb2suY29tL3Byb2ZpbGUucGhwP2lkPTEwMDAwMTQwMDMxOTEzNg==" title="FaceBook &rarr; https://www.facebook.com/profile.php?id=100001400319136"><i class="fa fa-fw fa-facebook"></i>FaceBook</span>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <span class="exturl" data-url="aHR0cHM6Ly93d3cuaW5zdGFncmFtLmNvbS9kbl9zaGloLw==" title="IG &rarr; https://www.instagram.com/dn_shih/"><i class="fa fa-fw fa-instagram"></i>IG</span>
+                </span>
+              
+            </div>
           
 
           
@@ -634,7 +759,7 @@
 </div>
 
 
-  <div class="powered-by">Erstellt mit  <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.8.0</div>
+  <div class="powered-by">由 <span class="exturl theme-link" data-url="aHR0cHM6Ly9oZXhvLmlv">Hexo</span> 强力驱动 v3.8.0</div>
 
 
 
@@ -642,7 +767,7 @@
 
 
 
-  <div class="theme-info">Design – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> v7.1.1</div>
+  <div class="theme-info">主题 – <span class="exturl theme-link" data-url="aHR0cHM6Ly90aGVtZS1uZXh0Lm9yZw==">NexT.Pisces</span> v7.1.1</div>
 
 
 
@@ -751,11 +876,42 @@
   
 
   
+  <script src="/js/exturl.js?v=7.1.1"></script>
+
 
   
 
   
 
+
+  
+    
+
+<script src="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+
+
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css">
+
+
+
+<script src="//cdn.jsdelivr.net/npm/js-md5@0.7.3/src/md5.min.js"></script>
+
+<script>
+  var gitalk = new Gitalk({
+    clientID: '',
+    clientSecret: '',
+    repo: '',
+    owner: '',
+    admin: [''],
+    id: md5(location.pathname),
+    
+      language: window.navigator.language || window.navigator.userLanguage,
+    
+    distractionFreeMode: 'true'
+  });
+  gitalk.render('gitalk-container');
+</script>
 
   
 

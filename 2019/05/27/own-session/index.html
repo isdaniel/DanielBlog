@@ -1,0 +1,944 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-tw">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
+
+<link rel="stylesheet" href="/css/main.css?v=7.1.1">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.1.1">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.1.1">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.1.1">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=7.1.1" color="#222">
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '7.1.1',
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false,"dimmer":false},
+    back2top: true,
+    back2top_sidebar: false,
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="我們在寫網站一定會使用到 Session今天就跟大家分享自製微型 Asp.net Session  分析Session-&amp;gt;實作Session-&amp;gt;使用Session  在實作之前您必須先了解甚麼是Session網路上一大堆介紹Session文章在此我就不多介紹或可以點進之前小弟的介紹文來簡單了解 SessionID.cookie,Session傻傻分不清楚?? 簡單說明：Http協議是一">
+<meta name="keywords" content="C#,Asp.net,Session">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【C#】我們來土砲一個 Asp.net Session (Session核心原理)">
+<meta property="og:url" content="https://isdaniel.github.io/2019/05/27/own-session/index.html">
+<meta property="og:site_name" content="石頭的coding之路">
+<meta property="og:description" content="我們在寫網站一定會使用到 Session今天就跟大家分享自製微型 Asp.net Session  分析Session-&amp;gt;實作Session-&amp;gt;使用Session  在實作之前您必須先了解甚麼是Session網路上一大堆介紹Session文章在此我就不多介紹或可以點進之前小弟的介紹文來簡單了解 SessionID.cookie,Session傻傻分不清楚?? 簡單說明：Http協議是一">
+<meta property="og:locale" content="zh-tw">
+<meta property="og:image" content="https://az787680.vo.msecnd.net/user/%E4%B9%9D%E6%A1%83/0a757091-7057-47ec-aea7-b2d712631a2c/1510120621_28488.png">
+<meta property="og:image" content="https://az787680.vo.msecnd.net/user/%E4%B9%9D%E6%A1%83/0a757091-7057-47ec-aea7-b2d712631a2c/1510058340_10833.PNG">
+<meta property="og:updated_time" content="2019-05-27T14:57:34.041Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="【C#】我們來土砲一個 Asp.net Session (Session核心原理)">
+<meta name="twitter:description" content="我們在寫網站一定會使用到 Session今天就跟大家分享自製微型 Asp.net Session  分析Session-&amp;gt;實作Session-&amp;gt;使用Session  在實作之前您必須先了解甚麼是Session網路上一大堆介紹Session文章在此我就不多介紹或可以點進之前小弟的介紹文來簡單了解 SessionID.cookie,Session傻傻分不清楚?? 簡單說明：Http協議是一">
+<meta name="twitter:image" content="https://az787680.vo.msecnd.net/user/%E4%B9%9D%E6%A1%83/0a757091-7057-47ec-aea7-b2d712631a2c/1510120621_28488.png">
+
+
+
+
+
+  
+  
+  <link rel="canonical" href="https://isdaniel.github.io/2019/05/27/own-session/">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>【C#】我們來土砲一個 Asp.net Session (Session核心原理) | 石頭的coding之路</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-tw">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">石頭的coding之路</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+    
+      
+    
+
+    
+      
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-about">
+
+    
+    
+    
+      
+    
+
+    
+      
+    
+
+    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+
+    
+    
+    
+      
+    
+
+    
+      
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签<span class="badge">19</span></a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+
+    
+    
+    
+      
+    
+
+    
+      
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类<span class="badge">0</span></a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+    
+      
+    
+
+    
+      
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档<span class="badge">8</span></a>
+
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://isdaniel.github.io/2019/05/27/own-session/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Daniel Shih">
+      <meta itemprop="description" content="好點子沒價值，有價值的是把好點子實現～～">
+      <meta itemprop="image" content="https://scontent.ftpe8-3.fna.fbcdn.net/v/t1.0-9/60180310_2282070531849602_6588071415033888768_n.jpg?_nc_cat=107&_nc_ht=scontent.ftpe8-3.fna&oh=e8ad93eddc7af4887fd8ab0434374fe0&oe=5D9577FC">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="石頭的coding之路">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">【C#】我們來土砲一個 Asp.net Session (Session核心原理)
+
+              
+            
+          </h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-05-27 21:16:07 / 修改时间：14:57:34" itemprop="dateCreated datePublished" datetime="2019-05-27T21:16:07+00:00">2019-05-27</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>我們在寫網站一定會使用到 <code>Session</code><br>今天就跟大家分享自製微型 <code>Asp.net Session</code></p>
+<blockquote>
+<p>分析Session-&gt;實作Session-&gt;使用Session</p>
+</blockquote>
+<p>在實作之前您必須先了解甚麼是Session<br>網路上一大堆介紹Session文章在此我就不多介紹<br>或可以點進之前小弟的介紹文來簡單了解 <span class="exturl" data-url="aHR0cHM6Ly9kb3RibG9ncy5jb20udHcvZGFuaWVsLzIwMTcvMDQvMDgvMTEwOTE1" title="https://dotblogs.com.tw/daniel/2017/04/08/110915">SessionID.cookie,Session傻傻分不清楚??<i class="fa fa-external-link"></i></span></p>
+<p>簡單說明：<br>Http協議是一個無狀態協議。</p>
+<blockquote>
+<p>核心是 請求=&gt;處理=&gt;回應 </p>
+</blockquote>
+<p>每次請求都是獨立不會記住上一次做了甚麼<br>Session可以幫我們把資料存在Server記憶體，方便我們下次請求使用<br>上網連線眾多使用者，Server怎麼知道哪份資料,屬於哪個使用者的? 這就要依靠 <strong>SessonID</strong><br><strong>SessionID</strong>就像使用者的號碼牌，可以到Server拿相對應的資料</p>
+<p>分析：</p>
+<ol>
+<li>使用者請求頁面時會攜帶該網域下Cookies。</li>
+<li>Asp.net接收到並使用Key為SessionID的Cookie，使用Cookie的Value來SessionPool中查找屬於使用者的Session。<br>如果是第一次請求或是沒有SessionID 會幫他產生一個新的並加入回應的Cookie中</li>
+<li>取得Session物件後就可以在程式中使用。</li>
+</ol>
+<p>分析如下圖：</p>
+<p><img src="https://az787680.vo.msecnd.net/user/%E4%B9%9D%E6%A1%83/0a757091-7057-47ec-aea7-b2d712631a2c/1510120621_28488.png" alt="圖"></p>
+<p>我們作出幾個核心來完成模擬Session:</p>
+<ol>
+<li>SessionPool來存放目前所有Session</li>
+<li>SessionObject (支援快取在系統記憶體中)<br>模擬HttpContext封裝Session   </li>
+</ol>
+<p>實作：<br>我要簡單呈現就選擇使用輕便 [泛型處理常式]<br><img src="https://az787680.vo.msecnd.net/user/%E4%B9%9D%E6%A1%83/0a757091-7057-47ec-aea7-b2d712631a2c/1510058340_10833.PNG" alt></p>
+<p><strong>ApplicationContext</strong> 模擬HttpContext封裝SessionPool<br>創建一個靜態的SessionPool物件，因為程式都共用此SessionPool</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br></pre></td><td class="code"><pre><span class="line">/// &lt;summary&gt;</span><br><span class="line">/// 請求上下文</span><br><span class="line">/// &lt;/summary&gt;</span><br><span class="line">public class ApplicationContext</span><br><span class="line">&#123;</span><br><span class="line">    /// &lt;summary&gt;</span><br><span class="line">    /// 存在Cookie中的SessionID</span><br><span class="line">    /// &lt;/summary&gt;</span><br><span class="line">    private readonly string MySessionID = &quot;MySessionID&quot;;</span><br><span class="line"></span><br><span class="line">    public HttpRequest Request &#123; get; private set; &#125;</span><br><span class="line">    public HttpResponse Respone &#123; get; private set; &#125;</span><br><span class="line"></span><br><span class="line">    public ApplicationContext(HttpContext context)</span><br><span class="line">    &#123;</span><br><span class="line">        Respone = context.Response;</span><br><span class="line">        Request = context.Request;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    private static SessionPool _container = new SessionPool();</span><br><span class="line"></span><br><span class="line">    public SessionObject Session</span><br><span class="line">    &#123;</span><br><span class="line">        get</span><br><span class="line">        &#123;</span><br><span class="line">            return GetSessionObj();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    /// &lt;summary&gt;</span><br><span class="line">    /// 從SessionPool中取得Session對象</span><br><span class="line">    /// &lt;/summary&gt;</span><br><span class="line">    /// &lt;returns&gt;&lt;/returns&gt;</span><br><span class="line">    private SessionObject GetSessionObj()</span><br><span class="line">    &#123;</span><br><span class="line">        Guid sessionGuid;</span><br><span class="line">        HttpCookie CookieSessionID = Request.Cookies[MySessionID];</span><br><span class="line">        //如果沒有MySessionID的cookie，做一個新的</span><br><span class="line">        if (CookieSessionID == null)</span><br><span class="line">        &#123;</span><br><span class="line">            sessionGuid = Guid.NewGuid();</span><br><span class="line">            HttpCookie cookie = new HttpCookie(MySessionID, sessionGuid.ToString())</span><br><span class="line">            &#123;</span><br><span class="line">                Expires = DateTime.Now.AddDays(60)</span><br><span class="line">            &#125;;</span><br><span class="line">            Respone.Cookies.Add(cookie);</span><br><span class="line">        &#125;</span><br><span class="line">        else</span><br><span class="line">        &#123;</span><br><span class="line">            sessionGuid = Guid.Parse(CookieSessionID.Value);</span><br><span class="line">        &#125;</span><br><span class="line">        return _container[sessionGuid];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>CacheDictionary</strong> 負責快取</p>
+<p>使用一個 Dictionary 來對Session存取物件設置快取</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">/// &lt;summary&gt;</span><br><span class="line">/// 掌管物件存活時間的集合</span><br><span class="line">/// &lt;/summary&gt;</span><br><span class="line">private readonly Dictionary&lt;string, CancellationTokenSource&gt; _expireContaner =</span><br><span class="line">    new Dictionary&lt;string, CancellationTokenSource&gt;();</span><br></pre></td></tr></table></figure>
+<p>在Task.Delay可以讓物件存放在工作執行緒中 等Delay時間到就呼叫 ContinueWith 將物件消毀</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">/// &lt;summary&gt;</span><br><span class="line">/// 設置快取對象</span><br><span class="line">/// &lt;/summary&gt;</span><br><span class="line">/// &lt;typeparam name=&quot;T&quot;&gt;&lt;/typeparam&gt;</span><br><span class="line">/// &lt;param name=&quot;key&quot;&gt;&lt;/param&gt;</span><br><span class="line">/// &lt;param name=&quot;create&quot;&gt;&lt;/param&gt;</span><br><span class="line">/// &lt;param name=&quot;expireIn&quot;&gt;&lt;/param&gt;</span><br><span class="line">/// &lt;returns&gt;&lt;/returns&gt;</span><br><span class="line">public T Set&lt;T&gt;(string key, Func&lt;T&gt; create, TimeSpan expireIn)</span><br><span class="line">&#123;</span><br><span class="line">    //如果此Key被使用 將原本的內容移除</span><br><span class="line">    if (_expireTasks.ContainsKey(key))</span><br><span class="line">    &#123;</span><br><span class="line">        _expireTasks[key].Cancel();</span><br><span class="line">        _expireTasks.Remove(key);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    var expirationTokenSource = new CancellationTokenSource();</span><br><span class="line">    var expirationToken = expirationTokenSource.Token;</span><br><span class="line">    //物件快取</span><br><span class="line">    Task.Delay(expireIn, expirationToken).ContinueWith(_ =&gt; Expire(key), expirationToken);</span><br><span class="line"></span><br><span class="line">    _expireTasks[key] = expirationTokenSource;</span><br><span class="line"></span><br><span class="line">    return (T)(this[key] = create());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>SeesionPool</strong> 存放所有Session<br>取Session會判斷此Guid是否有對應的Session物件，沒有會幫她創建一個放在池子中</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">/// &lt;summary&gt;</span><br><span class="line">/// 存放所有Session池子</span><br><span class="line">/// &lt;/summary&gt;</span><br><span class="line">public class SessionPool</span><br><span class="line">&#123;</span><br><span class="line">    private Dictionary&lt;Guid, SessionObject&gt; _SessionContain = new Dictionary&lt;Guid, SessionObject&gt;();</span><br><span class="line"></span><br><span class="line">    public SessionObject this[Guid index]</span><br><span class="line">    &#123;</span><br><span class="line">        get</span><br><span class="line">        &#123;</span><br><span class="line">            SessionObject obj;</span><br><span class="line">            if (_SessionContain.TryGetValue(index, out obj))</span><br><span class="line">            &#123;</span><br><span class="line">                return obj;</span><br><span class="line">            &#125;</span><br><span class="line">            else</span><br><span class="line">            &#123;</span><br><span class="line">                obj = new SessionObject();</span><br><span class="line">                _SessionContain.Add(index, obj);</span><br><span class="line">            &#125;</span><br><span class="line">            return obj;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>SessionObject</strong> 控制讀取時的值 (一般我們所使用的Session)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">/// &lt;summary&gt;</span><br><span class="line">/// Session物件</span><br><span class="line">/// &lt;/summary&gt;</span><br><span class="line">public class SessionObject</span><br><span class="line">&#123;</span><br><span class="line">    private CacheDictionary cache = new CacheDictionary();</span><br><span class="line"></span><br><span class="line">    public object this[string index]</span><br><span class="line">    &#123;</span><br><span class="line">        get</span><br><span class="line">        &#123;</span><br><span class="line">            return GetObj(index);</span><br><span class="line">        &#125;</span><br><span class="line">        set</span><br><span class="line">        &#123;</span><br><span class="line">            SetCache(index, value);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    private void SetCache(string key, object value)</span><br><span class="line">    &#123;</span><br><span class="line">        cache.Set(key, () =&gt; value);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    private object GetObj(string key)</span><br><span class="line">    &#123;</span><br><span class="line">        return cache.GetOrDefault(key, () =&gt; default(object));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>使用：</p>
+<p>在建構子中創建一個 ApplicationContext 之後,即可Asp.net那樣來使用Session</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">private ApplicationContext app;</span><br><span class="line"></span><br><span class="line">public SessionHanlder()</span><br><span class="line"></span><br><span class="line">&#123;</span><br><span class="line">    app = new ApplicationContext(HttpContext.Current);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">public void ProcessRequest(HttpContext context)</span><br><span class="line">&#123;</span><br><span class="line">    if (null == app.Session[&quot;Time&quot;])</span><br><span class="line">    &#123;</span><br><span class="line">        app.Session[&quot;Time&quot;] = $&quot;Hello &#123;DateTime.Now.ToString(&quot;yyyy-MM-dd hh-mm-ss&quot;)&#125;&quot;;</span><br><span class="line">    &#125;</span><br><span class="line">    context.Response.Write(app.Session[&quot;Time&quot;]);</span><br><span class="line">    context.Response.ContentType = &quot;text/plain&quot;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>上面程式是簡單模擬Session核心作用的程式</p>
+<p>但並未處理多執行緒並發讀寫…等等問題，所以建議別再實際專案中使用XD!!</p>
+<p>專案使用 VS2015 <span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2lzZGFuaWVsL093blNlc3Npb24=" title="https://github.com/isdaniel/OwnSession">GitHub原始碼<i class="fa fa-external-link"></i></span></p>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/C/" rel="tag"># C#</a>
+          
+            <a href="/tags/Asp-net/" rel="tag"># Asp.net</a>
+          
+            <a href="/tags/Session/" rel="tag"># Session</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/05/27/ref-address/" rel="next" title="五分鐘快速了解 [傳址，傳參考，傳址]">
+                <i class="fa fa-chevron-left"></i> 五分鐘快速了解 [傳址，傳參考，傳址]
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+    <div class="comments" id="gitalk-container">
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+
+      <div class="site-overview-wrap sidebar-panel sidebar-panel-active">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="https://scontent.ftpe8-3.fna.fbcdn.net/v/t1.0-9/60180310_2282070531849602_6588071415033888768_n.jpg?_nc_cat=107&_nc_ht=scontent.ftpe8-3.fna&oh=e8ad93eddc7af4887fd8ab0434374fe0&oe=5D9577FC" alt="Daniel Shih">
+            
+              <p class="site-author-name" itemprop="name">Daniel Shih</p>
+              <div class="site-description motion-element" itemprop="description">好點子沒價值，有價值的是把好點子實現～～</div>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">8</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  
+                    
+                      <a href="/tags/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">19</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2lzZGFuaWVs" title="GitHub &rarr; https://github.com/isdaniel"><i class="fa fa-fw fa-github"></i>GitHub</span>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <span class="exturl" data-url="bWFpbHRvOmRvZzgzMDAyMjhAZ21haWwuY29t" title="Email &rarr; mailto:dog8300228@gmail.com"><i class="fa fa-fw fa-envelope"></i>Email</span>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <span class="exturl" data-url="aHR0cHM6Ly93d3cuZmFjZWJvb2suY29tL3Byb2ZpbGUucGhwP2lkPTEwMDAwMTQwMDMxOTEzNg==" title="FaceBook &rarr; https://www.facebook.com/profile.php?id=100001400319136"><i class="fa fa-fw fa-facebook"></i>FaceBook</span>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <span class="exturl" data-url="aHR0cHM6Ly93d3cuaW5zdGFncmFtLmNvbS9kbl9zaGloLw==" title="IG &rarr; https://www.instagram.com/dn_shih/"><i class="fa fa-fw fa-instagram"></i>IG</span>
+                </span>
+              
+            </div>
+          
+
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+
+      
+
+      
+
+    </div>
+  </aside>
+  
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Daniel Shih</span>
+
+  
+
+  
+</div>
+
+
+  <div class="powered-by">由 <span class="exturl theme-link" data-url="aHR0cHM6Ly9oZXhvLmlv">Hexo</span> 强力驱动 v3.8.0</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 – <span class="exturl theme-link" data-url="aHR0cHM6Ly90aGVtZS1uZXh0Lm9yZw==">NexT.Pisces</span> v7.1.1</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+
+  
+
+
+  <script src="/js/utils.js?v=7.1.1"></script>
+
+  <script src="/js/motion.js?v=7.1.1"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/affix.js?v=7.1.1"></script>
+
+  <script src="/js/schemes/pisces.js?v=7.1.1"></script>
+
+
+
+  
+  <script src="/js/scrollspy.js?v=7.1.1"></script>
+<script src="/js/post-details.js?v=7.1.1"></script>
+
+
+
+  
+
+
+  <script src="/js/next-boot.js?v=7.1.1"></script>
+
+
+  
+
+  
+  <script src="/js/exturl.js?v=7.1.1"></script>
+
+
+  
+
+  
+
+
+  
+    
+
+<script src="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+
+
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css">
+
+
+
+<script src="//cdn.jsdelivr.net/npm/js-md5@0.7.3/src/md5.min.js"></script>
+
+<script>
+  var gitalk = new Gitalk({
+    clientID: '',
+    clientSecret: '',
+    repo: '',
+    owner: '',
+    admin: [''],
+    id: md5(location.pathname),
+    
+      language: window.navigator.language || window.navigator.userLanguage,
+    
+    distractionFreeMode: 'true'
+  });
+  gitalk.render('gitalk-container');
+</script>
+
+  
+
+
+  
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

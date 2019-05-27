@@ -96,13 +96,16 @@
 
 
 
-  <meta property="og:type" content="website">
+  <meta name="description" content="好點子沒價值，有價值的是把好點子實現～～">
+<meta property="og:type" content="website">
 <meta property="og:title" content="石頭的coding之路">
 <meta property="og:url" content="https://isdaniel.github.io/index.html">
 <meta property="og:site_name" content="石頭的coding之路">
+<meta property="og:description" content="好點子沒價值，有價值的是把好點子實現～～">
 <meta property="og:locale" content="zh-tw">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="石頭的coding之路">
+<meta name="twitter:description" content="好點子沒價值，有價值的是把好點子實現～～">
 
 
 
@@ -189,7 +192,7 @@
   </div>
 
   <div class="site-nav-toggle">
-    <button aria-label="Navigationsleiste an/ausschalten">
+    <button aria-label="切换导航栏">
       <span class="btn-bar"></span>
       <span class="btn-bar"></span>
       <span class="btn-bar"></span>
@@ -216,8 +219,67 @@
     
 
     
+      
+    
 
-    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>Startseite</a>
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-about">
+
+    
+    
+    
+      
+    
+
+    
+      
+    
+
+    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+
+    
+    
+    
+      
+    
+
+    
+      
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签<span class="badge">19</span></a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+
+    
+    
+    
+      
+    
+
+    
+      
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类<span class="badge">0</span></a>
 
   </li>
         
@@ -233,8 +295,10 @@
     
 
     
+      
+    
 
-    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archiv</a>
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档<span class="badge">8</span></a>
 
   </li>
 
@@ -286,12 +350,12 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://isdaniel.github.io/2019/05/27/cache-asp-net-2/">
+    <link itemprop="mainEntityOfPage" href="https://isdaniel.github.io/2019/05/27/own-session/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Daniel Shih">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="description" content="好點子沒價值，有價值的是把好點子實現～～">
+      <meta itemprop="image" content="https://scontent.ftpe8-3.fna.fbcdn.net/v/t1.0-9/60180310_2282070531849602_6588071415033888768_n.jpg?_nc_cat=107&_nc_ht=scontent.ftpe8-3.fna&oh=e8ad93eddc7af4887fd8ab0434374fe0&oe=5D9577FC">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
@@ -303,13 +367,13 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">
+          <h2 class="post-title" itemprop="name headline">
                 
                 
-                <a href="/2019/05/27/cache-asp-net-2/" class="post-title-link" itemprop="url">Asp.net使用快取 (二)</a>
+                <a href="/2019/05/27/own-session/" class="post-title-link" itemprop="url">【C#】我們來土砲一個 Asp.net Session (Session核心原理)</a>
               
             
-          </h1>
+          </h2>
         
 
         <div class="post-meta">
@@ -324,14 +388,14 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Veröffentlicht am</span>
+                <span class="post-meta-item-text">发表于</span>
               
 
               
                 
               
 
-              <time title="Erstellt: 2019-05-27 14:52:47 / Geändert am: 13:35:54" itemprop="dateCreated datePublished" datetime="2019-05-27T14:52:47+00:00">2019-05-27</time>
+              <time title="创建时间：2019-05-27 21:16:07 / 修改时间：14:57:34" itemprop="dateCreated datePublished" datetime="2019-05-27T21:16:07+00:00">2019-05-27</time>
             
 
             
@@ -372,73 +436,358 @@
       
         
           
-            <p><a href="https://ithelp.ithome.com.tw/articles/10198630" target="_blank" rel="noopener">前篇-Asp.net使用快取 (一)</a>向大家簡單介紹</p>
-<ol>
-<li>快取是什麼</li>
-<li>為何要使用快取</li>
-<li>使用簡單<code>HttpRuntime.Cache</code>使用快取機制</li>
-</ol>
-<p>這篇是分享把快取程式碼變得更有彈性</p>
-<hr>
-<p>第二篇大綱</p>
-<ol>
-<li>提出介面,提高可替換性</li>
-<li>使用泛型改寫快取 讀取方式</li>
-<li>使用擴充方法改寫快取</li>
-</ol>
-<hr>
-<ol>
-<li>提出介面,提高可替換性</li>
-</ol>
-<p>情境:</p>
-<p>目前有個專案使用 <code>HttpRuntime.Cache</code> 物件</p>
-<p>在記憶體快取中除了使用 Asp.Net 中<code>HttpRuntime.Cache</code>類別外還有很多解決方案.例如使用<strong>Memcache</strong>,<strong>Redis</strong>…</p>
-<p>如果我們原本使用<code>HttpRuntime.Cache</code>類別但之後要轉成其他快取方式怎麼辦?</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">public class HomeController : Controller</span><br><span class="line">&#123;</span><br><span class="line">	System.Web.Caching.Cache cacheContainer = HttpRuntime.Cache;</span><br><span class="line"></span><br><span class="line">	public ActionResult Index()</span><br><span class="line">	&#123;</span><br><span class="line"></span><br><span class="line">		string cacheData = cacheContainer.Get(&quot;data&quot;) as string;</span><br><span class="line"></span><br><span class="line">		if (cacheData==null)</span><br><span class="line">		&#123;</span><br><span class="line">			cacheContainer.Insert(&quot;test1&quot;, DateTime.Now.ToShortDateString());</span><br><span class="line">		&#125;</span><br><span class="line">  </span><br><span class="line">		return View(cacheData);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>雖然使用不同快取方式,但記得我上篇的重點<strong>快取會有兩個動作,讀和寫</strong>,所以最基本就會有讀和寫這兩個<strong>動作</strong></p>
-<p>OOP有個很重要的觀念 <strong>多個類有重複動作考慮提出父類別</strong></p>
-<p>為了方便了解我把<code>HttpRuntime.Cache</code>封裝成一個類別</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">public class NetCache &#123;</span><br><span class="line">    System.Web.Caching.Cache cacheContainer = HttpRuntime.Cache;</span><br><span class="line">    public object GetCacheObject(string key) &#123;</span><br><span class="line">        return cacheContainer.Get(key);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public void SetCache(string key,object obj) &#123;</span><br><span class="line">        cacheContainer.Insert(key, obj);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>這邊有另一個<code>Memcache</code>快取Class</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">public class MemeryCache &#123;</span><br><span class="line">	private ObjectCache _cache = MemoryCache.Default;</span><br><span class="line">	public object GetCacheObject(string key)</span><br><span class="line">	&#123;</span><br><span class="line">		return _cache[cacheKey];</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	public void SetCache(string key, object obj)</span><br><span class="line">	&#123;</span><br><span class="line">		var policy = new CacheItemPolicy();</span><br><span class="line">		policy.RemovedCallback = OnFileContentsCacheRemove;</span><br><span class="line">		// 設定快取時間2分鐘</span><br><span class="line">		policy.AbsoluteExpiration = DateTimeOffset.Now.Minute(2);</span><br><span class="line">		_cache.Set(cacheKey, fileContents, policy);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>先不關注這兩個物件裡面細節,我們可以發現他們都有 <code>GetCacheObject</code> 方法和<code>SetCache</code> 方法</p>
-<p>這時我們就可以適時提出<strong>介面(interface)</strong>,當作這兩個類別的合約</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">public interface ICache &#123;</span><br><span class="line"></span><br><span class="line">	void Set(string key,object obj);</span><br><span class="line"></span><br><span class="line">	object Get(string key);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>之後將他們兩個類別實現 <code>ICache</code> 介面</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">public class MemeryCache : ICache</span><br><span class="line">&#123;</span><br><span class="line">	private ObjectCache _cache = MemoryCache.Default;</span><br><span class="line">	public object Get(string key)</span><br><span class="line">	&#123;</span><br><span class="line">		return _cache[cacheKey];</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	public void Set(string key, object obj)</span><br><span class="line">	&#123;</span><br><span class="line">		var policy = new CacheItemPolicy();</span><br><span class="line">		policy.RemovedCallback = OnFileContentsCacheRemove;</span><br><span class="line">		// 設定快取時間2分鐘</span><br><span class="line">		policy.AbsoluteExpiration = DateTimeOffset.Now.Minute(2);</span><br><span class="line">		_cache.Set(cacheKey, fileContents, policy);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">public class NetCache : ICache</span><br><span class="line">&#123;</span><br><span class="line">    System.Web.Caching.Cache cacheContainer = HttpRuntime.Cache;</span><br><span class="line">    public object Get(string key) &#123;</span><br><span class="line">        return cacheContainer.Get(key);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    public void Set(string key,object obj) &#123;</span><br><span class="line">        cacheContainer.Insert(key, obj);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>提出介面有甚麼好處?</p>
-<p>我們可以把前面程式碼改成<strong>IOC依賴注入</strong>的方式,不要在程式碼寫死使用<code>HttpRuntime.Cache</code>,由IOC容器幫我們把物件注入程式碼中.</p>
-<p>Note:我使用建構子注入法</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">public class HomeController : Controller</span><br><span class="line">&#123;</span><br><span class="line">    //不用寫死使用  HttpRuntime.Cache</span><br><span class="line">	//System.Web.Caching.Cache cacheContainer = HttpRuntime.Cache;</span><br><span class="line">    ICache cacheContainer;</span><br><span class="line">    public HomeController(ICache Container)&#123;</span><br><span class="line">        cacheContainer = Container;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">	public ActionResult Index()</span><br><span class="line">	&#123;</span><br><span class="line"></span><br><span class="line">		string cacheData = cacheContainer.Get(&quot;data&quot;) as string;</span><br><span class="line"></span><br><span class="line">		if (cacheData==null)</span><br><span class="line">		&#123;</span><br><span class="line">			cacheContainer.Insert(&quot;test1&quot;, DateTime.Now.ToShortDateString());</span><br><span class="line">		&#125;</span><br><span class="line">  </span><br><span class="line">		return View(cacheData);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p><code>ICache</code> 變成快取程式碼的潤滑劑.可讓程式變得更有彈性</p>
-<hr>
-<ol start="2">
-<li>使用泛型改寫快取 讀取方式</li>
-</ol>
-<p>我在<a href="https://stackoverflow.com/questions/51160978/sql-server-data-caching-in-asp-net/51161277#51161277" target="_blank" rel="noopener">StackOverFlow解答</a>的方式就是第二種</p>
-<p>其中最主要的技巧就是把<code>Get</code>方法返回的<code>Object</code>改成使用泛型</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"> public T GetOrSetCache&lt;T&gt;</span><br><span class="line">    (string key,T obj, int cacheTime) where T:class,new()</span><br><span class="line">&#123;</span><br><span class="line">    System.Web.Caching.Cache cacheContainer = HttpRuntime.Cache;</span><br><span class="line">    T cacheObj = cacheContainer.Get(key) as T;</span><br><span class="line"></span><br><span class="line">    if (cacheObj == null)</span><br><span class="line">    &#123;</span><br><span class="line">        cacheContainer.Insert(key,</span><br><span class="line">            obj,</span><br><span class="line">            null, </span><br><span class="line">            DateTime.Now.AddMinutes(cacheTime),</span><br><span class="line">            System.Web.Caching.Cache.NoSlidingExpiration);</span><br><span class="line">        cacheObj = obj;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    return cacheObj;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>讓我們在使用時可以變成</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">var data = DateTime.Now.ToShortDateString();</span><br><span class="line">int numberOfMinutes = 3;</span><br><span class="line">data = GetOrSetCache(&quot;name1&quot;,data,numberOfMinutes );</span><br></pre></td></tr></table></figure>
-<p>我們只需要呼叫<code>GetOrSetCache</code>方法,這個方法把<code>GetCache</code>和<code>SetCache</code>封裝起來了</p>
-<hr>
-<ol start="3">
-<li>使用擴充方法改寫快取</li>
-</ol>
-<p>.Net有提供一個很方便的機制 <strong>擴充方法</strong>,這個機制幫我們解決一個很重要的問題.<br>我們可以<strong>擴充已經封裝但沒有原始碼的類別</strong>,</p>
-<p>在這段程式碼中,使用<code>Func&lt;TObj&gt;</code> 可以使用<code>lambda</code> 表達式,讓程式碼更簡潔有力!!</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">public static TObj GetOrSetCache&lt;TObj&gt;(this Func&lt;TObj&gt; selector, string key, int cacheTime)    where TObj : class</span><br><span class="line">&#123; </span><br><span class="line">	Cache cacheContainer = HttpRuntime.Cache;</span><br><span class="line">	//get cache Object</span><br><span class="line">	var obj = cacheContainer.Get(key) as TObj;</span><br><span class="line"></span><br><span class="line">	//if there isn&apos;t cache object add this object to cache</span><br><span class="line">	if (obj == null)</span><br><span class="line">	&#123;</span><br><span class="line">		obj = selector();</span><br><span class="line">		cacheContainer.Insert(key, obj);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	return obj;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>我們使用時如下</p>
-<p>變更簡潔動作更漂亮</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">int numberOfMinutes = 3;</span><br><span class="line">data = GetOrSetCache(()=&gt; DateTime.Now.ToShortDateString(),&quot;name1&quot;,data,numberOfMinutes );</span><br></pre></td></tr></table></figure>
-<hr>
-<p>同場加映:</p>
-<p>擴展方法和介面搭配使用</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">public class WebDefaultCache : ICache</span><br><span class="line">&#123;</span><br><span class="line">	Cache cacheContainer = HttpRuntime.Cache;</span><br><span class="line">	public object Get(string key)</span><br><span class="line">	&#123;</span><br><span class="line">		return cacheContainer.Get(key);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	public void Set(string key, object obj)</span><br><span class="line">	&#123;</span><br><span class="line">		cacheContainer.Insert(key, obj);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line">public interface ICache&#123;</span><br><span class="line">	void Set(string key, object obj);</span><br><span class="line"></span><br><span class="line">	object Get(string key);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">public static class InfrastructureExtension</span><br><span class="line">&#123;</span><br><span class="line">	public static TObj GetOrSetCache&lt;TObj&gt;(this Func&lt;TObj&gt; selector, string key) where TObj : class &#123;</span><br><span class="line">		return GetOrSetCache(selector, key,10);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	public static TObj GetOrSetCache&lt;TObj&gt;(this Func&lt;TObj&gt; selector, string key, int cacheTime) where TObj : class</span><br><span class="line">	&#123;</span><br><span class="line">		return GetOrSetCache(selector, key, cacheTime, new WebDefaultCache());</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	public static TObj GetOrSetCache&lt;TObj&gt;(this Func&lt;TObj&gt; selector, string key, int cacheTime, ICache cacheContainer) where TObj : class</span><br><span class="line">	&#123;</span><br><span class="line">		//get cache Object</span><br><span class="line">		var obj = cacheContainer.Get(key) as TObj;</span><br><span class="line"></span><br><span class="line">		//if there isn&apos;t cache object add this object to cache</span><br><span class="line">		if (obj == null)</span><br><span class="line">		&#123;</span><br><span class="line">			obj = selector();</span><br><span class="line">			cacheContainer.Set(key, obj);</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		return obj;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>雖然在使用上和第三種一樣<br>但我們多了使用<strong>方法重載</strong>多傳一個參數<code>ICache</code>介面 可以讓我們在寫程式時決定要使用哪種cache方式,不用改快去那邊程式碼.</p>
-<p>同場加映<a href="https://github.com/isdaniel/ExtenionTool" target="_blank" rel="noopener">程式碼</a>我放在我自己常用的<strong>ExtenionTool</strong>專案中</p>
+            <p>
+              我們在寫網站一定會使用到 Session今天就跟大家分享自製微型 Asp.net Session
+
+分析Session-&gt;實作Session-&gt;使用Session
+
+在實作之前您必須先了解甚麼是Session網路上一大堆介紹Session文章在此我就不多介紹或可以點進之前小弟的介紹文來簡
+              ...
+            </p>
+          <!--noindex-->
+          
+            <div class="post-button text-center">
+              <a class="btn" href="/2019/05/27/own-session/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://isdaniel.github.io/2019/05/27/ref-address/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Daniel Shih">
+      <meta itemprop="description" content="好點子沒價值，有價值的是把好點子實現～～">
+      <meta itemprop="image" content="https://scontent.ftpe8-3.fna.fbcdn.net/v/t1.0-9/60180310_2282070531849602_6588071415033888768_n.jpg?_nc_cat=107&_nc_ht=scontent.ftpe8-3.fna&oh=e8ad93eddc7af4887fd8ab0434374fe0&oe=5D9577FC">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="石頭的coding之路">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2019/05/27/ref-address/" class="post-title-link" itemprop="url">五分鐘快速了解 [傳址，傳參考，傳址]</a>
+              
+            
+          </h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-05-27 21:13:34 / 修改时间：14:57:34" itemprop="dateCreated datePublished" datetime="2019-05-27T21:13:34+00:00">2019-05-27</time>
+            
+
+            
+              
+
+              
+            
+          </span>
 
           
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>
+              傳址，傳參考，傳址  是基本但重要的概念。此概念在很多語言都通用
+我使用Gif動畫檔 快速帶領大家了解 傳址，傳參考，傳址
+
+傳值(Call By Value)
+ 顧名思義 是把值傳到 另一個記憶體位置的值上
+
+
+
+
+傳址 (Call By Adress)
+
+是把記憶體位置傳到 另一個記憶體位置的值
+              ...
+            </p>
+          <!--noindex-->
+          
+            <div class="post-button text-center">
+              <a class="btn" href="/2019/05/27/ref-address/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://isdaniel.github.io/2019/05/27/cache-asp-net-2/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Daniel Shih">
+      <meta itemprop="description" content="好點子沒價值，有價值的是把好點子實現～～">
+      <meta itemprop="image" content="https://scontent.ftpe8-3.fna.fbcdn.net/v/t1.0-9/60180310_2282070531849602_6588071415033888768_n.jpg?_nc_cat=107&_nc_ht=scontent.ftpe8-3.fna&oh=e8ad93eddc7af4887fd8ab0434374fe0&oe=5D9577FC">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="石頭的coding之路">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2019/05/27/cache-asp-net-2/" class="post-title-link" itemprop="url">Asp.net使用快取 (二)</a>
+              
+            
+          </h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-05-27 14:52:47 / 修改时间：14:57:34" itemprop="dateCreated datePublished" datetime="2019-05-27T14:52:47+00:00">2019-05-27</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>
+              前篇-Asp.net使用快取 (一)向大家簡單介紹
+
+快取是什麼
+為何要使用快取
+使用簡單HttpRuntime.Cache使用快取機制
+
+這篇是分享把快取程式碼變得更有彈性
+
+第二篇大綱
+
+提出介面,提高可替換性
+使用泛型改寫快取 讀取方式
+使用擴充方法改寫快取
+
+
+
+提出介面,提高可替換性
+
+情
+              ...
+            </p>
+          <!--noindex-->
+          
+            <div class="post-button text-center">
+              <a class="btn" href="/2019/05/27/cache-asp-net-2/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          
+          <!--/noindex-->
         
       
     </div>
@@ -497,8 +846,8 @@
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Daniel Shih">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="description" content="好點子沒價值，有價值的是把好點子實現～～">
+      <meta itemprop="image" content="https://scontent.ftpe8-3.fna.fbcdn.net/v/t1.0-9/60180310_2282070531849602_6588071415033888768_n.jpg?_nc_cat=107&_nc_ht=scontent.ftpe8-3.fna&oh=e8ad93eddc7af4887fd8ab0434374fe0&oe=5D9577FC">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
@@ -510,13 +859,13 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">
+          <h2 class="post-title" itemprop="name headline">
                 
                 
                 <a href="/2019/05/27/cache-asp-net-1/" class="post-title-link" itemprop="url">Asp.net使用快取 (一)</a>
               
             
-          </h1>
+          </h2>
         
 
         <div class="post-meta">
@@ -531,14 +880,14 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Veröffentlicht am</span>
+                <span class="post-meta-item-text">发表于</span>
               
 
               
                 
               
 
-              <time title="Erstellt: 2019-05-27 08:26:31 / Geändert am: 13:35:53" itemprop="dateCreated datePublished" datetime="2019-05-27T08:26:31+00:00">2019-05-27</time>
+              <time title="创建时间：2019-05-27 08:26:31 / 修改时间：14:57:34" itemprop="dateCreated datePublished" datetime="2019-05-27T08:26:31+00:00">2019-05-27</time>
             
 
             
@@ -579,57 +928,31 @@
       
         
           
-            <p>最近回答<a href="https://stackoverflow.com/questions/51160978/sql-server-data-caching-in-asp-net/51161277#51161277" target="_blank" rel="noopener">SQL Server data caching in ASP.NET</a>問題,且有人問我有關快取的問題.</p>
-<p>所以小弟打算寫兩篇文章簡單分享我知道的<em>快取</em></p>
-<hr>
-<p><strong>目錄:</strong></p>
-<p>第一篇 </p>
-<ul>
-<li>為何要使用快取</li>
-<li>快取操作</li>
-<li>Asp.Net中使用快取 by <code>HttpRuntime.Cache</code></li>
-</ul>
-<p>第二篇 </p>
-<ul>
-<li>提出介面,提高可替換性</li>
-<li>使用<strong>泛型</strong>改寫快取 讀取方式</li>
-<li>使用<strong>擴充方法</strong>改寫快取</li>
-</ul>
-<hr>
-<p><strong>正文</strong></p>
-<p>快取機制很重要,但有些觀念可能要先釐清楚</p>
-<p>1.為何要使用快取</p>
-<p>在使用一個東西前,使用的原因很重要.</p>
-<p>如果某些資料<strong>常常使用</strong>,但卻<strong>不常改變</strong>我們會把資料存在某個空間中(常常會存記憶體,因為記憶體速度快),方便日後讀取使用.</p>
-<p>2.快取操作</p>
-<p>一般使用快取會有兩個動作,讀和寫<br>如果是存在記憶體中一般會有期限,因為記憶體資源很寶貴不能一直占用.</p>
-<ul>
-<li>寫入</li>
-</ul>
-<p>通常有一個<strong>Key</strong>,跟要存入<strong>物件</strong><br>就像我們把東西存入保險箱,會拿到一個鑰匙 來取東西</p>
-<ul>
-<li>讀取</li>
-</ul>
-<p>讀取就是依照Key讀取我們存入的物件</p>
-<p>就像我們要拿保險箱裡的東西需要的鑰匙</p>
-<ol>
-<li>Asp.Net中使用快取 by <code>HttpRuntime.Cache</code></li>
-</ol>
-<p>在Asp.net中 有一個靜態物件  <code>HttpRuntime.Cache</code> 可以很方便使用快取</p>
-<ul>
-<li>存入快取可以呼叫 <code>Insert</code> 方法</li>
-</ul>
-<p>他有多個重載 可以使用最簡單的 <code>Insert(string [key],object [value])</code></p>
-<p>如下面範例</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">System.Web.Caching.Cache cacheContainer = HttpRuntime.Cache;</span><br><span class="line">string data = &quot;&quot;;</span><br><span class="line">cacheContainer.Insert(&quot;test1&quot;, data);</span><br></pre></td></tr></table></figure>
-<ul>
-<li>讀取快取資料</li>
-</ul>
-<p>呼叫 <code>Get</code> 傳入Key值即可獲得  Note:如果快取容器沒有此物件會回傳<code>NULL</code></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">string cacheData = cacheContainer.Get(&quot;data&quot;) as string;</span><br></pre></td></tr></table></figure>
-<p>小結:這篇簡單介紹快取 下篇會將目前程式碼做改進,變得更優美彈性</p>
+            <p>
+              最近回答SQL Server data caching in ASP.NET問題,且有人問我有關快取的問題.
+所以小弟打算寫兩篇文章簡單分享我知道的快取
 
+目錄:
+第一篇 
+
+為何要使用快取
+快取操作
+Asp.Net中使用快取 by HttpRuntime.Cache
+
+第二篇 
+
+提出介面,提高可
+              ...
+            </p>
+          <!--noindex-->
           
+            <div class="post-button text-center">
+              <a class="btn" href="/2019/05/27/cache-asp-net-1/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          
+          <!--/noindex-->
         
       
     </div>
@@ -688,8 +1011,8 @@
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Daniel Shih">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="description" content="好點子沒價值，有價值的是把好點子實現～～">
+      <meta itemprop="image" content="https://scontent.ftpe8-3.fna.fbcdn.net/v/t1.0-9/60180310_2282070531849602_6588071415033888768_n.jpg?_nc_cat=107&_nc_ht=scontent.ftpe8-3.fna&oh=e8ad93eddc7af4887fd8ab0434374fe0&oe=5D9577FC">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
@@ -701,13 +1024,13 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">
+          <h2 class="post-title" itemprop="name headline">
                 
                 
                 <a href="/2019/05/26/JsonConvert-SerializeObject/" class="post-title-link" itemprop="url">JsonConvert.SerializeObject 呼叫 object.Equals 問題探討</a>
               
             
-          </h1>
+          </h2>
         
 
         <div class="post-meta">
@@ -722,14 +1045,14 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Veröffentlicht am</span>
+                <span class="post-meta-item-text">发表于</span>
               
 
               
                 
               
 
-              <time title="Erstellt: 2019-05-26 22:40:46" itemprop="dateCreated datePublished" datetime="2019-05-26T22:40:46+00:00">2019-05-26</time>
+              <time title="创建时间：2019-05-26 22:40:46" itemprop="dateCreated datePublished" datetime="2019-05-26T22:40:46+00:00">2019-05-26</time>
             
 
             
@@ -744,9 +1067,9 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 
-                  <span class="post-meta-item-text">Bearbeitet am</span>
+                  <span class="post-meta-item-text">更新于</span>
                 
-                <time title="Geändert am: 2019-05-27 13:35:53" itemprop="dateModified" datetime="2019-05-27T13:35:53+00:00">2019-05-27</time>
+                <time title="修改时间：2019-05-27 14:57:34" itemprop="dateModified" datetime="2019-05-27T14:57:34+00:00">2019-05-27</time>
               
             
           </span>
@@ -782,36 +1105,21 @@
       
         
           
-            <p>最近在 StackOverFlow 解答一個很有趣的問題<a href="https://stackoverflow.com/questions/51669072/json-net-newtonsoft-using-jsonconvert-serializeobject-results-in-weird-equal/51670641#51670641" target="_blank" rel="noopener">Json.Net / Newtonsoft: Using JsonConvert.SerializeObject results in weird .Equals calls - why?</a></p>
-<p>問題簡述是:</p>
-<p>使用<code>Newtonsoft.Json.JsonConvert.SerializeObject</code>方法 來把物件轉成<code>JSON</code>資料時,為什麼會呼叫物件的<code>Equals</code> 方法 且傳入的<code>object obj</code>類型不是此類別類型,而是屬性的類型</p>
-<p>以下是發問者提供的程式碼:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">public class JsonTestClass</span><br><span class="line">&#123;</span><br><span class="line">    public string Name &#123; get; set; &#125;</span><br><span class="line">    public List&lt;int&gt; MyIntList &#123; get; set; &#125;</span><br><span class="line"></span><br><span class="line">    public override bool Equals(object obj)</span><br><span class="line">    &#123;</span><br><span class="line">        if (obj == null)</span><br><span class="line">            return false;</span><br><span class="line">        JsonTestClass jtc = (JsonTestClass)obj;</span><br><span class="line">        return true;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">JsonTestClass c = new JsonTestClass();</span><br><span class="line">c.Name = &quot;test&quot;;</span><br><span class="line">c.MyIntList = new List&lt;int&gt;();</span><br><span class="line">c.MyIntList.Add(1);</span><br><span class="line"></span><br><span class="line">string json = JsonConvert.SerializeObject(c, new JsonSerializerSettings() &#123; TypeNameHandling = TypeNameHandling.All &#125;);</span><br></pre></td></tr></table></figure>
-<hr>
-<p>看到問題後我就直接去看<a href="https://github.com/JamesNK/Newtonsoft.Json" target="_blank" rel="noopener">Json.net原始碼</a> 一探到底原因出在哪邊.</p>
-<p>後面發現當我們在呼叫<code>JsonConvert.SerializeObject</code>方法,會執行一個 <a href="https://github.com/JamesNK/Newtonsoft.Json/blob/c90e6e871ae39cd4686dac6fa64a780e527123a8/Src/Newtonsoft.Json/Serialization/JsonSerializerInternalWriter.cs" target="_blank" rel="noopener">private bool CheckForCircularReference</a>私有方法.</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">bool exists = (Serializer._equalityComparer != null)</span><br><span class="line">                ? _serializeStack.Contains(value, Serializer._equalityComparer)</span><br><span class="line">                : _serializeStack.Contains(value);</span><br></pre></td></tr></table></figure>
-<p>這個方法主要用意是<strong>判斷目前序列化JSON物件是否有重複引用本身</strong>,方法中有段程式碼使用到 <code>List&lt;T&gt;.Contains</code>.</p>
-<p>當我們在呼叫<code>List&lt;T&gt;.Contains</code>時 預設<code>EqualityComparer&lt;T&gt;.Default</code> 進行比較來進行判斷是否存在集合中.</p>
-<p>要寫客製化比較方式有兩種</p>
-<ol>
-<li>在.net中每個類別都繼承於<code>Object</code>, <code>Object</code> 中有<code>object.Equals</code> 所以可以重寫<code>object.Equals</code>方法.</li>
-<li>將此類別實現 <code>IEquatable&lt;T&gt;</code> 並重寫你要的比較方式.</li>
-</ol>
-<p>所以會呼叫<code>object.Equals</code>是因為上段程式碼</p>
-<hr>
-<p>什麼是<strong>判斷目前序列化JSON物件是否有重複引用本身</strong>?</p>
-<p>以下的範例是<a href="https://github.com/JamesNK/Newtonsoft.Json/blob/c90e6e871ae39cd4686dac6fa64a780e527123a8/Src/Newtonsoft.Json/Serialization/JsonSerializerInternalWriter.cs" target="_blank" rel="noopener">private bool CheckForCircularReference</a>想要防止的問題</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">public class JsonTestClass</span><br><span class="line">&#123;</span><br><span class="line">    public string Name &#123; get; set; &#125;</span><br><span class="line">    public List&lt;int&gt; MyIntList &#123; get; set; &#125;</span><br><span class="line">    public JsonTestClass Test&#123;get;set;&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">JsonTestClass c = new JsonTestClass();</span><br><span class="line">c.Name = &quot;test&quot;;</span><br><span class="line">c.Test = c;</span><br><span class="line">string json = JsonConvert.SerializeObject</span><br><span class="line">               (c, new JsonSerializerSettings() &#123; TypeNameHandling = TypeNameHandling.All &#125;);</span><br></pre></td></tr></table></figure>
-<p>我們可以看到<code>c.Test = c;</code> 將自己本身付值給 <code>public JsonTestClass Test{get;set;}</code> 這個屬性.</p>
-<p>我們執行上面程式碼會得到此錯誤</p>
-<blockquote>
-<p>Self referencing loop detected for property ‘Test’ with type ‘Program+JsonTestClass’. Path ‘’.</p>
-</blockquote>
-<p>是因為他要防止重複引用本身導致無限迴圈解析<code>JSON</code>.</p>
-<h2 id="Note"><a href="#Note" class="headerlink" title="Note"></a>Note</h2><p><strong>預設</strong>值類型的比較是比較值.<br><strong>預設</strong>參考類別比較的是地址.</p>
-
+            <p>
+              最近在 StackOverFlow 解答一個很有趣的問題Json.Net / Newtonsoft: Using JsonConvert.SerializeObject results in weird .Equals calls - why?
+問題簡述是:
+使用Newtonsoft.Json.Js
+              ...
+            </p>
+          <!--noindex-->
           
+            <div class="post-button text-center">
+              <a class="btn" href="/2019/05/26/JsonConvert-SerializeObject/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          
+          <!--/noindex-->
         
       
     </div>
@@ -870,8 +1178,8 @@
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Daniel Shih">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="description" content="好點子沒價值，有價值的是把好點子實現～～">
+      <meta itemprop="image" content="https://scontent.ftpe8-3.fna.fbcdn.net/v/t1.0-9/60180310_2282070531849602_6588071415033888768_n.jpg?_nc_cat=107&_nc_ht=scontent.ftpe8-3.fna&oh=e8ad93eddc7af4887fd8ab0434374fe0&oe=5D9577FC">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
@@ -883,13 +1191,13 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">
+          <h2 class="post-title" itemprop="name headline">
                 
                 
                 <a href="/2019/05/26/ioc-di/" class="post-title-link" itemprop="url">IOC(控制反轉)，DI(依賴注入) 深入淺出~~</a>
               
             
-          </h1>
+          </h2>
         
 
         <div class="post-meta">
@@ -904,14 +1212,14 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Veröffentlicht am</span>
+                <span class="post-meta-item-text">发表于</span>
               
 
               
                 
               
 
-              <time title="Erstellt: 2019-05-26 22:31:09" itemprop="dateCreated datePublished" datetime="2019-05-26T22:31:09+00:00">2019-05-26</time>
+              <time title="创建时间：2019-05-26 22:31:09" itemprop="dateCreated datePublished" datetime="2019-05-26T22:31:09+00:00">2019-05-26</time>
             
 
             
@@ -926,9 +1234,9 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 
-                  <span class="post-meta-item-text">Bearbeitet am</span>
+                  <span class="post-meta-item-text">更新于</span>
                 
-                <time title="Geändert am: 2019-05-27 13:35:53" itemprop="dateModified" datetime="2019-05-27T13:35:53+00:00">2019-05-27</time>
+                <time title="修改时间：2019-05-27 14:57:34" itemprop="dateModified" datetime="2019-05-27T14:57:34+00:00">2019-05-27</time>
               
             
           </span>
@@ -964,84 +1272,23 @@
       
         
           
-            <p><code>IOC</code>是一個oop重要的程式設計思想。</p>
-<p>學一個技術或思想前我們先了解，這個技術或思想為我們解決怎樣問題。</p>
-<p><code>Ioc—Inversion of Control</code> 控制反轉<br>控制反轉是一個設計思想 ，把對於某個物件的控制權移轉給第三方容器</p>
-<h2 id="簡單解釋"><a href="#簡單解釋" class="headerlink" title="簡單解釋"></a>簡單解釋</h2><p>A物件程式內部需要使用B物件 A,B物件中有依賴的成份</p>
-<p>控制反轉是把原本A對B控制權移交給第三方容器</p>
-<p>降低A對B物件的耦合性，讓雙方都倚賴第三方容器。</p>
-<ul>
-<li>反轉概念如下圖</li>
-</ul>
-<p><img src="https://az787680.vo.msecnd.net/user/九桃/493ce9d9-64bd-4343-a145-16ab21f3c695/1555312814_72597.png" alt="pic"></p>
-<blockquote>
-<p>我們可發現有兩點差異</p>
-</blockquote>
-<ol>
-<li><p>使用者原本直接耦合於A，但使用IoC容器使用者就直接對容器而不是A 至於A關連於誰由容器決定<br>原本A直接控制於B,C，但透過一個IoC容器我們控制權反轉給了容器</p>
-</li>
-<li><p>IoC經典實現對象設計法則　好萊塢法則：“別找我們，我們找你”<br>系統中模組建議依賴抽象，因為各個模組間不需要知道對方太多細節（實作），知道越多耦合越強。<br>DI—Dependency Injection 依賴注入</p>
-</li>
-</ol>
-<blockquote>
-<p>把被依賴物件注入被動接收物件中</p>
-</blockquote>
-<h2 id="案例解釋："><a href="#案例解釋：" class="headerlink" title="案例解釋："></a>案例解釋：</h2><p>小明是個愛乾淨的人，但他工作時常加班導致</p>
-<p>學一個技術或思想前我們必須先了解，這個技術或思想可為我們解決什麼問題。</p>
-<p><code>Ioc(Inversion of Control)</code>控制反轉</p>
-<p><strong>控制反轉是一個設計思想</strong></p>
-<p>簡單解釋</p>
-<p>A物件程式內部需要使用B物件 A,B物件中有依賴的成份</p>
-<p>控制反轉把原本A對B直接控制權移交給由第三方容器</p>
-<p>降低A對B物件的耦合程度，並讓雙方都倚賴抽象。</p>
-<blockquote>
-<p>IoC經典實現對象設計法則　好萊塢法則：“別找我們，我們找你”</p>
-</blockquote>
-<blockquote>
-<p>系統中模組建議依賴抽象，因為各個模組間不需要知道對方太多細節（實作），知道越多耦合越強。</p>
-</blockquote>
-<hr>
-<p>DI—Dependency Injection 依賴注入</p>
-<p>把<strong>被依賴物件</strong>注入<strong>被動接收物件</strong>中</p>
-<p>案例解釋：</p>
-<p>小明是個愛乾淨的人，但他工作時常加班導致房間雜亂，他不能忍受此狀況，所以小明去找一個清潔阿姨每天幫忙他打掃家裡</p>
-<p>哪天阿姨哪天有事不能打掃，小明就必須要再去找人來幫忙打掃，由此可知小明耦合阿姨</p>
-<hr>
-<p>如果今天是….</p>
-<p>小明把他要的條件給「打掃仲介公司」，仲介公司幫他尋找有沒有符合小明需求的打掃阿姨，假如今天A阿姨請假了，仲介公司會自動找另一個符合需求B阿姨幫忙打掃…</p>
-<p>原本小明需耦合於打掃阿姨，現在被「仲介公司」做了控制反轉讓「仲介公司」來提供打掃阿姨。</p>
-<p>小明不用管是否今天有人會來打掃，「仲介公司」會幫小明找到一個掃地阿姨。</p>
-<ul>
-<li>「仲介公司」可看作 依賴注入容器</li>
-<li>「小明」可看作 被動接收物件</li>
-</ul>
-<p>「打掃阿姨」可看作 被依賴物件</p>
-<p>在使用IOC容器前需先了解雙方的依賴關係(誰依賴誰?)</p>
-<p>上述還有一個很重要的觀念是，依賴和被接收對象要倚賴抽象。</p>
-<hr>
-<p>範例使用：VS2015</p>
-<p>IOC容器：AutoFac</p>
-<p>下面範例來說明上面的例子</p>
-<p>小明自己依賴於掃地阿姨<br>依賴程式碼寫在小明類別內部日後要更改只能動內部程式碼。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">/// &lt;summary&gt;</span><br><span class="line">/// 小明直接依賴 Aunt 不是依賴抽象</span><br><span class="line">/// 日後要改必須動內部</span><br><span class="line">/// &lt;/summary&gt;</span><br><span class="line">public class Mine</span><br><span class="line">&#123;</span><br><span class="line">    public Aunt aunt = new Aunt();</span><br><span class="line"></span><br><span class="line">    public void Room()</span><br><span class="line">    &#123;</span><br><span class="line">        aunt.Swapping();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>呼叫使用時</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Mine mine = new Mine();</span><br><span class="line">mine.Room();</span><br></pre></td></tr></table></figure>
-<p>小明找仲介公司</p>
-<p><strong>仲介公司(Ioc容器)</strong></p>
-<p>在仲介公司內註冊需求，讓仲介公司日後幫你找人（註冊的類別）</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">/// &lt;summary&gt;</span><br><span class="line">/// 仲介公司</span><br><span class="line">/// &lt;/summary&gt;</span><br><span class="line">/// &lt;returns&gt;&lt;/returns&gt;</span><br><span class="line">private static IContainer MiddleCompany()</span><br><span class="line">&#123;</span><br><span class="line">    ContainerBuilder builder = new ContainerBuilder();</span><br><span class="line"></span><br><span class="line">    //在仲介公司裡寫需求人申請單</span><br><span class="line">    builder.RegisterType&lt;MineWithMiddle&gt;();</span><br><span class="line">    //小明所需打掃阿姨需求</span><br><span class="line">    builder.RegisterType&lt;Aunt&gt;().As&lt;ISwapable&gt;();</span><br><span class="line"></span><br><span class="line">    return builder.Build();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>使用起來</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">IContainer middleCompany = MiddleCompany();</span><br><span class="line">//仲介公司(IOC AutoFac)自動幫小明注入一個打掃阿姨</span><br><span class="line">MineWithMiddle mineWithMiddle = middleCompany.Resolve&lt;MineWithMiddle&gt;();</span><br><span class="line"></span><br><span class="line">mineWithMiddle.Room();</span><br></pre></td></tr></table></figure>
-<p>總結：</p>
-<p>雖然上面程式碼執行結果一樣，但內部結構和日後擴展性卻截然不同</p>
-<blockquote>
-<p>重點：系統中模組建議依賴抽象，因為各個模組間不需要知道對方太多細節（實作），知道越多耦合越強。</p>
-</blockquote>
-<p>像網頁瀏覽器和伺服器是依賴<strong>Http</strong>協議，用戶端不管是手機.電腦,平板，伺服器端php,asp.net,java都可互相交信，依賴<strong>Http</strong>協議共用的合約</p>
-<p><a href="https://github.com/isdaniel/IOC_Sample" target="_blank" rel="noopener">範例原始碼</a></p>
-<p><a href="http://www.cnblogs.com/xdp-gacl/p/4249939.html" target="_blank" rel="noopener">參考連結</a></p>
-
+            <p>
+              IOC是一個oop重要的程式設計思想。
+學一個技術或思想前我們先了解，這個技術或思想為我們解決怎樣問題。
+Ioc—Inversion of Control 控制反轉控制反轉是一個設計思想 ，把對於某個物件的控制權移轉給第三方容器
+簡單解釋A物件程式內部需要使用B物件 A,B物件中有依賴的成份
+控制反
+              ...
+            </p>
+          <!--noindex-->
           
+            <div class="post-button text-center">
+              <a class="btn" href="/2019/05/26/ioc-di/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          
+          <!--/noindex-->
         
       
     </div>
@@ -1100,8 +1347,8 @@
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Daniel Shih">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="description" content="好點子沒價值，有價值的是把好點子實現～～">
+      <meta itemprop="image" content="https://scontent.ftpe8-3.fna.fbcdn.net/v/t1.0-9/60180310_2282070531849602_6588071415033888768_n.jpg?_nc_cat=107&_nc_ht=scontent.ftpe8-3.fna&oh=e8ad93eddc7af4887fd8ab0434374fe0&oe=5D9577FC">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
@@ -1113,13 +1360,13 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">
+          <h2 class="post-title" itemprop="name headline">
                 
                 
                 <a href="/2019/05/23/modify-sourcecode/" class="post-title-link" itemprop="url">沒有Source Code 如何修改程式??</a>
               
             
-          </h1>
+          </h2>
         
 
         <div class="post-meta">
@@ -1134,14 +1381,14 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Veröffentlicht am</span>
+                <span class="post-meta-item-text">发表于</span>
               
 
               
                 
               
 
-              <time title="Erstellt: 2019-05-23 19:42:00" itemprop="dateCreated datePublished" datetime="2019-05-23T19:42:00+00:00">2019-05-23</time>
+              <time title="创建时间：2019-05-23 19:42:00" itemprop="dateCreated datePublished" datetime="2019-05-23T19:42:00+00:00">2019-05-23</time>
             
 
             
@@ -1156,9 +1403,9 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 
-                  <span class="post-meta-item-text">Bearbeitet am</span>
+                  <span class="post-meta-item-text">更新于</span>
                 
-                <time title="Geändert am: 2019-05-27 13:35:53" itemprop="dateModified" datetime="2019-05-27T13:35:53+00:00">2019-05-27</time>
+                <time title="修改时间：2019-05-27 14:57:34" itemprop="dateModified" datetime="2019-05-27T14:57:34+00:00">2019-05-27</time>
               
             
           </span>
@@ -1194,51 +1441,24 @@
       
         
           
-            <p>某些專案因為歷史久遠沒有Source Code,但有個需求需要異動裡面的程式該怎麼辦??</p>
-<p>難道只能整個反組譯,查看程式碼翻一份做新的嗎?</p>
-<p>不~~其實有辦法直接對於DLL進行修改</p>
-<p>只需使用  <a href="https://github.com/sailro/Reflexil" target="_blank" rel="noopener">Reflexil</a> 搭配 <a href="https://github.com/icsharpcode/ILSpy" target="_blank" rel="noopener">ILSpy</a> 或其他支援的反組譯軟體 </p>
-<blockquote>
-<p>Reflexil 是一個組譯編輯器插件目前支援 Reflector, ILSpy 和 Telerik’s JustDecompile.</p>
-</blockquote>
-<p>下載連結</p>
-<p><a href="https://github.com/sailro/Reflexil/releases/tag/v2.2" target="_blank" rel="noopener">Reflexil Release 2.2</a> 搭配 <a href="https://github.com/icsharpcode/ILSpy/releases/tag/v3.2.0" target="_blank" rel="noopener">ILSpy version 3.2</a> </p>
-<h1 id="前置動作，安裝"><a href="#前置動作，安裝" class="headerlink" title="前置動作，安裝"></a>前置動作，安裝</h1><h2 id="Reflexil-下載"><a href="#Reflexil-下載" class="headerlink" title="Reflexil 下載"></a>Reflexil 下載</h2><p>下載 <code>reflexil.for.ILSpy.2.2.bin.zip</code>，不用下載<code>AIO</code></p>
-<p><img src="https://az787680.vo.msecnd.net/user/九桃/68939397-ab27-4f33-9bff-a6e1fe570acb/1545445075_84536.png" alt></p>
-<p>作者有說</p>
-<blockquote>
-<p>ILSpy version 3.2 (ILSpy 4 is not currently compatible with Reflexil, given the use of System.Reflection.Metadata, deprecating Mono.Cecil usage)<br>ILSpy 4 當前版本 ILSpy.2.2 並不支援</p>
-</blockquote>
-<h2 id="ILSpy-3-2-下載"><a href="#ILSpy-3-2-下載" class="headerlink" title="ILSpy 3.2 下載"></a>ILSpy 3.2 下載</h2><p><img src="https://az787680.vo.msecnd.net/user/九桃/68939397-ab27-4f33-9bff-a6e1fe570acb/1545445185_3282.png" alt></p>
-<p>下載完後就把全部的DLL放在同一個資料夾下,並開啟 <code>ILSpy.exe</code></p>
-<p><img src="https://az787680.vo.msecnd.net/user/九桃/68939397-ab27-4f33-9bff-a6e1fe570acb/1545445435_24298.png" alt></p>
-<p>按下上方的齒輪UI 就可獲得下方藍色的Reflexil 修改框框.</p>
-<p><img src="https://az787680.vo.msecnd.net/user/九桃/68939397-ab27-4f33-9bff-a6e1fe570acb/1545445493_79646.png" alt></p>
-<hr>
-<h1 id="組件修改"><a href="#組件修改" class="headerlink" title="組件修改"></a>組件修改</h1><h2 id="需求"><a href="#需求" class="headerlink" title="需求"></a>需求</h2><blockquote>
-<p>目前組件 有個ClassA 類別,裡面有一個prop1屬性 型態是string, 我們希望在這新增另一個屬性</p>
-</blockquote>
-<p><img src="https://az787680.vo.msecnd.net/user/九桃/68939397-ab27-4f33-9bff-a6e1fe570acb/1545446072_21457.png" alt></p>
-<p>使用滑鼠右鍵點擊類別<code>ClassA</code>,我們可以看到很多方式可以注入新的程式碼</p>
-<p>在這我們選擇<code>inject property</code>. </p>
-<p><img src="https://az787680.vo.msecnd.net/user/九桃/68939397-ab27-4f33-9bff-a6e1fe570acb/1545446266_25885.png" alt></p>
-<p>我們需要修改的是</p>
-<ul>
-<li>Item Name (使用屬性的名稱)</li>
-<li>Property Type(使用屬性類別)</li>
-<li><img src="https://az787680.vo.msecnd.net/user/九桃/68939397-ab27-4f33-9bff-a6e1fe570acb/1545446422_66604.png" alt></li>
-</ul>
-<p>選擇完後按下OK,我們就會發現<code>prop2</code>新屬性會出現在<code>ClassA</code>中.</p>
-<blockquote>
-<p>新增完後不代表已經將修改儲存!!</p>
-</blockquote>
-<p><img src="https://az787680.vo.msecnd.net/user/九桃/68939397-ab27-4f33-9bff-a6e1fe570acb/1545446504_58205.png" alt></p>
-<p>我們需要點選組件，之後再按下<code>Save AS</code> 把本次修改儲存</p>
-<p><img src="https://az787680.vo.msecnd.net/user/九桃/68939397-ab27-4f33-9bff-a6e1fe570acb/1545446789_43637.png" alt></p>
-<p>日後我們就可以使用新的屬性在我們程式中了!!</p>
-<h3 id="小結"><a href="#小結" class="headerlink" title="小結"></a>小結</h3><p>此插件還可以新增,插入許多東西時屬非常強大,有興趣的玩家可再自行深入琢磨.</p>
+            <p>
+              某些專案因為歷史久遠沒有Source Code,但有個需求需要異動裡面的程式該怎麼辦??
+難道只能整個反組譯,查看程式碼翻一份做新的嗎?
+不~~其實有辦法直接對於DLL進行修改
+只需使用  Reflexil 搭配 ILSpy 或其他支援的反組譯軟體 
 
+Reflexil 是一個組譯編輯器插件目前支援
+              ...
+            </p>
+          <!--noindex-->
           
+            <div class="post-button text-center">
+              <a class="btn" href="/2019/05/23/modify-sourcecode/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          
+          <!--/noindex-->
         
       
     </div>
@@ -1297,8 +1517,8 @@
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Daniel Shih">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="description" content="好點子沒價值，有價值的是把好點子實現～～">
+      <meta itemprop="image" content="https://scontent.ftpe8-3.fna.fbcdn.net/v/t1.0-9/60180310_2282070531849602_6588071415033888768_n.jpg?_nc_cat=107&_nc_ht=scontent.ftpe8-3.fna&oh=e8ad93eddc7af4887fd8ab0434374fe0&oe=5D9577FC">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
@@ -1310,13 +1530,13 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">
+          <h2 class="post-title" itemprop="name headline">
                 
                 
                 <a href="/2019/05/23/hash-encoding/" class="post-title-link" itemprop="url">淺談-編碼(encoding) vs 加解密 vs 雜湊(Hash)</a>
               
             
-          </h1>
+          </h2>
         
 
         <div class="post-meta">
@@ -1331,14 +1551,14 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Veröffentlicht am</span>
+                <span class="post-meta-item-text">发表于</span>
               
 
               
                 
               
 
-              <time title="Erstellt: 2019-05-23 19:32:08" itemprop="dateCreated datePublished" datetime="2019-05-23T19:32:08+00:00">2019-05-23</time>
+              <time title="创建时间：2019-05-23 19:32:08" itemprop="dateCreated datePublished" datetime="2019-05-23T19:32:08+00:00">2019-05-23</time>
             
 
             
@@ -1353,9 +1573,9 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 
-                  <span class="post-meta-item-text">Bearbeitet am</span>
+                  <span class="post-meta-item-text">更新于</span>
                 
-                <time title="Geändert am: 2019-05-27 13:35:53" itemprop="dateModified" datetime="2019-05-27T13:35:53+00:00">2019-05-27</time>
+                <time title="修改时间：2019-05-27 14:57:34" itemprop="dateModified" datetime="2019-05-27T14:57:34+00:00">2019-05-27</time>
               
             
           </span>
@@ -1391,71 +1611,23 @@
       
         
           
-            <p>這一邊有三筆資料</p>
-<ul>
-<li>U2FsdGVkX19FJsgVyam+Gh2EwmGs4BEJjJJsWxCXHWw84gp3uHvozWsHY8gfAx0C</li>
-<li>VG9kYXkgaXMgYSBnb29kIERheQ==</li>
-<li>046a484a529ecfc7693753ee65802b5cfcafd548252d0e5f1bca845ad2208b91</li>
-</ul>
-<p>這三個東西看起來都是亂碼，但所代表含意完全不一樣</p>
-<p>這邊會跟大家分享這三個東西特性和差異性</p>
-<p>此文同步發布 Blog <a href="https://dotblogs.com.tw/daniel/2019/05/06/223004" target="_blank" rel="noopener">[淺談] 編碼(encoding) vs 加解密 vs 雜湊(Hash)</a></p>
-<h1 id="前言："><a href="#前言：" class="headerlink" title="前言："></a>前言：</h1><p>會想分享這篇文章是因為蠻多人把</p>
-<ul>
-<li>編碼(encoding)</li>
-<li>加解密</li>
-<li>雜湊(Hash) </li>
-</ul>
-<p>這三個東西搞混，尤其是把編碼當作加密….這是非常危險的事情. </p>
-<pre><code>編碼!= 加密 兩個是完全不一樣的東西
-編碼!= 加密 兩個是完全不一樣的東西
-編碼!= 加密 兩個是完全不一樣的東西
-</code></pre><p>很重要所以要說三次XD! </p>
-<hr>
-<h1 id="編碼"><a href="#編碼" class="headerlink" title="編碼"></a>編碼</h1><h2 id="說明："><a href="#說明：" class="headerlink" title="說明："></a>說明：</h2><p>這邊用<code>Base64</code>編碼來介紹，我們可以看到下圖資料轉換是雙向的．</p>
-<pre><code>Hello Daniel　=&gt;  SGVsbG8gRGFuaWVs
-</code></pre><p>如果我們想要把<code>SGVsbG8gRGFuaWVs</code> 變回 <code>Hello Daniel</code> 只需進行<code>Base64</code>解碼即可</p>
-<p><img src="https://az787680.vo.msecnd.net/user/%E4%B9%9D%E6%A1%83/be1dd9ce-3ce4-4404-ac0a-fe66ae2c64c1/1557148998_19694.png" alt></p>
-<p>編碼是將原本的資料經過一個運算轉換成另一組資料,如果要還原成原本資料解碼</p>
-<h2 id="用途："><a href="#用途：" class="headerlink" title="用途："></a>用途：</h2><p>在網路傳輸會使用到編碼主要是資料在傳輸時有些特殊字元,有特殊用途(ex:Http 傳參數  &amp;….)</p>
-<p>這時就可使用編碼將資料轉換成不會衝突到字串.</p>
-<p>如果想要了解 Base64 原理和演算法的話可以看我另一篇<a href="https://dotblogs.com.tw/daniel/2019/05/09/001147" target="_blank" rel="noopener">【深入淺出】Base編碼 (Base64為例子)</a></p>
-<hr>
-<h1 id="加解密"><a href="#加解密" class="headerlink" title="加解密"></a>加解密</h1><h2 id="說明：-1"><a href="#說明：-1" class="headerlink" title="說明："></a>說明：</h2><p>這邊以<code>AES</code>來介紹，我們可以看到下圖資料轉換是雙向，但會透過一個Key來做轉換(這邊是和編碼最大的差別)</p>
-<p><img src="https://az787680.vo.msecnd.net/user/%E4%B9%9D%E6%A1%83/be1dd9ce-3ce4-4404-ac0a-fe66ae2c64c1/1557149615_79307.png" alt></p>
-<p>要還原成原始資料我們只能透過一樣的Key才可以達成，就像一個寶相只有唯一一把鑰匙可以打開一樣．</p>
-<p>這邊補充一個簡單加密法(凱薩算法)，他是使用字元位移的數字來當作Key</p>
-<p>如果位移數量是1 <code>ABCD =&gt; BCDE</code></p>
-<p>如圖</p>
-<p><img src="https://upload.wikimedia.org/wikipedia/commons/2/2b/Caesar3.svg" alt></p>
-<h2 id="用途：-1"><a href="#用途：-1" class="headerlink" title="用途："></a>用途：</h2><p>加密可以確保資料的安全性（只有相同的Key才可還原成原本資料）很適合用在機密資料且須要還原使用</p>
-<hr>
-<h1 id="雜湊-Hash"><a href="#雜湊-Hash" class="headerlink" title="雜湊(Hash)"></a>雜湊(Hash)</h1><h2 id="說明：-2"><a href="#說明：-2" class="headerlink" title="說明："></a>說明：</h2><p>這裡用<code>Sha256</code>來當作範例</p>
-<p>Hash有幾個特點</p>
-<ol>
-<li>不管資料量多大經過SHA256運算字串長度都是一樣的</li>
-<li><code>SHA256</code>的原因是運算完的資料大小一定是 <code>256 bit</code></li>
-<li>她是一個不可逆的算法所以我們可以看到箭頭是單向.</li>
-<li>相同的值用SHA運算過後值都是一樣的</li>
-</ol>
-<p><img src="https://az787680.vo.msecnd.net/user/%E4%B9%9D%E6%A1%83/be1dd9ce-3ce4-4404-ac0a-fe66ae2c64c1/1557152092_14191.png" alt></p>
-<p>一定會有小夥伴好奇,運算完都是固定長度 那會不會出現一個情況,原始資料不一樣但算完<code>Hash</code>結果是一樣的</p>
-<pre><code>會 這個我們稱之為雜湊碰撞 這個機率很小
-</code></pre><h2 id="用途：-2"><a href="#用途：-2" class="headerlink" title="用途："></a>用途：</h2><p>一般我們可以把使用者密碼經<code>Hash</code>運算存入資料庫中,當作使用唯一識別碼(像指紋)下次使用者登入用運一樣的<code>Hash</code>算法 再將值拿來比較辨識使用者合法性.</p>
-<hr>
-<h2 id="小結："><a href="#小結：" class="headerlink" title="小結："></a>小結：</h2><p>對於這邊有一個簡單的比較表格</p>
-<ul>
-<li>編碼(encoding)</li>
-<li>加解密</li>
-<li>雜湊(Hash) </li>
-</ul>
-<p><img src="https://ithelp.ithome.com.tw/upload/images/20190510/20096630rEP4mvVyso.png" alt="https://ithelp.ithome.com.tw/upload/images/20190510/20096630rEP4mvVyso.png"></p>
-<p>加解密和編碼最常被大家誤會搞錯地方是以為使用<code>Base64</code>編碼就很安全(但有心人事取得你的資料只要知道你使用編碼就可以還原成原始資料)</p>
-<p>如果要確保資料隱密性時可以使用加解密而不是編碼</p>
-<p>所以別再把<code>Base64</code>編碼當作加密工具來使用.</p>
-<p>這是很危險低</p>
+            <p>
+              這一邊有三筆資料
 
+U2FsdGVkX19FJsgVyam+Gh2EwmGs4BEJjJJsWxCXHWw84gp3uHvozWsHY8gfAx0C
+VG9kYXkgaXMgYSBnb29kIERheQ==
+046a484a529ecfc7693753ee65802b5cfcafd548252d0e
+              ...
+            </p>
+          <!--noindex-->
           
+            <div class="post-button text-center">
+              <a class="btn" href="/2019/05/23/hash-encoding/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          
+          <!--/noindex-->
         
       
     </div>
@@ -1526,8 +1698,10 @@
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
+              <img class="site-author-image" itemprop="image" src="https://scontent.ftpe8-3.fna.fbcdn.net/v/t1.0-9/60180310_2282070531849602_6588071415033888768_n.jpg?_nc_cat=107&_nc_ht=scontent.ftpe8-3.fna&oh=e8ad93eddc7af4887fd8ab0434374fe0&oe=5D9577FC" alt="Daniel Shih">
+            
               <p class="site-author-name" itemprop="name">Daniel Shih</p>
-              <div class="site-description motion-element" itemprop="description"></div>
+              <div class="site-description motion-element" itemprop="description">好點子沒價值，有價值的是把好點子實現～～</div>
           </div>
 
           
@@ -1537,8 +1711,8 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">6</span>
-                    <span class="site-state-item-name">Artikel</span>
+                    <span class="site-state-item-count">8</span>
+                    <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
               
@@ -1584,8 +1758,18 @@
                     
                       
                     
-                    <span class="site-state-item-count">14</span>
-                    <span class="site-state-item-name">schlagwörter</span>
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">19</span>
+                    <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
               
@@ -1596,6 +1780,54 @@
 
           
 
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2lzZGFuaWVs" title="GitHub &rarr; https://github.com/isdaniel"><i class="fa fa-fw fa-github"></i>GitHub</span>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <span class="exturl" data-url="bWFpbHRvOmRvZzgzMDAyMjhAZ21haWwuY29t" title="Email &rarr; mailto:dog8300228@gmail.com"><i class="fa fa-fw fa-envelope"></i>Email</span>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <span class="exturl" data-url="aHR0cHM6Ly93d3cuZmFjZWJvb2suY29tL3Byb2ZpbGUucGhwP2lkPTEwMDAwMTQwMDMxOTEzNg==" title="FaceBook &rarr; https://www.facebook.com/profile.php?id=100001400319136"><i class="fa fa-fw fa-facebook"></i>FaceBook</span>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <span class="exturl" data-url="aHR0cHM6Ly93d3cuaW5zdGFncmFtLmNvbS9kbl9zaGloLw==" title="IG &rarr; https://www.instagram.com/dn_shih/"><i class="fa fa-fw fa-instagram"></i>IG</span>
+                </span>
+              
+            </div>
           
 
           
@@ -1638,7 +1870,7 @@
 </div>
 
 
-  <div class="powered-by">Erstellt mit  <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.8.0</div>
+  <div class="powered-by">由 <span class="exturl theme-link" data-url="aHR0cHM6Ly9oZXhvLmlv">Hexo</span> 强力驱动 v3.8.0</div>
 
 
 
@@ -1646,7 +1878,7 @@
 
 
 
-  <div class="theme-info">Design – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> v7.1.1</div>
+  <div class="theme-info">主题 – <span class="exturl theme-link" data-url="aHR0cHM6Ly90aGVtZS1uZXh0Lm9yZw==">NexT.Pisces</span> v7.1.1</div>
 
 
 
@@ -1751,6 +1983,8 @@
   
 
   
+  <script src="/js/exturl.js?v=7.1.1"></script>
+
 
   
 

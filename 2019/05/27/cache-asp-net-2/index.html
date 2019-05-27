@@ -97,13 +97,14 @@
 
 
   <meta name="description" content="前篇-Asp.net使用快取 (一)向大家簡單介紹  快取是什麼 為何要使用快取 使用簡單HttpRuntime.Cache使用快取機制  這篇是分享把快取程式碼變得更有彈性  第二篇大綱  提出介面,提高可替換性 使用泛型改寫快取 讀取方式 使用擴充方法改寫快取    提出介面,提高可替換性  情境: 目前有個專案使用 HttpRuntime.Cache 物件 在記憶體快取中除了使用 Asp.N">
+<meta name="keywords" content="C#,Asp.net,cache">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Asp.net使用快取 (二)">
 <meta property="og:url" content="https://isdaniel.github.io/2019/05/27/cache-asp-net-2/index.html">
 <meta property="og:site_name" content="石頭的coding之路">
 <meta property="og:description" content="前篇-Asp.net使用快取 (一)向大家簡單介紹  快取是什麼 為何要使用快取 使用簡單HttpRuntime.Cache使用快取機制  這篇是分享把快取程式碼變得更有彈性  第二篇大綱  提出介面,提高可替換性 使用泛型改寫快取 讀取方式 使用擴充方法改寫快取    提出介面,提高可替換性  情境: 目前有個專案使用 HttpRuntime.Cache 物件 在記憶體快取中除了使用 Asp.N">
 <meta property="og:locale" content="zh-tw">
-<meta property="og:updated_time" content="2019-05-27T13:35:54.169Z">
+<meta property="og:updated_time" content="2019-05-27T14:57:34.041Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Asp.net使用快取 (二)">
 <meta name="twitter:description" content="前篇-Asp.net使用快取 (一)向大家簡單介紹  快取是什麼 為何要使用快取 使用簡單HttpRuntime.Cache使用快取機制  這篇是分享把快取程式碼變得更有彈性  第二篇大綱  提出介面,提高可替換性 使用泛型改寫快取 讀取方式 使用擴充方法改寫快取    提出介面,提高可替換性  情境: 目前有個專案使用 HttpRuntime.Cache 物件 在記憶體快取中除了使用 Asp.N">
@@ -192,7 +193,7 @@
   </div>
 
   <div class="site-nav-toggle">
-    <button aria-label="Navigationsleiste an/ausschalten">
+    <button aria-label="切换导航栏">
       <span class="btn-bar"></span>
       <span class="btn-bar"></span>
       <span class="btn-bar"></span>
@@ -219,8 +220,67 @@
     
 
     
+      
+    
 
-    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>Startseite</a>
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-about">
+
+    
+    
+    
+      
+    
+
+    
+      
+    
+
+    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+
+    
+    
+    
+      
+    
+
+    
+      
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签<span class="badge">19</span></a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+
+    
+    
+    
+      
+    
+
+    
+      
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类<span class="badge">0</span></a>
 
   </li>
         
@@ -236,8 +296,10 @@
     
 
     
+      
+    
 
-    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archiv</a>
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档<span class="badge">8</span></a>
 
   </li>
 
@@ -293,8 +355,8 @@
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Daniel Shih">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="description" content="好點子沒價值，有價值的是把好點子實現～～">
+      <meta itemprop="image" content="https://scontent.ftpe8-3.fna.fbcdn.net/v/t1.0-9/60180310_2282070531849602_6588071415033888768_n.jpg?_nc_cat=107&_nc_ht=scontent.ftpe8-3.fna&oh=e8ad93eddc7af4887fd8ab0434374fe0&oe=5D9577FC">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
@@ -306,11 +368,11 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Asp.net使用快取 (二)
+          <h2 class="post-title" itemprop="name headline">Asp.net使用快取 (二)
 
               
             
-          </h1>
+          </h2>
         
 
         <div class="post-meta">
@@ -325,14 +387,14 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Veröffentlicht am</span>
+                <span class="post-meta-item-text">发表于</span>
               
 
               
                 
               
 
-              <time title="Erstellt: 2019-05-27 14:52:47 / Geändert am: 13:35:54" itemprop="dateCreated datePublished" datetime="2019-05-27T14:52:47+00:00">2019-05-27</time>
+              <time title="创建时间：2019-05-27 14:52:47 / 修改时间：14:57:34" itemprop="dateCreated datePublished" datetime="2019-05-27T14:52:47+00:00">2019-05-27</time>
             
 
             
@@ -371,7 +433,7 @@
       
 
       
-        <p><a href="https://ithelp.ithome.com.tw/articles/10198630" target="_blank" rel="noopener">前篇-Asp.net使用快取 (一)</a>向大家簡單介紹</p>
+        <p><span class="exturl" data-url="aHR0cHM6Ly9pdGhlbHAuaXRob21lLmNvbS50dy9hcnRpY2xlcy8xMDE5ODYzMA==" title="https://ithelp.ithome.com.tw/articles/10198630">前篇-Asp.net使用快取 (一)<i class="fa fa-external-link"></i></span>向大家簡單介紹</p>
 <ol>
 <li>快取是什麼</li>
 <li>為何要使用快取</li>
@@ -414,7 +476,7 @@
 <ol start="2">
 <li>使用泛型改寫快取 讀取方式</li>
 </ol>
-<p>我在<a href="https://stackoverflow.com/questions/51160978/sql-server-data-caching-in-asp-net/51161277#51161277" target="_blank" rel="noopener">StackOverFlow解答</a>的方式就是第二種</p>
+<p>我在<span class="exturl" data-url="aHR0cHM6Ly9zdGFja292ZXJmbG93LmNvbS9xdWVzdGlvbnMvNTExNjA5Nzgvc3FsLXNlcnZlci1kYXRhLWNhY2hpbmctaW4tYXNwLW5ldC81MTE2MTI3NyM1MTE2MTI3Nw==" title="https://stackoverflow.com/questions/51160978/sql-server-data-caching-in-asp-net/51161277#51161277">StackOverFlow解答<i class="fa fa-external-link"></i></span>的方式就是第二種</p>
 <p>其中最主要的技巧就是把<code>Get</code>方法返回的<code>Object</code>改成使用泛型</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"> public T GetOrSetCache&lt;T&gt;</span><br><span class="line">    (string key,T obj, int cacheTime) where T:class,new()</span><br><span class="line">&#123;</span><br><span class="line">    System.Web.Caching.Cache cacheContainer = HttpRuntime.Cache;</span><br><span class="line">    T cacheObj = cacheContainer.Get(key) as T;</span><br><span class="line"></span><br><span class="line">    if (cacheObj == null)</span><br><span class="line">    &#123;</span><br><span class="line">        cacheContainer.Insert(key,</span><br><span class="line">            obj,</span><br><span class="line">            null, </span><br><span class="line">            DateTime.Now.AddMinutes(cacheTime),</span><br><span class="line">            System.Web.Caching.Cache.NoSlidingExpiration);</span><br><span class="line">        cacheObj = obj;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    return cacheObj;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>讓我們在使用時可以變成</p>
@@ -435,7 +497,7 @@
 <p>擴展方法和介面搭配使用</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">public class WebDefaultCache : ICache</span><br><span class="line">&#123;</span><br><span class="line">	Cache cacheContainer = HttpRuntime.Cache;</span><br><span class="line">	public object Get(string key)</span><br><span class="line">	&#123;</span><br><span class="line">		return cacheContainer.Get(key);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	public void Set(string key, object obj)</span><br><span class="line">	&#123;</span><br><span class="line">		cacheContainer.Insert(key, obj);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line">public interface ICache&#123;</span><br><span class="line">	void Set(string key, object obj);</span><br><span class="line"></span><br><span class="line">	object Get(string key);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">public static class InfrastructureExtension</span><br><span class="line">&#123;</span><br><span class="line">	public static TObj GetOrSetCache&lt;TObj&gt;(this Func&lt;TObj&gt; selector, string key) where TObj : class &#123;</span><br><span class="line">		return GetOrSetCache(selector, key,10);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	public static TObj GetOrSetCache&lt;TObj&gt;(this Func&lt;TObj&gt; selector, string key, int cacheTime) where TObj : class</span><br><span class="line">	&#123;</span><br><span class="line">		return GetOrSetCache(selector, key, cacheTime, new WebDefaultCache());</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	public static TObj GetOrSetCache&lt;TObj&gt;(this Func&lt;TObj&gt; selector, string key, int cacheTime, ICache cacheContainer) where TObj : class</span><br><span class="line">	&#123;</span><br><span class="line">		//get cache Object</span><br><span class="line">		var obj = cacheContainer.Get(key) as TObj;</span><br><span class="line"></span><br><span class="line">		//if there isn&apos;t cache object add this object to cache</span><br><span class="line">		if (obj == null)</span><br><span class="line">		&#123;</span><br><span class="line">			obj = selector();</span><br><span class="line">			cacheContainer.Set(key, obj);</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		return obj;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>雖然在使用上和第三種一樣<br>但我們多了使用<strong>方法重載</strong>多傳一個參數<code>ICache</code>介面 可以讓我們在寫程式時決定要使用哪種cache方式,不用改快去那邊程式碼.</p>
-<p>同場加映<a href="https://github.com/isdaniel/ExtenionTool" target="_blank" rel="noopener">程式碼</a>我放在我自己常用的<strong>ExtenionTool</strong>專案中</p>
+<p>同場加映<span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2lzZGFuaWVsL0V4dGVuaW9uVG9vbA==" title="https://github.com/isdaniel/ExtenionTool">程式碼<i class="fa fa-external-link"></i></span>我放在我自己常用的<strong>ExtenionTool</strong>專案中</p>
 
       
     </div>
@@ -457,6 +519,16 @@
 
     <footer class="post-footer">
       
+        <div class="post-tags">
+          
+            <a href="/tags/C/" rel="tag"># C#</a>
+          
+            <a href="/tags/Asp-net/" rel="tag"># Asp.net</a>
+          
+            <a href="/tags/cache/" rel="tag"># cache</a>
+          
+        </div>
+      
 
       
       
@@ -475,6 +547,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/05/27/ref-address/" rel="prev" title="五分鐘快速了解 [傳址，傳參考，傳址]">
+                五分鐘快速了解 [傳址，傳參考，傳址] <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -495,6 +571,10 @@
 
           </div>
           
+
+  
+    <div class="comments" id="gitalk-container">
+    </div>
 
   
 
@@ -523,8 +603,10 @@
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
+              <img class="site-author-image" itemprop="image" src="https://scontent.ftpe8-3.fna.fbcdn.net/v/t1.0-9/60180310_2282070531849602_6588071415033888768_n.jpg?_nc_cat=107&_nc_ht=scontent.ftpe8-3.fna&oh=e8ad93eddc7af4887fd8ab0434374fe0&oe=5D9577FC" alt="Daniel Shih">
+            
               <p class="site-author-name" itemprop="name">Daniel Shih</p>
-              <div class="site-description motion-element" itemprop="description"></div>
+              <div class="site-description motion-element" itemprop="description">好點子沒價值，有價值的是把好點子實現～～</div>
           </div>
 
           
@@ -534,8 +616,8 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">6</span>
-                    <span class="site-state-item-name">Artikel</span>
+                    <span class="site-state-item-count">8</span>
+                    <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
               
@@ -581,8 +663,18 @@
                     
                       
                     
-                    <span class="site-state-item-count">14</span>
-                    <span class="site-state-item-name">schlagwörter</span>
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">19</span>
+                    <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
               
@@ -593,6 +685,54 @@
 
           
 
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2lzZGFuaWVs" title="GitHub &rarr; https://github.com/isdaniel"><i class="fa fa-fw fa-github"></i>GitHub</span>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <span class="exturl" data-url="bWFpbHRvOmRvZzgzMDAyMjhAZ21haWwuY29t" title="Email &rarr; mailto:dog8300228@gmail.com"><i class="fa fa-fw fa-envelope"></i>Email</span>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <span class="exturl" data-url="aHR0cHM6Ly93d3cuZmFjZWJvb2suY29tL3Byb2ZpbGUucGhwP2lkPTEwMDAwMTQwMDMxOTEzNg==" title="FaceBook &rarr; https://www.facebook.com/profile.php?id=100001400319136"><i class="fa fa-fw fa-facebook"></i>FaceBook</span>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <span class="exturl" data-url="aHR0cHM6Ly93d3cuaW5zdGFncmFtLmNvbS9kbl9zaGloLw==" title="IG &rarr; https://www.instagram.com/dn_shih/"><i class="fa fa-fw fa-instagram"></i>IG</span>
+                </span>
+              
+            </div>
           
 
           
@@ -635,7 +775,7 @@
 </div>
 
 
-  <div class="powered-by">Erstellt mit  <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.8.0</div>
+  <div class="powered-by">由 <span class="exturl theme-link" data-url="aHR0cHM6Ly9oZXhvLmlv">Hexo</span> 强力驱动 v3.8.0</div>
 
 
 
@@ -643,7 +783,7 @@
 
 
 
-  <div class="theme-info">Design – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> v7.1.1</div>
+  <div class="theme-info">主题 – <span class="exturl theme-link" data-url="aHR0cHM6Ly90aGVtZS1uZXh0Lm9yZw==">NexT.Pisces</span> v7.1.1</div>
 
 
 
@@ -752,11 +892,42 @@
   
 
   
+  <script src="/js/exturl.js?v=7.1.1"></script>
+
 
   
 
   
 
+
+  
+    
+
+<script src="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+
+
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css">
+
+
+
+<script src="//cdn.jsdelivr.net/npm/js-md5@0.7.3/src/md5.min.js"></script>
+
+<script>
+  var gitalk = new Gitalk({
+    clientID: '',
+    clientSecret: '',
+    repo: '',
+    owner: '',
+    admin: [''],
+    id: md5(location.pathname),
+    
+      language: window.navigator.language || window.navigator.userLanguage,
+    
+    distractionFreeMode: 'true'
+  });
+  gitalk.render('gitalk-container');
+</script>
 
   
 
