@@ -1,0 +1,1221 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-tw">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link rel="stylesheet" href="/lib/pace/pace-theme-flash.min.css?v=1.0.2">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
+
+<link rel="stylesheet" href="/css/main.css?v=7.1.1">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.1.1">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.1.1">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.1.1">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=7.1.1" color="#222">
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '7.1.1',
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false,"dimmer":false},
+    back2top: true,
+    back2top_sidebar: false,
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+
+  <meta name="description" content="裝飾者模式是一個很精美且優雅的模式 本篇範例 文字內容-&amp;gt;AES加密-&amp;gt;Zip檔附加密碼-&amp;gt;輸出儲存 情境有個需求要做  文字內容-&amp;gt;壓縮zip(附上密碼)-&amp;gt;輸出儲存又改成…  文字內容-&amp;gt;AES加密-&amp;gt;輸出儲存需求又改成….  文字內容-&amp;gt;AES加密-&amp;gt;Zip檔附加密碼-&amp;gt;輸出儲存   可發現需求一直在對於文字內容操作順序做變化,但他">
+<meta name="keywords" content="C#,Design-Pattern,Decorator-Pattern">
+<meta property="og:type" content="article">
+<meta property="og:title" content="(C#)裝飾者模式(Decorator Pattern)">
+<meta property="og:url" content="https://isdaniel.github.io/2019/06/01/Decorator-Pattern/index.html">
+<meta property="og:site_name" content="石頭的coding之路">
+<meta property="og:description" content="裝飾者模式是一個很精美且優雅的模式 本篇範例 文字內容-&amp;gt;AES加密-&amp;gt;Zip檔附加密碼-&amp;gt;輸出儲存 情境有個需求要做  文字內容-&amp;gt;壓縮zip(附上密碼)-&amp;gt;輸出儲存又改成…  文字內容-&amp;gt;AES加密-&amp;gt;輸出儲存需求又改成….  文字內容-&amp;gt;AES加密-&amp;gt;Zip檔附加密碼-&amp;gt;輸出儲存   可發現需求一直在對於文字內容操作順序做變化,但他">
+<meta property="og:locale" content="zh-tw">
+<meta property="og:image" content="https://az787680.vo.msecnd.net/user/%E4%B9%9D%E6%A1%83/4bc56f03-a1e1-4504-bea3-7cb02a8aaa21/1522894727_00158.jpg">
+<meta property="og:image" content="https://az787680.vo.msecnd.net/user/%E4%B9%9D%E6%A1%83/4bc56f03-a1e1-4504-bea3-7cb02a8aaa21/1522826815_28596.jpg">
+<meta property="og:image" content="https://az787680.vo.msecnd.net/user/%E4%B9%9D%E6%A1%83/4bc56f03-a1e1-4504-bea3-7cb02a8aaa21/1522828936_73575.png">
+<meta property="og:updated_time" content="2019-06-01T12:39:19.552Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="(C#)裝飾者模式(Decorator Pattern)">
+<meta name="twitter:description" content="裝飾者模式是一個很精美且優雅的模式 本篇範例 文字內容-&amp;gt;AES加密-&amp;gt;Zip檔附加密碼-&amp;gt;輸出儲存 情境有個需求要做  文字內容-&amp;gt;壓縮zip(附上密碼)-&amp;gt;輸出儲存又改成…  文字內容-&amp;gt;AES加密-&amp;gt;輸出儲存需求又改成….  文字內容-&amp;gt;AES加密-&amp;gt;Zip檔附加密碼-&amp;gt;輸出儲存   可發現需求一直在對於文字內容操作順序做變化,但他">
+<meta name="twitter:image" content="https://az787680.vo.msecnd.net/user/%E4%B9%9D%E6%A1%83/4bc56f03-a1e1-4504-bea3-7cb02a8aaa21/1522894727_00158.jpg">
+
+
+
+
+
+  
+  
+  <link rel="canonical" href="https://isdaniel.github.io/2019/06/01/Decorator-Pattern/">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>(C#)裝飾者模式(Decorator Pattern) | 石頭的coding之路</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-tw">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">石頭的coding之路</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="Toggle navigation bar">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+    
+      
+    
+
+    
+      
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>Home</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-about">
+
+    
+    
+    
+      
+    
+
+    
+      
+    
+
+    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>About</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+
+    
+    
+    
+      
+    
+
+    
+      
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>Tags<span class="badge">29</span></a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+
+    
+    
+    
+      
+    
+
+    
+      
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>Categories<span class="badge">6</span></a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+    
+      
+    
+
+    
+      
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives<span class="badge">13</span></a>
+
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://isdaniel.github.io/2019/06/01/Decorator-Pattern/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Daniel Shih">
+      <meta itemprop="description" content="好點子沒價值，有價值的是把好點子實現～～">
+      <meta itemprop="image" content="https://scontent.ftpe8-3.fna.fbcdn.net/v/t1.0-9/60180310_2282070531849602_6588071415033888768_n.jpg?_nc_cat=107&_nc_ht=scontent.ftpe8-3.fna&oh=e8ad93eddc7af4887fd8ab0434374fe0&oe=5D9577FC">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="石頭的coding之路">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">(C#)裝飾者模式(Decorator Pattern)
+
+              
+            
+          </h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2019-06-01 20:37:16 / Modified: 12:39:19" itemprop="dateCreated datePublished" datetime="2019-06-01T20:37:16+00:00">2019-06-01</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/C/" itemprop="url" rel="index"><span itemprop="name">C#</span></a></span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/C/DesignPattern/" itemprop="url" rel="index"><span itemprop="name">DesignPattern</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+              
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+            
+                <span class="post-meta-item-text">Comments: </span>
+                <a href="/2019/06/01/Decorator-Pattern/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2019/06/01/Decorator-Pattern/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-symbolscount">
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Symbols count in article: </span>
+                
+                <span title="Symbols count in article">7.9k</span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Reading time &asymp;</span>
+                
+                <span title="Reading time">14 mins.</span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>裝飾者模式是一個很精美且優雅的模式</p>
+<p>本篇範例 文字內容-&gt;AES加密-&gt;Zip檔附加密碼-&gt;輸出儲存</p>
+<p><strong>情境</strong><br>有個需求要做</p>
+<ul>
+<li><p>文字內容-&gt;壓縮zip(附上密碼)-&gt;輸出儲存<br><em>又改成…</em></p>
+</li>
+<li><p>文字內容-&gt;AES加密-&gt;輸出儲存<br><em>需求又改成….</em></p>
+</li>
+<li><p>文字內容-&gt;AES加密-&gt;Zip檔附加密碼-&gt;輸出儲存</p>
+</li>
+</ul>
+<p>可發現需求一直在對於<strong>文字內容</strong>操作順序做變化,但他們核心離不開對於<strong>文字內容</strong>的操作</p>
+<p>這種情境很適合來使用 <strong>[裝飾者模式]</strong></p>
+<p>裝飾者模式 有兩個主要角色 <strong>被裝飾物件(Decorated) &amp; 裝飾物件(Decorator)</strong></p>
+<ol>
+<li>被裝飾物件(Decorated)就像蛋糕的一樣, </li>
+<li>裝飾物件(Decorator)就是上的水果,奶油,巧克力…等等裝飾物品</li>
+</ol>
+<p>一般先有蛋糕<strong>被裝飾物件(Decorated)</strong>,後再將裝飾物品加上去<strong>裝飾物件(Decorator)</strong></p>
+<p>被裝飾物件(Decorated)如下圖  蛋糕的原型</p>
+<p><img src="https://az787680.vo.msecnd.net/user/%E4%B9%9D%E6%A1%83/4bc56f03-a1e1-4504-bea3-7cb02a8aaa21/1522894727_00158.jpg" alt></p>
+<p><span class="exturl" data-url="aHR0cDovL3d3dy5jaHV5aXh1ZXhpLmNvbS9jYWlwdS8yMDE2LzAyLzAxLzI4ODIwMi5odG1s" title="http://www.chuyixuexi.com/caipu/2016/02/01/288202.html">圖片來源<i class="fa fa-external-link"></i></span></p>
+<ul>
+<li>將物件有效的往上附加職責,不動到內部的程式碼, 在原來職責上附加額外的職責</li>
+<li>裝飾者模式運作就像 俄羅斯娃娃一樣 一層包一層</li>
+</ul>
+<p><img src="https://az787680.vo.msecnd.net/user/%E4%B9%9D%E6%A1%83/4bc56f03-a1e1-4504-bea3-7cb02a8aaa21/1522826815_28596.jpg" alt="https://az787680.vo.msecnd.net/user/%E4%B9%9D%E6%A1%83/4bc56f03-a1e1-4504-bea3-7cb02a8aaa21/1522826815_28596.jpg"></p>
+<p><span class="exturl" data-url="aHR0cDovL3d3dy41MnRveXMuY29tL3Bvc3QvMTAwOTMwNi5odG1s" title="http://www.52toys.com/post/1009306.html">圖片來源<i class="fa fa-external-link"></i></span></p>
+<hr>
+<p>第一步 先找尋他們共同裝飾東西,因為是讀寫檔案 所以我們可以對於<strong>Byte</strong>下手</p>
+<p>先做出 <strong>讀</strong> 跟 <strong>寫</strong> 介面簽章當作裝飾動作的統一介面</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">public interface IProcess</span><br><span class="line">&#123;</span><br><span class="line">    byte[] Read(string path);</span><br><span class="line"></span><br><span class="line">    void Write(string writePath, byte[] buffer);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在創建一個 ProcessBase 給日後裝飾物品(Decorator)來繼承</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">public abstract class ProcessBase : IProcess</span><br><span class="line">&#123;</span><br><span class="line">    /// &lt;summary&gt;</span><br><span class="line">    /// 儲存被裝飾的物件</span><br><span class="line">    /// &lt;/summary&gt;</span><br><span class="line">    protected IProcess _process;</span><br><span class="line"></span><br><span class="line">    public abstract byte[] Read(string path);</span><br><span class="line"></span><br><span class="line">    public abstract void Write(string writePath, byte[] buffer);</span><br><span class="line"></span><br><span class="line">    public virtual void SetDecorated(IProcess process)</span><br><span class="line">    &#123;</span><br><span class="line">        _process = process;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>有兩點特別說明</p>
+<ol>
+<li><code>protected IProcess _process;</code>  儲存被裝飾的物件由 <code>SetDecorated</code> 方法來設置被裝飾的物件</li>
+<li>就像俄羅斯娃娃只包裹一個娃娃,不管被包裹娃娃之前包含哪些娃娃</li>
+</ol>
+<hr>
+<p>第二步 創建被裝飾物品(Decorated) </p>
+<p>因為是檔案我們直接使用 </p>
+<ul>
+<li>File.ReadAllBytes 讀 檔案</li>
+<li>File.WriteAllBytes 寫 檔案</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">/// &lt;summary&gt;</span><br><span class="line">/// 讀取檔案</span><br><span class="line">/// &lt;/summary&gt;</span><br><span class="line">public class FileProcess : IProcess</span><br><span class="line">&#123;</span><br><span class="line">    public byte[] Read(string path)</span><br><span class="line">    &#123;</span><br><span class="line">        return File.ReadAllBytes(path);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public void Write(string writePath, byte[] buffer)</span><br><span class="line">    &#123;</span><br><span class="line">        File.WriteAllBytes(writePath, buffer);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>第三步 創建裝飾物品(Decorator)</p>
+<p>這次主要裝飾物品有兩個 </p>
+<ol>
+<li>加壓解壓ZIP檔</li>
+<li>加解密</li>
+</ol>
+<p>加密裝飾器繼承<code>ProcessBase</code>並按照加解密重寫 <code>Write</code>和 <code>read</code> 方法</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br></pre></td><td class="code"><pre><span class="line">/// &lt;summary&gt;</span><br><span class="line">/// Aes 加密裝飾器</span><br><span class="line">/// &lt;/summary&gt;</span><br><span class="line">public class AESCrypProcess : ProcessBase</span><br><span class="line">&#123;</span><br><span class="line">    private AesCryptoServiceProvider aes;</span><br><span class="line"></span><br><span class="line">    public string AESKey &#123; get; set; &#125; = &quot;1776D8E110124E75&quot;;</span><br><span class="line">    public string AESIV &#123; get; set; &#125; = &quot;B890E7F6BA01C273&quot;;</span><br><span class="line"></span><br><span class="line">    public AESCrypProcess() </span><br><span class="line">    &#123;</span><br><span class="line">        aes = new AesCryptoServiceProvider();</span><br><span class="line">        aes.Key = Encoding.UTF8.GetBytes(AESKey);</span><br><span class="line">        aes.IV = Encoding.UTF8.GetBytes(AESIV);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public override byte[] Read(string path)</span><br><span class="line">    &#123;</span><br><span class="line">        byte[] encryptBytes = _process.Read(path);</span><br><span class="line">        return DecryptData(encryptBytes);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    /// &lt;summary&gt;</span><br><span class="line">    /// 進行解密</span><br><span class="line">    /// &lt;/summary&gt;</span><br><span class="line">    /// &lt;param name=&quot;encryptBytes&quot;&gt;&lt;/param&gt;</span><br><span class="line">    /// &lt;returns&gt;&lt;/returns&gt;</span><br><span class="line">    private byte[] DecryptData(byte[] encryptBytes)</span><br><span class="line">    &#123;</span><br><span class="line">        byte[] outputBytes = null;</span><br><span class="line">        using (MemoryStream memoryStream = new MemoryStream(encryptBytes))</span><br><span class="line">        &#123;</span><br><span class="line">            using (CryptoStream decryptStream = new CryptoStream(memoryStream, aes.CreateDecryptor(), CryptoStreamMode.Read))</span><br><span class="line">            &#123;</span><br><span class="line">                MemoryStream outputStream = new MemoryStream();</span><br><span class="line">                decryptStream.CopyTo(outputStream);</span><br><span class="line">                outputBytes = outputStream.ToArray();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        return outputBytes;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    /// &lt;summary&gt;</span><br><span class="line">    /// 裝飾者呼叫方法</span><br><span class="line">    /// &lt;/summary&gt;</span><br><span class="line">    /// &lt;param name=&quot;path&quot;&gt;&lt;/param&gt;</span><br><span class="line">    /// &lt;param name=&quot;data&quot;&gt;&lt;/param&gt;</span><br><span class="line">    public override void Write(string path, byte[] data)</span><br><span class="line">    &#123;</span><br><span class="line">        byte[] outputBytes = EncryptData(data);</span><br><span class="line">        _process.Write(path, outputBytes);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    private byte[] EncryptData(byte[] data)</span><br><span class="line">    &#123;</span><br><span class="line">        byte[] outputBytes = null;</span><br><span class="line">        using (MemoryStream memoryStream = new MemoryStream())</span><br><span class="line">        &#123;</span><br><span class="line">            using (CryptoStream encryptStream = new CryptoStream(memoryStream, aes.CreateEncryptor(), CryptoStreamMode.Write))</span><br><span class="line">            &#123;</span><br><span class="line">                MemoryStream inputStream = new MemoryStream(data);</span><br><span class="line">                inputStream.CopyTo(encryptStream);</span><br><span class="line">                encryptStream.FlushFinalBlock();</span><br><span class="line">                outputBytes = memoryStream.ToArray();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        return outputBytes;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>這次讀寫zip使用 <span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2ljc2hhcnBjb2RlL1NoYXJwWmlwTGli" title="https://github.com/icsharpcode/SharpZipLib">SharpZipLib<i class="fa fa-external-link"></i></span> 開源第三方插件</p>
+<p>ZIP裝飾器繼承<code>ProcessBase</code>並按照加解密重寫 <code>Write</code>和 <code>read</code> 方法</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">/// &lt;summary&gt;</span><br><span class="line">/// 讀取Zip使用</span><br><span class="line">/// &lt;/summary&gt;</span><br><span class="line">public class ZipProcess : ProcessBase</span><br><span class="line">&#123;</span><br><span class="line">    public string PassWord &#123; get; set; &#125;</span><br><span class="line">    public string FileName &#123; get; set; &#125;</span><br><span class="line"></span><br><span class="line">    public override byte[] Read(string path)</span><br><span class="line">    &#123;</span><br><span class="line">        byte[] buffer = _process.Read(path);</span><br><span class="line">        return ZipReader(path, buffer);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public override void Write(string writePath, byte[] data)</span><br><span class="line">    &#123;</span><br><span class="line">        byte[] buffer = ZipWriter(data);</span><br><span class="line">        _process.Write(writePath, buffer);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    private byte[] ZipWriter(byte[] buffer)</span><br><span class="line">    &#123;</span><br><span class="line">        using (MemoryStream outputMemStream = new MemoryStream())</span><br><span class="line">        using (ZipOutputStream zipStream = new ZipOutputStream(outputMemStream))</span><br><span class="line">        using (MemoryStream memStreamIn = new MemoryStream(buffer))</span><br><span class="line">        &#123;</span><br><span class="line">            zipStream.SetLevel(9); </span><br><span class="line"></span><br><span class="line">            ZipEntry newEntry = new ZipEntry(FileName);</span><br><span class="line">            newEntry.DateTime = DateTime.Now;</span><br><span class="line">            zipStream.Password = PassWord;</span><br><span class="line">            zipStream.PutNextEntry(newEntry);</span><br><span class="line"></span><br><span class="line">            StreamUtils.Copy(memStreamIn, zipStream, new byte[4096]);//將zip流搬到memoryStream中</span><br><span class="line">            zipStream.CloseEntry();</span><br><span class="line"></span><br><span class="line">            zipStream.IsStreamOwner = false;   </span><br><span class="line">            zipStream.Close();                </span><br><span class="line"></span><br><span class="line">            return outputMemStream.ToArray();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    /// &lt;summary&gt;</span><br><span class="line">    /// 讀取zip檔</span><br><span class="line">    /// &lt;/summary&gt;</span><br><span class="line">    /// &lt;param name=&quot;buffer&quot;&gt;zip檔案byte&lt;/param&gt;</span><br><span class="line">    /// &lt;returns&gt;&lt;/returns&gt;</span><br><span class="line">    private byte[] ZipReader(string filePath, byte[] buffer)</span><br><span class="line">    &#123;</span><br><span class="line">        byte[] zipBuffer = default(byte[]);</span><br><span class="line">        using (MemoryStream memoryStream = new MemoryStream(buffer))</span><br><span class="line">        &#123;</span><br><span class="line">            memoryStream.Seek(0, SeekOrigin.Begin);</span><br><span class="line">            var zip = new ZipFile(memoryStream);</span><br><span class="line">            zip.Password = PassWord;</span><br><span class="line">            using (MemoryStream streamWriter = new MemoryStream())</span><br><span class="line">            &#123;</span><br><span class="line">                byte[] bufferReader = new byte[4096];</span><br><span class="line">                var file = zip.GetEntry(FileName); //設置要去得的檔名</span><br><span class="line">                //如果有檔案</span><br><span class="line">                if (file != null)</span><br><span class="line">                &#123;</span><br><span class="line">                    var zipStream = zip.GetInputStream(file);</span><br><span class="line">                    StreamUtils.Copy(zipStream, streamWriter, bufferReader);</span><br><span class="line">                    zipBuffer = streamWriter.ToArray();</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        return zipBuffer;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>上面就把我們要用的裝飾物品 (備料) 準備完成</p>
+<hr>
+<p>第四步 創建使用(開始擺盤)</p>
+<p>創建一個 <code>DecorateFactory</code> 來當生產 裝飾產品的工廠</p>
+<p>建構子傳入一個 被裝飾的物件(<code>FileProcess</code>) 之後可依照喜好一直疊加 裝飾物品(<code>ZipProcess</code>,<code>AESCrypProcess</code>…)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">public class DecorateFactory</span><br><span class="line">&#123;</span><br><span class="line">    IProcess _original;</span><br><span class="line"></span><br><span class="line">    public DecorateFactory(IProcess original)</span><br><span class="line">    &#123;</span><br><span class="line">        _original = original;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public DecorateFactory SetProcess(ProcessBase process)</span><br><span class="line">    &#123;</span><br><span class="line">        process.SetDecorated(_original);</span><br><span class="line">        _original = process;</span><br><span class="line">        return this;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public IProcess GetProcess()</span><br><span class="line">    &#123;</span><br><span class="line">        return _original;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p><strong>裝飾者模式 裝飾的順序是很重要的</strong></p>
+</blockquote>
+<p>為了方便讀者閱讀 我使用小畫家畫出 讀寫順序</p>
+<p>如下圖</p>
+<p><img src="https://az787680.vo.msecnd.net/user/%E4%B9%9D%E6%A1%83/4bc56f03-a1e1-4504-bea3-7cb02a8aaa21/1522828936_73575.png" alt></p>
+<p>使用就可很清晰來用</p>
+<p><code>DecorateFactory</code>來創建裝飾流程<br><code>factroy.GetProcess();</code> 方法取得完成後的產品</p>
+<p>在簡單呼叫<strong>讀</strong>和<strong>寫</strong>方法</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">string filePath = @&quot;C:\Users\daniel.shih\Desktop\test.zip&quot;;</span><br><span class="line">string content = $&quot;你好 123456 12@()!@ &#123;Environment.NewLine&#125; fsfd嘻嘻哈哈!!&quot;;</span><br><span class="line"></span><br><span class="line">//設置初始化的被裝飾者</span><br><span class="line">DecorateFactory factroy = new DecorateFactory(new FileProcess());</span><br><span class="line"></span><br><span class="line">//設置裝飾的順序</span><br><span class="line">factroy.SetProcess(new AESCrypProcess())</span><br><span class="line">        .SetProcess(new ZipProcess() &#123; FileName = &quot;1.txt&quot;,PassWord =&quot;1234567&quot;&#125;);</span><br><span class="line"></span><br><span class="line">IProcess process = factroy.GetProcess();</span><br><span class="line"></span><br><span class="line">byte[] data_buffer = Encoding.UTF8.GetBytes(content);</span><br><span class="line">process.Write(filePath, data_buffer);</span><br><span class="line"></span><br><span class="line">byte[] buffer = process.Read(filePath);</span><br><span class="line">Console.WriteLine(Encoding.UTF8.GetString(buffer));</span><br></pre></td></tr></table></figure>
+<p>日後不管需求是改成</p>
+<ul>
+<li>文字內容-&gt;壓縮zip(附上密碼)-&gt;輸出儲存</li>
+<li>文字內容-&gt;AES加密-&gt;輸出儲存</li>
+<li>文字內容-&gt;AES加密-&gt;Zip檔附加密碼-&gt;輸出儲存</li>
+</ul>
+<p>還是…..</p>
+<p>我們都不怕因為我們把各種操作<code>封裝</code>和<code>多態</code></p>
+<p>各個模組間都是獨立的很好映證 <code>高內聚低耦合</code> 的設計原則</p>
+<p><strong>小結:</strong></p>
+<p>裝飾者模式是一個很精美且優雅的模式 希望這篇文章可讓讀者對於此模式有更加了解</p>
+<p><span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2lzZGFuaWVsL0Rlc2lnblBhdHRlcm4vdHJlZS9tYXN0ZXIvRGVzaWduUGF0dGVybi9EZWNvcmF0ZVBhdHRlcm4=" title="https://github.com/isdaniel/DesignPattern/tree/master/DesignPattern/DecoratePattern">GitHub範例連結<i class="fa fa-external-link"></i></span></p>
+
+      
+    </div>
+
+    
+      
+
+  <div class="popular-posts-header">Related Posts</div>
+  <ul class="popular-posts">
+  
+    <li class="popular-posts-item">
+      
+      
+      <div class="popular-posts-title"><a href="\2019\05\27\AwesomeProxy-Net\" rel="bookmark">【C#】 AOP輕型框架  AwesomeProxy.Net 介紹使用</a></div>
+      
+    </li>
+  
+    <li class="popular-posts-item">
+      
+      
+      <div class="popular-posts-title"><a href="\2019\05\27\InvoiceTW-Framework\" rel="bookmark">【財政部查詢類電子發票API】框架解說 C#</a></div>
+      
+    </li>
+  
+    <li class="popular-posts-item">
+      
+      
+      <div class="popular-posts-title"><a href="\2019\05\26\ioc-di\" rel="bookmark">IOC(控制反轉)，DI(依賴注入) 深入淺出~~</a></div>
+      
+    </li>
+  
+    <li class="popular-posts-item">
+      
+      
+      <div class="popular-posts-title"><a href="\2019\05\26\JsonConvert-SerializeObject\" rel="bookmark">JsonConvert.SerializeObject 呼叫 object.Equals 問題探討</a></div>
+      
+    </li>
+  
+    <li class="popular-posts-item">
+      
+      
+      <div class="popular-posts-title"><a href="\2019\05\27\cache-asp-net-1\" rel="bookmark">Asp.net使用快取 (一)</a></div>
+      
+    </li>
+  
+  </ul>
+
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/C/" rel="tag"># C#</a>
+          
+            <a href="/tags/Design-Pattern/" rel="tag"># Design-Pattern</a>
+          
+            <a href="/tags/Decorator-Pattern/" rel="tag"># Decorator-Pattern</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/05/29/base64-principle/" rel="next" title="【深入淺出】Base編碼 (Base64為例子)">
+                <i class="fa fa-chevron-left"></i> 【深入淺出】Base編碼 (Base64為例子)
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="disqus_thread">
+        <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+      </div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+
+      <div class="site-overview-wrap sidebar-panel sidebar-panel-active">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="https://scontent.ftpe8-3.fna.fbcdn.net/v/t1.0-9/60180310_2282070531849602_6588071415033888768_n.jpg?_nc_cat=107&_nc_ht=scontent.ftpe8-3.fna&oh=e8ad93eddc7af4887fd8ab0434374fe0&oe=5D9577FC" alt="Daniel Shih">
+            
+              <p class="site-author-name" itemprop="name">Daniel Shih</p>
+              <div class="site-description motion-element" itemprop="description">好點子沒價值，有價值的是把好點子實現～～</div>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">13</span>
+                    <span class="site-state-item-name">posts</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  
+                    
+                      <a href="/categories/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">6</span>
+                    <span class="site-state-item-name">categories</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  
+                    
+                      <a href="/tags/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">29</span>
+                    <span class="site-state-item-name">tags</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2lzZGFuaWVs" title="GitHub &rarr; https://github.com/isdaniel"><i class="fa fa-fw fa-github"></i>GitHub</span>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <span class="exturl" data-url="bWFpbHRvOmRvZzgzMDAyMjhAZ21haWwuY29t" title="Email &rarr; mailto:dog8300228@gmail.com"><i class="fa fa-fw fa-envelope"></i>Email</span>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <span class="exturl" data-url="aHR0cHM6Ly93d3cuZmFjZWJvb2suY29tL3Byb2ZpbGUucGhwP2lkPTEwMDAwMTQwMDMxOTEzNg==" title="FaceBook &rarr; https://www.facebook.com/profile.php?id=100001400319136"><i class="fa fa-fw fa-facebook"></i>FaceBook</span>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <span class="exturl" data-url="aHR0cHM6Ly9zdGFja292ZXJmbG93LmNvbS91c2Vycy81MTc2MDcxL2Qtc2hpaA==" title="StackOverflow &rarr; https://stackoverflow.com/users/5176071/d-shih"><i class="fa fa-fw fa-stack-overflow"></i>StackOverflow</span>
+                </span>
+              
+            </div>
+          
+
+          
+
+          
+          
+
+          
+            
+          
+          
+
+<p><a href="https://stackoverflow.com/users/5176071/d-shih"><img alt="profile for D-Shih at Stack Overflow, Q&amp;A for professional and enthusiast programmers" height="58" src="https://stackoverflow.com/users/flair/5176071.png?theme=dark" title="profile for D-Shih at Stack Overflow, Q&amp;A for professional and enthusiast programmers" width="208"> </a></p>
+
+<div>
+<a href="https://info.flagcounter.com/tORe"><img src="https://s01.flagcounter.com/count/tORe/bg_F1FF29/txt_000000/border_9DCCC4/columns_2/maxflags_10/viewers_0/labels_1/pageviews_1/flags_0/percent_0/" alt="Flag Counter" border="0"></a>
+</div>
+
+
+        </div>
+      </div>
+
+      
+
+      
+
+    </div>
+  </aside>
+  
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Daniel Shih</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+    <span title="Symbols count total">35k</span>
+  
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    
+    <span title="Reading time total">1:04</span>
+  
+</div>
+
+
+  <div class="powered-by">Powered by <span class="exturl theme-link" data-url="aHR0cHM6Ly9oZXhvLmlv">Hexo</span> v3.8.0</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme – <span class="exturl theme-link" data-url="aHR0cHM6Ly90aGVtZS1uZXh0Lm9yZw==">NexT.Pisces</span> v7.1.1</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+
+  
+
+
+  <script src="/js/utils.js?v=7.1.1"></script>
+
+  <script src="/js/motion.js?v=7.1.1"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/affix.js?v=7.1.1"></script>
+
+  <script src="/js/schemes/pisces.js?v=7.1.1"></script>
+
+
+
+  
+  <script src="/js/scrollspy.js?v=7.1.1"></script>
+<script src="/js/post-details.js?v=7.1.1"></script>
+
+
+
+  
+
+
+  <script src="/js/next-boot.js?v=7.1.1"></script>
+
+
+  
+
+  
+  <script src="/js/exturl.js?v=7.1.1"></script>
+
+
+  
+
+  
+  
+  <script id="dsq-count-scr" src="https://danielshih.disqus.com/count.js" async></script>
+
+
+<script>
+  var disqus_config = function() {
+    this.page.url = "https://isdaniel.github.io/2019/06/01/Decorator-Pattern/";
+    this.page.identifier = "2019/06/01/Decorator-Pattern/";
+    this.page.title = '(C#)裝飾者模式(Decorator Pattern)';
+    };
+  function loadComments() {
+    var d = document, s = d.createElement('script');
+    s.src = 'https://danielshih.disqus.com/embed.js';
+    s.setAttribute('data-timestamp', '' + +new Date());
+    (d.head || d.body).appendChild(s);
+  }
+  
+    $(function() {
+      var offsetTop = $('#comments').offset().top - $(window).height();
+      if (offsetTop <= 0) {
+        // load directly when there's no a scrollbar
+        loadComments();
+      } else {
+        $(window).on('scroll.disqus_scroll', function() {
+          // offsetTop may changes because of manually resizing browser window or lazy loading images.
+          var offsetTop = $('#comments').offset().top - $(window).height();
+          var scrollTop = $(window).scrollTop();
+
+          // pre-load comments a bit? (margin or anything else)
+          if (offsetTop - scrollTop < 60) {
+            $(window).off('.disqus_scroll');
+            loadComments();
+          }
+        });
+      }
+    });
+  
+</script>
+
+
+
+
+
+  
+    
+
+<script src="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+
+
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css">
+
+
+
+<script src="//cdn.jsdelivr.net/npm/js-md5@0.7.3/src/md5.min.js"></script>
+
+<script>
+  var gitalk = new Gitalk({
+    clientID: '',
+    clientSecret: '',
+    repo: '',
+    owner: '',
+    admin: [''],
+    id: md5(location.pathname),
+    
+      language: window.navigator.language || window.navigator.userLanguage,
+    
+    distractionFreeMode: 'true'
+  });
+  gitalk.render('gitalk-container');
+</script>
+
+  
+
+
+  
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
