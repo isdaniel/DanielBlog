@@ -104,18 +104,18 @@
 
 
 
-  <meta name="description" content="最近在 StackOverFlow 解答一個很有趣的問題Json.Net / Newtonsoft: Using JsonConvert.SerializeObject results in weird .Equals calls - why? 問題簡述是: 使用Newtonsoft.Json.JsonConvert.SerializeObject方法 來把物件轉成JSON資料時,為什麼會呼叫物件">
+  <meta name="description" content="最近在 StackOverFlow 解答一個很有趣的問題Json.Net / Newtonsoft: Using JsonConvert.SerializeObject results in weird .Equals calls - why? 問題簡述是：使用Newtonsoft.Json.JsonConvert.SerializeObject方法 來把物件轉成JSON資料時,為什麼會呼叫物件的">
 <meta name="keywords" content="C#,Json.net">
 <meta property="og:type" content="article">
 <meta property="og:title" content="JsonConvert.SerializeObject 呼叫 object.Equals 問題探討">
 <meta property="og:url" content="https://isdaniel.github.io/2019/05/26/JsonConvert-SerializeObject/index.html">
 <meta property="og:site_name" content="石頭的coding之路">
-<meta property="og:description" content="最近在 StackOverFlow 解答一個很有趣的問題Json.Net / Newtonsoft: Using JsonConvert.SerializeObject results in weird .Equals calls - why? 問題簡述是: 使用Newtonsoft.Json.JsonConvert.SerializeObject方法 來把物件轉成JSON資料時,為什麼會呼叫物件">
+<meta property="og:description" content="最近在 StackOverFlow 解答一個很有趣的問題Json.Net / Newtonsoft: Using JsonConvert.SerializeObject results in weird .Equals calls - why? 問題簡述是：使用Newtonsoft.Json.JsonConvert.SerializeObject方法 來把物件轉成JSON資料時,為什麼會呼叫物件的">
 <meta property="og:locale" content="zh-tw">
-<meta property="og:updated_time" content="2019-06-01T12:39:19.552Z">
+<meta property="og:updated_time" content="2019-06-02T03:20:18.672Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="JsonConvert.SerializeObject 呼叫 object.Equals 問題探討">
-<meta name="twitter:description" content="最近在 StackOverFlow 解答一個很有趣的問題Json.Net / Newtonsoft: Using JsonConvert.SerializeObject results in weird .Equals calls - why? 問題簡述是: 使用Newtonsoft.Json.JsonConvert.SerializeObject方法 來把物件轉成JSON資料時,為什麼會呼叫物件">
+<meta name="twitter:description" content="最近在 StackOverFlow 解答一個很有趣的問題Json.Net / Newtonsoft: Using JsonConvert.SerializeObject results in weird .Equals calls - why? 問題簡述是：使用Newtonsoft.Json.JsonConvert.SerializeObject方法 來把物件轉成JSON資料時,為什麼會呼叫物件的">
 
 
 
@@ -269,7 +269,7 @@
       
     
 
-    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>Tags<span class="badge">29</span></a>
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>Tags<span class="badge">31</span></a>
 
   </li>
         
@@ -288,7 +288,7 @@
       
     
 
-    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>Categories<span class="badge">6</span></a>
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>Categories<span class="badge">7</span></a>
 
   </li>
         
@@ -307,7 +307,7 @@
       
     
 
-    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives<span class="badge">13</span></a>
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives<span class="badge">16</span></a>
 
   </li>
 
@@ -353,6 +353,8 @@
   
   
 
+  
+    <div class="reading-progress-bar"></div>
   
 
   <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
@@ -420,7 +422,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2019-06-01 12:39:19" itemprop="dateModified" datetime="2019-06-01T12:39:19+00:00">2019-06-01</time>
+                <time title="Modified: 2019-06-02 03:20:18" itemprop="dateModified" datetime="2019-06-02T03:20:18+00:00">2019-06-02</time>
               
             
           </span>
@@ -466,6 +468,13 @@
           
           
 
+          
+            <span class="post-meta-divider">|</span>
+            <span class="post-meta-item-icon">
+            <i class="fa fa-eye"></i>
+             Views:  
+            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>
+            </span>
           
 
           
@@ -514,14 +523,14 @@
 
       
         <p>最近在 StackOverFlow 解答一個很有趣的問題<span class="exturl" data-url="aHR0cHM6Ly9zdGFja292ZXJmbG93LmNvbS9xdWVzdGlvbnMvNTE2NjkwNzIvanNvbi1uZXQtbmV3dG9uc29mdC11c2luZy1qc29uY29udmVydC1zZXJpYWxpemVvYmplY3QtcmVzdWx0cy1pbi13ZWlyZC1lcXVhbC81MTY3MDY0MSM1MTY3MDY0MQ==" title="https://stackoverflow.com/questions/51669072/json-net-newtonsoft-using-jsonconvert-serializeobject-results-in-weird-equal/51670641#51670641">Json.Net / Newtonsoft: Using JsonConvert.SerializeObject results in weird .Equals calls - why?<i class="fa fa-external-link"></i></span></p>
-<p>問題簡述是:</p>
-<p>使用<code>Newtonsoft.Json.JsonConvert.SerializeObject</code>方法 來把物件轉成<code>JSON</code>資料時,為什麼會呼叫物件的<code>Equals</code> 方法 且傳入的<code>object obj</code>類型不是此類別類型,而是屬性的類型</p>
+<h2 id="問題簡述是："><a href="#問題簡述是：" class="headerlink" title="問題簡述是："></a>問題簡述是：</h2><p>使用<code>Newtonsoft.Json.JsonConvert.SerializeObject</code>方法 來把物件轉成<code>JSON</code>資料時,為什麼會呼叫物件的<code>Equals</code> 方法 且傳入的<code>object obj</code>類型不是此類別類型,而是屬性的類型</p>
 <p>以下是發問者提供的程式碼:</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">public class JsonTestClass</span><br><span class="line">&#123;</span><br><span class="line">    public string Name &#123; get; set; &#125;</span><br><span class="line">    public List&lt;int&gt; MyIntList &#123; get; set; &#125;</span><br><span class="line"></span><br><span class="line">    public override bool Equals(object obj)</span><br><span class="line">    &#123;</span><br><span class="line">        if (obj == null)</span><br><span class="line">            return false;</span><br><span class="line">        JsonTestClass jtc = (JsonTestClass)obj;</span><br><span class="line">        return true;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">JsonTestClass c = new JsonTestClass();</span><br><span class="line">c.Name = &quot;test&quot;;</span><br><span class="line">c.MyIntList = new List&lt;int&gt;();</span><br><span class="line">c.MyIntList.Add(1);</span><br><span class="line"></span><br><span class="line">string json = JsonConvert.SerializeObject(c, new JsonSerializerSettings() &#123; TypeNameHandling = TypeNameHandling.All &#125;);</span><br></pre></td></tr></table></figure>
 <hr>
-<p>看到問題後我就直接去看<span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL0phbWVzTksvTmV3dG9uc29mdC5Kc29u" title="https://github.com/JamesNK/Newtonsoft.Json">Json.net原始碼<i class="fa fa-external-link"></i></span> 一探到底原因出在哪邊.</p>
+<h2 id="問題解析："><a href="#問題解析：" class="headerlink" title="問題解析："></a>問題解析：</h2><p>看到問題後我就直接去看<span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL0phbWVzTksvTmV3dG9uc29mdC5Kc29u" title="https://github.com/JamesNK/Newtonsoft.Json">Json.net原始碼<i class="fa fa-external-link"></i></span> 一探到底原因出在哪邊.</p>
 <p>後面發現當我們在呼叫<code>JsonConvert.SerializeObject</code>方法,會執行一個 <span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL0phbWVzTksvTmV3dG9uc29mdC5Kc29uL2Jsb2IvYzkwZTZlODcxYWUzOWNkNDY4NmRhYzZmYTY0YTc4MGU1MjcxMjNhOC9TcmMvTmV3dG9uc29mdC5Kc29uL1NlcmlhbGl6YXRpb24vSnNvblNlcmlhbGl6ZXJJbnRlcm5hbFdyaXRlci5jcw==" title="https://github.com/JamesNK/Newtonsoft.Json/blob/c90e6e871ae39cd4686dac6fa64a780e527123a8/Src/Newtonsoft.Json/Serialization/JsonSerializerInternalWriter.cs">private bool CheckForCircularReference<i class="fa fa-external-link"></i></span>私有方法.</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">bool exists = (Serializer._equalityComparer != null)</span><br><span class="line">                ? _serializeStack.Contains(value, Serializer._equalityComparer)</span><br><span class="line">                : _serializeStack.Contains(value);</span><br></pre></td></tr></table></figure>
+<p>###　重點：</p>
 <p>這個方法主要用意是<strong>判斷目前序列化JSON物件是否有重複引用本身</strong>,方法中有段程式碼使用到 <code>List&lt;T&gt;.Contains</code>.</p>
 <p>當我們在呼叫<code>List&lt;T&gt;.Contains</code>時 預設<code>EqualityComparer&lt;T&gt;.Default</code> 進行比較來進行判斷是否存在集合中.</p>
 <p>要寫客製化比較方式有兩種</p>
@@ -531,7 +540,7 @@
 </ol>
 <p>所以會呼叫<code>object.Equals</code>是因為上段程式碼</p>
 <hr>
-<p>什麼是<strong>判斷目前序列化JSON物件是否有重複引用本身</strong>?</p>
+<h2 id="補充說明："><a href="#補充說明：" class="headerlink" title="補充說明："></a>補充說明：</h2><p>什麼是<strong>判斷目前序列化JSON物件是否有重複引用本身</strong>?</p>
 <p>以下的範例是<span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL0phbWVzTksvTmV3dG9uc29mdC5Kc29uL2Jsb2IvYzkwZTZlODcxYWUzOWNkNDY4NmRhYzZmYTY0YTc4MGU1MjcxMjNhOC9TcmMvTmV3dG9uc29mdC5Kc29uL1NlcmlhbGl6YXRpb24vSnNvblNlcmlhbGl6ZXJJbnRlcm5hbFdyaXRlci5jcw==" title="https://github.com/JamesNK/Newtonsoft.Json/blob/c90e6e871ae39cd4686dac6fa64a780e527123a8/Src/Newtonsoft.Json/Serialization/JsonSerializerInternalWriter.cs">private bool CheckForCircularReference<i class="fa fa-external-link"></i></span>想要防止的問題</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">public class JsonTestClass</span><br><span class="line">&#123;</span><br><span class="line">    public string Name &#123; get; set; &#125;</span><br><span class="line">    public List&lt;int&gt; MyIntList &#123; get; set; &#125;</span><br><span class="line">    public JsonTestClass Test&#123;get;set;&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">JsonTestClass c = new JsonTestClass();</span><br><span class="line">c.Name = &quot;test&quot;;</span><br><span class="line">c.Test = c;</span><br><span class="line">string json = JsonConvert.SerializeObject</span><br><span class="line">               (c, new JsonSerializerSettings() &#123; TypeNameHandling = TypeNameHandling.All &#125;);</span><br></pre></td></tr></table></figure>
 <p>我們可以看到<code>c.Test = c;</code> 將自己本身付值給 <code>public JsonTestClass Test{get;set;}</code> 這個屬性.</p>
@@ -554,6 +563,13 @@
     <li class="popular-posts-item">
       
       
+      <div class="popular-posts-title"><a href="\2019\05\27\cache-asp-net-1\" rel="bookmark">Asp.net使用快取 (一)</a></div>
+      
+    </li>
+  
+    <li class="popular-posts-item">
+      
+      
       <div class="popular-posts-title"><a href="\2019\05\27\AwesomeProxy-Net\" rel="bookmark">【C#】 AOP輕型框架  AwesomeProxy.Net 介紹使用</a></div>
       
     </li>
@@ -568,21 +584,14 @@
     <li class="popular-posts-item">
       
       
-      <div class="popular-posts-title"><a href="\2019\06\01\Decorator-Pattern\" rel="bookmark">(C#)裝飾者模式(Decorator Pattern)</a></div>
+      <div class="popular-posts-title"><a href="\2019\06\02\c-func-1\" rel="bookmark">(C#)委託delegate,Func<>,Action 解說系列(一)</a></div>
       
     </li>
   
     <li class="popular-posts-item">
       
       
-      <div class="popular-posts-title"><a href="\2019\05\27\cache-asp-net-1\" rel="bookmark">Asp.net使用快取 (一)</a></div>
-      
-    </li>
-  
-    <li class="popular-posts-item">
-      
-      
-      <div class="popular-posts-title"><a href="\2019\05\27\cache-asp-net-2\" rel="bookmark">Asp.net使用快取 (二)</a></div>
+      <div class="popular-posts-title"><a href="\2019\06\02\c-func-2\" rel="bookmark">(C#) 委託delegate,Func<>,Action 解說系列(二)</a></div>
       
     </li>
   
@@ -652,6 +661,12 @@
 
 
   </div>
+  <br>
+  <div style="text-align: center;">
+    如果本文對您幫助很大，可<a href="https://www.jkos.com/">街口支付</a>斗內鼓勵石頭^^
+</div>
+
+<img src="https://az787680.vo.msecnd.net/user/九桃/d658f826-157e-436a-8c52-df9dd1ce7909/1553740448_05878.png" style="width: 300px; height: 434px;">
 
 
           </div>
@@ -713,7 +728,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">13</span>
+                    <span class="site-state-item-count">16</span>
                     <span class="site-state-item-name">posts</span>
                   </a>
                 </div>
@@ -742,7 +757,9 @@
                     
                       
                     
-                    <span class="site-state-item-count">6</span>
+                      
+                    
+                    <span class="site-state-item-count">7</span>
                     <span class="site-state-item-name">categories</span>
                   </a>
                 </div>
@@ -817,7 +834,11 @@
                     
                       
                     
-                    <span class="site-state-item-count">29</span>
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">31</span>
                     <span class="site-state-item-name">tags</span>
                   </a>
                 </div>
@@ -910,7 +931,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Note"><span class="nav-number">1.</span> <span class="nav-text">Note</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#問題簡述是："><span class="nav-number">1.</span> <span class="nav-text">問題簡述是：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#問題解析："><span class="nav-number">2.</span> <span class="nav-text">問題解析：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#補充說明："><span class="nav-number">3.</span> <span class="nav-text">補充說明：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Note"><span class="nav-number">4.</span> <span class="nav-text">Note</span></a></li></ol></div>
             
 
           </div>
@@ -943,7 +964,7 @@
       <i class="fa fa-area-chart"></i>
     </span>
     
-    <span title="Symbols count total">35k</span>
+    <span title="Symbols count total">45k</span>
   
 
   
@@ -952,7 +973,7 @@
       <i class="fa fa-coffee"></i>
     </span>
     
-    <span title="Reading time total">1:04</span>
+    <span title="Reading time total">1:22</span>
   
 </div>
 
@@ -971,6 +992,32 @@
 
 
         
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="post-meta-item-icon">
+      <i class="fa fa-user"></i>
+    </span>
+    <span class="site-uv" title="Total Visitors">
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+    </span>
+  
+
+  
+    <span class="post-meta-divider">|</span>
+  
+
+  
+    <span class="post-meta-item-icon">
+      <i class="fa fa-eye"></i>
+    </span>
+    <span class="site-pv" title="Total Views">
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+    </span>
+  
+</div>
+
 
 
 
@@ -1028,6 +1075,8 @@
 
 
 
+  
+
 
 
   
@@ -1038,6 +1087,9 @@
 
   
   <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/reading_progress/reading_progress.js"></script>
 
 
   
@@ -1063,6 +1115,13 @@
   <script src="/js/scrollspy.js?v=7.1.1"></script>
 <script src="/js/post-details.js?v=7.1.1"></script>
 
+<!-- Global site tag (gtag.js) - Google Analytics --><script async src="https://www.googletagmanager.com/gtag/js?id=UA-141257985-1"></script><script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-141257985-1');
+</script>
 
 
   
