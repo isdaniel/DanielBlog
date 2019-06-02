@@ -104,22 +104,18 @@
 
 
 
-  <meta name="description" content="今天和大家分享AwesomeProxy.Net小弟開源AOP輕型框架 簡單介紹 AOP (Aspect-Oriented Programming)AOP 是 OOP(物件導向)一個變化程式撰寫思想。（非取代OOP而是擴充） 導入AOP幫助：    可幫我們分離核心邏輯跟非核心邏輯代碼，很好降低模組間耦合性，已便日後擴充。 　　非核心邏輯代碼像：(日誌記錄，性能統計，安全控制，事務處理，異常處理等代">
-<meta name="keywords" content="C#,AOP,Asp.net,Design-Pattern,Open-Source">
+  <meta name="description" content="Autofac 是個IOC容器  不懂IOC 參考 我之前寫的IOC(控制反轉)，DI(依賴注入) 深入淺出~~ 小弟之前有一個開源框架 AwesomeProxy.Net裡面簡單介紹 AOP核心概念和如何實作! Autofac 有寫一個 Autofac.Extras.DynamicProxy 把AOP和IOC容器融合的框架 在Autofac使用AOP 需要實現下面幾個步驟 本次範例我們從資料庫中撈">
+<meta name="keywords" content="C#,IOC,Autofac,AOP">
 <meta property="og:type" content="article">
-<meta property="og:title" content="【C#】 AOP輕型框架  AwesomeProxy.Net 介紹使用">
-<meta property="og:url" content="https://isdaniel.github.io/2019/05/27/AwesomeProxy-Net/index.html">
+<meta property="og:title" content="Autofac + Interceptors(AOP) 動態代理">
+<meta property="og:url" content="https://isdaniel.github.io/2019/06/02/Autofac-AOP/index.html">
 <meta property="og:site_name" content="石頭的coding之路">
-<meta property="og:description" content="今天和大家分享AwesomeProxy.Net小弟開源AOP輕型框架 簡單介紹 AOP (Aspect-Oriented Programming)AOP 是 OOP(物件導向)一個變化程式撰寫思想。（非取代OOP而是擴充） 導入AOP幫助：    可幫我們分離核心邏輯跟非核心邏輯代碼，很好降低模組間耦合性，已便日後擴充。 　　非核心邏輯代碼像：(日誌記錄，性能統計，安全控制，事務處理，異常處理等代">
+<meta property="og:description" content="Autofac 是個IOC容器  不懂IOC 參考 我之前寫的IOC(控制反轉)，DI(依賴注入) 深入淺出~~ 小弟之前有一個開源框架 AwesomeProxy.Net裡面簡單介紹 AOP核心概念和如何實作! Autofac 有寫一個 Autofac.Extras.DynamicProxy 把AOP和IOC容器融合的框架 在Autofac使用AOP 需要實現下面幾個步驟 本次範例我們從資料庫中撈">
 <meta property="og:locale" content="zh-tw">
-<meta property="og:image" content="https://ithelp.ithome.com.tw/upload/images/20180209/20096630UyP6I4l2MB.png">
-<meta property="og:image" content="https://ithelp.ithome.com.tw/upload/images/20180209/20096630BB4lN2NYOW.png">
-<meta property="og:image" content="https://ithelp.ithome.com.tw/upload/images/20180209/20096630tbgj7MbcAL.png">
 <meta property="og:updated_time" content="2019-06-02T15:15:35.899Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="【C#】 AOP輕型框架  AwesomeProxy.Net 介紹使用">
-<meta name="twitter:description" content="今天和大家分享AwesomeProxy.Net小弟開源AOP輕型框架 簡單介紹 AOP (Aspect-Oriented Programming)AOP 是 OOP(物件導向)一個變化程式撰寫思想。（非取代OOP而是擴充） 導入AOP幫助：    可幫我們分離核心邏輯跟非核心邏輯代碼，很好降低模組間耦合性，已便日後擴充。 　　非核心邏輯代碼像：(日誌記錄，性能統計，安全控制，事務處理，異常處理等代">
-<meta name="twitter:image" content="https://ithelp.ithome.com.tw/upload/images/20180209/20096630UyP6I4l2MB.png">
+<meta name="twitter:title" content="Autofac + Interceptors(AOP) 動態代理">
+<meta name="twitter:description" content="Autofac 是個IOC容器  不懂IOC 參考 我之前寫的IOC(控制反轉)，DI(依賴注入) 深入淺出~~ 小弟之前有一個開源框架 AwesomeProxy.Net裡面簡單介紹 AOP核心概念和如何實作! Autofac 有寫一個 Autofac.Extras.DynamicProxy 把AOP和IOC容器融合的框架 在Autofac使用AOP 需要實現下面幾個步驟 本次範例我們從資料庫中撈">
 
 
 
@@ -127,7 +123,7 @@
 
   
   
-  <link rel="canonical" href="https://isdaniel.github.io/2019/05/27/AwesomeProxy-Net/">
+  <link rel="canonical" href="https://isdaniel.github.io/2019/06/02/Autofac-AOP/">
 
 
 
@@ -137,7 +133,7 @@
   };
 </script>
 
-  <title>【C#】 AOP輕型框架  AwesomeProxy.Net 介紹使用 | 石頭的coding之路</title>
+  <title>Autofac + Interceptors(AOP) 動態代理 | 石頭的coding之路</title>
   
 
 
@@ -366,7 +362,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://isdaniel.github.io/2019/05/27/AwesomeProxy-Net/">
+    <link itemprop="mainEntityOfPage" href="https://isdaniel.github.io/2019/06/02/Autofac-AOP/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Daniel Shih">
@@ -383,7 +379,7 @@
 
         
         
-          <h2 class="post-title" itemprop="name headline">【C#】 AOP輕型框架  AwesomeProxy.Net 介紹使用
+          <h2 class="post-title" itemprop="name headline">Autofac + Interceptors(AOP) 動態代理
 
               
             
@@ -409,24 +405,12 @@
                 
               
 
-              <time title="創建時間：2019-05-27 22:57:47" itemprop="dateCreated datePublished" datetime="2019-05-27T22:57:47+00:00">2019-05-27</time>
+              <time title="創建時間：2019-06-02 22:30:11 / 修改時間：15:15:35" itemprop="dateCreated datePublished" datetime="2019-06-02T22:30:11+00:00">2019-06-02</time>
             
 
             
               
 
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新於</span>
-                
-                <time title="修改時間：2019-06-02 15:15:35" itemprop="dateModified" datetime="2019-06-02T15:15:35+00:00">2019-06-02</time>
               
             
           </span>
@@ -447,6 +431,13 @@
 
                 
                 
+                  ，
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/C/IOC/" itemprop="url" rel="index"><span itemprop="name">IOC</span></a></span>
+
+                
+                
               
             </span>
           
@@ -462,8 +453,8 @@
                 </span>
             
                 <span class="post-meta-item-text">評論數：</span>
-                <a href="/2019/05/27/AwesomeProxy-Net/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2019/05/27/AwesomeProxy-Net/" itemprop="commentCount"></span>
+                <a href="/2019/06/02/Autofac-AOP/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2019/06/02/Autofac-AOP/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -492,7 +483,7 @@
                 
                   <span class="post-meta-item-text">文章字數：</span>
                 
-                <span title="文章字數">1.6k</span>
+                <span title="文章字數">2.2k</span>
               
 
               
@@ -506,7 +497,7 @@
                 
                   <span class="post-meta-item-text">所需閱讀時間 &asymp;</span>
                 
-                <span title="所需閱讀時間">3 分鐘</span>
+                <span title="所需閱讀時間">4 分鐘</span>
               
             </div>
           
@@ -526,43 +517,96 @@
       
 
       
-        <p>今天和大家分享<span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2lzZGFuaWVsL0F3ZXNvbWVQcm94eS5OZXQ=" title="https://github.com/isdaniel/AwesomeProxy.Net">AwesomeProxy.Net<i class="fa fa-external-link"></i></span>小弟開源AOP輕型框架</p>
-<h2 id="簡單介紹-AOP-Aspect-Oriented-Programming"><a href="#簡單介紹-AOP-Aspect-Oriented-Programming" class="headerlink" title="簡單介紹 AOP (Aspect-Oriented Programming)"></a>簡單介紹 <strong>AOP</strong> (Aspect-Oriented Programming)</h2><p>AOP 是 <strong>OOP(物件導向)一個變化程式撰寫思想。</strong>（非取代OOP而是擴充）</p>
-<p>導入AOP幫助：<br>    可幫我們分離<strong>核心邏輯</strong>跟<strong>非核心邏輯</strong>代碼，很好降低模組間耦合性，已便日後擴充。</p>
-<p>　　非核心邏輯代碼像：(日誌記錄，性能統計，安全控制，事務處理，異常處理等代碼從業務邏輯代碼中劃分出來)</p>
-<p>例如下圖：</p>
-<p><img src="https://ithelp.ithome.com.tw/upload/images/20180209/20096630UyP6I4l2MB.png" alt="https://ithelp.ithome.com.tw/upload/images/20180209/20096630UyP6I4l2MB.png"></p>
-<p>　　原本寫法把寫日誌相關程式寫入，業務邏輯方法中。導致此方法非單一職則。我們可以把程式重構改寫成(右圖)，將寫日誌方法抽離出來更有效達成模組化。</p>
-<p><strong>經典例子:</strong></p>
-<p>Asp.Net MVC中Contoller，Action過濾器(FilterAttribute)</p>
-<hr>
-<h2 id="AwesomeProxy-Net介紹："><a href="#AwesomeProxy-Net介紹：" class="headerlink" title="AwesomeProxy.Net介紹："></a>AwesomeProxy.Net介紹：</h2><p>AwesomeProxy.Net 主要是攔截方法處理</p>
+        <p>Autofac 是個IOC容器  不懂IOC 參考 我之前寫<br>的<a href="/2019/05/26/ioc-di/" title="IOC(控制反轉)，DI(依賴注入) 深入淺出~~">IOC(控制反轉)，DI(依賴注入) 深入淺出~~</a></p>
+<p>小弟之前有一個開源框架 <span class="exturl" data-url="aHR0cHM6Ly9kb3RibG9ncy5jb20udHcvZGFuaWVsLzIwMTgvMDIvMTEvMTExNjA1" title="https://dotblogs.com.tw/daniel/2018/02/11/111605">AwesomeProxy.Net<i class="fa fa-external-link"></i></span>裡面簡單介紹 AOP核心概念和如何實作!</p>
+<p>Autofac 有寫一個 <span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2F1dG9mYWMvQXV0b2ZhYy5FeHRyYXMuRHluYW1pY1Byb3h5" title="https://github.com/autofac/Autofac.Extras.DynamicProxy">Autofac.Extras.DynamicProxy<i class="fa fa-external-link"></i></span> 把AOP和IOC容器融合的框架</p>
+<p>在Autofac使用AOP 需要實現下面幾個步驟</p>
+<p>本次範例我們從資料庫中撈取時間資料出來，並使用<code>Thread.Sleep(5000)</code>作出延遲，判斷時間是否前後一致。</p>
+<h2 id="第一步（定義攔截器）："><a href="#第一步（定義攔截器）：" class="headerlink" title="第一步（定義攔截器）："></a>第一步（定義攔截器）：</h2><p>我們撰寫一個快取的攔截器繼承<code>IInterceptor</code> 介面，並實現<code>Intercep</code>方法</p>
+<p>其中 <code>IInvocation</code>參數有許多有用的資料</p>
+<ul>
+<li>Arguments：傳入方法中的參數</li>
+<li>InvocationTarget ：被代理物件</li>
+<li>MethodInvocationTarget：被代理物件的呼叫方法資訊</li>
+<li>Proxy：代理物件</li>
+<li>Method：代理的呼叫方法資訊</li>
+<li>ReturnValue：呼叫方法的回傳值</li>
+</ul>
+<p>這幾個欄位是我們比較常用的資訊</p>
+<pre><code>&lt;code class=&quot;language-cs&quot;&gt;public class TimeInterceptor : IInterceptor
+{
+    private ITimeService _timeService;
+    public TimeInterceptor(ITimeService s)
+    {
+
+        _timeService = s;
+    }
+
+    public void Intercept(IInvocation invocation)
+    {
+        var time = CallContext.GetData(&quot;time&quot;)?.ToString();
+        if (time == null)
+        {
+            //如果沒有快取 執行呼叫Service
+            invocation.Proceed();
+            CallContext.SetData(&quot;time&quot;, invocation.ReturnValue);
+        }
+        else
+        {
+            //如果有快取直接取值
+            invocation.ReturnValue = time;
+        }
+    }
+}&lt;/code&gt;
+</code></pre><p>他使用到 <code>TimeService</code> 模擬從資料庫中撈取資料出來</p>
+<pre><code>public interface ITimeService
+{
+    string GetTime();
+}
+
+public class TimeService : ITimeService
+{
+    public string GetTime()
+    {
+        return DateTime.Now.ToString(&quot;MM/dd/yyyy hh:mm:ss&quot;);
+    }
+}
+</code></pre><h2 id="第二步（標記攔截器）："><a href="#第二步（標記攔截器）：" class="headerlink" title="第二步（標記攔截器）："></a>第二步（標記攔截器）：</h2><p>使用<code>Intercept</code>標籤並帶入要攔截類別型態．</p>
+<pre><code>[Intercept(typeof(TimeInterceptor))]
+public class Person : IPerson
+{
+    public string SaySomething()
+    {
+        return DateTime.Now.ToLongTimeString();
+    }
+}
+
+public interface IPerson
+{
+    string SaySomething();
+}
+</code></pre><h2 id="第三步（註冊攔截器到容器中）："><a href="#第三步（註冊攔截器到容器中）：" class="headerlink" title="第三步（註冊攔截器到容器中）："></a>第三步（註冊攔截器到容器中）：</h2><p>這邊有兩個小細節</p>
 <ol>
-<li>方法執行前</li>
-<li>方法執行後</li>
-<li>方法異常</li>
+<li>如果是註冊介面使用<code>EnableInterfaceInterceptors</code>，註冊一般類別使用<code>EnableClassInterceptors</code></li>
+<li>註冊攔截器入容器</li>
 </ol>
-<h3 id="How-to-Use"><a href="#How-to-Use" class="headerlink" title="How to Use:"></a>How to Use:</h3><p>   使用方法類似於Asp.Net MVC中Contoller，Action過濾器</p>
-<ol>
-<li><p>撰寫一個標籤(Attribute) 標記攔截動作</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">public class CacheAttribute : AopBaseAttribute</span><br><span class="line">&#123;</span><br><span class="line">    public string CacheName &#123; get; set; &#125;</span><br><span class="line"></span><br><span class="line">    public override void OnExcuting(ExcuteingContext context)</span><br><span class="line">    &#123;</span><br><span class="line">        object cacheObj = CallContext.GetData(CacheName);</span><br><span class="line">        if (cacheObj != null)</span><br><span class="line">        &#123;</span><br><span class="line">            context.Result = cacheObj;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public override void OnExcuted(ExcutedContext context)</span><br><span class="line">    &#123;</span><br><span class="line">        CallContext.SetData(CacheName, context.Result);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>將要被攔截類別繼承於<strong>MarshalByRefObject</strong>類別</p>
-</li>
-</ol>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">public class CacheService : MarshalByRefObject</span><br><span class="line">&#123;</span><br><span class="line">    [Cache]</span><br><span class="line">	public string GetCacheDate()</span><br><span class="line">	&#123;</span><br><span class="line">		return DateTime.Now.ToString(&quot;yyyy/MM/dd hh:mm:ss&quot;);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<ol start="3">
-<li>由ProxyFactory.GetProxyInstance 動態產生被代理類別<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">CacheService cache = ProxyFactory.GetProxyInstance&lt;CacheService&gt;();</span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-<p>4.直接呼叫方法就可執行標籤上的攔截動作<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">CacheService cache = ProxyFactory.GetProxyInstance&lt;CacheService&gt;();</span><br><span class="line">Console.WriteLine(cache.GetCacheDate());</span><br></pre></td></tr></table></figure></p>
-<p>Simple Code：</p>
-<p>  <strong>撰寫Log</strong><br>  <strong>權限驗證</strong><br>  <strong>快取</strong></p>
-<p><img src="https://ithelp.ithome.com.tw/upload/images/20180209/20096630BB4lN2NYOW.png" alt="https://ithelp.ithome.com.tw/upload/images/20180209/20096630BB4lN2NYOW.png"></p>
-<p><strong>Unit Test 結果</strong></p>
-<p><img src="https://ithelp.ithome.com.tw/upload/images/20180209/20096630tbgj7MbcAL.png" alt="https://ithelp.ithome.com.tw/upload/images/20180209/20096630tbgj7MbcAL.png"></p>
-<h2 id="小結："><a href="#小結：" class="headerlink" title="小結："></a>小結：</h2><p>使用 <span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2lzZGFuaWVsL0F3ZXNvbWVQcm94eS5OZXQ=" title="https://github.com/isdaniel/AwesomeProxy.Net">AwesomeProxy.Net <i class="fa fa-external-link"></i></span>和ASP.Net MVC註冊Contoller或Action過濾器一樣<br>AOP核心思想就是代理模式。</p>
-<p>本篇只先介紹如何使用，後續有時間會再補充代理模式細節！</p>
+<p>因為這個範例使用<code></code>所以我們要呼叫<code>EnableInterfaceInterceptors</code></p>
+<pre><code>var builder = new ContainerBuilder();
+
+builder.RegisterType&lt;TimeInterceptor&gt;(); //註冊攔截器
+
+builder.RegisterType&lt;Person&gt;()
+        .As&lt;IPerson&gt;()
+        .EnableInterfaceInterceptors();
+
+//註冊時間Service
+builder.RegisterType&lt;TimeService&gt;().As&lt;ITimeService&gt;();
+
+return builder.Build();
+</code></pre><p> <span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2lzZGFuaWVsL0lPQ19TYW1wbGUvdHJlZS9tYXN0ZXIvc3JjL0F1dG9mYWNXaWh0QU9Q" title="https://github.com/isdaniel/IOC_Sample/tree/master/src/AutofacWihtAOP">原始碼連結<i class="fa fa-external-link"></i></span></p>
+<h2 id="小結"><a href="#小結" class="headerlink" title="小結"></a>小結</h2><p><span style="color:#FFD700;">Autofac + DynamicProxy </span>有一個很大優勢，是可以把要注入的抽象動作一起注入攔截器中</p>
+<p>例如本次範例我們將<code>ITimeService</code>使用建構子注入法，注入至<code>TimeInterceptor</code>攔截器中</p>
+<p>讓系統和寫法擁有更多更多的彈性</p>
 
       
     </div>
@@ -576,6 +620,20 @@
     <li class="popular-posts-item">
       
       
+      <div class="popular-posts-title"><a href="\2019\05\26\ioc-di\" rel="bookmark">IOC(控制反轉)，DI(依賴注入) 深入淺出~~</a></div>
+      
+    </li>
+  
+    <li class="popular-posts-item">
+      
+      
+      <div class="popular-posts-title"><a href="\2019\05\27\AwesomeProxy-Net\" rel="bookmark">【C#】 AOP輕型框架  AwesomeProxy.Net 介紹使用</a></div>
+      
+    </li>
+  
+    <li class="popular-posts-item">
+      
+      
       <div class="popular-posts-title"><a href="\2019\05\27\InvoiceTW-Framework\" rel="bookmark">【財政部查詢類電子發票API】框架解說 C#</a></div>
       
     </li>
@@ -583,28 +641,14 @@
     <li class="popular-posts-item">
       
       
-      <div class="popular-posts-title"><a href="\2019\06\02\Autofac-AOP\" rel="bookmark">Autofac + Interceptors(AOP) 動態代理</a></div>
+      <div class="popular-posts-title"><a href="\2019\05\26\JsonConvert-SerializeObject\" rel="bookmark">JsonConvert.SerializeObject 呼叫 object.Equals 問題探討</a></div>
       
     </li>
   
     <li class="popular-posts-item">
       
       
-      <div class="popular-posts-title"><a href="\2019\06\01\Decorator-Pattern\" rel="bookmark">(C#)裝飾者模式(Decorator Pattern)</a></div>
-      
-    </li>
-  
-    <li class="popular-posts-item">
-      
-      
-      <div class="popular-posts-title"><a href="\2019\05\27\cache-asp-net-2\" rel="bookmark">Asp.net使用快取 (二)</a></div>
-      
-    </li>
-  
-    <li class="popular-posts-item">
-      
-      
-      <div class="popular-posts-title"><a href="\2019\05\27\cache-asp-net-1\" rel="bookmark">Asp.net使用快取 (一)</a></div>
+      <div class="popular-posts-title"><a href="\2019\06\02\c-func-2\" rel="bookmark">(C#) 委託delegate,Func<>,Action 解說系列(二)</a></div>
       
     </li>
   
@@ -632,13 +676,11 @@
           
             <a href="/tags/C/" rel="tag"># C#</a>
           
+            <a href="/tags/IOC/" rel="tag"># IOC</a>
+          
+            <a href="/tags/Autofac/" rel="tag"># Autofac</a>
+          
             <a href="/tags/AOP/" rel="tag"># AOP</a>
-          
-            <a href="/tags/Asp-net/" rel="tag"># Asp.net</a>
-          
-            <a href="/tags/Design-Pattern/" rel="tag"># Design-Pattern</a>
-          
-            <a href="/tags/Open-Source/" rel="tag"># Open-Source</a>
           
         </div>
       
@@ -651,8 +693,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/05/27/own-session/" rel="next" title="【C#】我們來土砲一個 Asp.net Session (Session核心原理)">
-                <i class="fa fa-chevron-left"></i> 【C#】我們來土砲一個 Asp.net Session (Session核心原理)
+              <a href="/2019/06/02/hexo-github-setting/" rel="next" title="建立自己Blog系列(二) github Setting">
+                <i class="fa fa-chevron-left"></i> 建立自己Blog系列(二) github Setting
               </a>
             
           </div>
@@ -660,10 +702,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2019/05/27/InvoiceTW-Framework/" rel="prev" title="【財政部查詢類電子發票API】框架解說 C#">
-                【財政部查詢類電子發票API】框架解說 C# <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -956,7 +994,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#簡單介紹-AOP-Aspect-Oriented-Programming"><span class="nav-number">1.</span> <span class="nav-text">簡單介紹 AOP (Aspect-Oriented Programming)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#AwesomeProxy-Net介紹："><span class="nav-number">2.</span> <span class="nav-text">AwesomeProxy.Net介紹：</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#How-to-Use"><span class="nav-number">2.1.</span> <span class="nav-text">How to Use:</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#小結："><span class="nav-number">3.</span> <span class="nav-text">小結：</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#第一步（定義攔截器）："><span class="nav-number">1.</span> <span class="nav-text">第一步（定義攔截器）：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第二步（標記攔截器）："><span class="nav-number">2.</span> <span class="nav-text">第二步（標記攔截器）：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第三步（註冊攔截器到容器中）："><span class="nav-number">3.</span> <span class="nav-text">第三步（註冊攔截器到容器中）：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#小結"><span class="nav-number">4.</span> <span class="nav-text">小結</span></a></li></ol></div>
             
 
           </div>
@@ -1170,9 +1208,9 @@
 
 <script>
   var disqus_config = function() {
-    this.page.url = "https://isdaniel.github.io/2019/05/27/AwesomeProxy-Net/";
-    this.page.identifier = "2019/05/27/AwesomeProxy-Net/";
-    this.page.title = '【C#】 AOP輕型框架  AwesomeProxy.Net 介紹使用';
+    this.page.url = "https://isdaniel.github.io/2019/06/02/Autofac-AOP/";
+    this.page.identifier = "2019/06/02/Autofac-AOP/";
+    this.page.title = 'Autofac + Interceptors(AOP) 動態代理';
     };
   function loadComments() {
     var d = document, s = d.createElement('script');
