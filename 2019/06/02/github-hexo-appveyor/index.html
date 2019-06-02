@@ -104,18 +104,20 @@
 
 
 
-  <meta name="description" content="前文：在Func和Action泛型委託中 有 In , Out 兩個關鍵字 那到底是神麼意思呢?   讓我們一起看下去…. //Action delegate public delegate void Action&amp;lt;in T&amp;gt;(T obj);  //fun delegate public delegate TResult Func&amp;lt;in T, out TResult&amp;gt;(T">
-<meta name="keywords" content="C#,Func,Delegate">
+  <meta name="description" content="前文：網路上已經有許多Blog託管平台 例如:Google Blog，痞客邦….為何我還要自己寫這篇跟大家分享? 因為上面提供的平台固然好用，但我並無法100%的去修改我想要的樣式或版面. 如果我想要有100%彈性修改我的Blog我就必須建立自己的網站. 但要給別人Hosting需要另外花一筆費用… 就有本次系列文 Github (hosting) + Hexo (Blog) + Appveyor">
+<meta name="keywords" content="WebDesign,Blog,Github,CICD">
 <meta property="og:type" content="article">
-<meta property="og:title" content="(C#)委託delegate,Func&lt;&gt;,Action 解說系列(三)">
-<meta property="og:url" content="https://isdaniel.github.io/2019/06/02/c-func-3/index.html">
+<meta property="og:title" content="建立自己Blog系列(一) 介紹 Github (hosting) + Hexo (Blog) + Appveyor(CICD)">
+<meta property="og:url" content="https://isdaniel.github.io/2019/06/02/github-hexo-appveyor/index.html">
 <meta property="og:site_name" content="石頭的coding之路">
-<meta property="og:description" content="前文：在Func和Action泛型委託中 有 In , Out 兩個關鍵字 那到底是神麼意思呢?   讓我們一起看下去…. //Action delegate public delegate void Action&amp;lt;in T&amp;gt;(T obj);  //fun delegate public delegate TResult Func&amp;lt;in T, out TResult&amp;gt;(T">
+<meta property="og:description" content="前文：網路上已經有許多Blog託管平台 例如:Google Blog，痞客邦….為何我還要自己寫這篇跟大家分享? 因為上面提供的平台固然好用，但我並無法100%的去修改我想要的樣式或版面. 如果我想要有100%彈性修改我的Blog我就必須建立自己的網站. 但要給別人Hosting需要另外花一筆費用… 就有本次系列文 Github (hosting) + Hexo (Blog) + Appveyor">
 <meta property="og:locale" content="zh-tw">
+<meta property="og:image" content="https://isdaniel.github.io/images/blog_init.PNG">
 <meta property="og:updated_time" content="2019-06-02T08:02:05.395Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="(C#)委託delegate,Func&lt;&gt;,Action 解說系列(三)">
-<meta name="twitter:description" content="前文：在Func和Action泛型委託中 有 In , Out 兩個關鍵字 那到底是神麼意思呢?   讓我們一起看下去…. //Action delegate public delegate void Action&amp;lt;in T&amp;gt;(T obj);  //fun delegate public delegate TResult Func&amp;lt;in T, out TResult&amp;gt;(T">
+<meta name="twitter:title" content="建立自己Blog系列(一) 介紹 Github (hosting) + Hexo (Blog) + Appveyor(CICD)">
+<meta name="twitter:description" content="前文：網路上已經有許多Blog託管平台 例如:Google Blog，痞客邦….為何我還要自己寫這篇跟大家分享? 因為上面提供的平台固然好用，但我並無法100%的去修改我想要的樣式或版面. 如果我想要有100%彈性修改我的Blog我就必須建立自己的網站. 但要給別人Hosting需要另外花一筆費用… 就有本次系列文 Github (hosting) + Hexo (Blog) + Appveyor">
+<meta name="twitter:image" content="https://isdaniel.github.io/images/blog_init.PNG">
 
 
 
@@ -123,7 +125,7 @@
 
   
   
-  <link rel="canonical" href="https://isdaniel.github.io/2019/06/02/c-func-3/">
+  <link rel="canonical" href="https://isdaniel.github.io/2019/06/02/github-hexo-appveyor/">
 
 
 
@@ -133,7 +135,7 @@
   };
 </script>
 
-  <title>(C#)委託delegate,Func<>,Action 解說系列(三) | 石頭的coding之路</title>
+  <title>建立自己Blog系列(一) 介紹 Github (hosting) + Hexo (Blog) + Appveyor(CICD) | 石頭的coding之路</title>
   
 
 
@@ -362,7 +364,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://isdaniel.github.io/2019/06/02/c-func-3/">
+    <link itemprop="mainEntityOfPage" href="https://isdaniel.github.io/2019/06/02/github-hexo-appveyor/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Daniel Shih">
@@ -379,7 +381,7 @@
 
         
         
-          <h2 class="post-title" itemprop="name headline">(C#)委託delegate,Func<>,Action 解說系列(三)
+          <h2 class="post-title" itemprop="name headline">建立自己Blog系列(一) 介紹 Github (hosting) + Hexo (Blog) + Appveyor(CICD)
 
               
             
@@ -405,7 +407,7 @@
                 
               
 
-              <time title="Created: 2019-06-02 11:12:43 / Modified: 08:02:05" itemprop="dateCreated datePublished" datetime="2019-06-02T11:12:43+00:00">2019-06-02</time>
+              <time title="Created: 2019-06-02 14:07:51 / Modified: 08:02:05" itemprop="dateCreated datePublished" datetime="2019-06-02T14:07:51+00:00">2019-06-02</time>
             
 
             
@@ -427,14 +429,7 @@
                 <span class="post-meta-item-text">In</span>
               
               
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/C/" itemprop="url" rel="index"><span itemprop="name">C#</span></a></span>
-
-                
-                
-                  , 
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/C/Delegate/" itemprop="url" rel="index"><span itemprop="name">Delegate</span></a></span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/WebDesign/" itemprop="url" rel="index"><span itemprop="name">WebDesign</span></a></span>
 
                 
                 
@@ -453,8 +448,8 @@
                 </span>
             
                 <span class="post-meta-item-text">Comments: </span>
-                <a href="/2019/06/02/c-func-3/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2019/06/02/c-func-3/" itemprop="commentCount"></span>
+                <a href="/2019/06/02/github-hexo-appveyor/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2019/06/02/github-hexo-appveyor/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -483,7 +478,7 @@
                 
                   <span class="post-meta-item-text">Symbols count in article: </span>
                 
-                <span title="Symbols count in article">3.8k</span>
+                <span title="Symbols count in article">1.3k</span>
               
 
               
@@ -497,7 +492,7 @@
                 
                   <span class="post-meta-item-text">Reading time &asymp;</span>
                 
-                <span title="Reading time">7 mins.</span>
+                <span title="Reading time">2 mins.</span>
               
             </div>
           
@@ -517,160 +512,48 @@
       
 
       
-        <h2 id="前文："><a href="#前文：" class="headerlink" title="前文："></a>前文：</h2><p>在Func和Action泛型委託中 有 In , Out 兩個關鍵字</p>
-<p>那到底是神麼意思呢?  </p>
-<p>讓我們一起看下去….</p>
-<pre><code>//Action delegate
-public delegate void Action&lt;in T&gt;(T obj);
-
-//fun delegate
-public delegate TResult Func&lt;in T, out TResult&gt;(T arg);
-</code></pre><p>上面程式碼我列出<code>Action</code>和<code>Func</code> 委派方法各其中一個重載</p>
-<p>我們可以發現到泛型中有關鍵字 <code>in</code> 和 <code>out</code> 這是代表神麼意思呢?</p>
-<p>讓我們繼續看下去…..</p>
-<h3 id="解說："><a href="#解說：" class="headerlink" title="解說："></a>解說：</h3><p>分享前先探討一個問題 泛型是否可以父類別指向子類別</p>
-<pre><code>public interface IGeneric&lt;T&gt; { }
-public class Base&lt;T&gt; : IGeneric&lt;T&gt; { }
-
-public class A { }
-
-class Program
-{
-
-    static void Main(string[] args)
-    {
-        IGeneric&lt;object&gt; b = new Base&lt;object&gt;();
-        IGeneric&lt;A&gt; a = new Base&lt;A&gt;();
-        //無法執行父類只向子類別 因為泛型預設是Invariance
-        b = a;
-        Console.ReadKey();
-    }
-}
-</code></pre><p>上面範例程式很清楚知道無法編譯，那我要怎麼處理和解決的？</p>
-<p>第一種解法 使用 <code>AS</code> :</p>
-<pre><code>public interface IGeneric&lt;T&gt; { }
-public class Base&lt;T&gt; : IGeneric&lt;T&gt; { }
-
-public class A { }
-
-class Program
-{
-
-    static void Main(string[] args)
-    {
-        IGeneric&lt;object&gt; b = new Base&lt;object&gt;();
-        IGeneric&lt;A&gt; a = new Base&lt;A&gt;();
-        //使用AS來轉型
-        b = a as IGeneric&lt;object&gt;;
-        Console.ReadKey();
-    }
-}
-</code></pre><p>第二種解法 在<code>interface</code>的泛型中使用 <code>Out</code> (今天要介紹的主角)</p>
-<pre><code>//這裡使用out將T 解釋為Covariance
-public interface IGeneric&lt;out T&gt; { }
-public class Base&lt;T&gt; : IGeneric&lt;T&gt; { }
-
-public class A { }
-
-class Program
-{
-
-    static void Main(string[] args)
-    {
-        IGeneric&lt;object&gt; b = new Base&lt;object&gt;();
-        IGeneric&lt;A&gt; a = new Base&lt;A&gt;();
-        //在上面的泛型用out
-        b = a;
-        Console.ReadKey();
-    }
-}
-</code></pre><h3 id="三個重要名詞-Covariance，Contravariance，Invariance"><a href="#三個重要名詞-Covariance，Contravariance，Invariance" class="headerlink" title="三個重要名詞 Covariance，Contravariance，Invariance"></a>三個重要名詞 <code>Covariance，Contravariance，Invariance</code></h3><p>MSDN中有解釋 此關鍵字 泛型中的共變數和反變數</p>
-<p><code>Covariance</code>(共變數) ：</p>
-<blockquote>
-<p>MSDN說明：可讓您使用比原本指定更多衍生的類型。您可以將 IEnumerable<derived> (在 Visual Basic 中為 IEnumerable(Of Derived)) 的執行個體指派給 IEnumerable<base> 類型的變數<br>簡單說明：泛型支援父類指向子類別  [泛型中使用out ]  (支援泛型介面或泛型委派)<br>如下面的範例:</derived></p>
-</blockquote>
-<p>因<code>IGeneric&lt;out T&gt;</code>所以下面a付值給b就不需轉型</p>
-<pre><code>//這裡使用out將T 解釋為Covariance
-public interface IGeneric&lt;out T&gt; { }
-public class Base&lt;T&gt; : IGeneric&lt;T&gt; { }
-
-public class A { }
-
-class Program
-{
-
-    static void Main(string[] args)
-    {
-        IGeneric&lt;object&gt; b = new Base&lt;object&gt;();
-        IGeneric&lt;A&gt; a = new Base&lt;A&gt;();
-        //在上面的泛型用out
-        b = a;
-        Console.ReadKey();
-    }
-}
-</code></pre><p><code>Contravariance</code>(反變數)</p>
-<blockquote>
-<p>MSDN說明：可讓您使用比原本所指定更泛型 (較少衍生) 的類型。您可以將 IEnumerable<base> (在 Visual Basic 中為 IEnumerable(Of Base)) 的執行個體指派給IEnumerable<derived> 類型的變數。</derived></p>
-</blockquote>
-<p>簡單說明：可將父類物件引用賦予給子類別 <strong>[泛型中有in]</strong><br>如下範例：</p>
-<p>因<code>IComparer&lt;in T&gt;</code> 所以子類可以取得父類的引用</p>
-<pre><code>//這裡使用in將T 解釋為Contravariance
-public interface IGeneric&lt;in T&gt; { }
-
-public class Base&lt;T&gt; : IGeneric&lt;T&gt; { }
-
-public abstract class Shape
-{
-    public virtual double Area { get { return 0; } }
-}
-
-public class Square : Shape
-{
-    private double r;
-    public Square(double radius) { r = radius; }
-    public double Radius { get { return r; } }
-    public override double Area { get { return r * r; } }
-}
-
-public class Circle : Shape
-{
-    private double r;
-    public Circle(double radius) { r = radius; }
-    public double Radius { get { return r; } }
-    public override double Area { get { return Math.PI * r * r; } }
-}
-
-public class ShapeAreaComparer : IComparer&lt;Shape&gt;
-{
-    int IComparer&lt;Shape&gt;.Compare(Shape a, Shape b)
-    {
-        if (a == null) return b == null ? 0 : -1;
-        return b == null ? 1 : a.Area.CompareTo(b.Area);
-    }
-}
-
-class Program
-{
-
-    static void Main(string[] args)
-    {
-        //泛型[形狀類別(基類)]
-        IGeneric&lt;Shape&gt; b = new Base&lt;Shape&gt;();
-        //泛型[圓形類別(子類)]
-        IGeneric&lt;Circle&gt; a = new Base&lt;Circle&gt;();
-        //子類可以取得父類引用
-        a = b;
-        Console.ReadKey();
-    }
-}
-</code></pre><p><code>Invariance</code> 只能該類別指向該類別<br>一般泛型預設就是這個</p>
+        <h2 id="前文："><a href="#前文：" class="headerlink" title="前文："></a>前文：</h2><p>網路上已經有許多Blog託管平台 例如:Google Blog，痞客邦….為何我還要自己寫這篇跟大家分享?</p>
+<p>因為上面提供的平台固然好用，但我並無法100%的去修改我想要的樣式或版面.</p>
+<p>如果我想要有100%彈性修改我的Blog我就必須建立自己的網站.</p>
+<p>但要給別人Hosting需要另外花一筆費用…</p>
+<p>就有本次系列文 <code>Github (hosting) + Hexo (Blog) + Appveyor(CICD)</code>．</p>
+<p>這個搭配有幾個優點：</p>
+<ol>
+<li>完全免費</li>
+<li>使用MarkDown撰寫Blog就是爽.</li>
+<li>練習使用CICD線上工具.</li>
+</ol>
+<p>撰寫發布流程大概如下圖</p>
+<p><img src="/images/blog_init.PNG" alt="img"></p>
+<h3 id="流程解說："><a href="#流程解說：" class="headerlink" title="流程解說："></a>流程解說：</h3><ol>
+<li>使用<code>Hexo</code>樣板撰寫<code>MarkDown</code> Blog</li>
+<li>寫完後<code>commit</code>和<code>push</code>至Github Blog Code Repository</li>
+<li><code>Appveyor(CI)</code>線上工具會偵測到我們有<code>code commit</code>並執行後續Blog佈版動作</li>
+<li>使用<code>Hexo-cli</code>將MarkDown build成html靜態檔案(因為github page只能Hosting靜態頁面)</li>
+<li><code>Appveyor(CI)</code> commit並push到hosting Repository.</li>
+</ol>
+<p>此流程的優點是只需在Code Repository上撰寫完Blog並commit就可以自動發佈到github page上.</p>
 <hr>
-<h2 id="總結："><a href="#總結：" class="headerlink" title="總結："></a>總結：</h2><p><code>Func</code> 泛型委派的最後一個泛型類型參數會指定委派簽章中的傳回值類型</p>
-<p><code>Covariance</code> (共變數) (<code>out</code> 關鍵字) 泛型支援父類指向子類別</p>
-<p><code>Contravariant</code> (反變數) (<code>in</code> 關鍵字)  泛型子類可以取得父類的引用</p>
-<p><code>Invariance</code> 一般泛型預設就是這個</p>
-<p><span class="exturl" data-url="aHR0cHM6Ly9tc2RuLm1pY3Jvc29mdC5jb20vemgtdHcvbGlicmFyeS9kZDc5OTUxNyh2PXZzLjExMA==" title="https://msdn.microsoft.com/zh-tw/library/dd799517(v=vs.110">泛型中的共變數和反變數<i class="fa fa-external-link"></i></span>.aspx)</p>
-<p><span class="exturl" data-url="aHR0cHM6Ly9kb2NzLm1pY3Jvc29mdC5jb20vZW4tdXMvZG90bmV0L2NzaGFycC9sYW5ndWFnZS1yZWZlcmVuY2Uva2V5d29yZHMvb3V0LWdlbmVyaWMtbW9kaWZpZXI=" title="https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/keywords/out-generic-modifier">out (generic modifier) (C# Reference)<i class="fa fa-external-link"></i></span></p>
+<h2 id="GitHub-Hosting"><a href="#GitHub-Hosting" class="headerlink" title="GitHub (Hosting)"></a>GitHub (Hosting)</h2><p>GitHub並創建一個名為<strong>username</strong>.github.io Repository，其中username是您在GitHub上的用戶名（或組織名稱）。</p>
+<p>例如我的Github帳戶是isdaniel 就建立一個Repository 叫<br><span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2lzZGFuaWVsL2lzZGFuaWVsLmdpdGh1Yi5pbw==" title="https://github.com/isdaniel/isdaniel.github.io">isdaniel.github.io<i class="fa fa-external-link"></i></span> 只要裡面有版控Html靜態頁面Github page 就可幫我們進行託管.</p>
+<p><a href="https://isdaniel.github.io/">https://isdaniel.github.io/</a> 這個網站的進入點在此Repository的index.html頁面.</p>
+<p>Note :</p>
+<blockquote>
+<p>GitHub有個設定，就是每個專案的gh-pages分支可以通過user-domain /項目名來訪問。</p>
+</blockquote>
+<p><span class="exturl" data-url="aHR0cHM6Ly9wYWdlcy5naXRodWIuY29tLw==" title="https://pages.github.com/">詳細資料<i class="fa fa-external-link"></i></span></p>
+<h2 id="Hexo-Blog"><a href="#Hexo-Blog" class="headerlink" title="Hexo (Blog)"></a>Hexo (Blog)</h2><p><code>Hexo</code> 是一個快速、簡單且強大的網誌框架。Hexo 使用 <code>Markdown</code>（或其他渲染引擎）解析您的文章，並在幾秒鐘內，透過漂亮的主題產生靜態檔案</p>
+<p>透過<code>Hexo-cli</code>可以簡單速建立一個blog page,而且<code>Hexo</code>社群活躍且文件支援中文.</p>
+<p><code>Hexo</code>提供豐富的插件程式來給使用者,甚至您如果懂Js css Html也可建立自己的Blog樣式或自行擴充.</p>
+<h2 id="Appveyor-CICD"><a href="#Appveyor-CICD" class="headerlink" title="Appveyor(CICD)"></a>Appveyor(CICD)</h2><p><span class="exturl" data-url="aHR0cHM6Ly93d3cuYXBwdmV5b3IuY29tLw==" title="https://www.appveyor.com/">appveyor<i class="fa fa-external-link"></i></span>是一個支援Winodws&amp;Linux相關的持續部屬服務</p>
+<p>目前免費使用，可透過Github綁定Repository快速建立一套屬於自己的CICD流程.</p>
+<h2 id="小結"><a href="#小結" class="headerlink" title="小結"></a>小結</h2><p>這篇跟大家簡單介紹一下會使用到的工具和撰寫blog佈署流程.</p>
+<p>日後會有其他篇文章來詳細說明細節.</p>
+<ul>
+<li>建立自己Blog系列(二) github Setting</li>
+<li>建立自己Blog系列(三) Hexo next theme 介紹</li>
+<li>建立自己Blog系列(四) Appveyor 介紹 yaml.</li>
+</ul>
 
       
     </div>
@@ -684,35 +567,7 @@ class Program
     <li class="popular-posts-item">
       
       
-      <div class="popular-posts-title"><a href="\2019\06\02\c-func-1\" rel="bookmark">(C#)委託delegate,Func<>,Action 解說系列(一)</a></div>
-      
-    </li>
-  
-    <li class="popular-posts-item">
-      
-      
-      <div class="popular-posts-title"><a href="\2019\06\02\c-func-2\" rel="bookmark">(C#) 委託delegate,Func<>,Action 解說系列(二)</a></div>
-      
-    </li>
-  
-    <li class="popular-posts-item">
-      
-      
-      <div class="popular-posts-title"><a href="\2019\05\27\cache-asp-net-1\" rel="bookmark">Asp.net使用快取 (一)</a></div>
-      
-    </li>
-  
-    <li class="popular-posts-item">
-      
-      
-      <div class="popular-posts-title"><a href="\2019\05\26\JsonConvert-SerializeObject\" rel="bookmark">JsonConvert.SerializeObject 呼叫 object.Equals 問題探討</a></div>
-      
-    </li>
-  
-    <li class="popular-posts-item">
-      
-      
-      <div class="popular-posts-title"><a href="\2019\05\27\AwesomeProxy-Net\" rel="bookmark">【C#】 AOP輕型框架  AwesomeProxy.Net 介紹使用</a></div>
+      <div class="popular-posts-title"><a href="\2019\05\29\base64-principle\" rel="bookmark">【深入淺出】Base編碼 (Base64為例子)</a></div>
       
     </li>
   
@@ -738,11 +593,13 @@ class Program
       
         <div class="post-tags">
           
-            <a href="/tags/C/" rel="tag"># C#</a>
+            <a href="/tags/WebDesign/" rel="tag"># WebDesign</a>
           
-            <a href="/tags/Func/" rel="tag"># Func</a>
+            <a href="/tags/Blog/" rel="tag"># Blog</a>
           
-            <a href="/tags/Delegate/" rel="tag"># Delegate</a>
+            <a href="/tags/Github/" rel="tag"># Github</a>
+          
+            <a href="/tags/CICD/" rel="tag"># CICD</a>
           
         </div>
       
@@ -755,8 +612,8 @@ class Program
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/06/02/c-func-2/" rel="next" title="(C#) 委託delegate,Func<>,Action 解說系列(二)">
-                <i class="fa fa-chevron-left"></i> (C#) 委託delegate,Func<>,Action 解說系列(二)
+              <a href="/2019/06/02/c-func-3/" rel="next" title="(C#)委託delegate,Func<>,Action 解說系列(三)">
+                <i class="fa fa-chevron-left"></i> (C#)委託delegate,Func<>,Action 解說系列(三)
               </a>
             
           </div>
@@ -764,10 +621,6 @@ class Program
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2019/06/02/github-hexo-appveyor/" rel="prev" title="建立自己Blog系列(一) 介紹 Github (hosting) + Hexo (Blog) + Appveyor(CICD)">
-                建立自己Blog系列(一) 介紹 Github (hosting) + Hexo (Blog) + Appveyor(CICD) <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -1060,7 +913,7 @@ class Program
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#前文："><span class="nav-number">1.</span> <span class="nav-text">前文：</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#解說："><span class="nav-number">1.1.</span> <span class="nav-text">解說：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#三個重要名詞-Covariance，Contravariance，Invariance"><span class="nav-number">1.2.</span> <span class="nav-text">三個重要名詞 Covariance，Contravariance，Invariance</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#總結："><span class="nav-number">2.</span> <span class="nav-text">總結：</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#前文："><span class="nav-number">1.</span> <span class="nav-text">前文：</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#流程解說："><span class="nav-number">1.1.</span> <span class="nav-text">流程解說：</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#GitHub-Hosting"><span class="nav-number">2.</span> <span class="nav-text">GitHub (Hosting)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Hexo-Blog"><span class="nav-number">3.</span> <span class="nav-text">Hexo (Blog)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Appveyor-CICD"><span class="nav-number">4.</span> <span class="nav-text">Appveyor(CICD)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#小結"><span class="nav-number">5.</span> <span class="nav-text">小結</span></a></li></ol></div>
             
 
           </div>
@@ -1274,9 +1127,9 @@ class Program
 
 <script>
   var disqus_config = function() {
-    this.page.url = "https://isdaniel.github.io/2019/06/02/c-func-3/";
-    this.page.identifier = "2019/06/02/c-func-3/";
-    this.page.title = '(C#)委託delegate,Func<>,Action 解說系列(三)';
+    this.page.url = "https://isdaniel.github.io/2019/06/02/github-hexo-appveyor/";
+    this.page.identifier = "2019/06/02/github-hexo-appveyor/";
+    this.page.title = '建立自己Blog系列(一) 介紹 Github (hosting) + Hexo (Blog) + Appveyor(CICD)';
     };
   function loadComments() {
     var d = document, s = d.createElement('script');
