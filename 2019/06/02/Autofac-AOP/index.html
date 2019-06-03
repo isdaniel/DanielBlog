@@ -104,18 +104,18 @@
 
 
 
-  <meta name="description" content="Autofac 是個IOC容器  不懂IOC 參考 我之前寫的IOC(控制反轉)，DI(依賴注入) 深入淺出~~ 小弟之前有一個開源框架 AwesomeProxy.Net裡面簡單介紹 AOP核心概念和如何實作! Autofac 有寫一個 Autofac.Extras.DynamicProxy 把AOP和IOC容器融合的框架 在Autofac使用AOP 需要實現下面幾個步驟 本次範例我們從資料庫中撈">
+  <meta name="description" content="Autofac 是個IOC容器  不懂IOC 參考 我之前寫的IOC(控制反轉)，DI(依賴注入) 深入淺出~~ 小弟之前有一個開源框架【C#】 AOP輕型框架  AwesomeProxy.Net 介紹使用 裡面簡單介紹 AOP核心概念和如何實作! Autofac 有寫一個 Autofac.Extras.DynamicProxy 把AOP和IOC容器融合的框架 在Autofac使用AOP 需要實現">
 <meta name="keywords" content="C#,IOC,Autofac,AOP">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Autofac + Interceptors(AOP) 動態代理">
 <meta property="og:url" content="https://isdaniel.github.io/2019/06/02/Autofac-AOP/index.html">
 <meta property="og:site_name" content="石頭的coding之路">
-<meta property="og:description" content="Autofac 是個IOC容器  不懂IOC 參考 我之前寫的IOC(控制反轉)，DI(依賴注入) 深入淺出~~ 小弟之前有一個開源框架 AwesomeProxy.Net裡面簡單介紹 AOP核心概念和如何實作! Autofac 有寫一個 Autofac.Extras.DynamicProxy 把AOP和IOC容器融合的框架 在Autofac使用AOP 需要實現下面幾個步驟 本次範例我們從資料庫中撈">
+<meta property="og:description" content="Autofac 是個IOC容器  不懂IOC 參考 我之前寫的IOC(控制反轉)，DI(依賴注入) 深入淺出~~ 小弟之前有一個開源框架【C#】 AOP輕型框架  AwesomeProxy.Net 介紹使用 裡面簡單介紹 AOP核心概念和如何實作! Autofac 有寫一個 Autofac.Extras.DynamicProxy 把AOP和IOC容器融合的框架 在Autofac使用AOP 需要實現">
 <meta property="og:locale" content="zh-tw">
-<meta property="og:updated_time" content="2019-06-02T15:15:35.899Z">
+<meta property="og:updated_time" content="2019-06-03T09:40:54.996Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Autofac + Interceptors(AOP) 動態代理">
-<meta name="twitter:description" content="Autofac 是個IOC容器  不懂IOC 參考 我之前寫的IOC(控制反轉)，DI(依賴注入) 深入淺出~~ 小弟之前有一個開源框架 AwesomeProxy.Net裡面簡單介紹 AOP核心概念和如何實作! Autofac 有寫一個 Autofac.Extras.DynamicProxy 把AOP和IOC容器融合的框架 在Autofac使用AOP 需要實現下面幾個步驟 本次範例我們從資料庫中撈">
+<meta name="twitter:description" content="Autofac 是個IOC容器  不懂IOC 參考 我之前寫的IOC(控制反轉)，DI(依賴注入) 深入淺出~~ 小弟之前有一個開源框架【C#】 AOP輕型框架  AwesomeProxy.Net 介紹使用 裡面簡單介紹 AOP核心概念和如何實作! Autofac 有寫一個 Autofac.Extras.DynamicProxy 把AOP和IOC容器融合的框架 在Autofac使用AOP 需要實現">
 
 
 
@@ -201,7 +201,7 @@
   </div>
 
   <div class="site-nav-toggle">
-    <button aria-label="切換導航欄">
+    <button aria-label="Toggle navigation bar">
       <span class="btn-bar"></span>
       <span class="btn-bar"></span>
       <span class="btn-bar"></span>
@@ -231,7 +231,7 @@
       
     
 
-    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首頁</a>
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>Home</a>
 
   </li>
         
@@ -250,7 +250,7 @@
       
     
 
-    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>關於</a>
+    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>About</a>
 
   </li>
         
@@ -269,7 +269,7 @@
       
     
 
-    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>標籤<span class="badge">34</span></a>
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>Tags<span class="badge">38</span></a>
 
   </li>
         
@@ -288,7 +288,7 @@
       
     
 
-    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分類<span class="badge">7</span></a>
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>Categories<span class="badge">8</span></a>
 
   </li>
         
@@ -307,7 +307,7 @@
       
     
 
-    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>歸檔<span class="badge">19</span></a>
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives<span class="badge">23</span></a>
 
   </li>
 
@@ -398,19 +398,31 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">發表於</span>
+                <span class="post-meta-item-text">Posted on</span>
               
 
               
                 
               
 
-              <time title="創建時間：2019-06-02 22:30:11 / 修改時間：15:15:35" itemprop="dateCreated datePublished" datetime="2019-06-02T22:30:11+00:00">2019-06-02</time>
+              <time title="Created: 2019-06-02 22:30:11" itemprop="dateCreated datePublished" datetime="2019-06-02T22:30:11+00:00">2019-06-02</time>
             
 
             
               
 
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2019-06-03 09:40:54" itemprop="dateModified" datetime="2019-06-03T09:40:54+00:00">2019-06-03</time>
               
             
           </span>
@@ -424,14 +436,14 @@
                 <i class="fa fa-folder-o"></i>
               </span>
               
-                <span class="post-meta-item-text">分類於</span>
+                <span class="post-meta-item-text">In</span>
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/C/" itemprop="url" rel="index"><span itemprop="name">C#</span></a></span>
 
                 
                 
-                  ，
+                  , 
                 
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/C/IOC/" itemprop="url" rel="index"><span itemprop="name">IOC</span></a></span>
@@ -452,7 +464,7 @@
                   <i class="fa fa-comment-o"></i>
                 </span>
             
-                <span class="post-meta-item-text">評論數：</span>
+                <span class="post-meta-item-text">Comments: </span>
                 <a href="/2019/06/02/Autofac-AOP/#comments" itemprop="discussionUrl">
                   <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2019/06/02/Autofac-AOP/" itemprop="commentCount"></span>
                 </a>
@@ -467,7 +479,7 @@
             <span class="post-meta-divider">|</span>
             <span class="post-meta-item-icon">
             <i class="fa fa-eye"></i>
-             閱讀次數： 
+             Views:  
             <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>
             </span>
           
@@ -481,9 +493,9 @@
                   <i class="fa fa-file-word-o"></i>
                 </span>
                 
-                  <span class="post-meta-item-text">文章字數：</span>
+                  <span class="post-meta-item-text">Symbols count in article: </span>
                 
-                <span title="文章字數">2.2k</span>
+                <span title="Symbols count in article">2.2k</span>
               
 
               
@@ -495,9 +507,9 @@
                   <i class="fa fa-clock-o"></i>
                 </span>
                 
-                  <span class="post-meta-item-text">所需閱讀時間 &asymp;</span>
+                  <span class="post-meta-item-text">Reading time &asymp;</span>
                 
-                <span title="所需閱讀時間">4 分鐘</span>
+                <span title="Reading time">4 mins.</span>
               
             </div>
           
@@ -518,7 +530,7 @@
 
       
         <p>Autofac 是個IOC容器  不懂IOC 參考 我之前寫<br>的<a href="/2019/05/26/ioc-di/" title="IOC(控制反轉)，DI(依賴注入) 深入淺出~~">IOC(控制反轉)，DI(依賴注入) 深入淺出~~</a></p>
-<p>小弟之前有一個開源框架 <span class="exturl" data-url="aHR0cHM6Ly9kb3RibG9ncy5jb20udHcvZGFuaWVsLzIwMTgvMDIvMTEvMTExNjA1" title="https://dotblogs.com.tw/daniel/2018/02/11/111605">AwesomeProxy.Net<i class="fa fa-external-link"></i></span>裡面簡單介紹 AOP核心概念和如何實作!</p>
+<p>小弟之前有一個開源框架<a href="/2019/05/27/AwesomeProxy-Net/" title="【C#】 AOP輕型框架  AwesomeProxy.Net 介紹使用">【C#】 AOP輕型框架  AwesomeProxy.Net 介紹使用</a> 裡面簡單介紹 AOP核心概念和如何實作!</p>
 <p>Autofac 有寫一個 <span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2F1dG9mYWMvQXV0b2ZhYy5FeHRyYXMuRHluYW1pY1Byb3h5" title="https://github.com/autofac/Autofac.Extras.DynamicProxy">Autofac.Extras.DynamicProxy<i class="fa fa-external-link"></i></span> 把AOP和IOC容器融合的框架</p>
 <p>在Autofac使用AOP 需要實現下面幾個步驟</p>
 <p>本次範例我們從資料庫中撈取時間資料出來，並使用<code>Thread.Sleep(5000)</code>作出延遲，判斷時間是否前後一致。</p>
@@ -614,8 +626,15 @@ return builder.Build();
     
       
 
-  <div class="popular-posts-header">相關文章</div>
+  <div class="popular-posts-header">Related Posts</div>
   <ul class="popular-posts">
+  
+    <li class="popular-posts-item">
+      
+      
+      <div class="popular-posts-title"><a href="\2019\06\02\Autofac-introduce\" rel="bookmark">Autofac (IOC)容器介紹</a></div>
+      
+    </li>
   
     <li class="popular-posts-item">
       
@@ -634,21 +653,14 @@ return builder.Build();
     <li class="popular-posts-item">
       
       
+      <div class="popular-posts-title"><a href="\2019\06\01\Decorator-Pattern\" rel="bookmark">(C#)裝飾者模式(Decorator Pattern)</a></div>
+      
+    </li>
+  
+    <li class="popular-posts-item">
+      
+      
       <div class="popular-posts-title"><a href="\2019\05\27\InvoiceTW-Framework\" rel="bookmark">【財政部查詢類電子發票API】框架解說 C#</a></div>
-      
-    </li>
-  
-    <li class="popular-posts-item">
-      
-      
-      <div class="popular-posts-title"><a href="\2019\05\26\JsonConvert-SerializeObject\" rel="bookmark">JsonConvert.SerializeObject 呼叫 object.Equals 問題探討</a></div>
-      
-    </li>
-  
-    <li class="popular-posts-item">
-      
-      
-      <div class="popular-posts-title"><a href="\2019\06\02\c-func-2\" rel="bookmark">(C#) 委託delegate,Func<>,Action 解說系列(二)</a></div>
       
     </li>
   
@@ -693,8 +705,8 @@ return builder.Build();
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/06/02/hexo-github-setting/" rel="next" title="建立自己Blog系列(二) github Setting">
-                <i class="fa fa-chevron-left"></i> 建立自己Blog系列(二) github Setting
+              <a href="/2019/06/02/Bridge-Pattern/" rel="next" title="橋接模式(BridgePattern)">
+                <i class="fa fa-chevron-left"></i> 橋接模式(BridgePattern)
               </a>
             
           </div>
@@ -760,10 +772,10 @@ return builder.Build();
       
         <ul class="sidebar-nav motion-element">
           <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
-            文章目錄
+            Table of Contents
           </li>
           <li class="sidebar-nav-overview" data-target="site-overview-wrap">
-            本站概要
+            Overview
           </li>
         </ul>
       
@@ -785,8 +797,8 @@ return builder.Build();
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">19</span>
-                    <span class="site-state-item-name">文章</span>
+                    <span class="site-state-item-count">23</span>
+                    <span class="site-state-item-name">posts</span>
                   </a>
                 </div>
               
@@ -816,8 +828,10 @@ return builder.Build();
                     
                       
                     
-                    <span class="site-state-item-count">7</span>
-                    <span class="site-state-item-name">分類</span>
+                      
+                    
+                    <span class="site-state-item-count">8</span>
+                    <span class="site-state-item-name">categories</span>
                   </a>
                 </div>
               
@@ -901,8 +915,16 @@ return builder.Build();
                     
                       
                     
-                    <span class="site-state-item-count">34</span>
-                    <span class="site-state-item-name">標籤</span>
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">38</span>
+                    <span class="site-state-item-name">tags</span>
                   </a>
                 </div>
               
@@ -1027,7 +1049,7 @@ return builder.Build();
       <i class="fa fa-area-chart"></i>
     </span>
     
-    <span title="總字數">49k</span>
+    <span title="Symbols count total">62k</span>
   
 
   
@@ -1036,12 +1058,12 @@ return builder.Build();
       <i class="fa fa-coffee"></i>
     </span>
     
-    <span title="所需總閱讀時間">1:29</span>
+    <span title="Reading time total">1:53</span>
   
 </div>
 
 
-  <div class="powered-by">由 <span class="exturl theme-link" data-url="aHR0cHM6Ly9oZXhvLmlv">Hexo</span> 強力驅動 v3.8.0</div>
+  <div class="powered-by">Powered by <span class="exturl theme-link" data-url="aHR0cHM6Ly9oZXhvLmlv">Hexo</span> v3.8.0</div>
 
 
 
@@ -1049,7 +1071,7 @@ return builder.Build();
 
 
 
-  <div class="theme-info">主題 – <span class="exturl theme-link" data-url="aHR0cHM6Ly90aGVtZS1uZXh0Lm9yZw==">NexT.Pisces</span> v7.1.1</div>
+  <div class="theme-info">Theme – <span class="exturl theme-link" data-url="aHR0cHM6Ly90aGVtZS1uZXh0Lm9yZw==">NexT.Pisces</span> v7.1.1</div>
 
 
 
@@ -1062,7 +1084,7 @@ return builder.Build();
     <span class="post-meta-item-icon">
       <i class="fa fa-user"></i>
     </span>
-    <span class="site-uv" title="訪客總數">
+    <span class="site-uv" title="Total Visitors">
       <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
     </span>
   
@@ -1075,7 +1097,7 @@ return builder.Build();
     <span class="post-meta-item-icon">
       <i class="fa fa-eye"></i>
     </span>
-    <span class="site-pv" title="總瀏覽次數">
+    <span class="site-pv" title="Total Views">
       <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
     </span>
   
