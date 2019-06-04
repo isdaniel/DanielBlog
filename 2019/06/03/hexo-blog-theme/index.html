@@ -104,21 +104,18 @@
 
 
 
-  <meta name="description" content="前言：如果目前場景遇到一定流程階段，但流程內容依照邏輯或情境不同也有所不一樣. 這時可以考慮使用樣板模式(TemplatePattern) 生活舉例：因為十二年國教，所以基本上每個人都有上學的經驗 每天上學最少要經歷下面過程(我做一些簡化) 到學校=&amp;gt;上午上課=&amp;gt;吃午餐=&amp;gt;下午上課=&amp;gt;放學回家  可以看到不管是國小、國中、高中 至少都有上述的過程 但每個過程內容可能會依照年">
-<meta name="keywords" content="C#,DesignPattern,TemplatePattern">
+  <meta name="description" content="前言：為何我會選用Hxeo來當作Blog框架? 有下面幾個原因:  因為建立於本地端，所以可以更方便離線進行編輯 使用 Markdown 語法撰寫Blog，更方便、通用、容易上手 搭配線上CICD工具部署於 Github 上，完全零成本 中文文件資源多 支援多樣不同樣板，可隨心所欲切換風格 開源社群活躍 基於NodeJs擁有豐富的差件  建立自己的Hexo安裝 Node.js首先先安裝 Node.">
+<meta name="keywords" content="WebDesign,Blog,Github,CICD">
 <meta property="og:type" content="article">
-<meta property="og:title" content="橋接模式(BridgePattern)">
-<meta property="og:url" content="https://isdaniel.github.io/2019/06/02/Template-Pattern/index.html">
+<meta property="og:title" content="建立自己Blog系列(三) Hexo next theme 介紹">
+<meta property="og:url" content="https://isdaniel.github.io/2019/06/03/hexo-blog-theme/index.html">
 <meta property="og:site_name" content="石頭的coding之路">
-<meta property="og:description" content="前言：如果目前場景遇到一定流程階段，但流程內容依照邏輯或情境不同也有所不一樣. 這時可以考慮使用樣板模式(TemplatePattern) 生活舉例：因為十二年國教，所以基本上每個人都有上學的經驗 每天上學最少要經歷下面過程(我做一些簡化) 到學校=&amp;gt;上午上課=&amp;gt;吃午餐=&amp;gt;下午上課=&amp;gt;放學回家  可以看到不管是國小、國中、高中 至少都有上述的過程 但每個過程內容可能會依照年">
+<meta property="og:description" content="前言：為何我會選用Hxeo來當作Blog框架? 有下面幾個原因:  因為建立於本地端，所以可以更方便離線進行編輯 使用 Markdown 語法撰寫Blog，更方便、通用、容易上手 搭配線上CICD工具部署於 Github 上，完全零成本 中文文件資源多 支援多樣不同樣板，可隨心所欲切換風格 開源社群活躍 基於NodeJs擁有豐富的差件  建立自己的Hexo安裝 Node.js首先先安裝 Node.">
 <meta property="og:locale" content="zh-tw">
-<meta property="og:image" content="https://camo.githubusercontent.com/685889c0eb69ee7e13072476fe868a653e32090b/68747470733a2f2f7777772e636f646570726f6a6563742e636f6d2f4b422f63732f61757470312f746573745375697465466c6f772e6a7067">
-<meta property="og:image" content="https://github.com/isdaniel/DesignPattern/raw/master/DesignPattern/img/TemplateMethod/TemplateMethod.PNG">
-<meta property="og:updated_time" content="2019-06-04T01:44:04.727Z">
+<meta property="og:updated_time" content="2019-06-04T01:44:04.742Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="橋接模式(BridgePattern)">
-<meta name="twitter:description" content="前言：如果目前場景遇到一定流程階段，但流程內容依照邏輯或情境不同也有所不一樣. 這時可以考慮使用樣板模式(TemplatePattern) 生活舉例：因為十二年國教，所以基本上每個人都有上學的經驗 每天上學最少要經歷下面過程(我做一些簡化) 到學校=&amp;gt;上午上課=&amp;gt;吃午餐=&amp;gt;下午上課=&amp;gt;放學回家  可以看到不管是國小、國中、高中 至少都有上述的過程 但每個過程內容可能會依照年">
-<meta name="twitter:image" content="https://camo.githubusercontent.com/685889c0eb69ee7e13072476fe868a653e32090b/68747470733a2f2f7777772e636f646570726f6a6563742e636f6d2f4b422f63732f61757470312f746573745375697465466c6f772e6a7067">
+<meta name="twitter:title" content="建立自己Blog系列(三) Hexo next theme 介紹">
+<meta name="twitter:description" content="前言：為何我會選用Hxeo來當作Blog框架? 有下面幾個原因:  因為建立於本地端，所以可以更方便離線進行編輯 使用 Markdown 語法撰寫Blog，更方便、通用、容易上手 搭配線上CICD工具部署於 Github 上，完全零成本 中文文件資源多 支援多樣不同樣板，可隨心所欲切換風格 開源社群活躍 基於NodeJs擁有豐富的差件  建立自己的Hexo安裝 Node.js首先先安裝 Node.">
 
 
 
@@ -126,7 +123,7 @@
 
   
   
-  <link rel="canonical" href="https://isdaniel.github.io/2019/06/02/Template-Pattern/">
+  <link rel="canonical" href="https://isdaniel.github.io/2019/06/03/hexo-blog-theme/">
 
 
 
@@ -136,7 +133,7 @@
   };
 </script>
 
-  <title>橋接模式(BridgePattern) | 石頭的coding之路</title>
+  <title>建立自己Blog系列(三) Hexo next theme 介紹 | 石頭的coding之路</title>
   
 
 
@@ -365,7 +362,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://isdaniel.github.io/2019/06/02/Template-Pattern/">
+    <link itemprop="mainEntityOfPage" href="https://isdaniel.github.io/2019/06/03/hexo-blog-theme/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Daniel Shih">
@@ -382,7 +379,7 @@
 
         
         
-          <h2 class="post-title" itemprop="name headline">橋接模式(BridgePattern)
+          <h2 class="post-title" itemprop="name headline">建立自己Blog系列(三) Hexo next theme 介紹
 
               
             
@@ -408,7 +405,7 @@
                 
               
 
-              <time title="Created: 2019-06-02 22:30:11" itemprop="dateCreated datePublished" datetime="2019-06-02T22:30:11+00:00">2019-06-02</time>
+              <time title="Created: 2019-06-03 21:53:16" itemprop="dateCreated datePublished" datetime="2019-06-03T21:53:16+00:00">2019-06-03</time>
             
 
             
@@ -442,14 +439,7 @@
                 <span class="post-meta-item-text">In</span>
               
               
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/C/" itemprop="url" rel="index"><span itemprop="name">C#</span></a></span>
-
-                
-                
-                  , 
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/C/DesignPattern/" itemprop="url" rel="index"><span itemprop="name">DesignPattern</span></a></span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/WebDesign/" itemprop="url" rel="index"><span itemprop="name">WebDesign</span></a></span>
 
                 
                 
@@ -468,8 +458,8 @@
                 </span>
             
                 <span class="post-meta-item-text">Comments: </span>
-                <a href="/2019/06/02/Template-Pattern/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2019/06/02/Template-Pattern/" itemprop="commentCount"></span>
+                <a href="/2019/06/03/hexo-blog-theme/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2019/06/03/hexo-blog-theme/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -532,107 +522,110 @@
       
 
       
-        <h2 id="前言："><a href="#前言：" class="headerlink" title="前言："></a>前言：</h2><p>如果目前場景遇到一定流程階段，但流程內容依照邏輯或情境不同也有所不一樣. 這時可以考慮使用樣板模式(TemplatePattern)</p>
-<h3 id="生活舉例："><a href="#生活舉例：" class="headerlink" title="生活舉例："></a>生活舉例：</h3><p>因為十二年國教，所以基本上每個人都有上學的經驗</p>
-<p>每天上學最少要經歷下面過程(我做一些簡化)</p>
-<div class="note note--normal">到學校=&gt;上午上課=&gt;吃午餐=&gt;下午上課=&gt;放學回家</div>
-
-<p>可以看到不管是國小、國中、高中 至少都有上述的過程</p>
-<p>但每個過程內容可能會依照年級階段不同，也有所不一樣</p>
-<p>例如：</p>
-<ul>
-<li>吃中餐：高中可能是吃便當，但國小是吃營養午餐，雖然都是吃飯但內容不一樣。</li>
-<li>上午上課：都是教數學，但高中教微積分，國小教加減乘除。</li>
-</ul>
-<div class="note note--normal">重點:流程雖一樣但細部邏輯交由學校去實施實現</div>
-
-<hr>
-<h2 id="常見例子："><a href="#常見例子：" class="headerlink" title="常見例子："></a>常見例子：</h2><p>我們常見的測試框架 <code>MSTest,NUnit.....</code> 都有樣板模式的思想。</p>
-<p>一般來說測試框架都有<strong>生命週期</strong>，只是每個框架命名不一樣但核心原理差不多</p>
+        <h2 id="前言："><a href="#前言：" class="headerlink" title="前言："></a>前言：</h2><p>為何我會選用Hxeo來當作Blog框架?</p>
+<p>有下面幾個原因:</p>
 <ol>
-<li>SetUpClass (每個測試類別只都執行一次)</li>
-<li>SetUpUnitTest (每次執行測試方法時都執行一次)</li>
-<li>UnitTest (執行測試方法)</li>
+<li>因為建立於本地端，所以可以更方便離線進行編輯</li>
+<li>使用 <code>Markdown</code> 語法撰寫Blog，更方便、通用、容易上手</li>
+<li>搭配線上<code>CICD</code>工具部署於 <code>Github</code> 上，完全零成本</li>
+<li>中文文件資源多</li>
+<li>支援多樣不同樣板，可隨心所欲切換風格</li>
+<li>開源社群活躍</li>
+<li><strong>基於NodeJs擁有豐富的差件</strong></li>
 </ol>
-<p><strong>如下圖</strong></p>
-<p><span class="exturl" data-url="aHR0cHM6Ly9jYW1vLmdpdGh1YnVzZXJjb250ZW50LmNvbS82ODU4ODljMGViNjllZTdlMTMwNzI0NzZmZTg2OGE2NTNlMzIwOTBiLzY4NzQ3NDcwNzMzYTJmMmY3Nzc3NzcyZTYzNmY2NDY1NzA3MjZmNmE2NTYzNzQyZTYzNmY2ZDJmNGI0MjJmNjM3MzJmNjE3NTc0NzAzMTJmNzQ2NTczNzQ1Mzc1Njk3NDY1NDY2YzZmNzcyZTZhNzA2Nw==" title="https://camo.githubusercontent.com/685889c0eb69ee7e13072476fe868a653e32090b/68747470733a2f2f7777772e636f646570726f6a6563742e636f6d2f4b422f63732f61757470312f746573745375697465466c6f772e6a7067"><img src="https://camo.githubusercontent.com/685889c0eb69ee7e13072476fe868a653e32090b/68747470733a2f2f7777772e636f646570726f6a6563742e636f6d2f4b422f63732f61757470312f746573745375697465466c6f772e6a7067" alt="Alt text" title="Optional title"><i class="fa fa-external-link"></i></span></p>
-<p>(圖片來自網路上)</p>
-<hr>
-<h3 id="程式碼範例："><a href="#程式碼範例：" class="headerlink" title="程式碼範例："></a>程式碼範例：</h3><p>此範例使用Console來模擬單元測試框架流程：</p>
-<p>建立一個 <code>UnitFlowBase</code> 抽像類別，裡面有三個方法</p>
-<ol>
-<li>SetUpClass (每個測試類別只都執行一次)</li>
-<li>SetUpUnitTest (每次執行測試方法時都執行一次)</li>
-<li>UnitTest (執行測試方法)</li>
-</ol>
-<p>此抽象類別提供3個Hock讓子類實做細節。 <code>UnitFlowBase</code>只提供框架</p>
-<pre><code>public abstract class UnitFlowBase
-{
-    protected UnitFlowBase()
-    {
-        SetUpClass();
-    }
+<h2 id="建立自己的Hexo"><a href="#建立自己的Hexo" class="headerlink" title="建立自己的Hexo"></a>建立自己的Hexo</h2><h3 id="安裝-Node-js"><a href="#安裝-Node-js" class="headerlink" title="安裝 Node.js"></a>安裝 Node.js</h3><p>首先先安裝 <span class="exturl" data-url="aHR0cHM6Ly9ub2RlanMub3JnL2VuLw==" title="https://nodejs.org/en/">Node.js 官網下載安裝<i class="fa fa-external-link"></i></span></p>
+<p>安裝完後使用<code>CMD</code></p>
+<blockquote>
+<p>　node -v \<br>npm -v</p>
+</blockquote>
+<p>查看是否安裝成功.</p>
+<h3 id="安裝-Hexo-cli"><a href="#安裝-Hexo-cli" class="headerlink" title="安裝 Hexo-cli"></a>安裝 Hexo-cli</h3><p>使用 <code>npm</code> 來安裝 hexo (須先安裝 Node.js)</p>
+<blockquote>
+<p>npm install hexo-cli -g</p>
+</blockquote>
+<p>因為我們之前就有建立一個Code Blog Repository.</p>
+<p>我們使用<code>CMD</code> 的 <code>CD</code> 命令進入此資料夾目錄中</p>
+<p>在使用<code>hexo cli</code>幫助我們快速建立Blog相關檔案</p>
+<blockquote>
+<p>hexo init blog       # 初始化 blog</p>
+<p>npm install          # 安裝相關套件</p>
+</blockquote>
+<p>如果要把Hexo deploy到Github上面，需要先安裝</p>
+<blockquote>
+<p>　npm install hexo-deployer-git –save</p>
+</blockquote>
+<h2 id="Hexo-config-yml-設定說明"><a href="#Hexo-config-yml-設定說明" class="headerlink" title="Hexo config.yml 設定說明"></a>Hexo config.yml 設定說明</h2><p><code>Hexo</code> 是使用yml檔案格式來當設定檔.</p>
+<p>建立完Hexo資料後會有一個<code>_config.yml</code>檔案,那就是<code>Hexo</code>的設定檔案.</p>
+<h3 id="預設頁面："><a href="#預設頁面：" class="headerlink" title="預設頁面："></a>預設頁面：</h3><pre><code># Site
+title: 石頭的coding之路
+subtitle:
+description: 好點子沒價值，有價值的是把好點子實現～～
+keywords:
+author: Daniel Shih
+language: zh-tw
+timezone:
 
-    protected virtual void SetUpClass()
-    {
-    }
-
-    protected virtual void SetUpUnitTest()
-    {
-    }
-
-    protected abstract bool Execute();
-
-    public void UnitTest()
-    {
-        SetUpUnitTest();
-        Console.WriteLine(Execute() ? &quot;Assert Successful.&quot; : &quot;Assert Fail.&quot;);
-    }
-}
-</code></pre><p>建立另一個類別<code>UnitCounter</code> 實現那三個方法 特別是<code>Execute</code>方法 我顯示目前 <code>ClassCount</code> 跟 <code>MethodCount</code> 執行次數</p>
-<pre><code>public class UnitCounter : UnitFlowBase
-{
-    private int _classCounter = 0;
-
-    private int _methodCounter = 0;
-
-    protected override void SetUpClass()
-    {
-        _classCounter++;
-    }
-
-    protected override void SetUpUnitTest()
-    {
-        _methodCounter++;
-    }
-
-    protected override bool Execute()
-    {
-        Console.WriteLine($&quot;ClassCounter : {_classCounter}&quot;);
-        Console.WriteLine($&quot;MethodCounter: { _methodCounter}&quot;);
-
-        return true;
-    }
-}
-</code></pre><p>呼叫實我們建立一個<code>UnitCounter</code>類別，但執行三次<code>UnitTest</code>方法</p>
-<pre><code>class Program
-{
-    static void Main(string[] args)
-    {
-        UnitCounter unitMock = new UnitCounter();
-        unitMock.UnitTest();
-        unitMock.UnitTest();
-        unitMock.UnitTest();
-
-        Console.ReadKey();
-    }
-}
-</code></pre><p>執行結果如下圖：</p>
-<p><span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2lzZGFuaWVsL0Rlc2lnblBhdHRlcm4vYmxvYi9tYXN0ZXIvRGVzaWduUGF0dGVybi9pbWcvVGVtcGxhdGVNZXRob2QvVGVtcGxhdGVNZXRob2QuUE5H" title="https://github.com/isdaniel/DesignPattern/blob/master/DesignPattern/img/TemplateMethod/TemplateMethod.PNG"><img src="https://github.com/isdaniel/DesignPattern/raw/master/DesignPattern/img/TemplateMethod/TemplateMethod.PNG" alt="img"><i class="fa fa-external-link"></i></span></p>
-<p>雖然執行3次 <code>UnitTest</code> 方法 但 <code>ClassCounter</code> 值卻一直是1而 <code>MethodCounter</code> 會依照執行幾次就加幾次.</p>
-<hr>
-<h2 id="小結"><a href="#小結" class="headerlink" title="小結:"></a>小結:</h2><p>日後測試程式只需關注我們需要如何實現邏輯細解（重寫三個方法），核心流程順序就交由<code>UnitFlowBase</code>決定。</p>
-
+# Header
+menu:
+Home: /
+Archives: /archives
+About: /about.html
+Tags: /tags
+Categories: /categories
+</code></pre><h3 id="路由設定："><a href="#路由設定：" class="headerlink" title="路由設定："></a>路由設定：</h3><pre><code># URL
+url: https://isdaniel.github.io/
+root: /
+permalink: :year/:month/:day/:title/
+permalink_defaults:
+</code></pre><h3 id="資料檔設定："><a href="#資料檔設定：" class="headerlink" title="資料檔設定："></a>資料檔設定：</h3><pre><code># Directory
+source_dir: source
+public_dir: public
+tag_dir: tags
+archive_dir: archives
+category_dir: categories
+code_dir: downloads/code
+i18n_dir: :lang
+skip_render:
+</code></pre><h3 id="文章設定"><a href="#文章設定" class="headerlink" title="文章設定"></a>文章設定</h3><pre><code>new_post_name: :title.md 
+default_layout: post
+titlecase: false # Transform title into titlecase
+external_link: true # Open external links in new tab
+filename_case: 0
+render_drafts: false
+post_asset_folder: false
+relative_link: false
+future: true
+highlight:
+enable: true
+line_number: true
+auto_detect: false
+tab_replace:
+</code></pre><h3 id="配置index2-generator"><a href="#配置index2-generator" class="headerlink" title="配置index2 generator"></a>配置index2 generator</h3><pre><code>index2_generator:
+per_page: 10
+order_by: -date
+include:
+    - category Web 
+exclude:
+    - tag Hexo 
+</code></pre><h3 id="Hexo-時間格式"><a href="#Hexo-時間格式" class="headerlink" title="Hexo 時間格式"></a>Hexo 時間格式</h3><pre><code># Date / Time format
+## You can customize the date format as defined in
+## http://momentjs.com/docs/#/displaying/format/
+date_format: YYYY-MM-DD
+time_format: HH:mm:ss
+</code></pre><h3 id="Hexo-主題設定"><a href="#Hexo-主題設定" class="headerlink" title="Hexo 主題設定"></a>Hexo 主題設定</h3><pre><code># Extensions
+theme: next
+</code></pre><h3 id="發佈資料設定"><a href="#發佈資料設定" class="headerlink" title="發佈資料設定"></a>發佈資料設定</h3><pre><code># Deployment
+## Docs: https://hexo.io/docs/deployment.html
+deploy:
+type: git
+repo: https://github.com/isdaniel/isdaniel.github.io.git
+branch: master
+</code></pre><h3 id="社群資料設定："><a href="#社群資料設定：" class="headerlink" title="社群資料設定："></a>社群資料設定：</h3><pre><code># Social Accounts
+instagram_url: https://www.instagram.com/dn_shih/
+github_url: https://github.com/isdaniel
+email_url: dog830228@gmail.com
+</code></pre><p>可以參考我的<span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2lzZGFuaWVsL015QmxvZy9ibG9iL21hc3Rlci9fY29uZmlnLnltbA==" title="https://github.com/isdaniel/MyBlog/blob/master/_config.yml">_config.yml<i class="fa fa-external-link"></i></span>檔案</p>
+<h2 id="Hexo推薦插件"><a href="#Hexo推薦插件" class="headerlink" title="Hexo推薦插件"></a>Hexo推薦插件</h2>
       
     </div>
 
@@ -645,35 +638,21 @@
     <li class="popular-posts-item">
       
       
-      <div class="popular-posts-title"><a href="\2019\06\02\Bridge-Pattern\" rel="bookmark">橋接模式(BridgePattern)</a></div>
+      <div class="popular-posts-title"><a href="\2019\06\02\github-hexo-appveyor\" rel="bookmark">建立自己Blog系列(一) 介紹 Github (hosting) + Hexo (Blog) + Appveyor(CICD)</a></div>
       
     </li>
   
     <li class="popular-posts-item">
       
       
-      <div class="popular-posts-title"><a href="\2019\06\03\Mediator-Pattern\" rel="bookmark">MediatorPattern(中介者模式)</a></div>
+      <div class="popular-posts-title"><a href="\2019\06\02\hexo-github-setting\" rel="bookmark">建立自己Blog系列(二) github Setting</a></div>
       
     </li>
   
     <li class="popular-posts-item">
       
       
-      <div class="popular-posts-title"><a href="\2019\06\02\c-func-1\" rel="bookmark">(C#)委託delegate,Func<>,Action 解說系列(一)</a></div>
-      
-    </li>
-  
-    <li class="popular-posts-item">
-      
-      
-      <div class="popular-posts-title"><a href="\2019\06\01\Decorator-Pattern\" rel="bookmark">(C#)裝飾者模式(Decorator Pattern)</a></div>
-      
-    </li>
-  
-    <li class="popular-posts-item">
-      
-      
-      <div class="popular-posts-title"><a href="\2019\06\02\Autofac-AOP\" rel="bookmark">Autofac + Interceptors(AOP) 動態代理</a></div>
+      <div class="popular-posts-title"><a href="\2019\05\29\base64-principle\" rel="bookmark">【深入淺出】Base編碼 (Base64為例子)</a></div>
       
     </li>
   
@@ -699,11 +678,13 @@
       
         <div class="post-tags">
           
-            <a href="/tags/C/" rel="tag"># C#</a>
+            <a href="/tags/WebDesign/" rel="tag"># WebDesign</a>
           
-            <a href="/tags/DesignPattern/" rel="tag"># DesignPattern</a>
+            <a href="/tags/Blog/" rel="tag"># Blog</a>
           
-            <a href="/tags/TemplatePattern/" rel="tag"># TemplatePattern</a>
+            <a href="/tags/Github/" rel="tag"># Github</a>
+          
+            <a href="/tags/CICD/" rel="tag"># CICD</a>
           
         </div>
       
@@ -716,8 +697,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/06/02/Autofac-AOP/" rel="next" title="Autofac + Interceptors(AOP) 動態代理">
-                <i class="fa fa-chevron-left"></i> Autofac + Interceptors(AOP) 動態代理
+              <a href="/2019/06/02/Dynamic-pivot/" rel="next" title="(SQL Server)Dynamic pivot 動態樞紐分析">
+                <i class="fa fa-chevron-left"></i> (SQL Server)Dynamic pivot 動態樞紐分析
               </a>
             
           </div>
@@ -726,8 +707,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2019/06/02/Bridge-Pattern/" rel="prev" title="橋接模式(BridgePattern)">
-                橋接模式(BridgePattern) <i class="fa fa-chevron-right"></i>
+              <a href="/2019/06/03/Mediator-Pattern/" rel="prev" title="MediatorPattern(中介者模式)">
+                MediatorPattern(中介者模式) <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -1041,7 +1022,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#前言："><span class="nav-number">1.</span> <span class="nav-text">前言：</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#生活舉例："><span class="nav-number">1.1.</span> <span class="nav-text">生活舉例：</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#常見例子："><span class="nav-number">2.</span> <span class="nav-text">常見例子：</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#程式碼範例："><span class="nav-number">2.1.</span> <span class="nav-text">程式碼範例：</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#小結"><span class="nav-number">3.</span> <span class="nav-text">小結:</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#前言："><span class="nav-number">1.</span> <span class="nav-text">前言：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#建立自己的Hexo"><span class="nav-number">2.</span> <span class="nav-text">建立自己的Hexo</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#安裝-Node-js"><span class="nav-number">2.1.</span> <span class="nav-text">安裝 Node.js</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#安裝-Hexo-cli"><span class="nav-number">2.2.</span> <span class="nav-text">安裝 Hexo-cli</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Hexo-config-yml-設定說明"><span class="nav-number">3.</span> <span class="nav-text">Hexo config.yml 設定說明</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#預設頁面："><span class="nav-number">3.1.</span> <span class="nav-text">預設頁面：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#路由設定："><span class="nav-number">3.2.</span> <span class="nav-text">路由設定：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#資料檔設定："><span class="nav-number">3.3.</span> <span class="nav-text">資料檔設定：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#文章設定"><span class="nav-number">3.4.</span> <span class="nav-text">文章設定</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#配置index2-generator"><span class="nav-number">3.5.</span> <span class="nav-text">配置index2 generator</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Hexo-時間格式"><span class="nav-number">3.6.</span> <span class="nav-text">Hexo 時間格式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Hexo-主題設定"><span class="nav-number">3.7.</span> <span class="nav-text">Hexo 主題設定</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#發佈資料設定"><span class="nav-number">3.8.</span> <span class="nav-text">發佈資料設定</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#社群資料設定："><span class="nav-number">3.9.</span> <span class="nav-text">社群資料設定：</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Hexo推薦插件"><span class="nav-number">4.</span> <span class="nav-text">Hexo推薦插件</span></a></li></ol></div>
             
 
           </div>
@@ -1256,9 +1237,9 @@
 
 <script>
   var disqus_config = function() {
-    this.page.url = "https://isdaniel.github.io/2019/06/02/Template-Pattern/";
-    this.page.identifier = "2019/06/02/Template-Pattern/";
-    this.page.title = '橋接模式(BridgePattern)';
+    this.page.url = "https://isdaniel.github.io/2019/06/03/hexo-blog-theme/";
+    this.page.identifier = "2019/06/03/hexo-blog-theme/";
+    this.page.title = '建立自己Blog系列(三) Hexo next theme 介紹';
     };
   function loadComments() {
     var d = document, s = d.createElement('script');
