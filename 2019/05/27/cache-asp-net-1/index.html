@@ -112,7 +112,7 @@
 <meta property="og:site_name" content="石頭的coding之路">
 <meta property="og:description" content="最近回答SQL Server data caching in ASP.NET問題,且有人問我有關快取的問題. 所以小弟打算寫兩篇文章簡單分享我知道的快取  目錄:第一篇 為何要使用快取 快取操作 Asp.Net中使用快取 by HttpRuntime.Cache  第二篇 提出介面,提高可替換性 使用泛型改寫快取 讀取方式 使用擴充方法改寫快取   正文快取機制很重要,但有些觀念可能要先釐清楚 為">
 <meta property="og:locale" content="zh-tw">
-<meta property="og:updated_time" content="2019-06-04T15:33:49.769Z">
+<meta property="og:updated_time" content="2019-06-04T15:50:46.580Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Asp.net使用快取 (一)">
 <meta name="twitter:description" content="最近回答SQL Server data caching in ASP.NET問題,且有人問我有關快取的問題. 所以小弟打算寫兩篇文章簡單分享我知道的快取  目錄:第一篇 為何要使用快取 快取操作 Asp.Net中使用快取 by HttpRuntime.Cache  第二篇 提出介面,提高可替換性 使用泛型改寫快取 讀取方式 使用擴充方法改寫快取   正文快取機制很重要,但有些觀念可能要先釐清楚 為">
@@ -426,7 +426,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2019-06-04 15:33:49" itemprop="dateModified" datetime="2019-06-04T15:33:49+00:00">2019-06-04</time>
+                <time title="Modified: 2019-06-04 15:50:46" itemprop="dateModified" datetime="2019-06-04T15:50:46+00:00">2019-06-04</time>
               
             
           </span>
@@ -492,7 +492,7 @@
                 
                   <span class="post-meta-item-text">Symbols count in article: </span>
                 
-                <span title="Symbols count in article">876</span>
+                <span title="Symbols count in article">1k</span>
               
 
               
@@ -569,6 +569,7 @@
 <p>呼叫 <code>Get</code> 傳入Key值即可獲得  Note:如果快取容器沒有此物件會回傳<code>NULL</code></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">string cacheData = cacheContainer.Get(&quot;data&quot;) as string;</span><br></pre></td></tr></table></figure>
 <p>小結:這篇簡單介紹快取 下篇會將目前程式碼做改進,變得更優美彈性</p>
+<p><strong>此文作者</strong>：Daniel Shih(石頭)<br><strong>此文地址</strong>： <a href="https://isdaniel.github.io/2019/05/27/cache-asp-net-1/">https://isdaniel.github.io/2019/05/27/cache-asp-net-1/</a> <br><strong>版權聲明</strong>：本博客所有文章除特別聲明外，均採用 <span class="exturl" data-url="aHR0cHM6Ly9jcmVhdGl2ZWNvbW1vbnMub3JnL2xpY2Vuc2VzL2J5LW5jLXNhLzMuMC90dy8=" title="https://creativecommons.org/licenses/by-nc-sa/3.0/tw/">CC BY-NC-SA 3.0 TW<i class="fa fa-external-link"></i></span> 許可協議。轉載請註明出處！</p>
 
       
     </div>
@@ -1011,7 +1012,7 @@
       <i class="fa fa-area-chart"></i>
     </span>
     
-    <span title="Symbols count total">75k</span>
+    <span title="Symbols count total">78k</span>
   
 
   
@@ -1020,7 +1021,7 @@
       <i class="fa fa-coffee"></i>
     </span>
     
-    <span title="Reading time total">2:16</span>
+    <span title="Reading time total">2:22</span>
   
 </div>
 

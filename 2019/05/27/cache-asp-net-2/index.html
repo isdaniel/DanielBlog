@@ -112,7 +112,7 @@
 <meta property="og:site_name" content="石頭的coding之路">
 <meta property="og:description" content="Asp.net使用快取 (一) 向大家簡單介紹  快取是什麼 為何要使用快取 使用簡單HttpRuntime.Cache使用快取機制  這篇是分享把快取程式碼變得更有彈性  第二篇大綱 提出介面,提高可替換性 使用泛型改寫快取 讀取方式 使用擴充方法改寫快取   提出介面,提高可替換性情境: 目前有個專案使用 HttpRuntime.Cache 物件 在記憶體快取中除了使用 Asp.Net 中Ht">
 <meta property="og:locale" content="zh-tw">
-<meta property="og:updated_time" content="2019-06-04T15:33:49.769Z">
+<meta property="og:updated_time" content="2019-06-04T15:50:46.580Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Asp.net使用快取 (二)">
 <meta name="twitter:description" content="Asp.net使用快取 (一) 向大家簡單介紹  快取是什麼 為何要使用快取 使用簡單HttpRuntime.Cache使用快取機制  這篇是分享把快取程式碼變得更有彈性  第二篇大綱 提出介面,提高可替換性 使用泛型改寫快取 讀取方式 使用擴充方法改寫快取   提出介面,提高可替換性情境: 目前有個專案使用 HttpRuntime.Cache 物件 在記憶體快取中除了使用 Asp.Net 中Ht">
@@ -426,7 +426,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2019-06-04 15:33:49" itemprop="dateModified" datetime="2019-06-04T15:33:49+00:00">2019-06-04</time>
+                <time title="Modified: 2019-06-04 15:50:46" itemprop="dateModified" datetime="2019-06-04T15:50:46+00:00">2019-06-04</time>
               
             
           </span>
@@ -492,7 +492,7 @@
                 
                   <span class="post-meta-item-text">Symbols count in article: </span>
                 
-                <span title="Symbols count in article">5.8k</span>
+                <span title="Symbols count in article">5.9k</span>
               
 
               
@@ -582,6 +582,7 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">public class WebDefaultCache : ICache</span><br><span class="line">&#123;</span><br><span class="line">	Cache cacheContainer = HttpRuntime.Cache;</span><br><span class="line">	public object Get(string key)</span><br><span class="line">	&#123;</span><br><span class="line">		return cacheContainer.Get(key);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	public void Set(string key, object obj)</span><br><span class="line">	&#123;</span><br><span class="line">		cacheContainer.Insert(key, obj);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line">public interface ICache&#123;</span><br><span class="line">	void Set(string key, object obj);</span><br><span class="line"></span><br><span class="line">	object Get(string key);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">public static class InfrastructureExtension</span><br><span class="line">&#123;</span><br><span class="line">	public static TObj GetOrSetCache&lt;TObj&gt;(this Func&lt;TObj&gt; selector, string key) where TObj : class &#123;</span><br><span class="line">		return GetOrSetCache(selector, key,10);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	public static TObj GetOrSetCache&lt;TObj&gt;(this Func&lt;TObj&gt; selector, string key, int cacheTime) where TObj : class</span><br><span class="line">	&#123;</span><br><span class="line">		return GetOrSetCache(selector, key, cacheTime, new WebDefaultCache());</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	public static TObj GetOrSetCache&lt;TObj&gt;(this Func&lt;TObj&gt; selector, string key, int cacheTime, ICache cacheContainer) where TObj : class</span><br><span class="line">	&#123;</span><br><span class="line">		//get cache Object</span><br><span class="line">		var obj = cacheContainer.Get(key) as TObj;</span><br><span class="line"></span><br><span class="line">		//if there isn&apos;t cache object add this object to cache</span><br><span class="line">		if (obj == null)</span><br><span class="line">		&#123;</span><br><span class="line">			obj = selector();</span><br><span class="line">			cacheContainer.Set(key, obj);</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		return obj;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>雖然在使用上和第三種一樣<br>但我們多了使用<strong>方法重載</strong>多傳一個參數<code>ICache</code>介面 可以讓我們在寫程式時決定要使用哪種cache方式,不用改快去那邊程式碼.</p>
 <p>同場加映<span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2lzZGFuaWVsL0V4dGVuaW9uVG9vbA==" title="https://github.com/isdaniel/ExtenionTool">程式碼<i class="fa fa-external-link"></i></span>我放在我自己常用的<strong>ExtenionTool</strong>專案中</p>
+<p><strong>此文作者</strong>：Daniel Shih(石頭)<br><strong>此文地址</strong>： <a href="https://isdaniel.github.io/2019/05/27/cache-asp-net-2/">https://isdaniel.github.io/2019/05/27/cache-asp-net-2/</a> <br><strong>版權聲明</strong>：本博客所有文章除特別聲明外，均採用 <span class="exturl" data-url="aHR0cHM6Ly9jcmVhdGl2ZWNvbW1vbnMub3JnL2xpY2Vuc2VzL2J5LW5jLXNhLzMuMC90dy8=" title="https://creativecommons.org/licenses/by-nc-sa/3.0/tw/">CC BY-NC-SA 3.0 TW<i class="fa fa-external-link"></i></span> 許可協議。轉載請註明出處！</p>
 
       
     </div>
@@ -1024,7 +1025,7 @@
       <i class="fa fa-area-chart"></i>
     </span>
     
-    <span title="Symbols count total">75k</span>
+    <span title="Symbols count total">78k</span>
   
 
   
@@ -1033,7 +1034,7 @@
       <i class="fa fa-coffee"></i>
     </span>
     
-    <span title="Reading time total">2:16</span>
+    <span title="Reading time total">2:22</span>
   
 </div>
 

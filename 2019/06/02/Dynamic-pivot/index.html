@@ -112,7 +112,7 @@
 <meta property="og:site_name" content="石頭的coding之路">
 <meta property="og:description" content="前言：之前有和大家分享使用CASE WHEN 搭配聚合函數實現樞紐分析 但今天如果我們要轉換成行的列希望是動態依照目前資料庫的欄位要處理呢? 我們可以使用Dynamic pivot Dynamic pivot核心概念其實是把我們要使用的pivot SQL`語法動態產生出來 程式碼CREATE TABLE T(     userName VARCHAR(100),     Price int,">
 <meta property="og:locale" content="zh-tw">
-<meta property="og:updated_time" content="2019-06-04T15:33:49.769Z">
+<meta property="og:updated_time" content="2019-06-04T15:50:46.580Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="(SQL Server)Dynamic pivot 動態樞紐分析">
 <meta name="twitter:description" content="前言：之前有和大家分享使用CASE WHEN 搭配聚合函數實現樞紐分析 但今天如果我們要轉換成行的列希望是動態依照目前資料庫的欄位要處理呢? 我們可以使用Dynamic pivot Dynamic pivot核心概念其實是把我們要使用的pivot SQL`語法動態產生出來 程式碼CREATE TABLE T(     userName VARCHAR(100),     Price int,">
@@ -426,7 +426,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2019-06-04 15:33:49" itemprop="dateModified" datetime="2019-06-04T15:33:49+00:00">2019-06-04</time>
+                <time title="Modified: 2019-06-04 15:50:46" itemprop="dateModified" datetime="2019-06-04T15:50:46+00:00">2019-06-04</time>
               
             
           </span>
@@ -492,7 +492,7 @@
                 
                   <span class="post-meta-item-text">Symbols count in article: </span>
                 
-                <span title="Symbols count in article">3.7k</span>
+                <span title="Symbols count in article">3.8k</span>
               
 
               
@@ -589,6 +589,7 @@ FROM T
 GROUP BY userName
 </code></pre><p>有了上面<code>CASE WHEN pivot SQL</code> 語法,最後只需把剩下要用到Table sql語句給組出來在使用 <code>EXECUTE sp_executesql</code> 動態呼叫SQL語法</p>
 <p><span class="exturl" data-url="aHR0cHM6Ly9kYmZpZGRsZS51ay8/cmRibXM9c3Fsc2VydmVyXzIwMTcmYW1wO2ZpZGRsZT00MDJkNGQxM2E2ZjY5NTQwNGQ1OTU1MjZiNjQ1NzE0ZA==" title="https://dbfiddle.uk/?rdbms=sqlserver_2017&amp;fiddle=402d4d13a6f695404d595526b645714d">sqlfiddle<i class="fa fa-external-link"></i></span></p>
+<p><strong>此文作者</strong>：Daniel Shih(石頭)<br><strong>此文地址</strong>： <a href="https://isdaniel.github.io/2019/06/02/Dynamic-pivot/">https://isdaniel.github.io/2019/06/02/Dynamic-pivot/</a> <br><strong>版權聲明</strong>：本博客所有文章除特別聲明外，均採用 <span class="exturl" data-url="aHR0cHM6Ly9jcmVhdGl2ZWNvbW1vbnMub3JnL2xpY2Vuc2VzL2J5LW5jLXNhLzMuMC90dy8=" title="https://creativecommons.org/licenses/by-nc-sa/3.0/tw/">CC BY-NC-SA 3.0 TW<i class="fa fa-external-link"></i></span> 許可協議。轉載請註明出處！</p>
 
       
     </div>
@@ -1010,7 +1011,7 @@ GROUP BY userName
       <i class="fa fa-area-chart"></i>
     </span>
     
-    <span title="Symbols count total">75k</span>
+    <span title="Symbols count total">78k</span>
   
 
   
@@ -1019,7 +1020,7 @@ GROUP BY userName
       <i class="fa fa-coffee"></i>
     </span>
     
-    <span title="Reading time total">2:16</span>
+    <span title="Reading time total">2:22</span>
   
 </div>
 
