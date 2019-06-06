@@ -152,7 +152,7 @@
 <meta property="og:locale" content="zh-tw">
 <meta property="og:image" content="https://github.com/isdaniel/DesignPattern/raw/master/DesignPattern/img/Bridge/BridgePattern1.PNG">
 <meta property="og:image" content="https://github.com/isdaniel/DesignPattern/raw/master/DesignPattern/img/Bridge/brigdeUML.png">
-<meta property="og:updated_time" content="2019-06-06T09:11:06.475Z">
+<meta property="og:updated_time" content="2019-06-06T09:39:05.991Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="橋接模式(BridgePattern)">
 <meta name="twitter:description" content="前言：目的：如果有兩大類模組是多對多的組合，如本次Smaple Code. Nick和Addidas 包包都有紅、藍、黃….或其他顏色 就可能呈現下面6種組合  Nick(紅) Nick(藍) Nick(黃) Addidas(紅) Addidas(藍) Addidas(黃)  如果此建立類別的話 可能情況如下面的UNL圖  類別數量 = 顏色數量 * 包包品牌數量  這樣會有兩個問題  隨著品牌和">
@@ -314,7 +314,7 @@
       
     
 
-    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>Tags<span class="badge">44</span></a>
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>Tags<span class="badge">56</span></a>
 
   </li>
         
@@ -352,7 +352,7 @@
       
     
 
-    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives<span class="badge">27</span></a>
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives<span class="badge">33</span></a>
 
   </li>
 
@@ -496,7 +496,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2019-06-06 09:11:06" itemprop="dateModified" datetime="2019-06-06T09:11:06+00:00">2019-06-06</time>
+                <time title="Modified: 2019-06-06 09:39:05" itemprop="dateModified" datetime="2019-06-06T09:39:05+00:00">2019-06-06</time>
               
             
           </span>
@@ -961,7 +961,14 @@ public abstract class MoveBase
     <li class="popular-posts-item">
       
       
-      <div class="popular-posts-title"><a href="\2019\06\02\c-func-2\" rel="bookmark">(C#) 委託delegate,Func<>,Action 解說系列(二)</a></div>
+      <div class="popular-posts-title"><a href="\2019\06\10\StatusPattern\" rel="bookmark">State Pattern(狀態者模式)</a></div>
+      
+    </li>
+  
+    <li class="popular-posts-item">
+      
+      
+      <div class="popular-posts-title"><a href="\2019\06\02\Autofac-introduce\" rel="bookmark">Autofac (IOC)容器介紹</a></div>
       
     </li>
   
@@ -976,13 +983,6 @@ public abstract class MoveBase
       
       
       <div class="popular-posts-title"><a href="\2019\06\01\Decorator-Pattern\" rel="bookmark">(C#)裝飾者模式(Decorator Pattern)</a></div>
-      
-    </li>
-  
-    <li class="popular-posts-item">
-      
-      
-      <div class="popular-posts-title"><a href="\2019\05\27\InvoiceTW-Framework\" rel="bookmark">【財政部查詢類電子發票API】框架解說 C#</a></div>
       
     </li>
   
@@ -1025,8 +1025,8 @@ public abstract class MoveBase
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/06/02/RabbitMQ-Fanout/" rel="next" title="RabbitMQ (三) Fanout 交換器">
-                <i class="fa fa-chevron-left"></i> RabbitMQ (三) Fanout 交換器
+              <a href="/2019/06/02/Dynamic-pivot/" rel="next" title="(SQL Server)Dynamic pivot 動態樞紐分析">
+                <i class="fa fa-chevron-left"></i> (SQL Server)Dynamic pivot 動態樞紐分析
               </a>
             
           </div>
@@ -1035,8 +1035,8 @@ public abstract class MoveBase
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2019/06/02/Dynamic-pivot/" rel="prev" title="(SQL Server)Dynamic pivot 動態樞紐分析">
-                (SQL Server)Dynamic pivot 動態樞紐分析 <i class="fa fa-chevron-right"></i>
+              <a href="/2019/06/03/hexo-blog-theme/" rel="prev" title="建立自己Blog系列(三) Hexo next theme 介紹">
+                建立自己Blog系列(三) Hexo next theme 介紹 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -1121,7 +1121,7 @@ public abstract class MoveBase
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">27</span>
+                    <span class="site-state-item-count">33</span>
                     <span class="site-state-item-name">posts</span>
                   </a>
                 </div>
@@ -1263,7 +1263,31 @@ public abstract class MoveBase
                     
                       
                     
-                    <span class="site-state-item-count">44</span>
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">56</span>
                     <span class="site-state-item-name">tags</span>
                   </a>
                 </div>
@@ -1389,7 +1413,7 @@ public abstract class MoveBase
       <i class="fa fa-area-chart"></i>
     </span>
     
-    <span title="Symbols count total">78k</span>
+    <span title="Symbols count total">93k</span>
   
 
   
@@ -1398,7 +1422,7 @@ public abstract class MoveBase
       <i class="fa fa-coffee"></i>
     </span>
     
-    <span title="Reading time total">2:22</span>
+    <span title="Reading time total">2:49</span>
   
 </div>
 
