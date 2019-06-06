@@ -29,7 +29,7 @@
     
     
   <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
-  <link rel="stylesheet" href="/lib/pace/pace-theme-flash.min.css?v=1.0.2">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2">
 
 
 
@@ -81,7 +81,7 @@
   
     
     
-    <link rel="stylesheet" href="/fonts/css?family=Lato:300,300italic,400,400italic,700,700italic|Georgia:300,300italic,400,400italic,700,700italic|Inconsolata for Powerline:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext">
+    <link rel="stylesheet" href="/fonts/css?family=Lato:300,300italic,400,400italic,700,700italic|Georgia:300,300italic,400,400italic,700,700italic|PT Mono:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext">
   
 
 
@@ -151,7 +151,7 @@
 <meta property="og:description" content="之前有介紹 (SQL Server) CTE RECURSIVE (遞迴)製作月曆 在Oracle 有提供一個精簡的語法產生階層資料 CONNECT BY  CONNECT BY 有幾個常用Key Word.  LEVEL目前在樹節點第幾階層 START WITH 設定哪筆做為起始點開始樹 PRIOR用於指定父資料欄位  製造出的階層樹，概念如下 [圖來自Oracle] 範例一建立連續數字 1~1">
 <meta property="og:locale" content="zh-tw">
 <meta property="og:image" content="https://docs.oracle.com/cd/B19306_01/server.102/b14200/img/sqlrf002.gif">
-<meta property="og:updated_time" content="2019-06-06T06:41:49.698Z">
+<meta property="og:updated_time" content="2019-06-06T09:11:06.491Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Oracle [CONNECT BY]">
 <meta name="twitter:description" content="之前有介紹 (SQL Server) CTE RECURSIVE (遞迴)製作月曆 在Oracle 有提供一個精簡的語法產生階層資料 CONNECT BY  CONNECT BY 有幾個常用Key Word.  LEVEL目前在樹節點第幾階層 START WITH 設定哪筆做為起始點開始樹 PRIOR用於指定父資料欄位  製造出的階層樹，概念如下 [圖來自Oracle] 範例一建立連續數字 1~1">
@@ -313,7 +313,7 @@
       
     
 
-    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>Tags<span class="badge">43</span></a>
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>Tags<span class="badge">44</span></a>
 
   </li>
         
@@ -332,7 +332,7 @@
       
     
 
-    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>Categories<span class="badge">8</span></a>
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>Categories<span class="badge">10</span></a>
 
   </li>
         
@@ -495,7 +495,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2019-06-06 06:41:49" itemprop="dateModified" datetime="2019-06-06T06:41:49+00:00">2019-06-06</time>
+                <time title="Modified: 2019-06-06 09:11:06" itemprop="dateModified" datetime="2019-06-06T09:11:06+00:00">2019-06-06</time>
               
             
           </span>
@@ -854,7 +854,11 @@ CONNECT BY PRIOR PartNo = ParentPartNo
                     
                       
                     
-                    <span class="site-state-item-count">8</span>
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">10</span>
                     <span class="site-state-item-name">categories</span>
                   </a>
                 </div>
@@ -957,7 +961,9 @@ CONNECT BY PRIOR PartNo = ParentPartNo
                     
                       
                     
-                    <span class="site-state-item-count">43</span>
+                      
+                    
+                    <span class="site-state-item-count">44</span>
                     <span class="site-state-item-name">tags</span>
                   </a>
                 </div>
@@ -1183,6 +1189,12 @@ CONNECT BY PRIOR PartNo = ParentPartNo
 
 
 
+
+  
+    
+    
+  
+  <script color="0,0,255" opacity="0.6" zindex="-1" count="150" src="/lib/canvas-nest/canvas-nest.min.js"></script>
 
 
 
@@ -1682,6 +1694,41 @@ CONNECT BY PRIOR PartNo = ParentPartNo
   
 
   
+<script>
+  $('.highlight').not('.gist .highlight').each(function(i, e) {
+    var $wrap = $('<div>').addClass('highlight-wrap');
+    $(e).after($wrap);
+    $wrap.append($('<button>').addClass('copy-btn').append('Copy').on('click', function(e) {
+      var code = $(this).parent().find('.code').find('.line').map(function(i, e) {
+        return $(e).text();
+      }).toArray().join('\n');
+      var ta = document.createElement('textarea');
+      var yPosition = window.pageYOffset || document.documentElement.scrollTop;
+      ta.style.top = yPosition + 'px'; // Prevent page scroll
+      ta.style.position = 'absolute';
+      ta.style.opacity = '0';
+      ta.readOnly = true;
+      ta.value = code;
+      document.body.appendChild(ta);
+      ta.select();
+      ta.setSelectionRange(0, code.length);
+      ta.readOnly = false;
+      var result = document.execCommand('copy');
+      
+        if (result) $(this).text('Copied');
+        else $(this).text('Copy failed');
+      
+      ta.blur(); // For iOS
+      $(this).blur();
+    })).on('mouseleave', function(e) {
+      var $b = $(this).find('.copy-btn');
+      setTimeout(function() {
+        $b.text('Copy');
+      }, 300);
+    }).append(e);
+  })
+</script>
+
 
   
 

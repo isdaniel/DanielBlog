@@ -29,7 +29,7 @@
     
     
   <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
-  <link rel="stylesheet" href="/lib/pace/pace-theme-flash.min.css?v=1.0.2">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2">
 
 
 
@@ -81,7 +81,7 @@
   
     
     
-    <link rel="stylesheet" href="/fonts/css?family=Lato:300,300italic,400,400italic,700,700italic|Georgia:300,300italic,400,400italic,700,700italic|Inconsolata for Powerline:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext">
+    <link rel="stylesheet" href="/fonts/css?family=Lato:300,300italic,400,400italic,700,700italic|Georgia:300,300italic,400,400italic,700,700italic|PT Mono:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext">
   
 
 
@@ -153,7 +153,7 @@
 <meta property="og:image" content="https://ithelp.ithome.com.tw/upload/images/20180209/20096630UyP6I4l2MB.png">
 <meta property="og:image" content="https://ithelp.ithome.com.tw/upload/images/20180209/20096630BB4lN2NYOW.png">
 <meta property="og:image" content="https://ithelp.ithome.com.tw/upload/images/20180209/20096630tbgj7MbcAL.png">
-<meta property="og:updated_time" content="2019-06-06T06:41:49.698Z">
+<meta property="og:updated_time" content="2019-06-06T09:11:06.475Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="【C#】 AOP輕型框架  AwesomeProxy.Net 介紹使用">
 <meta name="twitter:description" content="今天和大家分享AwesomeProxy.Net小弟開源AOP輕型框架 簡單介紹 AOP (Aspect-Oriented Programming)AOP 是 OOP(物件導向)一個變化程式撰寫思想。（非取代OOP而是擴充） 導入AOP幫助：    可幫我們分離核心邏輯跟非核心邏輯代碼，很好降低模組間耦合性，已便日後擴充。 　　非核心邏輯代碼像：(日誌記錄，性能統計，安全控制，事務處理，異常處理等代">
@@ -315,7 +315,7 @@
       
     
 
-    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>Tags<span class="badge">43</span></a>
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>Tags<span class="badge">44</span></a>
 
   </li>
         
@@ -334,7 +334,7 @@
       
     
 
-    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>Categories<span class="badge">8</span></a>
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>Categories<span class="badge">10</span></a>
 
   </li>
         
@@ -497,7 +497,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2019-06-06 06:41:49" itemprop="dateModified" datetime="2019-06-06T06:41:49+00:00">2019-06-06</time>
+                <time title="Modified: 2019-06-06 09:11:06" itemprop="dateModified" datetime="2019-06-06T09:11:06+00:00">2019-06-06</time>
               
             
           </span>
@@ -616,17 +616,17 @@
 <h3 id="How-to-Use"><a href="#How-to-Use" class="headerlink" title="How to Use:"></a>How to Use:</h3><p>   使用方法類似於Asp.Net MVC中Contoller，Action過濾器</p>
 <ol>
 <li><p>撰寫一個標籤(Attribute) 標記攔截動作</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">public class CacheAttribute : AopBaseAttribute</span><br><span class="line">&#123;</span><br><span class="line">    public string CacheName &#123; get; set; &#125;</span><br><span class="line"></span><br><span class="line">    public override void OnExcuting(ExcuteingContext context)</span><br><span class="line">    &#123;</span><br><span class="line">        object cacheObj = CallContext.GetData(CacheName);</span><br><span class="line">        if (cacheObj != null)</span><br><span class="line">        &#123;</span><br><span class="line">            context.Result = cacheObj;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public override void OnExcuted(ExcutedContext context)</span><br><span class="line">    &#123;</span><br><span class="line">        CallContext.SetData(CacheName, context.Result);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<div class="highlight-wrap" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true" data-rel="PLAIN"><figure class="iseeu highlight /plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">public class CacheAttribute : AopBaseAttribute</span><br><span class="line">&#123;</span><br><span class="line">    public string CacheName &#123; get; set; &#125;</span><br><span class="line"></span><br><span class="line">    public override void OnExcuting(ExcuteingContext context)</span><br><span class="line">    &#123;</span><br><span class="line">        object cacheObj = CallContext.GetData(CacheName);</span><br><span class="line">        if (cacheObj != null)</span><br><span class="line">        &#123;</span><br><span class="line">            context.Result = cacheObj;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public override void OnExcuted(ExcutedContext context)</span><br><span class="line">    &#123;</span><br><span class="line">        CallContext.SetData(CacheName, context.Result);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
 </li>
 <li><p>將要被攔截類別繼承於<strong>MarshalByRefObject</strong>類別</p>
 </li>
 </ol>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">public class CacheService : MarshalByRefObject</span><br><span class="line">&#123;</span><br><span class="line">    [Cache]</span><br><span class="line">	public string GetCacheDate()</span><br><span class="line">	&#123;</span><br><span class="line">		return DateTime.Now.ToString(&quot;yyyy/MM/dd hh:mm:ss&quot;);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<div class="highlight-wrap" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true" data-rel="PLAIN"><figure class="iseeu highlight /plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">public class CacheService : MarshalByRefObject</span><br><span class="line">&#123;</span><br><span class="line">    [Cache]</span><br><span class="line">	public string GetCacheDate()</span><br><span class="line">	&#123;</span><br><span class="line">		return DateTime.Now.ToString(&quot;yyyy/MM/dd hh:mm:ss&quot;);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
 <ol start="3">
-<li>由ProxyFactory.GetProxyInstance 動態產生被代理類別<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">CacheService cache = ProxyFactory.GetProxyInstance&lt;CacheService&gt;();</span><br></pre></td></tr></table></figure>
+<li>由ProxyFactory.GetProxyInstance 動態產生被代理類別<div class="highlight-wrap" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true" data-rel="PLAIN"><figure class="iseeu highlight /plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">CacheService cache = ProxyFactory.GetProxyInstance&lt;CacheService&gt;();</span><br></pre></td></tr></table></figure></div>
 </li>
 </ol>
-<p>4.直接呼叫方法就可執行標籤上的攔截動作<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">CacheService cache = ProxyFactory.GetProxyInstance&lt;CacheService&gt;();</span><br><span class="line">Console.WriteLine(cache.GetCacheDate());</span><br></pre></td></tr></table></figure></p>
+<p>4.直接呼叫方法就可執行標籤上的攔截動作<br><div class="highlight-wrap" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true" data-rel="PLAIN"><figure class="iseeu highlight /plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">CacheService cache = ProxyFactory.GetProxyInstance&lt;CacheService&gt;();</span><br><span class="line">Console.WriteLine(cache.GetCacheDate());</span><br></pre></td></tr></table></figure></div></p>
 <p>Simple Code：</p>
 <p>  <strong>撰寫Log</strong><br>  <strong>權限驗證</strong><br>  <strong>快取</strong></p>
 <p><img src="https://ithelp.ithome.com.tw/upload/images/20180209/20096630BB4lN2NYOW.png" alt="https://ithelp.ithome.com.tw/upload/images/20180209/20096630BB4lN2NYOW.png"></p>
@@ -852,7 +852,11 @@
                     
                       
                     
-                    <span class="site-state-item-count">8</span>
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">10</span>
                     <span class="site-state-item-name">categories</span>
                   </a>
                 </div>
@@ -955,7 +959,9 @@
                     
                       
                     
-                    <span class="site-state-item-count">43</span>
+                      
+                    
+                    <span class="site-state-item-count">44</span>
                     <span class="site-state-item-name">tags</span>
                   </a>
                 </div>
@@ -1181,6 +1187,12 @@
 
 
 
+
+  
+    
+    
+  
+  <script color="0,0,255" opacity="0.6" zindex="-1" count="150" src="/lib/canvas-nest/canvas-nest.min.js"></script>
 
 
 
@@ -1680,6 +1692,41 @@
   
 
   
+<script>
+  $('.highlight').not('.gist .highlight').each(function(i, e) {
+    var $wrap = $('<div>').addClass('highlight-wrap');
+    $(e).after($wrap);
+    $wrap.append($('<button>').addClass('copy-btn').append('Copy').on('click', function(e) {
+      var code = $(this).parent().find('.code').find('.line').map(function(i, e) {
+        return $(e).text();
+      }).toArray().join('\n');
+      var ta = document.createElement('textarea');
+      var yPosition = window.pageYOffset || document.documentElement.scrollTop;
+      ta.style.top = yPosition + 'px'; // Prevent page scroll
+      ta.style.position = 'absolute';
+      ta.style.opacity = '0';
+      ta.readOnly = true;
+      ta.value = code;
+      document.body.appendChild(ta);
+      ta.select();
+      ta.setSelectionRange(0, code.length);
+      ta.readOnly = false;
+      var result = document.execCommand('copy');
+      
+        if (result) $(this).text('Copied');
+        else $(this).text('Copy failed');
+      
+      ta.blur(); // For iOS
+      $(this).blur();
+    })).on('mouseleave', function(e) {
+      var $b = $(this).find('.copy-btn');
+      setTimeout(function() {
+        $b.text('Copy');
+      }, 300);
+    }).append(e);
+  })
+</script>
+
 
   
 

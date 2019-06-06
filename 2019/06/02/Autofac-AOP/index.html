@@ -29,7 +29,7 @@
     
     
   <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
-  <link rel="stylesheet" href="/lib/pace/pace-theme-flash.min.css?v=1.0.2">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2">
 
 
 
@@ -81,7 +81,7 @@
   
     
     
-    <link rel="stylesheet" href="/fonts/css?family=Lato:300,300italic,400,400italic,700,700italic|Georgia:300,300italic,400,400italic,700,700italic|Inconsolata for Powerline:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext">
+    <link rel="stylesheet" href="/fonts/css?family=Lato:300,300italic,400,400italic,700,700italic|Georgia:300,300italic,400,400italic,700,700italic|PT Mono:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext">
   
 
 
@@ -150,7 +150,7 @@
 <meta property="og:site_name" content="石頭的coding之路">
 <meta property="og:description" content="Autofac 是個IOC容器  不懂IOC 參考 我之前寫的IOC(控制反轉)，DI(依賴注入) 深入淺出~~ 小弟之前有一個開源框架【C#】 AOP輕型框架  AwesomeProxy.Net 介紹使用 裡面簡單介紹 AOP核心概念和如何實作! Autofac 有寫一個 Autofac.Extras.DynamicProxy 把AOP和IOC容器融合的框架 在Autofac使用AOP 需要實現">
 <meta property="og:locale" content="zh-tw">
-<meta property="og:updated_time" content="2019-06-06T06:41:49.698Z">
+<meta property="og:updated_time" content="2019-06-06T09:11:06.475Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Autofac + Interceptors(AOP) 動態代理">
 <meta name="twitter:description" content="Autofac 是個IOC容器  不懂IOC 參考 我之前寫的IOC(控制反轉)，DI(依賴注入) 深入淺出~~ 小弟之前有一個開源框架【C#】 AOP輕型框架  AwesomeProxy.Net 介紹使用 裡面簡單介紹 AOP核心概念和如何實作! Autofac 有寫一個 Autofac.Extras.DynamicProxy 把AOP和IOC容器融合的框架 在Autofac使用AOP 需要實現">
@@ -311,7 +311,7 @@
       
     
 
-    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>Tags<span class="badge">43</span></a>
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>Tags<span class="badge">44</span></a>
 
   </li>
         
@@ -330,7 +330,7 @@
       
     
 
-    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>Categories<span class="badge">8</span></a>
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>Categories<span class="badge">10</span></a>
 
   </li>
         
@@ -493,7 +493,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2019-06-06 06:41:49" itemprop="dateModified" datetime="2019-06-06T06:41:49+00:00">2019-06-06</time>
+                <time title="Modified: 2019-06-06 09:11:06" itemprop="dateModified" datetime="2019-06-06T09:11:06+00:00">2019-06-06</time>
               
             
           </span>
@@ -906,7 +906,11 @@ return builder.Build();
                     
                       
                     
-                    <span class="site-state-item-count">8</span>
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">10</span>
                     <span class="site-state-item-name">categories</span>
                   </a>
                 </div>
@@ -1009,7 +1013,9 @@ return builder.Build();
                     
                       
                     
-                    <span class="site-state-item-count">43</span>
+                      
+                    
+                    <span class="site-state-item-count">44</span>
                     <span class="site-state-item-name">tags</span>
                   </a>
                 </div>
@@ -1235,6 +1241,12 @@ return builder.Build();
 
 
 
+
+  
+    
+    
+  
+  <script color="0,0,255" opacity="0.6" zindex="-1" count="150" src="/lib/canvas-nest/canvas-nest.min.js"></script>
 
 
 
@@ -1734,6 +1746,41 @@ return builder.Build();
   
 
   
+<script>
+  $('.highlight').not('.gist .highlight').each(function(i, e) {
+    var $wrap = $('<div>').addClass('highlight-wrap');
+    $(e).after($wrap);
+    $wrap.append($('<button>').addClass('copy-btn').append('Copy').on('click', function(e) {
+      var code = $(this).parent().find('.code').find('.line').map(function(i, e) {
+        return $(e).text();
+      }).toArray().join('\n');
+      var ta = document.createElement('textarea');
+      var yPosition = window.pageYOffset || document.documentElement.scrollTop;
+      ta.style.top = yPosition + 'px'; // Prevent page scroll
+      ta.style.position = 'absolute';
+      ta.style.opacity = '0';
+      ta.readOnly = true;
+      ta.value = code;
+      document.body.appendChild(ta);
+      ta.select();
+      ta.setSelectionRange(0, code.length);
+      ta.readOnly = false;
+      var result = document.execCommand('copy');
+      
+        if (result) $(this).text('Copied');
+        else $(this).text('Copy failed');
+      
+      ta.blur(); // For iOS
+      $(this).blur();
+    })).on('mouseleave', function(e) {
+      var $b = $(this).find('.copy-btn');
+      setTimeout(function() {
+        $b.text('Copy');
+      }, 300);
+    }).append(e);
+  })
+</script>
+
 
   
 

@@ -29,7 +29,7 @@
     
     
   <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
-  <link rel="stylesheet" href="/lib/pace/pace-theme-flash.min.css?v=1.0.2">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2">
 
 
 
@@ -81,7 +81,7 @@
   
     
     
-    <link rel="stylesheet" href="/fonts/css?family=Lato:300,300italic,400,400italic,700,700italic|Georgia:300,300italic,400,400italic,700,700italic|Inconsolata for Powerline:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext">
+    <link rel="stylesheet" href="/fonts/css?family=Lato:300,300italic,400,400italic,700,700italic|Georgia:300,300italic,400,400italic,700,700italic|PT Mono:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext">
   
 
 
@@ -152,7 +152,7 @@
 <meta property="og:locale" content="zh-tw">
 <meta property="og:image" content="https://github.com/isdaniel/DesignPattern/raw/master/DesignPattern/img/Bridge/BridgePattern1.PNG">
 <meta property="og:image" content="https://github.com/isdaniel/DesignPattern/raw/master/DesignPattern/img/Bridge/brigdeUML.png">
-<meta property="og:updated_time" content="2019-06-06T06:41:49.698Z">
+<meta property="og:updated_time" content="2019-06-06T09:11:06.475Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="橋接模式(BridgePattern)">
 <meta name="twitter:description" content="前言：目的：如果有兩大類模組是多對多的組合，如本次Smaple Code. Nick和Addidas 包包都有紅、藍、黃….或其他顏色 就可能呈現下面6種組合  Nick(紅) Nick(藍) Nick(黃) Addidas(紅) Addidas(藍) Addidas(黃)  如果此建立類別的話 可能情況如下面的UNL圖  類別數量 = 顏色數量 * 包包品牌數量  這樣會有兩個問題  隨著品牌和">
@@ -314,7 +314,7 @@
       
     
 
-    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>Tags<span class="badge">43</span></a>
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>Tags<span class="badge">44</span></a>
 
   </li>
         
@@ -333,7 +333,7 @@
       
     
 
-    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>Categories<span class="badge">8</span></a>
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>Categories<span class="badge">10</span></a>
 
   </li>
         
@@ -496,7 +496,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2019-06-06 06:41:49" itemprop="dateModified" datetime="2019-06-06T06:41:49+00:00">2019-06-06</time>
+                <time title="Modified: 2019-06-06 09:11:06" itemprop="dateModified" datetime="2019-06-06T09:11:06+00:00">2019-06-06</time>
               
             
           </span>
@@ -954,13 +954,6 @@ public abstract class MoveBase
     <li class="popular-posts-item">
       
       
-      <div class="popular-posts-title"><a href="\2019\06\03\Mediator-Pattern\" rel="bookmark">MediatorPattern(中介者模式)</a></div>
-      
-    </li>
-  
-    <li class="popular-posts-item">
-      
-      
       <div class="popular-posts-title"><a href="\2019\06\02\Template-Pattern\" rel="bookmark">橋接模式(BridgePattern)</a></div>
       
     </li>
@@ -968,7 +961,14 @@ public abstract class MoveBase
     <li class="popular-posts-item">
       
       
-      <div class="popular-posts-title"><a href="\2019\06\02\c-func-1\" rel="bookmark">(C#)委託delegate,Func<>,Action 解說系列(一)</a></div>
+      <div class="popular-posts-title"><a href="\2019\06\02\c-func-2\" rel="bookmark">(C#) 委託delegate,Func<>,Action 解說系列(二)</a></div>
+      
+    </li>
+  
+    <li class="popular-posts-item">
+      
+      
+      <div class="popular-posts-title"><a href="\2019\05\27\AwesomeProxy-Net\" rel="bookmark">【C#】 AOP輕型框架  AwesomeProxy.Net 介紹使用</a></div>
       
     </li>
   
@@ -1154,7 +1154,11 @@ public abstract class MoveBase
                     
                       
                     
-                    <span class="site-state-item-count">8</span>
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">10</span>
                     <span class="site-state-item-name">categories</span>
                   </a>
                 </div>
@@ -1257,7 +1261,9 @@ public abstract class MoveBase
                     
                       
                     
-                    <span class="site-state-item-count">43</span>
+                      
+                    
+                    <span class="site-state-item-count">44</span>
                     <span class="site-state-item-name">tags</span>
                   </a>
                 </div>
@@ -1483,6 +1489,12 @@ public abstract class MoveBase
 
 
 
+
+  
+    
+    
+  
+  <script color="0,0,255" opacity="0.6" zindex="-1" count="150" src="/lib/canvas-nest/canvas-nest.min.js"></script>
 
 
 
@@ -1982,6 +1994,41 @@ public abstract class MoveBase
   
 
   
+<script>
+  $('.highlight').not('.gist .highlight').each(function(i, e) {
+    var $wrap = $('<div>').addClass('highlight-wrap');
+    $(e).after($wrap);
+    $wrap.append($('<button>').addClass('copy-btn').append('Copy').on('click', function(e) {
+      var code = $(this).parent().find('.code').find('.line').map(function(i, e) {
+        return $(e).text();
+      }).toArray().join('\n');
+      var ta = document.createElement('textarea');
+      var yPosition = window.pageYOffset || document.documentElement.scrollTop;
+      ta.style.top = yPosition + 'px'; // Prevent page scroll
+      ta.style.position = 'absolute';
+      ta.style.opacity = '0';
+      ta.readOnly = true;
+      ta.value = code;
+      document.body.appendChild(ta);
+      ta.select();
+      ta.setSelectionRange(0, code.length);
+      ta.readOnly = false;
+      var result = document.execCommand('copy');
+      
+        if (result) $(this).text('Copied');
+        else $(this).text('Copy failed');
+      
+      ta.blur(); // For iOS
+      $(this).blur();
+    })).on('mouseleave', function(e) {
+      var $b = $(this).find('.copy-btn');
+      setTimeout(function() {
+        $b.text('Copy');
+      }, 300);
+    }).append(e);
+  })
+</script>
+
 
   
 

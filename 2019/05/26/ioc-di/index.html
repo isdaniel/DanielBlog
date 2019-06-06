@@ -29,7 +29,7 @@
     
     
   <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
-  <link rel="stylesheet" href="/lib/pace/pace-theme-flash.min.css?v=1.0.2">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2">
 
 
 
@@ -81,7 +81,7 @@
   
     
     
-    <link rel="stylesheet" href="/fonts/css?family=Lato:300,300italic,400,400italic,700,700italic|Georgia:300,300italic,400,400italic,700,700italic|Inconsolata for Powerline:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext">
+    <link rel="stylesheet" href="/fonts/css?family=Lato:300,300italic,400,400italic,700,700italic|Georgia:300,300italic,400,400italic,700,700italic|PT Mono:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext">
   
 
 
@@ -151,7 +151,7 @@
 <meta property="og:description" content="IOC是一個oop重要的程式設計思想。 學一個技術或思想前我們先了解，這個技術或思想為我們解決怎樣問題。 Ioc—Inversion of Control 控制反轉控制反轉是一個設計思想 ，把對於某個物件的控制權移轉給第三方容器 簡單解釋A物件程式內部需要使用B物件 A,B物件中有依賴的成份 控制反轉是把原本A對B控制權移交給第三方容器 降低A對B物件的耦合性，讓雙方都倚賴第三方容器。  反轉概念">
 <meta property="og:locale" content="zh-tw">
 <meta property="og:image" content="https://az787680.vo.msecnd.net/user/九桃/493ce9d9-64bd-4343-a145-16ab21f3c695/1555312814_72597.png">
-<meta property="og:updated_time" content="2019-06-06T06:41:49.698Z">
+<meta property="og:updated_time" content="2019-06-06T09:11:06.491Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="IOC(控制反轉)，DI(依賴注入) 深入淺出~~">
 <meta name="twitter:description" content="IOC是一個oop重要的程式設計思想。 學一個技術或思想前我們先了解，這個技術或思想為我們解決怎樣問題。 Ioc—Inversion of Control 控制反轉控制反轉是一個設計思想 ，把對於某個物件的控制權移轉給第三方容器 簡單解釋A物件程式內部需要使用B物件 A,B物件中有依賴的成份 控制反轉是把原本A對B控制權移交給第三方容器 降低A對B物件的耦合性，讓雙方都倚賴第三方容器。  反轉概念">
@@ -313,7 +313,7 @@
       
     
 
-    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>Tags<span class="badge">43</span></a>
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>Tags<span class="badge">44</span></a>
 
   </li>
         
@@ -332,7 +332,7 @@
       
     
 
-    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>Categories<span class="badge">8</span></a>
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>Categories<span class="badge">10</span></a>
 
   </li>
         
@@ -495,7 +495,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2019-06-06 06:41:49" itemprop="dateModified" datetime="2019-06-06T06:41:49+00:00">2019-06-06</time>
+                <time title="Modified: 2019-06-06 09:11:06" itemprop="dateModified" datetime="2019-06-06T09:11:06+00:00">2019-06-06</time>
               
             
           </span>
@@ -661,15 +661,15 @@
 <p>IOC容器：AutoFac</p>
 <p>下面範例來說明上面的例子</p>
 <p>小明自己依賴於掃地阿姨<br>依賴程式碼寫在小明類別內部日後要更改只能動內部程式碼。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">/// &lt;summary&gt;</span><br><span class="line">/// 小明直接依賴 Aunt 不是依賴抽象</span><br><span class="line">/// 日後要改必須動內部</span><br><span class="line">/// &lt;/summary&gt;</span><br><span class="line">public class Mine</span><br><span class="line">&#123;</span><br><span class="line">    public Aunt aunt = new Aunt();</span><br><span class="line"></span><br><span class="line">    public void Room()</span><br><span class="line">    &#123;</span><br><span class="line">        aunt.Swapping();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;summary&gt;</span></span></span><br><span class="line"><span class="comment"><span class="doctag">///</span> 小明直接依賴 Aunt 不是依賴抽象</span></span><br><span class="line"><span class="comment"><span class="doctag">///</span> 日後要改必須動內部</span></span><br><span class="line"><span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;/summary&gt;</span></span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">Mine</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">public</span> Aunt aunt = <span class="keyword">new</span> Aunt();</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">Room</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function"></span>    &#123;</span><br><span class="line">        aunt.Swapping();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>呼叫使用時</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Mine mine = new Mine();</span><br><span class="line">mine.Room();</span><br></pre></td></tr></table></figure>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Mine mine = <span class="keyword">new</span> Mine();</span><br><span class="line">mine.Room();</span><br></pre></td></tr></table></figure>
 <p>小明找仲介公司</p>
 <p><strong>仲介公司(Ioc容器)</strong></p>
 <p>在仲介公司內註冊需求，讓仲介公司日後幫你找人（註冊的類別）</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">/// &lt;summary&gt;</span><br><span class="line">/// 仲介公司</span><br><span class="line">/// &lt;/summary&gt;</span><br><span class="line">/// &lt;returns&gt;&lt;/returns&gt;</span><br><span class="line">private static IContainer MiddleCompany()</span><br><span class="line">&#123;</span><br><span class="line">    ContainerBuilder builder = new ContainerBuilder();</span><br><span class="line"></span><br><span class="line">    //在仲介公司裡寫需求人申請單</span><br><span class="line">    builder.RegisterType&lt;MineWithMiddle&gt;();</span><br><span class="line">    //小明所需打掃阿姨需求</span><br><span class="line">    builder.RegisterType&lt;Aunt&gt;().As&lt;ISwapable&gt;();</span><br><span class="line"></span><br><span class="line">    return builder.Build();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;summary&gt;</span></span></span><br><span class="line"><span class="comment"><span class="doctag">///</span> 仲介公司</span></span><br><span class="line"><span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;/summary&gt;</span></span></span><br><span class="line"><span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;returns&gt;</span><span class="doctag">&lt;/returns&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">static</span> IContainer <span class="title">MiddleCompany</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    ContainerBuilder builder = <span class="keyword">new</span> ContainerBuilder();</span><br><span class="line"></span><br><span class="line">    <span class="comment">//在仲介公司裡寫需求人申請單</span></span><br><span class="line">    builder.RegisterType&lt;MineWithMiddle&gt;();</span><br><span class="line">    <span class="comment">//小明所需打掃阿姨需求</span></span><br><span class="line">    builder.RegisterType&lt;Aunt&gt;().As&lt;ISwapable&gt;();</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> builder.Build();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>使用起來</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">IContainer middleCompany = MiddleCompany();</span><br><span class="line">//仲介公司(IOC AutoFac)自動幫小明注入一個打掃阿姨</span><br><span class="line">MineWithMiddle mineWithMiddle = middleCompany.Resolve&lt;MineWithMiddle&gt;();</span><br><span class="line"></span><br><span class="line">mineWithMiddle.Room();</span><br></pre></td></tr></table></figure>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">IContainer middleCompany = MiddleCompany();</span><br><span class="line"><span class="comment">//仲介公司(IOC AutoFac)自動幫小明注入一個打掃阿姨</span></span><br><span class="line">MineWithMiddle mineWithMiddle = middleCompany.Resolve&lt;MineWithMiddle&gt;();</span><br><span class="line"></span><br><span class="line">mineWithMiddle.Room();</span><br></pre></td></tr></table></figure>
 <p>總結：</p>
 <p>雖然上面程式碼執行結果一樣，但內部結構和日後擴展性卻截然不同</p>
 <blockquote>
@@ -894,7 +894,11 @@
                     
                       
                     
-                    <span class="site-state-item-count">8</span>
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">10</span>
                     <span class="site-state-item-name">categories</span>
                   </a>
                 </div>
@@ -997,7 +1001,9 @@
                     
                       
                     
-                    <span class="site-state-item-count">43</span>
+                      
+                    
+                    <span class="site-state-item-count">44</span>
                     <span class="site-state-item-name">tags</span>
                   </a>
                 </div>
@@ -1223,6 +1229,12 @@
 
 
 
+
+  
+    
+    
+  
+  <script color="0,0,255" opacity="0.6" zindex="-1" count="150" src="/lib/canvas-nest/canvas-nest.min.js"></script>
 
 
 
@@ -1722,6 +1734,41 @@
   
 
   
+<script>
+  $('.highlight').not('.gist .highlight').each(function(i, e) {
+    var $wrap = $('<div>').addClass('highlight-wrap');
+    $(e).after($wrap);
+    $wrap.append($('<button>').addClass('copy-btn').append('Copy').on('click', function(e) {
+      var code = $(this).parent().find('.code').find('.line').map(function(i, e) {
+        return $(e).text();
+      }).toArray().join('\n');
+      var ta = document.createElement('textarea');
+      var yPosition = window.pageYOffset || document.documentElement.scrollTop;
+      ta.style.top = yPosition + 'px'; // Prevent page scroll
+      ta.style.position = 'absolute';
+      ta.style.opacity = '0';
+      ta.readOnly = true;
+      ta.value = code;
+      document.body.appendChild(ta);
+      ta.select();
+      ta.setSelectionRange(0, code.length);
+      ta.readOnly = false;
+      var result = document.execCommand('copy');
+      
+        if (result) $(this).text('Copied');
+        else $(this).text('Copy failed');
+      
+      ta.blur(); // For iOS
+      $(this).blur();
+    })).on('mouseleave', function(e) {
+      var $b = $(this).find('.copy-btn');
+      setTimeout(function() {
+        $b.text('Copy');
+      }, 300);
+    }).append(e);
+  })
+</script>
+
 
   
 
