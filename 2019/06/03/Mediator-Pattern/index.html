@@ -143,7 +143,7 @@
 
 
   <meta name="description" content="說明系統模塊存在很多複雜的耦合問題，很適合使用中介者模式來解耦合 在現實中如果組織有一定規模可能構通如下圖那般複雜  如果有一個人或組織負責幫大家協助溝通，就可解決上面複雜問題 這就是我們這次的核心中介者  中介者模式有幾個角色 AbstractMediator (抽像中介者)：定義中介者和各個同事者之間的通信的介面 ConcreteMediator (中介者)：知道每個同事物件，實現抽像中介者，">
-<meta name="keywords" content="DesignPattern,csharp,MediatorPattern">
+<meta name="keywords" content="C#,DesignPattern,MediatorPattern">
 <meta property="og:type" content="article">
 <meta property="og:title" content="MediatorPattern(中介者模式)">
 <meta property="og:url" content="https://isdaniel.github.io/2019/06/03/Mediator-Pattern/index.html">
@@ -153,7 +153,7 @@
 <meta property="og:image" content="https://az787680.vo.msecnd.net/user/九桃/f718d961-2f8b-46ac-a2f7-b95af802f23a/1549790323_53498.png">
 <meta property="og:image" content="https://az787680.vo.msecnd.net/user/九桃/f718d961-2f8b-46ac-a2f7-b95af802f23a/1549790493_52417.png">
 <meta property="og:image" content="https://az787680.vo.msecnd.net/user/九桃/f718d961-2f8b-46ac-a2f7-b95af802f23a/1549792143_37531.png">
-<meta property="og:updated_time" content="2019-06-06T10:32:05.953Z">
+<meta property="og:updated_time" content="2019-06-07T03:08:52.179Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="MediatorPattern(中介者模式)">
 <meta name="twitter:description" content="說明系統模塊存在很多複雜的耦合問題，很適合使用中介者模式來解耦合 在現實中如果組織有一定規模可能構通如下圖那般複雜  如果有一個人或組織負責幫大家協助溝通，就可解決上面複雜問題 這就是我們這次的核心中介者  中介者模式有幾個角色 AbstractMediator (抽像中介者)：定義中介者和各個同事者之間的通信的介面 ConcreteMediator (中介者)：知道每個同事物件，實現抽像中介者，">
@@ -315,7 +315,7 @@
       
     
 
-    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>Tags<span class="badge">56</span></a>
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>Tags<span class="badge">55</span></a>
 
   </li>
         
@@ -334,7 +334,7 @@
       
     
 
-    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>Categories<span class="badge">10</span></a>
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>Categories<span class="badge">8</span></a>
 
   </li>
         
@@ -497,7 +497,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2019-06-06 10:32:05" itemprop="dateModified" datetime="2019-06-06T10:32:05+00:00">2019-06-06</time>
+                <time title="Modified: 2019-06-07 03:08:52" itemprop="dateModified" datetime="2019-06-07T03:08:52+00:00">2019-06-07</time>
               
             
           </span>
@@ -514,14 +514,14 @@
                 <span class="post-meta-item-text">In</span>
               
               
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/csharp/" itemprop="url" rel="index"><span itemprop="name">csharp</span></a></span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/C/" itemprop="url" rel="index"><span itemprop="name">C#</span></a></span>
 
                 
                 
                   , 
                 
               
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/csharp/DesignPattern/" itemprop="url" rel="index"><span itemprop="name">DesignPattern</span></a></span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/C/DesignPattern/" itemprop="url" rel="index"><span itemprop="name">DesignPattern</span></a></span>
 
                 
                 
@@ -633,7 +633,7 @@
 <h3 id="有三大重點"><a href="#有三大重點" class="headerlink" title="有三大重點"></a>有三大重點</h3><ol>
 <li>DBA和RD(同事者) 知道PM(中介者)存在</li>
 <li>PM(中介者)知道DBA和RD(同事者)存在</li>
-<li>DBA和RD不用知道對方存在但卻可以互相傳遞訊息(因為PM已經幫助我們解耦合了)</li>
+<li>ㄋDBA和RD不用知道對方存在但卻可以互相傳遞訊息(因為PM已經幫助我們解耦合了)</li>
 </ol>
 <p><img src="https://az787680.vo.msecnd.net/user/九桃/f718d961-2f8b-46ac-a2f7-b95af802f23a/1549792143_37531.png" alt></p>
 <p>UML圖 (有標示相對應的角色關係)</p>
@@ -652,13 +652,6 @@
     <li class="popular-posts-item">
       
       
-      <div class="popular-posts-title"><a href="\2019\06\02\Bridge-Pattern\" rel="bookmark">橋接模式(BridgePattern)</a></div>
-      
-    </li>
-  
-    <li class="popular-posts-item">
-      
-      
       <div class="popular-posts-title"><a href="\2019\06\10\StatusPattern\" rel="bookmark">State Pattern(狀態者模式)</a></div>
       
     </li>
@@ -666,7 +659,28 @@
     <li class="popular-posts-item">
       
       
+      <div class="popular-posts-title"><a href="\2019\06\02\Bridge-Pattern\" rel="bookmark">橋接模式(BridgePattern)</a></div>
+      
+    </li>
+  
+    <li class="popular-posts-item">
+      
+      
       <div class="popular-posts-title"><a href="\2019\06\02\Template-Pattern\" rel="bookmark">橋接模式(BridgePattern)</a></div>
+      
+    </li>
+  
+    <li class="popular-posts-item">
+      
+      
+      <div class="popular-posts-title"><a href="\2019\05\27\AwesomeProxy-Net\" rel="bookmark">【C#】 AOP輕型框架  AwesomeProxy.Net 介紹使用</a></div>
+      
+    </li>
+  
+    <li class="popular-posts-item">
+      
+      
+      <div class="popular-posts-title"><a href="\2019\06\10\AutoMapperInit\" rel="bookmark">(AutoMapper)反射自動註冊AutoMapper Profile</a></div>
       
     </li>
   
@@ -692,9 +706,9 @@
       
         <div class="post-tags">
           
-            <a href="/tags/DesignPattern/" rel="tag"># DesignPattern</a>
+            <a href="/tags/C/" rel="tag"># C#</a>
           
-            <a href="/tags/csharp/" rel="tag"># csharp</a>
+            <a href="/tags/DesignPattern/" rel="tag"># DesignPattern</a>
           
             <a href="/tags/MediatorPattern/" rel="tag"># MediatorPattern</a>
           
@@ -838,11 +852,7 @@
                     
                       
                     
-                      
-                    
-                      
-                    
-                    <span class="site-state-item-count">10</span>
+                    <span class="site-state-item-count">8</span>
                     <span class="site-state-item-name">categories</span>
                   </a>
                 </div>
@@ -969,9 +979,7 @@
                     
                       
                     
-                      
-                    
-                    <span class="site-state-item-count">56</span>
+                    <span class="site-state-item-count">55</span>
                     <span class="site-state-item-name">tags</span>
                   </a>
                 </div>

@@ -142,19 +142,19 @@
 
 
 
-  <meta name="description" content="前言：狀態者模式 優勢在可將複雜的物件狀態條件,以物件方式來減少條件式的判斷程式 可由物件自身的狀態，決定之後的動作行為. 狀態者模式 說明:需求簡易流程如下 這是一個簡單的訂單流程圖  我們可看到從建立訂單開始-&amp;gt;最後判斷成功或取消訂單 看似簡單但需要寫一定程度的判斷條件式,而且也要做一定程度的逆向流程防呆. 這裡先貼上 未使用狀態者模式的程式碼: PaymentContext.cs 12">
+  <meta name="description" content="前言：狀態者模式 優勢在可將複雜的物件狀態條件,以物件方式來減少條件式的判斷程式 可由物件自身的狀態，決定之後的動作行為. 狀態者模式 說明：需求簡易流程如下 這是一個簡單的訂單流程圖  我們可看到從建立訂單開始-&amp;gt;最後判斷成功或取消訂單 看似簡單但需要寫一定程度的判斷條件式,而且也要做一定程度的逆向流程防呆. 這裡先貼上 未使用狀態者模式的程式碼: PaymentContext.cs 12">
 <meta name="keywords" content="C#,DesignPattern,StatePattern">
 <meta property="og:type" content="article">
 <meta property="og:title" content="State Pattern(狀態者模式)">
 <meta property="og:url" content="https://isdaniel.github.io/2019/06/10/StatusPattern/index.html">
 <meta property="og:site_name" content="石頭的coding之路">
-<meta property="og:description" content="前言：狀態者模式 優勢在可將複雜的物件狀態條件,以物件方式來減少條件式的判斷程式 可由物件自身的狀態，決定之後的動作行為. 狀態者模式 說明:需求簡易流程如下 這是一個簡單的訂單流程圖  我們可看到從建立訂單開始-&amp;gt;最後判斷成功或取消訂單 看似簡單但需要寫一定程度的判斷條件式,而且也要做一定程度的逆向流程防呆. 這裡先貼上 未使用狀態者模式的程式碼: PaymentContext.cs 12">
+<meta property="og:description" content="前言：狀態者模式 優勢在可將複雜的物件狀態條件,以物件方式來減少條件式的判斷程式 可由物件自身的狀態，決定之後的動作行為. 狀態者模式 說明：需求簡易流程如下 這是一個簡單的訂單流程圖  我們可看到從建立訂單開始-&amp;gt;最後判斷成功或取消訂單 看似簡單但需要寫一定程度的判斷條件式,而且也要做一定程度的逆向流程防呆. 這裡先貼上 未使用狀態者模式的程式碼: PaymentContext.cs 12">
 <meta property="og:locale" content="zh-tw">
 <meta property="og:image" content="https://az787680.vo.msecnd.net/user/九桃/c83df7da-1425-4410-9df3-a45bf9e35c1a/1542429110_98117.png">
-<meta property="og:updated_time" content="2019-06-06T10:32:05.953Z">
+<meta property="og:updated_time" content="2019-06-07T03:08:52.179Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="State Pattern(狀態者模式)">
-<meta name="twitter:description" content="前言：狀態者模式 優勢在可將複雜的物件狀態條件,以物件方式來減少條件式的判斷程式 可由物件自身的狀態，決定之後的動作行為. 狀態者模式 說明:需求簡易流程如下 這是一個簡單的訂單流程圖  我們可看到從建立訂單開始-&amp;gt;最後判斷成功或取消訂單 看似簡單但需要寫一定程度的判斷條件式,而且也要做一定程度的逆向流程防呆. 這裡先貼上 未使用狀態者模式的程式碼: PaymentContext.cs 12">
+<meta name="twitter:description" content="前言：狀態者模式 優勢在可將複雜的物件狀態條件,以物件方式來減少條件式的判斷程式 可由物件自身的狀態，決定之後的動作行為. 狀態者模式 說明：需求簡易流程如下 這是一個簡單的訂單流程圖  我們可看到從建立訂單開始-&amp;gt;最後判斷成功或取消訂單 看似簡單但需要寫一定程度的判斷條件式,而且也要做一定程度的逆向流程防呆. 這裡先貼上 未使用狀態者模式的程式碼: PaymentContext.cs 12">
 <meta name="twitter:image" content="https://az787680.vo.msecnd.net/user/九桃/c83df7da-1425-4410-9df3-a45bf9e35c1a/1542429110_98117.png">
 
 
@@ -313,7 +313,7 @@
       
     
 
-    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>Tags<span class="badge">56</span></a>
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>Tags<span class="badge">55</span></a>
 
   </li>
         
@@ -332,7 +332,7 @@
       
     
 
-    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>Categories<span class="badge">10</span></a>
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>Categories<span class="badge">8</span></a>
 
   </li>
         
@@ -495,7 +495,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2019-06-06 10:32:05" itemprop="dateModified" datetime="2019-06-06T10:32:05+00:00">2019-06-06</time>
+                <time title="Modified: 2019-06-07 03:08:52" itemprop="dateModified" datetime="2019-06-07T03:08:52+00:00">2019-06-07</time>
               
             
           </span>
@@ -568,7 +568,7 @@
                 
                   <span class="post-meta-item-text">Symbols count in article: </span>
                 
-                <span title="Symbols count in article">5.5k</span>
+                <span title="Symbols count in article">5.6k</span>
               
 
               
@@ -605,7 +605,7 @@
         <h2 id="前言："><a href="#前言：" class="headerlink" title="前言："></a>前言：</h2><p>狀態者模式</p>
 <p>優勢在可將複雜的物件狀態條件,以物件方式來減少條件式的判斷程式</p>
 <p>可由物件自身的狀態，決定之後的動作行為.</p>
-<h2 id="狀態者模式-說明"><a href="#狀態者模式-說明" class="headerlink" title="狀態者模式 說明:"></a>狀態者模式 說明:</h2><p>需求簡易流程如下</p>
+<h2 id="狀態者模式-說明："><a href="#狀態者模式-說明：" class="headerlink" title="狀態者模式 說明："></a>狀態者模式 說明：</h2><p>需求簡易流程如下</p>
 <p>這是一個簡單的訂單流程圖</p>
 <p><img src="https://az787680.vo.msecnd.net/user/九桃/c83df7da-1425-4410-9df3-a45bf9e35c1a/1542429110_98117.png" alt></p>
 <p>我們可看到從建立訂單開始-&gt;最後判斷成功或取消訂單 看似簡單但需要寫一定程度的判斷條件式,而且也要做一定程度的逆向流程防呆.</p>
@@ -636,10 +636,10 @@
 <h3 id="說明"><a href="#說明" class="headerlink" title="說明:"></a>說明:</h3><p>以流程進行中為例子.</p>
 <p>他會判斷商品使用超過300元,來決定下個流程 所以我們就把這個邏輯寫在此類中.  </p>
 <p>另外後面幾個流程比照辦理一一搬入類別中</p>
-<pre><code><div class="highlight-wrap" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true" data-rel="CSHARP"><figure class="iseeu highlight /csharp"><figcaption><span>[	]public class CancelSatus : PaymentSatusBase</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">CancelSatus</span>(<span class="params">PaymentGate g</span>)</span></span><br><span class="line"><span class="function"></span>    &#123;</span><br><span class="line">        _gate = g;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">override</span> <span class="keyword">string</span> <span class="title">Running</span>(<span class="params">Product p</span>)</span></span><br><span class="line"><span class="function"></span>    &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">"交易取消完成"</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">override</span> <span class="keyword">string</span> <span class="title">SetSatus</span>(<span class="params">PayStatus s</span>)</span></span><br><span class="line"><span class="function"></span>    &#123;</span><br><span class="line">        <span class="keyword">string</span> result = <span class="keyword">string</span>.Empty;</span><br><span class="line">        <span class="keyword">if</span> (s == PayStatus.Init)</span><br><span class="line">            result = <span class="string">"訂單取消請勿修改"</span>;</span><br><span class="line">        <span class="keyword">return</span> result;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">SuccessSatus</span> : <span class="title">PaymentSatusBase</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">SuccessSatus</span>(<span class="params">PaymentGate g</span>)</span></span><br><span class="line"><span class="function"></span>    &#123;</span><br><span class="line">        _gate = g;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">override</span> <span class="keyword">string</span> <span class="title">Running</span>(<span class="params">Product p</span>)</span></span><br><span class="line"><span class="function"></span>    &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">"交易完成"</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">override</span> <span class="keyword">string</span> <span class="title">SetSatus</span>(<span class="params">PayStatus s</span>)</span></span><br><span class="line"><span class="function"></span>    &#123;</span><br><span class="line">        <span class="keyword">string</span> result = <span class="keyword">string</span>.Empty;</span><br><span class="line">        <span class="keyword">if</span> (s == PayStatus.Init)</span><br><span class="line">            result = <span class="string">"訂單成功請勿修改"</span>;</span><br><span class="line">        <span class="keyword">return</span> result;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
-</code></pre><p>最後外部程式使用如下</p>
-<pre><code><div class="highlight-wrap" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true" data-rel="CSHARP"><figure class="iseeu highlight /csharp"><figcaption><span>[	]Product p </span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">p.Name = <span class="string">"電腦"</span>;</span><br><span class="line">p.Price = <span class="number">300000</span>;</span><br><span class="line"></span><br><span class="line">PaymentGate context = <span class="keyword">new</span> PaymentGate(p);</span><br><span class="line">Console.WriteLine(context.RunProcess());</span><br><span class="line">Console.WriteLine(context.RunProcess());</span><br><span class="line">Console.WriteLine(context.RunProcess());</span><br><span class="line">context.SetStatus(PayStatus.Init);</span><br><span class="line">Console.WriteLine(context.RunProcess());</span><br></pre></td></tr></table></figure></div>
-</code></pre><p><span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2lzZGFuaWVsL0Rlc2lnblBhdHRlcm4vdHJlZS9tYXN0ZXIvRGVzaWduUGF0dGVybi9TdGF0ZVBhdHRlcm4=" title="https://github.com/isdaniel/DesignPattern/tree/master/DesignPattern/StatePattern">程式碼放在github上<i class="fa fa-external-link"></i></span></p>
+<div class="highlight-wrap" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true" data-rel="CSHARP"><figure class="iseeu highlight /csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">CancelSatus</span> : <span class="title">PaymentSatusBase</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">CancelSatus</span>(<span class="params">PaymentGate g</span>)</span></span><br><span class="line"><span class="function"></span>    &#123;</span><br><span class="line">        _gate = g;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">override</span> <span class="keyword">string</span> <span class="title">Running</span>(<span class="params">Product p</span>)</span></span><br><span class="line"><span class="function"></span>    &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">"交易取消完成"</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">override</span> <span class="keyword">string</span> <span class="title">SetSatus</span>(<span class="params">PayStatus s</span>)</span></span><br><span class="line"><span class="function"></span>    &#123;</span><br><span class="line">        <span class="keyword">string</span> result = <span class="keyword">string</span>.Empty;</span><br><span class="line">        <span class="keyword">if</span> (s == PayStatus.Init)</span><br><span class="line">            result = <span class="string">"訂單取消請勿修改"</span>;</span><br><span class="line">        <span class="keyword">return</span> result;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">SuccessSatus</span> : <span class="title">PaymentSatusBase</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">SuccessSatus</span>(<span class="params">PaymentGate g</span>)</span></span><br><span class="line"><span class="function"></span>    &#123;</span><br><span class="line">        _gate = g;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">override</span> <span class="keyword">string</span> <span class="title">Running</span>(<span class="params">Product p</span>)</span></span><br><span class="line"><span class="function"></span>    &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">"交易完成"</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">override</span> <span class="keyword">string</span> <span class="title">SetSatus</span>(<span class="params">PayStatus s</span>)</span></span><br><span class="line"><span class="function"></span>    &#123;</span><br><span class="line">        <span class="keyword">string</span> result = <span class="keyword">string</span>.Empty;</span><br><span class="line">        <span class="keyword">if</span> (s == PayStatus.Init)</span><br><span class="line">            result = <span class="string">"訂單成功請勿修改"</span>;</span><br><span class="line">        <span class="keyword">return</span> result;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+<p>最後外部程式使用如下</p>
+<div class="highlight-wrap" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true" data-rel="CSHARP"><figure class="iseeu highlight /csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">Product p = <span class="keyword">new</span> Product();</span><br><span class="line">p.Name = <span class="string">"電腦"</span>;</span><br><span class="line">p.Price = <span class="number">300000</span>;</span><br><span class="line"></span><br><span class="line">PaymentGate context = <span class="keyword">new</span> PaymentGate(p);</span><br><span class="line">Console.WriteLine(context.RunProcess());</span><br><span class="line">Console.WriteLine(context.RunProcess());</span><br><span class="line">Console.WriteLine(context.RunProcess());</span><br><span class="line">context.SetStatus(PayStatus.Init);</span><br><span class="line">Console.WriteLine(context.RunProcess());</span><br></pre></td></tr></table></figure></div>
+<p><span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2lzZGFuaWVsL0Rlc2lnblBhdHRlcm4vdHJlZS9tYXN0ZXIvRGVzaWduUGF0dGVybi9TdGF0ZVBhdHRlcm4=" title="https://github.com/isdaniel/DesignPattern/tree/master/DesignPattern/StatePattern">程式碼放在github上<i class="fa fa-external-link"></i></span></p>
 <p><strong>此文作者</strong>：Daniel Shih(石頭)<br><strong>此文地址</strong>： <a href="https://isdaniel.github.io/2019/06/10/StatusPattern/">https://isdaniel.github.io/2019/06/10/StatusPattern/</a> <br><strong>版權聲明</strong>：本博客所有文章除特別聲明外，均採用 <span class="exturl" data-url="aHR0cHM6Ly9jcmVhdGl2ZWNvbW1vbnMub3JnL2xpY2Vuc2VzL2J5LW5jLXNhLzMuMC90dy8=" title="https://creativecommons.org/licenses/by-nc-sa/3.0/tw/">CC BY-NC-SA 3.0 TW<i class="fa fa-external-link"></i></span> 許可協議。轉載請註明出處！</p>
 
       
@@ -654,13 +654,6 @@
     <li class="popular-posts-item">
       
       
-      <div class="popular-posts-title"><a href="\2019\06\02\Template-Pattern\" rel="bookmark">橋接模式(BridgePattern)</a></div>
-      
-    </li>
-  
-    <li class="popular-posts-item">
-      
-      
       <div class="popular-posts-title"><a href="\2019\06\02\Bridge-Pattern\" rel="bookmark">橋接模式(BridgePattern)</a></div>
       
     </li>
@@ -668,14 +661,21 @@
     <li class="popular-posts-item">
       
       
-      <div class="popular-posts-title"><a href="\2019\05\27\AwesomeProxy-Net\" rel="bookmark">【C#】 AOP輕型框架  AwesomeProxy.Net 介紹使用</a></div>
+      <div class="popular-posts-title"><a href="\2019\06\03\Mediator-Pattern\" rel="bookmark">MediatorPattern(中介者模式)</a></div>
       
     </li>
   
     <li class="popular-posts-item">
       
       
-      <div class="popular-posts-title"><a href="\2019\06\02\Autofac-introduce\" rel="bookmark">Autofac (IOC)容器介紹</a></div>
+      <div class="popular-posts-title"><a href="\2019\06\02\Template-Pattern\" rel="bookmark">橋接模式(BridgePattern)</a></div>
+      
+    </li>
+  
+    <li class="popular-posts-item">
+      
+      
+      <div class="popular-posts-title"><a href="\2019\06\02\RabbitMQ-Fanout\" rel="bookmark">RabbitMQ (三) Fanout 交換器</a></div>
       
     </li>
   
@@ -850,11 +850,7 @@
                     
                       
                     
-                      
-                    
-                      
-                    
-                    <span class="site-state-item-count">10</span>
+                    <span class="site-state-item-count">8</span>
                     <span class="site-state-item-name">categories</span>
                   </a>
                 </div>
@@ -981,9 +977,7 @@
                     
                       
                     
-                      
-                    
-                    <span class="site-state-item-count">56</span>
+                    <span class="site-state-item-count">55</span>
                     <span class="site-state-item-name">tags</span>
                   </a>
                 </div>
@@ -1076,7 +1070,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#前言："><span class="nav-number">1.</span> <span class="nav-text">前言：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#狀態者模式-說明"><span class="nav-number">2.</span> <span class="nav-text">狀態者模式 說明:</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#如何新建一個流程物件"><span class="nav-number">3.</span> <span class="nav-text">如何新建一個流程物件?</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#說明"><span class="nav-number">3.1.</span> <span class="nav-text">說明:</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#前言："><span class="nav-number">1.</span> <span class="nav-text">前言：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#狀態者模式-說明："><span class="nav-number">2.</span> <span class="nav-text">狀態者模式 說明：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#如何新建一個流程物件"><span class="nav-number">3.</span> <span class="nav-text">如何新建一個流程物件?</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#說明"><span class="nav-number">3.1.</span> <span class="nav-text">說明:</span></a></li></ol></li></ol></div>
             
 
           </div>
