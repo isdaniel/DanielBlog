@@ -146,12 +146,12 @@
 <meta name="keywords" content="C#,Asp.net,IHttpHanlder,IHttpModule">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Asp.net HttpHandler vs HttpModule 詳細解說.">
-<meta property="og:url" content="https://isdaniel.github.io/2019/06/08/HttpHandler-HttpModule/index.html">
+<meta property="og:url" content="https://isdaniel.github.io/2019/06/11/HttpHandler-HttpModule/index.html">
 <meta property="og:site_name" content="石頭的coding之路">
 <meta property="og:description" content="前言：Asp.net 是一個pipeline的模型 我覺得.Net Web工程師對於這個模型和IHttpHanlder,IHttpModule 要有基本的概念和理解. 理解這些管道除了可以讓我們節省許多不必要的資源浪費也可讓我們程式架構更加有條理. 就像我們在Asp.net MVC如果要寫權限驗證程式碼,雖然可以寫在Controller的Action中 但更好做法是我可以寫一個類別繼承Author">
 <meta property="og:locale" content="zh-tw">
 <meta property="og:image" content="https://1.bp.blogspot.com/--nEyvA5pGLk/WXn6YudHYzI/AAAAAAACWLg/7N81JLv5SfYPMvYmGdUnNHg4_p3Shb5DACLcBGAs/s1600/overview.jpg">
-<meta property="og:updated_time" content="2019-06-09T10:56:09.863Z">
+<meta property="og:updated_time" content="2019-06-09T10:59:07.723Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Asp.net HttpHandler vs HttpModule 詳細解說.">
 <meta name="twitter:description" content="前言：Asp.net 是一個pipeline的模型 我覺得.Net Web工程師對於這個模型和IHttpHanlder,IHttpModule 要有基本的概念和理解. 理解這些管道除了可以讓我們節省許多不必要的資源浪費也可讓我們程式架構更加有條理. 就像我們在Asp.net MVC如果要寫權限驗證程式碼,雖然可以寫在Controller的Action中 但更好做法是我可以寫一個類別繼承Author">
@@ -163,7 +163,7 @@
 
   
   
-  <link rel="canonical" href="https://isdaniel.github.io/2019/06/08/HttpHandler-HttpModule/">
+  <link rel="canonical" href="https://isdaniel.github.io/2019/06/11/HttpHandler-HttpModule/">
 
 
 
@@ -435,7 +435,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://isdaniel.github.io/2019/06/08/HttpHandler-HttpModule/">
+    <link itemprop="mainEntityOfPage" href="https://isdaniel.github.io/2019/06/11/HttpHandler-HttpModule/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Daniel Shih">
@@ -478,7 +478,7 @@
                 
               
 
-              <time title="Created: 2019-06-08 19:16:37" itemprop="dateCreated datePublished" datetime="2019-06-08T19:16:37+00:00">2019-06-08</time>
+              <time title="Created: 2019-06-11 19:16:37" itemprop="dateCreated datePublished" datetime="2019-06-11T19:16:37+00:00">2019-06-11</time>
             
 
             
@@ -495,7 +495,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2019-06-09 10:56:09" itemprop="dateModified" datetime="2019-06-09T10:56:09+00:00">2019-06-09</time>
+                <time title="Modified: 2019-06-09 10:59:07" itemprop="dateModified" datetime="2019-06-09T10:59:07+00:00">2019-06-09</time>
               
             
           </span>
@@ -538,8 +538,8 @@
                 </span>
             
                 <span class="post-meta-item-text">Comments: </span>
-                <a href="/2019/06/08/HttpHandler-HttpModule/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2019/06/08/HttpHandler-HttpModule/" itemprop="commentCount"></span>
+                <a href="/2019/06/11/HttpHandler-HttpModule/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2019/06/11/HttpHandler-HttpModule/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -735,7 +735,7 @@
 <li><span class="exturl" data-url="aHR0cHM6Ly9zdXBwb3J0Lm1pY3Jvc29mdC5jb20vemgtdHcvaGVscC8zMDc5ODUvaW5mby1hc3AtbmV0LWh0dHAtbW9kdWxlcy1hbmQtaHR0cC1oYW5kbGVycy1vdmVydmlldw==" title="https://support.microsoft.com/zh-tw/help/307985/info-asp-net-http-modules-and-http-handlers-overview">https://support.microsoft.com/zh-tw/help/307985/info-asp-net-http-modules-and-http-handlers-overview<i class="fa fa-external-link"></i></span></li>
 <li><span class="exturl" data-url="aHR0cHM6Ly93d3cuY29kZXByb2plY3QuY29tL0FydGljbGVzLzMzNTk2OC9JbXBsZW1lbnRpbmctSFRUUEhhbmRsZXItYW5kLUhUVFBNb2R1bGUtaW4tQVNQLU5FVA==" title="https://www.codeproject.com/Articles/335968/Implementing-HTTPHandler-and-HTTPModule-in-ASP-NET">https://www.codeproject.com/Articles/335968/Implementing-HTTPHandler-and-HTTPModule-in-ASP-NET<i class="fa fa-external-link"></i></span></li>
 </ul>
-<p><strong>此文作者</strong>：Daniel Shih(石頭)<br><strong>此文地址</strong>： <a href="https://isdaniel.github.io/2019/06/08/HttpHandler-HttpModule/">https://isdaniel.github.io/2019/06/08/HttpHandler-HttpModule/</a> <br><strong>版權聲明</strong>：本博客所有文章除特別聲明外，均採用 <span class="exturl" data-url="aHR0cHM6Ly9jcmVhdGl2ZWNvbW1vbnMub3JnL2xpY2Vuc2VzL2J5LW5jLXNhLzMuMC90dy8=" title="https://creativecommons.org/licenses/by-nc-sa/3.0/tw/">CC BY-NC-SA 3.0 TW<i class="fa fa-external-link"></i></span> 許可協議。轉載請註明出處！</p>
+<p><strong>此文作者</strong>：Daniel Shih(石頭)<br><strong>此文地址</strong>： <a href="https://isdaniel.github.io/2019/06/11/HttpHandler-HttpModule/">https://isdaniel.github.io/2019/06/11/HttpHandler-HttpModule/</a> <br><strong>版權聲明</strong>：本博客所有文章除特別聲明外，均採用 <span class="exturl" data-url="aHR0cHM6Ly9jcmVhdGl2ZWNvbW1vbnMub3JnL2xpY2Vuc2VzL2J5LW5jLXNhLzMuMC90dy8=" title="https://creativecommons.org/licenses/by-nc-sa/3.0/tw/">CC BY-NC-SA 3.0 TW<i class="fa fa-external-link"></i></span> 許可協議。轉載請註明出處！</p>
 
       
     </div>
@@ -822,8 +822,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/06/03/Mediator-Pattern/" rel="next" title="MediatorPattern(中介者模式)">
-                <i class="fa fa-chevron-left"></i> MediatorPattern(中介者模式)
+              <a href="/2019/06/10/StatusPattern/" rel="next" title="State Pattern(狀態者模式)">
+                <i class="fa fa-chevron-left"></i> State Pattern(狀態者模式)
               </a>
             
           </div>
@@ -831,10 +831,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2019/06/10/Deploy-OwnNuget/" rel="prev" title="發布自己的Nuget專案">
-                發布自己的Nuget專案 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -1398,8 +1394,8 @@
 
 <script>
   var disqus_config = function() {
-    this.page.url = "https://isdaniel.github.io/2019/06/08/HttpHandler-HttpModule/";
-    this.page.identifier = "2019/06/08/HttpHandler-HttpModule/";
+    this.page.url = "https://isdaniel.github.io/2019/06/11/HttpHandler-HttpModule/";
+    this.page.identifier = "2019/06/11/HttpHandler-HttpModule/";
     this.page.title = 'Asp.net HttpHandler vs HttpModule 詳細解說.';
     };
   function loadComments() {
