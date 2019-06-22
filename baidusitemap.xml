@@ -1,7 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://isdaniel.github.io/2019/06/02/Template-Pattern/</loc>
+    <loc>https://isdaniel.github.io/2019/06/10/AutoMapperInit/</loc>
+    <lastmod>2019-06-22</lastmod>
+  </url>  <url>
+    <loc>https://isdaniel.github.io/2019/06/02/Autofac-introduce/</loc>
+    <lastmod>2019-06-22</lastmod>
+  </url>  <url>
+    <loc>https://isdaniel.github.io/2019/05/27/AwesomeProxy-Net/</loc>
     <lastmod>2019-06-22</lastmod>
   </url>  <url>
     <loc>https://isdaniel.github.io/2019/06/02/Bridge-Pattern/</loc>
@@ -46,7 +52,7 @@
     <loc>https://isdaniel.github.io/2019/06/10/StatusPattern/</loc>
     <lastmod>2019-06-22</lastmod>
   </url>  <url>
-    <loc>https://isdaniel.github.io/2019/05/27/ref-address/</loc>
+    <loc>https://isdaniel.github.io/2019/06/02/Autofac-AOP/</loc>
     <lastmod>2019-06-22</lastmod>
   </url>  <url>
     <loc>https://isdaniel.github.io/2019/05/29/base64-principle/</loc>
@@ -91,16 +97,10 @@
     <loc>https://isdaniel.github.io/2019/05/27/own-session/</loc>
     <lastmod>2019-06-22</lastmod>
   </url>  <url>
-    <loc>https://isdaniel.github.io/2019/06/02/Autofac-AOP/</loc>
+    <loc>https://isdaniel.github.io/2019/05/27/ref-address/</loc>
     <lastmod>2019-06-22</lastmod>
   </url>  <url>
-    <loc>https://isdaniel.github.io/2019/05/27/AwesomeProxy-Net/</loc>
-    <lastmod>2019-06-22</lastmod>
-  </url>  <url>
-    <loc>https://isdaniel.github.io/2019/06/02/Autofac-introduce/</loc>
-    <lastmod>2019-06-22</lastmod>
-  </url>  <url>
-    <loc>https://isdaniel.github.io/2019/06/10/AutoMapperInit/</loc>
+    <loc>https://isdaniel.github.io/2019/06/02/Template-Pattern/</loc>
     <lastmod>2019-06-22</lastmod>
   </url>
 </urlset>
