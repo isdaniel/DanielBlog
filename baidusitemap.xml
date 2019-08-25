@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://isdaniel.github.io/Template-Pattern.html</loc>
+    <loc>https://isdaniel.github.io/hexo-github-setting.html</loc>
     <lastmod>2019-08-25</lastmod>
   </url>  <url>
     <loc>https://isdaniel.github.io/ref-address.html</loc>
@@ -16,52 +16,13 @@
     <loc>https://isdaniel.github.io/ioc-di.html</loc>
     <lastmod>2019-08-25</lastmod>
   </url>  <url>
-    <loc>https://isdaniel.github.io/hexo-github-setting.html</loc>
-    <lastmod>2019-08-25</lastmod>
-  </url>  <url>
-    <loc>https://isdaniel.github.io/HttpHandler-HttpModule.html</loc>
-    <lastmod>2019-08-25</lastmod>
-  </url>  <url>
-    <loc>https://isdaniel.github.io/InvoiceTW-Framework.html</loc>
-    <lastmod>2019-08-25</lastmod>
-  </url>  <url>
-    <loc>https://isdaniel.github.io/JsonConvert-SerializeObject.html</loc>
-    <lastmod>2019-08-25</lastmod>
-  </url>  <url>
-    <loc>https://isdaniel.github.io/Mediator-Pattern.html</loc>
-    <lastmod>2019-08-25</lastmod>
-  </url>  <url>
-    <loc>https://isdaniel.github.io/NoSourceCode-ModifyCode.html</loc>
-    <lastmod>2019-08-25</lastmod>
-  </url>  <url>
-    <loc>https://isdaniel.github.io/Oracle-CONNECT-BY.html</loc>
-    <lastmod>2019-08-25</lastmod>
-  </url>  <url>
-    <loc>https://isdaniel.github.io/RabbitMQ-Fanout.html</loc>
-    <lastmod>2019-08-25</lastmod>
-  </url>  <url>
-    <loc>https://isdaniel.github.io/SQL-Gaps-and-Islands-problem.html</loc>
-    <lastmod>2019-08-25</lastmod>
-  </url>  <url>
-    <loc>https://isdaniel.github.io/StatusPattern.html</loc>
-    <lastmod>2019-08-25</lastmod>
-  </url>  <url>
     <loc>https://isdaniel.github.io/hexo-blog-theme.html</loc>
     <lastmod>2019-08-25</lastmod>
   </url>  <url>
-    <loc>https://isdaniel.github.io/base64-principle.html</loc>
+    <loc>https://isdaniel.github.io/hash-encoding.html</loc>
     <lastmod>2019-08-25</lastmod>
   </url>  <url>
-    <loc>https://isdaniel.github.io/c-func-1.html</loc>
-    <lastmod>2019-08-25</lastmod>
-  </url>  <url>
-    <loc>https://isdaniel.github.io/c-func-2.html</loc>
-    <lastmod>2019-08-25</lastmod>
-  </url>  <url>
-    <loc>https://isdaniel.github.io/c-func-3.html</loc>
-    <lastmod>2019-08-25</lastmod>
-  </url>  <url>
-    <loc>https://isdaniel.github.io/cache-asp-net-1.html</loc>
+    <loc>https://isdaniel.github.io/github-hexo-appveyor.html</loc>
     <lastmod>2019-08-25</lastmod>
   </url>  <url>
     <loc>https://isdaniel.github.io/floatVSDouble.html</loc>
@@ -70,10 +31,49 @@
     <loc>https://isdaniel.github.io/cache-asp-net-2.html</loc>
     <lastmod>2019-08-25</lastmod>
   </url>  <url>
-    <loc>https://isdaniel.github.io/github-hexo-appveyor.html</loc>
+    <loc>https://isdaniel.github.io/cache-asp-net-1.html</loc>
     <lastmod>2019-08-25</lastmod>
   </url>  <url>
-    <loc>https://isdaniel.github.io/hash-encoding.html</loc>
+    <loc>https://isdaniel.github.io/c-func-3.html</loc>
+    <lastmod>2019-08-25</lastmod>
+  </url>  <url>
+    <loc>https://isdaniel.github.io/Template-Pattern.html</loc>
+    <lastmod>2019-08-25</lastmod>
+  </url>  <url>
+    <loc>https://isdaniel.github.io/c-func-2.html</loc>
+    <lastmod>2019-08-25</lastmod>
+  </url>  <url>
+    <loc>https://isdaniel.github.io/StatusPattern.html</loc>
+    <lastmod>2019-08-25</lastmod>
+  </url>  <url>
+    <loc>https://isdaniel.github.io/c-func-1.html</loc>
+    <lastmod>2019-08-25</lastmod>
+  </url>  <url>
+    <loc>https://isdaniel.github.io/base64-principle.html</loc>
+    <lastmod>2019-08-25</lastmod>
+  </url>  <url>
+    <loc>https://isdaniel.github.io/RabbitMQ-Fanout.html</loc>
+    <lastmod>2019-08-25</lastmod>
+  </url>  <url>
+    <loc>https://isdaniel.github.io/Oracle-CONNECT-BY.html</loc>
+    <lastmod>2019-08-25</lastmod>
+  </url>  <url>
+    <loc>https://isdaniel.github.io/NoSourceCode-ModifyCode.html</loc>
+    <lastmod>2019-08-25</lastmod>
+  </url>  <url>
+    <loc>https://isdaniel.github.io/SQL-Gaps-and-Islands-problem.html</loc>
+    <lastmod>2019-08-25</lastmod>
+  </url>  <url>
+    <loc>https://isdaniel.github.io/HttpHandler-HttpModule.html</loc>
+    <lastmod>2019-08-25</lastmod>
+  </url>  <url>
+    <loc>https://isdaniel.github.io/Mediator-Pattern.html</loc>
+    <lastmod>2019-08-25</lastmod>
+  </url>  <url>
+    <loc>https://isdaniel.github.io/JsonConvert-SerializeObject.html</loc>
+    <lastmod>2019-08-25</lastmod>
+  </url>  <url>
+    <loc>https://isdaniel.github.io/InvoiceTW-Framework.html</loc>
     <lastmod>2019-08-25</lastmod>
   </url>  <url>
     <loc>https://isdaniel.github.io/Autofac-AOP.html</loc>
