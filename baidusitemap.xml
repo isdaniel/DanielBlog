@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://isdaniel.github.io/AwesomeProxy-Net/</loc>
+    <loc>https://isdaniel.github.io/own-session/</loc>
     <lastmod>2019-09-15</lastmod>
   </url>  <url>
-    <loc>https://isdaniel.github.io/Bridge-Pattern/</loc>
+    <loc>https://isdaniel.github.io/ref-address/</loc>
     <lastmod>2019-09-15</lastmod>
   </url>  <url>
     <loc>https://isdaniel.github.io/CTE-RECURSIVE/</loc>
@@ -52,7 +52,7 @@
     <loc>https://isdaniel.github.io/RabbitMQ-Fanout/</loc>
     <lastmod>2019-09-15</lastmod>
   </url>  <url>
-    <loc>https://isdaniel.github.io/SQL-Gaps-and-Islands-problem/</loc>
+    <loc>https://isdaniel.github.io/Autofac-AOP/</loc>
     <lastmod>2019-09-15</lastmod>
   </url>  <url>
     <loc>https://isdaniel.github.io/StatusPattern/</loc>
@@ -100,19 +100,19 @@
     <loc>https://isdaniel.github.io/modify-sourcecode/</loc>
     <lastmod>2019-09-15</lastmod>
   </url>  <url>
-    <loc>https://isdaniel.github.io/own-session/</loc>
-    <lastmod>2019-09-15</lastmod>
-  </url>  <url>
-    <loc>https://isdaniel.github.io/ref-address/</loc>
-    <lastmod>2019-09-15</lastmod>
-  </url>  <url>
-    <loc>https://isdaniel.github.io/Autofac-AOP/</loc>
+    <loc>https://isdaniel.github.io/AutoMapperInit/</loc>
     <lastmod>2019-09-15</lastmod>
   </url>  <url>
     <loc>https://isdaniel.github.io/Autofac-introduce/</loc>
     <lastmod>2019-09-15</lastmod>
   </url>  <url>
-    <loc>https://isdaniel.github.io/AutoMapperInit/</loc>
+    <loc>https://isdaniel.github.io/AwesomeProxy-Net/</loc>
+    <lastmod>2019-09-15</lastmod>
+  </url>  <url>
+    <loc>https://isdaniel.github.io/Bridge-Pattern/</loc>
+    <lastmod>2019-09-15</lastmod>
+  </url>  <url>
+    <loc>https://isdaniel.github.io/SQL-Gaps-and-Islands-problem/</loc>
     <lastmod>2019-09-15</lastmod>
   </url>
 </urlset>
