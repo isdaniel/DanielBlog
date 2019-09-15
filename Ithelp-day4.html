@@ -143,16 +143,21 @@
 
 
 
-  <meta name="description" content="好點子沒價值，有價值的是把好點子實現">
-<meta property="og:type" content="website">
-<meta property="og:title" content="石頭的coding之路">
-<meta property="og:url" content="https://isdaniel.github.io/tags/Decompile/index.html">
+  <meta name="description" content="Agenda 前言： HttpApplication物件 取得使用 HttpApplication物件 (GetApplicationInstance) GetNormalApplicationInstance 小結  前言：附上Asp.net執行請求流程圖.  在前一篇我們說到HttpRunTime會透過GetApplicationInstance來取得一個IHttpHandler對象. 今天跟">
+<meta name="keywords" content="C#,Asp.net,Asp.net-MVC,SourceCode,11th鐵人賽">
+<meta property="og:type" content="article">
+<meta property="og:title" content="掌控HttpApplication物件建立 - HttpApplicationFactory (第4天)">
+<meta property="og:url" content="https://isdaniel.github.io/Ithelp-day4.html">
 <meta property="og:site_name" content="石頭的coding之路">
-<meta property="og:description" content="好點子沒價值，有價值的是把好點子實現">
+<meta property="og:description" content="Agenda 前言： HttpApplication物件 取得使用 HttpApplication物件 (GetApplicationInstance) GetNormalApplicationInstance 小結  前言：附上Asp.net執行請求流程圖.  在前一篇我們說到HttpRunTime會透過GetApplicationInstance來取得一個IHttpHandler對象. 今天跟">
 <meta property="og:locale" content="zh-tw">
+<meta property="og:image" content="https://raw.githubusercontent.com/isdaniel/MyBlog/master/source/images/IIS_Asp.net_Process.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/isdaniel/MyBlog/master/source/images/itHelp/4/objectPool.png">
+<meta property="og:updated_time" content="2019-09-15T08:38:24.463Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="石頭的coding之路">
-<meta name="twitter:description" content="好點子沒價值，有價值的是把好點子實現">
+<meta name="twitter:title" content="掌控HttpApplication物件建立 - HttpApplicationFactory (第4天)">
+<meta name="twitter:description" content="Agenda 前言： HttpApplication物件 取得使用 HttpApplication物件 (GetApplicationInstance) GetNormalApplicationInstance 小結  前言：附上Asp.net執行請求流程圖.  在前一篇我們說到HttpRunTime會透過GetApplicationInstance來取得一個IHttpHandler對象. 今天跟">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/isdaniel/MyBlog/master/source/images/IIS_Asp.net_Process.png">
 
 
 
@@ -160,7 +165,7 @@
 
   
   
-  <link rel="canonical" href="https://isdaniel.github.io/tags/Decompile/">
+  <link rel="canonical" href="https://isdaniel.github.io/Ithelp-day4">
 
 
 
@@ -170,7 +175,7 @@
   };
 </script>
 
-  <title>Tag: Decompile | 石頭的coding之路</title>
+  <title>掌控HttpApplication物件建立 - HttpApplicationFactory (第4天) | 石頭的coding之路</title>
   
 
 
@@ -219,7 +224,7 @@
     
   
 
-  <div class="container sidebar-position-left ">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -299,7 +304,7 @@
         
         
           
-          <li class="menu-item menu-item-tags menu-item-active">
+          <li class="menu-item menu-item-tags">
 
     
     
@@ -410,84 +415,346 @@
           
             
 
-    
-    
-      
-      
-    
-      
-      
-    
-      
-      
-    
-      
-      
-    
-      
-      
-    
-    
-
-  
-
-
 
           
           <div id="content" class="content">
             
 
-  
-  
-  
-  <div class="post-block tag">
+  <div id="posts" class="posts-expand">
+    
 
-    <div id="posts" class="posts-collapse">
-      <div class="collection-title">
-        <h2>Decompile<small>Tag</small>
-        </h2>
-      </div>
+  
 
-      
-        
+  
+  
+  
+
+  
+    <div class="reading-progress-bar"></div>
+  
 
   <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://isdaniel.github.io/Ithelp-day4.html">
 
-      <h3 class="post-title">
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Daniel Shih">
+      <meta itemprop="description" content="好點子沒價值，有價值的是把好點子實現">
+      <meta itemprop="image" content="https://scontent.ftpe8-3.fna.fbcdn.net/v/t1.0-9/60180310_2282070531849602_6588071415033888768_n.jpg?_nc_cat=107&_nc_ht=scontent.ftpe8-3.fna&oh=e8ad93eddc7af4887fd8ab0434374fe0&oe=5D9577FC">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="石頭的coding之路">
+    </span>
+
+    
+      <header class="post-header">
+
         
-          <a class="post-title-link" href="/NoSourceCode-ModifyCode.html" itemprop="url">
-            
-              <span itemprop="name">沒有Source Code 如何修改程式??</span>
-            
-          </a>
         
-      </h3>
+          <h2 class="post-title" itemprop="name headline">掌控HttpApplication物件建立 - HttpApplicationFactory (第4天)
 
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2019-06-02T22:30:11+00:00" content="2019-06-02">
-          06-02
-        </time>
-      </div>
+              
+            
+          </h2>
+        
 
-    </header>
-  </article>
+        <div class="post-meta">
+          <span class="post-time">
 
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2019-09-15 10:00:00 / Modified: 08:38:24" itemprop="dateCreated datePublished" datetime="2019-09-15T10:00:00+00:00">2019-09-15</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/11th鐵人賽/" itemprop="url" rel="index"><span itemprop="name">11th鐵人賽</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+              
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+            
+                <span class="post-meta-item-text">Comments: </span>
+                <a href="/Ithelp-day4.html#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="Ithelp-day4.html" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="post-meta-item-icon">
+            <i class="fa fa-eye"></i>
+             Views:  
+            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>
+            </span>
+          
+
+          
+            <div class="post-symbolscount">
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Symbols count in article: </span>
+                
+                <span title="Symbols count in article">2.8k</span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Reading time &asymp;</span>
+                
+                <span title="Reading time">5 mins.</span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="Agenda"><a href="#Agenda" class="headerlink" title="Agenda"></a>Agenda<!-- omit in toc --></h1><ul>
+<li><a href="#%e5%89%8d%e8%a8%80">前言：</a></li>
+<li><a href="#httpapplication%e7%89%a9%e4%bb%b6">HttpApplication物件</a></li>
+<li><a href="#%e5%8f%96%e5%be%97%e4%bd%bf%e7%94%a8-httpapplication%e7%89%a9%e4%bb%b6-getapplicationinstance">取得使用 HttpApplication物件 (GetApplicationInstance)</a></li>
+<li><a href="#getnormalapplicationinstance">GetNormalApplicationInstance</a></li>
+<li><a href="#%e5%b0%8f%e7%b5%90">小結</a></li>
+</ul>
+<h2 id="前言："><a href="#前言：" class="headerlink" title="前言："></a>前言：</h2><p>附上<code>Asp.net</code>執行請求流程圖.</p>
+<p><img src="https://raw.githubusercontent.com/isdaniel/MyBlog/master/source/images/IIS_Asp.net_Process.png" alt="瀏覽器請求IIS流程"></p>
+<p>在前一篇我們說到<code>HttpRunTime</code>會透過<code>GetApplicationInstance</code>來取得一個<code>IHttpHandler</code>對象.</p>
+<p>今天跟著原始碼來了解到底回傳一個什麼<code>IHttpHandler</code>物件給<code>HttpRunTime</code>使用.</p>
+<blockquote>
+<p>　查看原始碼好站 <span class="exturl" data-url="aHR0cHM6Ly9yZWZlcmVuY2Vzb3VyY2UubWljcm9zb2Z0LmNvbS8=" title="https://referencesource.microsoft.com/">Reference Source<i class="fa fa-external-link"></i></span> </p>
+</blockquote>
+<h2 id="HttpApplication物件"><a href="#HttpApplication物件" class="headerlink" title="HttpApplication物件"></a>HttpApplication物件</h2><p>HttpApplication是整個<code>ASP.NET</code>基礎的核心。一個HttpApplication物件在某個時刻只能處理一個請求，只有完成對某個請求處理後，該HttpApplication才能用於後續的請求的處理。</p>
+<p>所以<code>ASP.NET</code>利用物件程序池機制來建立或者取得HttpApplication物件。具體來講,當第一個<code>Http</code>請求抵達的時候，<code>ASP.NET</code>會一次建立多個HttpApplication物件，並將其置於池中，選擇其中一個物件來處理該請求。</p>
+<p>而如果程序池中沒有<code>HttpApplication</code>物件,<code>Asp.net</code>會建立新的<code>HttpApplication</code>物件處理請求</p>
+<p><code>HttpApplication</code>物件處理<code>Http</code>請求整個生命週期是一個相對複雜的過程,在該過程的不同階段會觸發相應的事件。我們可以註冊相應的事件(如同<span class="exturl" data-url="aHR0cHM6Ly9pdGhlbHAuaXRob21lLmNvbS50dy9hcnRpY2xlcy8xMDIxNDk5OQ==" title="https://ithelp.ithome.com.tw/articles/10214999">上一篇<i class="fa fa-external-link"></i></span>介紹事件表)</p>
+<p>下圖就是模擬<code>HttpApplication</code>的<code>ObjectPool</code>樣子</p>
+<p><img src="https://raw.githubusercontent.com/isdaniel/MyBlog/master/source/images/itHelp/4/objectPool.png" alt="HttpApplication"></p>
+<h2 id="取得使用-HttpApplication物件-GetApplicationInstance"><a href="#取得使用-HttpApplication物件-GetApplicationInstance" class="headerlink" title="取得使用 HttpApplication物件 (GetApplicationInstance)"></a>取得使用 HttpApplication物件 (GetApplicationInstance)</h2><div class="highlight-wrap" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true" data-rel="CSHARP"><figure class="iseeu highlight /csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">internal</span> <span class="keyword">static</span> IHttpHandler <span class="title">GetApplicationInstance</span>(<span class="params">HttpContext context</span>)</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (_customApplication != <span class="literal">null</span>)</span><br><span class="line">        <span class="keyword">return</span> _customApplication;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Check to see if it's a debug auto-attach request</span></span><br><span class="line">    <span class="keyword">if</span> (context.Request.IsDebuggingRequest)</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> HttpDebugHandler();</span><br><span class="line"></span><br><span class="line">    _theApplicationFactory.EnsureInited();</span><br><span class="line"></span><br><span class="line">    _theApplicationFactory.EnsureAppStartCalled(context);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> _theApplicationFactory.GetNormalApplicationInstance(context);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+<p>所以最終我們是返回一個<code>HttpApplication</code>物件來使用.</p>
+<h2 id="GetNormalApplicationInstance"><a href="#GetNormalApplicationInstance" class="headerlink" title="GetNormalApplicationInstance"></a>GetNormalApplicationInstance</h2><p>方法中主要做.</p>
+<ol>
+<li>判斷<code>_freeList</code>集合中是否有可用<code>HttpApplication</code>物件(物件程序池中),如果沒有就利用<code>HttpRuntime.CreateNonPublicInstance(_theApplicationType)</code>透過反射建立一個新的<code>HttpApplication</code>返回(呼叫完<code>IHttpHandler.ProcessRequst</code>方法後會將這個物件存入<code>_freeList</code>中)，最後將</li>
+</ol>
+<div class="highlight-wrap" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true" data-rel="CSHARP"><figure class="iseeu highlight /csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> HttpApplication <span class="title">GetNormalApplicationInstance</span>(<span class="params">HttpContext context</span>)</span> &#123;</span><br><span class="line">    HttpApplication app = <span class="literal">null</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (!_freeList.TryTake(<span class="keyword">out</span> app)) &#123;</span><br><span class="line">        <span class="comment">// If ran out of instances, create a new one</span></span><br><span class="line">        app = (HttpApplication)HttpRuntime.CreateNonPublicInstance(_theApplicationType);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">using</span> (<span class="keyword">new</span> ApplicationImpersonationContext()) &#123;</span><br><span class="line">            app.InitInternal(context, _state, _eventHandlerMethods);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (AppSettings.UseTaskFriendlySynchronizationContext) &#123;</span><br><span class="line">        <span class="comment">// When this HttpApplication instance is no longer in use, recycle it.</span></span><br><span class="line">        app.ApplicationInstanceConsumersCounter = <span class="keyword">new</span> CountdownTask(<span class="number">1</span>); <span class="comment">// representing required call to HttpApplication.ReleaseAppInstance</span></span><br><span class="line">        app.ApplicationInstanceConsumersCounter.Task.ContinueWith((_, o) =&gt; RecycleApplicationInstance((HttpApplication)o), app, TaskContinuationOptions.ExecuteSynchronously);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> app;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+<h2 id="小結"><a href="#小結" class="headerlink" title="小結"></a>小結</h2><p>今天我們學到</p>
+<ol>
+<li><code>IHttpHandler GetApplicationInstance(HttpContext context)</code>其實是返回一個<code>HttpApplication</code>物件.</li>
+<li>這個工廠會有一個 <code>_freeList</code> 集合來存取之前用過的<code>HttpApplication</code>物件，如果集合中沒有適合的<code>HttpApplication</code>物件就會使用反射返回一個新的<code>HttpApplication</code>並將他初始化．</li>
+<li>所以<code>HttpRuntime</code>呼叫的是<code>HttpApplication</code>物件的<code>ProcessRequest</code>方法</li>
+</ol>
+<p>下篇會跟大家介紹<code>HttpApplication</code>類別成員詳細資訊</p>
+<p><strong>此文作者</strong>：Daniel Shih(石頭)<br><strong>此文地址</strong>： <a href="https://isdaniel.github.io/Ithelp-day4.html">https://isdaniel.github.io/Ithelp-day4.html</a> <br><strong>版權聲明</strong>：本博客所有文章除特別聲明外，均採用 <span class="exturl" data-url="aHR0cHM6Ly9jcmVhdGl2ZWNvbW1vbnMub3JnL2xpY2Vuc2VzL2J5LW5jLXNhLzMuMC90dy8=" title="https://creativecommons.org/licenses/by-nc-sa/3.0/tw/">CC BY-NC-SA 3.0 TW<i class="fa fa-external-link"></i></span> 許可協議。轉載請註明出處！</p>
 
       
     </div>
 
+    
+      
+
+  <div class="popular-posts-header">Related Posts</div>
+  <ul class="popular-posts">
+  
+    <li class="popular-posts-item">
+      
+      
+      <div class="popular-posts-title"><a href="\Ithelp-day1.html" rel="bookmark">(開賽)Http 請求 Asp.net IIS伺服器架構 (第1天)</a></div>
+      
+    </li>
+  
+    <li class="popular-posts-item">
+      
+      
+      <div class="popular-posts-title"><a href="\Ithelp-day2.html" rel="bookmark">Asp.Net支柱 IHttpMoudle & IHttphandler (第2天)</a></div>
+      
+    </li>
+  
+    <li class="popular-posts-item">
+      
+      
+      <div class="popular-posts-title"><a href="\Ithelp-day3.html" rel="bookmark">啟動吧!Asp.Net IsapiRunTime & HttpRuntime (第3天)</a></div>
+      
+    </li>
+  
+    <li class="popular-posts-item">
+      
+      
+      <div class="popular-posts-title"><a href="\AwesomeProxy-Net.html" rel="bookmark">【C#】 AOP輕型框架  AwesomeProxy.Net 介紹使用</a></div>
+      
+    </li>
+  
+    <li class="popular-posts-item">
+      
+      
+      <div class="popular-posts-title"><a href="\HttpHandler-HttpModule.html" rel="bookmark">Asp.net HttpHandler vs HttpModule 詳細解說.</a></div>
+      
+    </li>
+  
+  </ul>
+
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/C/" rel="tag"># C#</a>
+          
+            <a href="/tags/Asp-net/" rel="tag"># Asp.net</a>
+          
+            <a href="/tags/Asp-net-MVC/" rel="tag"># Asp.net-MVC</a>
+          
+            <a href="/tags/SourceCode/" rel="tag"># SourceCode</a>
+          
+            <a href="/tags/11th鐵人賽/" rel="tag"># 11th鐵人賽</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/Ithelp-day3.html" rel="next" title="啟動吧!Asp.Net IsapiRunTime & HttpRuntime (第3天)">
+                <i class="fa fa-chevron-left"></i> 啟動吧!Asp.Net IsapiRunTime & HttpRuntime (第3天)
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
   </div>
   
   
   
+  </article>
 
-  
 
+  </div>
+  <br>
+  <div style="text-align: center;">
+    如果本文對您幫助很大，可<a href="https://www.jkos.com/">街口支付</a>斗內鼓勵石頭^^
+</div>
+
+<img src="https://az787680.vo.msecnd.net/user/九桃/d658f826-157e-436a-8c52-df9dd1ce7909/1553740448_05878.png" style="width: 300px; height: 434px;">
 
 
           </div>
           
+
+  
+    <div class="comments" id="comments">
+      <div id="disqus_thread">
+        <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+      </div>
+    </div>
+
+  
+
+
 
         </div>
         
@@ -507,8 +774,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
 
-      <div class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <div class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -782,6 +1058,23 @@
       </div>
 
       
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Agenda"><span class="nav-number">1.</span> <span class="nav-text">Agenda</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#前言："><span class="nav-number">1.1.</span> <span class="nav-text">前言：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#HttpApplication物件"><span class="nav-number">1.2.</span> <span class="nav-text">HttpApplication物件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#取得使用-HttpApplication物件-GetApplicationInstance"><span class="nav-number">1.3.</span> <span class="nav-text">取得使用 HttpApplication物件 (GetApplicationInstance)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#GetNormalApplicationInstance"><span class="nav-number">1.4.</span> <span class="nav-text">GetNormalApplicationInstance</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#小結"><span class="nav-number">1.5.</span> <span class="nav-text">小結</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
 
       
 
@@ -964,6 +1257,17 @@
 
 
   
+  <script src="/js/scrollspy.js?v=7.1.1"></script>
+<script src="/js/post-details.js?v=7.1.1"></script>
+
+<!-- Global site tag (gtag.js) - Google Analytics --><script async src="https://www.googletagmanager.com/gtag/js?id=UA-141257985-1"></script><script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-141257985-1');
+</script>
+
 
   
 
@@ -984,9 +1288,75 @@
   <script id="dsq-count-scr" src="https://danielshih.disqus.com/count.js" async></script>
 
 
+<script>
+  var disqus_config = function() {
+    this.page.url = "https://isdaniel.github.io/Ithelp-day4.html";
+    this.page.identifier = "Ithelp-day4.html";
+    this.page.title = '掌控HttpApplication物件建立 - HttpApplicationFactory (第4天)';
+    };
+  function loadComments() {
+    var d = document, s = d.createElement('script');
+    s.src = 'https://danielshih.disqus.com/embed.js';
+    s.setAttribute('data-timestamp', '' + +new Date());
+    (d.head || d.body).appendChild(s);
+  }
+  
+    $(function() {
+      var offsetTop = $('#comments').offset().top - $(window).height();
+      if (offsetTop <= 0) {
+        // load directly when there's no a scrollbar
+        loadComments();
+      } else {
+        $(window).on('scroll.disqus_scroll', function() {
+          // offsetTop may changes because of manually resizing browser window or lazy loading images.
+          var offsetTop = $('#comments').offset().top - $(window).height();
+          var scrollTop = $(window).scrollTop();
+
+          // pre-load comments a bit? (margin or anything else)
+          if (offsetTop - scrollTop < 60) {
+            $(window).off('.disqus_scroll');
+            loadComments();
+          }
+        });
+      }
+    });
+  
+</script>
 
 
 
+
+
+  
+    
+
+<script src="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+
+
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css">
+
+
+
+<script src="//cdn.jsdelivr.net/npm/js-md5@0.7.3/src/md5.min.js"></script>
+
+<script>
+  var gitalk = new Gitalk({
+    clientID: '',
+    clientSecret: '',
+    repo: '',
+    owner: '',
+    admin: [''],
+    id: md5(location.pathname),
+    
+      language: window.navigator.language || window.navigator.userLanguage,
+    
+    distractionFreeMode: 'true'
+  });
+  gitalk.render('gitalk-container');
+</script>
+
+  
 
 
   
