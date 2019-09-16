@@ -154,7 +154,7 @@
 <meta property="og:image" content="https://raw.githubusercontent.com/isdaniel/MyBlog/master/source/images/IIS_Asp.net_Process.png">
 <meta property="og:image" content="https://mytechnetknowhows.files.wordpress.com/2015/05/aspnet-integration-with-iis6-0.jpg">
 <meta property="og:image" content="https://mytechnetknowhows.files.wordpress.com/2015/05/aspnet-integration-with-iis-7-integrated-mode.jpg">
-<meta property="og:updated_time" content="2019-09-16T00:07:23.498Z">
+<meta property="og:updated_time" content="2019-09-16T00:41:37.167Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Asp.Net重要物件HttpApplication(一) 初始化建立IHttpMoudule (第5天)">
 <meta name="twitter:description" content="Agenda 前言： 初始化HttpApplication (InitInternal) InitModules   管道模式 vs 經典模式 取得執行HttpHandler物件 小結  前言：附上Asp.net執行請求流程圖.  上一篇文章分享HttpApplicationFactory.GetApplicationInstance方法返回一個HttpApplication給HttpRuntim">
@@ -482,7 +482,7 @@
                 
               
 
-              <time title="Created: 2019-09-16 10:00:00 / Modified: 00:07:23" itemprop="dateCreated datePublished" datetime="2019-09-16T10:00:00+00:00">2019-09-16</time>
+              <time title="Created: 2019-09-16 10:00:00 / Modified: 00:41:37" itemprop="dateCreated datePublished" datetime="2019-09-16T10:00:00+00:00">2019-09-16</time>
             
 
             
@@ -638,13 +638,13 @@
 <p><span class="exturl" data-url="aHR0cHM6Ly9teXRlY2huZXRrbm93aG93cy53b3JkcHJlc3MuY29tLzIwMTUvMDUvMjQvYXNwLW5ldC1hbmQtaWlzLWludGVncmF0aW9uLWlpcy02LTAtYW5kLWlpNi0wLWlpcy03LTAtaWlzLTctNS1paXMtOC0wLw==" title="https://mytechnetknowhows.wordpress.com/2015/05/24/asp-net-and-iis-integration-iis-6-0-and-ii6-0-iis-7-0-iis-7-5-iis-8-0/">圖片來源<i class="fa fa-external-link"></i></span></p>
 <p>除了執行流程不一樣跟一些差異外，他們最終還是為了要找到一個<code>HttpHandler</code>來執行.</p>
 <h2 id="取得執行HttpHandler物件"><a href="#取得執行HttpHandler物件" class="headerlink" title="取得執行HttpHandler物件"></a>取得執行HttpHandler物件</h2><p>如果有認真看原始碼的小夥伴,會發現<code>HttpApplication</code>的<code>ProcessRequest</code>目前是<strong>throw</strong>一個錯誤.</p>
-<p>那他是怎麼完成請求的呢?</p>
+<p>那他是怎麼找到使用<code>HttpHandler</code>物件並完成請求的呢?</p>
 <div class="highlight-wrap" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true" data-rel="CSHARP"><figure class="iseeu highlight /csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">void</span> IHttpHandler.ProcessRequest(HttpContext context) &#123;</span><br><span class="line">	<span class="keyword">throw</span> <span class="keyword">new</span> HttpException(SR.GetString(SR.Sync_not_supported));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
 <blockquote>
-<p>因為<code>HttpRunTime</code>是呼叫異步請求 <code>BeginProcessRequest</code> 方法.</p>
+<p>因為<code>HttpRunTime</code>是呼叫異步請求<code>BeginProcessRequest</code>方法.</p>
 </blockquote>
-<p>這邊提一下 <span class="exturl" data-url="aHR0cHM6Ly9pdGhlbHAuaXRob21lLmNvbS50dy9hcnRpY2xlcy8xMDIxNTIyMQ==" title="https://ithelp.ithome.com.tw/articles/10215221">啟動吧!Asp.Net IsapiRunTime &amp; HttpRuntime<i class="fa fa-external-link"></i></span> 會先判斷<code>app</code>物件是否實現<code>IHttpAsyncHandler</code>.</p>
-<p><code>HttpApplication</code>有實現.所以優先執行異步請求.</p>
+<p>這邊提一下 <span class="exturl" data-url="aHR0cHM6Ly9pdGhlbHAuaXRob21lLmNvbS50dy9hcnRpY2xlcy8xMDIxNTIyMQ==" title="https://ithelp.ithome.com.tw/articles/10215221">啟動吧!Asp.Net IsapiRunTime &amp; HttpRuntime<i class="fa fa-external-link"></i></span>會先判斷<code>app</code>物件是否實現<code>IHttpAsyncHandler</code>.</p>
+<p><code>HttpApplication</code>有實現<code>IHttpAsyncHandler</code>介面.所以優先執行異步請求.</p>
 <div class="highlight-wrap" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true" data-rel="CSHARP"><figure class="iseeu highlight /csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (app <span class="keyword">is</span> IHttpAsyncHandler) &#123;</span><br><span class="line">	<span class="comment">// asynchronous handler</span></span><br><span class="line">	IHttpAsyncHandler asyncHandler = (IHttpAsyncHandler)app;</span><br><span class="line">	context.AsyncAppHandler = asyncHandler;</span><br><span class="line">	asyncHandler.BeginProcessRequest(context, _handlerCompletionCallback, context);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">else</span> &#123;</span><br><span class="line">	<span class="comment">// synchronous handler</span></span><br><span class="line">	app.ProcessRequest(context);</span><br><span class="line">	FinishRequest(context.WorkerRequest, context, <span class="literal">null</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
 <h2 id="小結"><a href="#小結" class="headerlink" title="小結"></a>小結</h2><p>今天我們學到</p>
 <ol>
