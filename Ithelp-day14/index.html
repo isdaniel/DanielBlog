@@ -143,22 +143,20 @@
 
 
 
-  <meta name="description" content="Agenda 開賽前言： 為什麼想要選擇此主題 閱讀時建議事項 文章收穫   進入主題 瀏覽器請求IIS流程 如何辨別是否為靜態檔案? .Net CLR Httpmodule &amp;amp; Httphandler 核心模組 W3WP應用程式   小結  開賽前言：三十篇文章架構基本遵循:  前言:前情提要，閱讀此文建議使用工具或知識. 標出大主題(大字體+錨點)之後在細項列出要說明的細節 小結：每篇">
+  <meta name="description" content="Agenda 前言 DefaultControllerActivator BuildManagerViewEngine FilterProviderCollection Autofac對於MVC擴充解析器AutofacDependencyResolver 小結：  前言前一篇介紹Asp.net MVC可透過DependencyResolver.SetResolver替換成IOC容器注入控制器物件.">
 <meta name="keywords" content="C#,Asp.net,Asp.net-MVC,SourceCode,11th鐵人賽">
 <meta property="og:type" content="article">
-<meta property="og:title" content="(開賽)Http 請求 Asp.net IIS伺服器架構 (第1天)">
-<meta property="og:url" content="https://isdaniel.github.io/Ithelp-day1/index.html">
+<meta property="og:title" content="反轉起來~透過IOC解析來執行依賴反轉 (第14天)">
+<meta property="og:url" content="https://isdaniel.github.io/Ithelp-day14/index.html">
 <meta property="og:site_name" content="石頭的coding之路">
-<meta property="og:description" content="Agenda 開賽前言： 為什麼想要選擇此主題 閱讀時建議事項 文章收穫   進入主題 瀏覽器請求IIS流程 如何辨別是否為靜態檔案? .Net CLR Httpmodule &amp;amp; Httphandler 核心模組 W3WP應用程式   小結  開賽前言：三十篇文章架構基本遵循:  前言:前情提要，閱讀此文建議使用工具或知識. 標出大主題(大字體+錨點)之後在細項列出要說明的細節 小結：每篇">
+<meta property="og:description" content="Agenda 前言 DefaultControllerActivator BuildManagerViewEngine FilterProviderCollection Autofac對於MVC擴充解析器AutofacDependencyResolver 小結：  前言前一篇介紹Asp.net MVC可透過DependencyResolver.SetResolver替換成IOC容器注入控制器物件.">
 <meta property="og:locale" content="zh-tw">
-<meta property="og:image" content="https://raw.githubusercontent.com/isdaniel/MyBlog/master/source/images/IIS_Asp.net_Process.png">
-<meta property="og:image" content="https://www.codeproject.com/KB/web-image/thumbnailer/thumbnailer_pipeline.gif">
-<meta property="og:image" content="https://raw.githubusercontent.com/isdaniel/MyBlog/master/source/images/itHelp/1/w3wp.PNG">
+<meta property="og:image" content="https://raw.githubusercontent.com/isdaniel/MyBlog/master/source/images/itHelp/13/IOC_Asp.netMVC.png">
 <meta property="og:updated_time" content="2019-09-25T02:35:03.940Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="(開賽)Http 請求 Asp.net IIS伺服器架構 (第1天)">
-<meta name="twitter:description" content="Agenda 開賽前言： 為什麼想要選擇此主題 閱讀時建議事項 文章收穫   進入主題 瀏覽器請求IIS流程 如何辨別是否為靜態檔案? .Net CLR Httpmodule &amp;amp; Httphandler 核心模組 W3WP應用程式   小結  開賽前言：三十篇文章架構基本遵循:  前言:前情提要，閱讀此文建議使用工具或知識. 標出大主題(大字體+錨點)之後在細項列出要說明的細節 小結：每篇">
-<meta name="twitter:image" content="https://raw.githubusercontent.com/isdaniel/MyBlog/master/source/images/IIS_Asp.net_Process.png">
+<meta name="twitter:title" content="反轉起來~透過IOC解析來執行依賴反轉 (第14天)">
+<meta name="twitter:description" content="Agenda 前言 DefaultControllerActivator BuildManagerViewEngine FilterProviderCollection Autofac對於MVC擴充解析器AutofacDependencyResolver 小結：  前言前一篇介紹Asp.net MVC可透過DependencyResolver.SetResolver替換成IOC容器注入控制器物件.">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/isdaniel/MyBlog/master/source/images/itHelp/13/IOC_Asp.netMVC.png">
 
 
 
@@ -166,7 +164,7 @@
 
   
   
-  <link rel="canonical" href="https://isdaniel.github.io/Ithelp-day1/">
+  <link rel="canonical" href="https://isdaniel.github.io/Ithelp-day14/">
 
 
 
@@ -176,7 +174,7 @@
   };
 </script>
 
-  <title>(開賽)Http 請求 Asp.net IIS伺服器架構 (第1天) | 石頭的coding之路</title>
+  <title>反轉起來~透過IOC解析來執行依賴反轉 (第14天) | 石頭的coding之路</title>
   
 
 
@@ -439,7 +437,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://isdaniel.github.io/Ithelp-day1/">
+    <link itemprop="mainEntityOfPage" href="https://isdaniel.github.io/Ithelp-day14/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Daniel Shih">
@@ -456,7 +454,7 @@
 
         
         
-          <h2 class="post-title" itemprop="name headline">(開賽)Http 請求 Asp.net IIS伺服器架構 (第1天)
+          <h2 class="post-title" itemprop="name headline">反轉起來~透過IOC解析來執行依賴反轉 (第14天)
 
               
             
@@ -482,24 +480,12 @@
                 
               
 
-              <time title="Created: 2019-09-12 10:00:00" itemprop="dateCreated datePublished" datetime="2019-09-12T10:00:00+00:00">2019-09-12</time>
+              <time title="Created: 2019-09-25 10:00:00 / Modified: 02:35:03" itemprop="dateCreated datePublished" datetime="2019-09-25T10:00:00+00:00">2019-09-25</time>
             
 
             
               
 
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Edited on</span>
-                
-                <time title="Modified: 2019-09-25 02:35:03" itemprop="dateModified" datetime="2019-09-25T02:35:03+00:00">2019-09-25</time>
               
             
           </span>
@@ -535,8 +521,8 @@
                 </span>
             
                 <span class="post-meta-item-text">Comments: </span>
-                <a href="/Ithelp-day1/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="Ithelp-day1/" itemprop="commentCount"></span>
+                <a href="/Ithelp-day14/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="Ithelp-day14/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -565,7 +551,7 @@
                 
                   <span class="post-meta-item-text">Symbols count in article: </span>
                 
-                <span title="Symbols count in article">2.2k</span>
+                <span title="Symbols count in article">9.4k</span>
               
 
               
@@ -579,7 +565,7 @@
                 
                   <span class="post-meta-item-text">Reading time &asymp;</span>
                 
-                <span title="Reading time">4 mins.</span>
+                <span title="Reading time">17 mins.</span>
               
             </div>
           
@@ -600,95 +586,51 @@
 
       
         <h1 id="Agenda"><a href="#Agenda" class="headerlink" title="Agenda"></a>Agenda<!-- omit in toc --></h1><ul>
-<li><a href="#%e9%96%8b%e8%b3%bd%e5%89%8d%e8%a8%80">開賽前言：</a><ul>
-<li><a href="#%e7%82%ba%e4%bb%80%e9%ba%bc%e6%83%b3%e8%a6%81%e9%81%b8%e6%93%87%e6%ad%a4%e4%b8%bb%e9%a1%8c">為什麼想要選擇此主題</a></li>
-<li><a href="#%e9%96%b1%e8%ae%80%e6%99%82%e5%bb%ba%e8%ad%b0%e4%ba%8b%e9%a0%85">閱讀時建議事項</a></li>
-<li><a href="#%e6%96%87%e7%ab%a0%e6%94%b6%e7%a9%ab">文章收穫</a></li>
+<li><a href="#%e5%89%8d%e8%a8%80">前言</a></li>
+<li><a href="#defaultcontrolleractivator">DefaultControllerActivator</a></li>
+<li><a href="#buildmanagerviewengine">BuildManagerViewEngine</a></li>
+<li><a href="#filterprovidercollection">FilterProviderCollection</a></li>
+<li><a href="#autofac%e5%b0%8d%e6%96%bcmvc%e6%93%b4%e5%85%85%e8%a7%a3%e6%9e%90%e5%99%a8autofacdependencyresolver">Autofac對於MVC擴充解析器AutofacDependencyResolver</a></li>
+<li><a href="#%e5%b0%8f%e7%b5%90">小結：</a></li>
 </ul>
-</li>
-<li><a href="#%e9%80%b2%e5%85%a5%e4%b8%bb%e9%a1%8c">進入主題</a><ul>
-<li><a href="#%e7%80%8f%e8%a6%bd%e5%99%a8%e8%ab%8b%e6%b1%82iis%e6%b5%81%e7%a8%8b">瀏覽器請求IIS流程</a></li>
-<li><a href="#%e5%a6%82%e4%bd%95%e8%be%a8%e5%88%a5%e6%98%af%e5%90%a6%e7%82%ba%e9%9d%9c%e6%85%8b%e6%aa%94%e6%a1%88">如何辨別是否為靜態檔案?</a></li>
-<li><a href="#net-clr-httpmodule--httphandler-%e6%a0%b8%e5%bf%83%e6%a8%a1%e7%b5%84">.Net CLR Httpmodule &amp; Httphandler 核心模組</a></li>
-<li><a href="#w3wp%e6%87%89%e7%94%a8%e7%a8%8b%e5%bc%8f">W3WP應用程式</a></li>
-</ul>
-</li>
-<li><a href="#%e5%b0%8f%e7%b5%90">小結</a></li>
-</ul>
-<h2 id="開賽前言："><a href="#開賽前言：" class="headerlink" title="開賽前言："></a>開賽前言：</h2><p>三十篇文章架構基本遵循:</p>
-<ol>
-<li><strong>前言:</strong>前情提要，閱讀此文建議使用工具或知識.</li>
-<li>標出大主題(大字體+錨點)之後在細項列出要說明的細節</li>
-<li>小結：每篇都有一個小結快速總結今天重點</li>
-</ol>
-<h3 id="為什麼想要選擇此主題"><a href="#為什麼想要選擇此主題" class="headerlink" title="為什麼想要選擇此主題"></a>為什麼想要選擇此主題</h3><p>選擇這個主題主要原因是</p>
-<ol>
-<li>沒有人整理一套較完整的Asp.net執行原始碼解析文章(從<code>Http</code>請求<code>IIS Server</code>,進入<code>CLR</code>前置動作),<strong>asp.net mvc</strong>原始碼解析</li>
-<li>台灣大部分的文章都是分享如何使用，很少文章有介紹如何運作．</li>
-<li>利用微軟開原後站在巨人肩膀上可以看更遠，理解<strong>MVC</strong>框架如何去設計具有一定的彈性.</li>
-<li>了解核心運作流程，更好改善或擴充現有專案架構（讓系統變得更有條理）</li>
-</ol>
-<h3 id="閱讀時建議事項"><a href="#閱讀時建議事項" class="headerlink" title="閱讀時建議事項"></a>閱讀時建議事項</h3><p>我在文章中會盡量寫出我看到精華部分,但此系列文可能對於<strong>MVC</strong>新手不太容易閱讀,因為<strong>MVC</strong>框架中運用到許多設計模式和OOP觀念(當初我在閱讀上也花了不少功夫)</p>
-<p>個人覺得OOP有很重要一個點是盡量用<strong>物件和物件關聯</strong>，資料狀態轉移來了解程式碼.</p>
+<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>前一篇介紹<code>Asp.net MVC</code>可透過<code>DependencyResolver.SetResolver</code>替換成<code>IOC</code>容器注入控制器物件.</p>
+<p>要建立客製化的解析器可以實現<code>IDependencyResolver</code>介面並使用<code>DependencyResolver.SetResolver</code>替換<code>DefaultDependencyResolver</code>預設解析器</p>
+<p><code>DependencyResolver</code>,<code>Controller</code>和<code>ControllerFactory</code>的關係如下圖</p>
+<p><img src="https://raw.githubusercontent.com/isdaniel/MyBlog/master/source/images/itHelp/13/IOC_Asp.netMVC.png" alt="IOC_Asp.netMVC.png"></p>
+<p>本篇介紹<code>DependencyResolver</code>在<code>Asp.net MVC</code>中有哪些實際的應用.</p>
 <blockquote>
-<p>簡白來說就是物件關聯和關係</p>
+<p>我有做一個可以針對於<span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2lzZGFuaWVsL0FzcC5uZXQtTVZDLURlYnVnZXI=" title="https://github.com/isdaniel/Asp.net-MVC-Debuger">Asp.net MVC Debugger<i class="fa fa-external-link"></i></span>的專案，只要下中斷點就可輕易進入Asp.net MVC原始碼.</p>
 </blockquote>
-<h3 id="文章收穫"><a href="#文章收穫" class="headerlink" title="文章收穫"></a>文章收穫</h3><p>我希望大家在閱讀完所有文章後可以獲得</p>
-<ol>
-<li><strong>Http</strong>對於<strong>IIS Server</strong>請求如何導向<strong>Asp.net MVC</strong>執行</li>
-<li><strong>Asp.net MVC</strong>原始碼有基本了解和知道哪幾個重要類別,了解後能依照系統需要替換改寫.</li>
-<li><strong>Asp.net MVC</strong>用到很多設計技巧(因為這是一個較大框架),希望大家能更了解設計模式如何運用在實戰中</li>
-<li>閱讀第一個框架原始碼會花不少時間,了解一個大框架後在去看其他框架閱讀時間會越來越少</li>
-</ol>
-<h2 id="進入主題"><a href="#進入主題" class="headerlink" title="進入主題"></a>進入主題</h2><p><code>Asp.net</code>基於<code>.NET Framework</code>框架所提供，開發<strong>Web</strong>應用程式的類別庫，封裝在<code>System.Web.dll</code>檔案中，提供使用者開發網頁，ASP.NET運行在安裝了.NET Framework的<code>IIS(Internet Information Services)</code>伺服器上</p>
-<p>微軟大大近幾年也投入<code>Open Source</code>行列讓我們可以更方便來窺探，Asp.net運作原理. 這個<span class="exturl" data-url="aHR0cHM6Ly9yZWZlcmVuY2Vzb3VyY2UubWljcm9zb2Z0LmNvbS8=" title="https://referencesource.microsoft.com/">連結 Reference Source<i class="fa fa-external-link"></i></span> 可以查看微軟核心的<code>DLL</code>程式碼(這個網站是我們第一階段追code的好朋友)</p>
-<p><code>Asp.net</code>程式基本上是由<code>IIS</code>進行託管，介紹<code>Asp.net MVC</code>原始碼之前我們需要先了解<code>Asp.net</code>和<code>IIS</code>關係.</p>
-<h3 id="瀏覽器請求IIS流程"><a href="#瀏覽器請求IIS流程" class="headerlink" title="瀏覽器請求IIS流程"></a>瀏覽器請求IIS流程</h3><p>Web基於Http協定，它是一個無狀態協定，每次請求都是新的且不會紀錄之前請求的東西<br>下圖我畫出一個對於IIS請求基本會跑的流程圖.</p>
-<p><img src="https://raw.githubusercontent.com/isdaniel/MyBlog/master/source/images/IIS_Asp.net_Process.png" alt="瀏覽器請求IIS流程"></p>
-<p>基本分為兩個區塊</p>
+<h2 id="DefaultControllerActivator"><a href="#DefaultControllerActivator" class="headerlink" title="DefaultControllerActivator"></a>DefaultControllerActivator</h2><p>在<code>DefaultControllerFactory</code>建構子建立<code>DefaultControllerActivator</code>,而<code>DefaultControllerActivator</code>有一個<code>Create</code>方法使用他來建立<code>Controller</code>物件.</p>
+<div class="highlight-wrap" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true" data-rel="CSHARP"><figure class="iseeu highlight /csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">internal</span> <span class="title">DefaultControllerFactory</span>(<span class="params">IControllerActivator controllerActivator, IResolver&lt;IControllerActivator&gt; activatorResolver, IDependencyResolver dependencyResolver</span>)</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (controllerActivator != <span class="literal">null</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        _controllerActivator = controllerActivator;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">    &#123;</span><br><span class="line">        _activatorResolver = activatorResolver ?? <span class="keyword">new</span> SingleServiceResolver&lt;IControllerActivator&gt;(</span><br><span class="line">                                                        () =&gt; <span class="literal">null</span>,</span><br><span class="line">                                                        <span class="keyword">new</span> DefaultControllerActivator(dependencyResolver),</span><br><span class="line">                                                        <span class="string">"DefaultControllerFactory constructor"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+<p><code>DefaultControllerActivator</code>類別幫助我們建立<code>Controller</code>物件透過<code>Create</code>方法.</p>
+<div class="highlight-wrap" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true" data-rel="CSHARP"><figure class="iseeu highlight /csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">class</span> <span class="title">DefaultControllerActivator</span> : <span class="title">IControllerActivator</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">private</span> Func&lt;IDependencyResolver&gt; _resolverThunk;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">DefaultControllerActivator</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function">        : <span class="title">this</span>(<span class="params"><span class="literal">null</span></span>)</span></span><br><span class="line"><span class="function"></span>    &#123;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">DefaultControllerActivator</span>(<span class="params">IDependencyResolver resolver</span>)</span></span><br><span class="line"><span class="function"></span>    &#123;</span><br><span class="line">        <span class="keyword">if</span> (resolver == <span class="literal">null</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            _resolverThunk = () =&gt; DependencyResolver.Current;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">        &#123;</span><br><span class="line">            _resolverThunk = () =&gt; resolver;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> IController <span class="title">Create</span>(<span class="params">RequestContext requestContext, Type controllerType</span>)</span></span><br><span class="line"><span class="function"></span>    &#123;</span><br><span class="line">        <span class="keyword">try</span></span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">return</span> (IController)(_resolverThunk().GetService(controllerType) ?? Activator.CreateInstance(controllerType));</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">catch</span> (Exception ex)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> InvalidOperationException(</span><br><span class="line">                String.Format(</span><br><span class="line">                    CultureInfo.CurrentCulture,</span><br><span class="line">                    MvcResources.DefaultControllerFactory_ErrorCreatingController,</span><br><span class="line">                    controllerType),</span><br><span class="line">                ex);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+<p>因為<code>DependencyResolver.Current</code>建構子傳入參數<code>IDependencyResolver resolver</code>一般是<code>NULL</code>，所以會使用<code>DependencyResolver.Current</code>解析器.</p>
+<p><code>Create</code>方法預設利用<code>DefaultDependencyResolver.GetService</code>創建物件(使用<code>Activator.CreateInstance()</code>)</p>
+<h2 id="BuildManagerViewEngine"><a href="#BuildManagerViewEngine" class="headerlink" title="BuildManagerViewEngine"></a>BuildManagerViewEngine</h2><p><code>BuildManagerViewEngine</code>類別的詳細介紹會在之後的<code>View</code>如何產生有更細節的資訊.</p>
+<p>這邊是提一下哪邊有用到<code>IDependencyResolver</code>解析器.</p>
+<div class="highlight-wrap" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true" data-rel="CSHARP"><figure class="iseeu highlight /csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">internal</span> <span class="keyword">class</span> <span class="title">DefaultViewPageActivator</span> : <span class="title">IViewPageActivator</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">private</span> Func&lt;IDependencyResolver&gt; _resolverThunk;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">DefaultViewPageActivator</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function">        : <span class="title">this</span>(<span class="params"><span class="literal">null</span></span>)</span></span><br><span class="line"><span class="function"></span>    &#123;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">DefaultViewPageActivator</span>(<span class="params">IDependencyResolver resolver</span>)</span></span><br><span class="line"><span class="function"></span>    &#123;</span><br><span class="line">        <span class="keyword">if</span> (resolver == <span class="literal">null</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            _resolverThunk = () =&gt; DependencyResolver.Current;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">        &#123;</span><br><span class="line">            _resolverThunk = () =&gt; resolver;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">object</span> <span class="title">Create</span>(<span class="params">ControllerContext controllerContext, Type type</span>)</span></span><br><span class="line"><span class="function"></span>    &#123;</span><br><span class="line">        <span class="keyword">try</span></span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">return</span> _resolverThunk().GetService(type) ?? Activator.CreateInstance(type);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">catch</span> (MissingMethodException exception)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="comment">// Ensure thrown exception contains the type name.  Might be down a few levels.</span></span><br><span class="line">            MissingMethodException replacementException =</span><br><span class="line">                TypeHelpers.EnsureDebuggableException(exception, type.FullName);</span><br><span class="line">            <span class="keyword">if</span> (replacementException != <span class="literal">null</span>)</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">throw</span> replacementException;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">throw</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+<p>一樣可以看到有一個<code>Create</code>方法.透過跟<code>DefaultControllerActivator</code>一樣的操作來使用<code>IDependencyResolver</code>解析器</p>
+<p>預設使用<code>DependencyResolver.Current</code></p>
+<h2 id="FilterProviderCollection"><a href="#FilterProviderCollection" class="headerlink" title="FilterProviderCollection"></a>FilterProviderCollection</h2><p>可以透過<code>IOC</code>容器注入客製化<code>ProvideFilter</code>使用行為.</p>
+<p>預設<code>ProvideFilter</code>有三個(詳細資訊會在之後分享)</p>
 <ul>
-<li>粉紅色是<code>IIS Server</code>領域<ul>
-<li>會有一個<code>Http.sys</code>的程式在監聽所有<code>Http</code>請求並交由<code>W3WP.exe</code>並透過<code>aspnet_isapi</code>來此次請求是否為靜態檔案.</li>
+<li><code>GlobalFilterCollection</code>(在Global擴充)</li>
+<li><code>ControllerInstanceFilterProvider</code>(<code>Controller</code>自行<code>Override</code>)</li>
+<li><code>FilterAttributeFilterProvider</code>(提供<code>Attribute</code>註冊最常用)</li>
 </ul>
-</li>
-<li>藍色是<code>.Net CLR</code>領域由幾塊核心程式完成請求<ul>
-<li>ISAPIRunTime</li>
-<li>HttpRuntime</li>
-<li>HttpApplicationFactory</li>
-<li>HttpApplication</li>
-</ul>
-</li>
-</ul>
-<p>之後會陸續介紹他們.</p>
-<ol>
-<li>請求<strong>靜態檔案</strong>透過路徑找尋<strong>靜態檔案</strong>並回傳.</li>
-<li>請求<strong>非靜態檔案</strong>透過<code>.Net CLR</code>執行返回結果.</li>
-</ol>
-<h3 id="如何辨別是否為靜態檔案"><a href="#如何辨別是否為靜態檔案" class="headerlink" title="如何辨別是否為靜態檔案?"></a>如何辨別是否為靜態檔案?</h3><p>如何辨別是否為靜態檔案,就需要談談<code>HttpHandler</code>的註冊表(後面有文章會說到)</p>
-<p>基本上如果是請求<code>Html</code>,<code>css</code>,<code>js</code>…都會直接回傳不會在經過<code>.Net CLR</code></p>
-<h3 id="Net-CLR-Httpmodule-amp-Httphandler-核心模組"><a href="#Net-CLR-Httpmodule-amp-Httphandler-核心模組" class="headerlink" title=".Net CLR Httpmodule &amp; Httphandler 核心模組"></a>.Net CLR Httpmodule &amp; Httphandler 核心模組</h3><p>Asp.net所有應用程式都離不開兩個核心模組<code>Httpmodule &amp; Httphandler</code>且最終會找到一個繼承於<code>IHttpHanlder</code>物件來處理請求.</p>
-<p>在網路上看到一個很好地比喻<strong>HttpModule &amp; HttpHandler</strong></p>
-<p><strong>Http</strong>請求像是一個旅客身上帶著行李拿著票來搭火車.</p>
-<ul>
-<li><code>HttpHandler</code> 是火車的終點站.</li>
-<li><code>HttpModule</code> 是火車中途停靠的各站.</li>
-</ul>
-<p>這個比喻可以很清楚知道每個請求透過<code>CLR</code>就是要找到一個<code>HttpHandler</code>來執行.</p>
-<p><img src="https://www.codeproject.com/KB/web-image/thumbnailer/thumbnailer_pipeline.gif" alt="圖片參考連結"></p>
-<p><span class="exturl" data-url="aHR0cHM6Ly93d3cuY29kZXByb2plY3QuY29tL0FydGljbGVzLzE2MTIwL1RodW1ibmFpbGVyLUhUVFAtSGFuZGxlcg==" title="https://www.codeproject.com/Articles/16120/Thumbnailer-HTTP-Handler">圖片參考連結<i class="fa fa-external-link"></i></span></p>
-<h3 id="W3WP應用程式"><a href="#W3WP應用程式" class="headerlink" title="W3WP應用程式"></a>W3WP應用程式</h3><p>當<code>IIS</code>在執行處理Http請求時工作管理員有一個<code>w3wp</code>應用程式在監聽.</p>
-<p>此應用程式會依照<code>aspnet_isapi</code>模組來判斷此次請求是否走入<code>.net CLR</code></p>
-<p><img src="https://raw.githubusercontent.com/isdaniel/MyBlog/master/source/images/itHelp/1/w3wp.PNG" alt="w3wp.PNG"></p>
-<h2 id="小結"><a href="#小結" class="headerlink" title="小結"></a>小結</h2><p>今天我們了解到</p>
-<ol>
-<li>瀏覽器請求IIS基本流程</li>
-<li>Asp.net核心模組<strong>Httpmodule &amp; Httphandler</strong></li>
-<li>IIS有一個<code>Http.sys</code>程式在監聽所有<code>Http</code>請求</li>
-<li>IIS透過一個<code>w3wp.exe</code>初步過濾判斷如何執行此請求.</li>
-</ol>
-<p>瀏覽器發出<strong>Http</strong>請求給IIS,IIS透過<code>Http.sys</code>來監聽請求並交給<code>w3wp.exe</code>這個應用程式來判斷是否要交由<code>.net</code>託管處理此次請求.</p>
-<p>下篇我們會來詳細講述<code>Httpmodule &amp; Httphandler</code></p>
-<p><strong>此文作者</strong>：Daniel Shih(石頭)<br><strong>此文地址</strong>： <a href="https://isdaniel.github.io/Ithelp-day1/">https://isdaniel.github.io/Ithelp-day1/</a> <br><strong>版權聲明</strong>：本博客所有文章除特別聲明外，均採用 <span class="exturl" data-url="aHR0cHM6Ly9jcmVhdGl2ZWNvbW1vbnMub3JnL2xpY2Vuc2VzL2J5LW5jLXNhLzMuMC90dy8=" title="https://creativecommons.org/licenses/by-nc-sa/3.0/tw/">CC BY-NC-SA 3.0 TW<i class="fa fa-external-link"></i></span> 許可協議。轉載請註明出處！</p>
+<p><span class="exturl" data-url="aHR0cDovL2h3eWZ3ay5jb20vYmxvZy8yMDEzLzEwLzA2L212Yy1maWx0ZXJzLXdpdGgtZGVwZW5kZW5jeS1pbmplY3Rpb24v" title="http://hwyfwk.com/blog/2013/10/06/mvc-filters-with-dependency-injection/">MVC Filters With Dependency Injection<i class="fa fa-external-link"></i></span>文章有介紹如何使用</p>
+<div class="highlight-wrap" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true" data-rel="CSHARP"><figure class="iseeu highlight /csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">internal</span> IFilterProvider[] CombinedItems</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">get</span></span><br><span class="line">    &#123;</span><br><span class="line">        IFilterProvider[] combinedItems = _combinedItems;</span><br><span class="line">        <span class="keyword">if</span> (combinedItems == <span class="literal">null</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            combinedItems = MultiServiceResolver.GetCombined&lt;IFilterProvider&gt;(Items, _dependencyResolver);</span><br><span class="line">            _combinedItems = combinedItems;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> combinedItems;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+<h2 id="Autofac對於MVC擴充解析器AutofacDependencyResolver"><a href="#Autofac對於MVC擴充解析器AutofacDependencyResolver" class="headerlink" title="Autofac對於MVC擴充解析器AutofacDependencyResolver"></a>Autofac對於MVC擴充解析器AutofacDependencyResolver</h2><p>上面有說如果要改變<strong>MVC</strong>使用解析器可以透過<code>DependencyResolver.SetResolver</code>方法傳入一個<code>IDependencyResolver</code>物件,Autofac對於使的是<span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2F1dG9mYWMvQXV0b2ZhYy5NdmMvYmxvYi9kZXZlbG9wL3NyYy9BdXRvZmFjLkludGVncmF0aW9uLk12Yy9BdXRvZmFjRGVwZW5kZW5jeVJlc29sdmVyLmNz" title="https://github.com/autofac/Autofac.Mvc/blob/develop/src/Autofac.Integration.Mvc/AutofacDependencyResolver.cs">AutofacDependencyResolver 原始碼<i class="fa fa-external-link"></i></span>.</p>
+<p>替換完成後MVC就會使用<code>AutofacDependencyResolver.GetService</code>取得物件.</p>
+<p>這裡就不多敘述<strong>Autofac</strong>內部完成細節.</p>
+<div class="highlight-wrap" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true" data-rel="CSHARP"><figure class="iseeu highlight /csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">AutofacDependencyResolver</span> : <span class="title">IDependencyResolver</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> Func&lt;AutofacDependencyResolver&gt; _resolverAccessor = DefaultResolverAccessor;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">readonly</span> Action&lt;ContainerBuilder&gt; _configurationAction;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">readonly</span> ILifetimeScope _container;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> ILifetimeScopeProvider _lifetimeScopeProvider;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">AutofacDependencyResolver</span>(<span class="params">ILifetimeScope container</span>)</span></span><br><span class="line"><span class="function"></span>    &#123;</span><br><span class="line">        <span class="keyword">if</span> (container == <span class="literal">null</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> ArgumentNullException(<span class="keyword">nameof</span>(container));</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">this</span>._container = container;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">AutofacDependencyResolver</span>(<span class="params">ILifetimeScope container, Action&lt;ContainerBuilder&gt; configurationAction</span>)</span></span><br><span class="line"><span class="function">        : <span class="title">this</span>(<span class="params">container</span>)</span></span><br><span class="line"><span class="function"></span>    &#123;</span><br><span class="line">        <span class="keyword">if</span> (configurationAction == <span class="literal">null</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> ArgumentNullException(<span class="keyword">nameof</span>(configurationAction));</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">this</span>._configurationAction = configurationAction;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">AutofacDependencyResolver</span>(<span class="params">ILifetimeScope container, ILifetimeScopeProvider lifetimeScopeProvider</span>) :</span></span><br><span class="line"><span class="function">        <span class="title">this</span>(<span class="params">container</span>)</span></span><br><span class="line"><span class="function"></span>    &#123;</span><br><span class="line">        <span class="keyword">if</span> (lifetimeScopeProvider == <span class="literal">null</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> ArgumentNullException(<span class="keyword">nameof</span>(lifetimeScopeProvider));</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">this</span>._lifetimeScopeProvider = lifetimeScopeProvider;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">AutofacDependencyResolver</span>(<span class="params">ILifetimeScope container, ILifetimeScopeProvider lifetimeScopeProvider, Action&lt;ContainerBuilder&gt; configurationAction</span>)</span></span><br><span class="line"><span class="function">        : <span class="title">this</span>(<span class="params">container, lifetimeScopeProvider</span>)</span></span><br><span class="line"><span class="function"></span>    &#123;</span><br><span class="line">        <span class="keyword">if</span> (configurationAction == <span class="literal">null</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> ArgumentNullException(<span class="keyword">nameof</span>(configurationAction));</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">this</span>._configurationAction = configurationAction;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;summary&gt;</span></span></span><br><span class="line">    <span class="comment"><span class="doctag">///</span> Gets the Autofac implementation of the dependency resolver.</span></span><br><span class="line">    <span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;/summary&gt;</span></span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> AutofacDependencyResolver Current</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">get</span></span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">return</span> _resolverAccessor();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> ILifetimeScope ApplicationContainer</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">get</span> &#123; <span class="keyword">return</span> <span class="keyword">this</span>._container; &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> ILifetimeScope RequestLifetimeScope</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">get</span></span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span> (<span class="keyword">this</span>._lifetimeScopeProvider == <span class="literal">null</span>)</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">this</span>._lifetimeScopeProvider = <span class="keyword">new</span> RequestLifetimeScopeProvider(<span class="keyword">this</span>._container);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">this</span>._lifetimeScopeProvider.GetLifetimeScope(<span class="keyword">this</span>._configurationAction);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">SetAutofacDependencyResolverAccessor</span>(<span class="params">Func&lt;AutofacDependencyResolver&gt; accessor</span>)</span></span><br><span class="line"><span class="function"></span>    &#123;</span><br><span class="line">        <span class="keyword">if</span> (accessor == <span class="literal">null</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            _resolverAccessor = DefaultResolverAccessor;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">        &#123;</span><br><span class="line">            _resolverAccessor = accessor;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">virtual</span> <span class="keyword">object</span> <span class="title">GetService</span>(<span class="params">Type serviceType</span>)</span></span><br><span class="line"><span class="function"></span>    &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">this</span>.RequestLifetimeScope.ResolveOptional(serviceType);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">virtual</span> IEnumerable&lt;<span class="keyword">object</span>&gt; <span class="title">GetServices</span>(<span class="params">Type serviceType</span>)</span></span><br><span class="line"><span class="function"></span>    &#123;</span><br><span class="line">        <span class="keyword">var</span> enumerableServiceType = <span class="keyword">typeof</span>(IEnumerable&lt;&gt;).MakeGenericType(serviceType);</span><br><span class="line">        <span class="keyword">var</span> instance = <span class="keyword">this</span>.RequestLifetimeScope.Resolve(enumerableServiceType);</span><br><span class="line">        <span class="keyword">return</span> (IEnumerable&lt;<span class="keyword">object</span>&gt;)instance;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">static</span> AutofacDependencyResolver <span class="title">DefaultResolverAccessor</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function"></span>    &#123;</span><br><span class="line">        <span class="keyword">var</span> currentResolver = DependencyResolver.Current;</span><br><span class="line">        <span class="keyword">var</span> autofacResolver = currentResolver <span class="keyword">as</span> AutofacDependencyResolver;</span><br><span class="line">        <span class="keyword">if</span> (autofacResolver != <span class="literal">null</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">return</span> autofacResolver;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">var</span> targetType = currentResolver.GetType().GetField(<span class="string">"__target"</span>);</span><br><span class="line">        <span class="keyword">if</span> (targetType != <span class="literal">null</span> &amp;&amp; targetType.FieldType == <span class="keyword">typeof</span>(AutofacDependencyResolver))</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">return</span> (AutofacDependencyResolver)targetType.GetValue(currentResolver);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> InvalidOperationException(<span class="keyword">string</span>.Format(</span><br><span class="line">            CultureInfo.CurrentCulture,</span><br><span class="line">            AutofacDependencyResolverResources.AutofacDependencyResolverNotFound,</span><br><span class="line">                currentResolver.GetType().FullName, <span class="keyword">typeof</span>(AutofacDependencyResolver).FullName));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+<h2 id="小結："><a href="#小結：" class="headerlink" title="小結："></a>小結：</h2><p>本篇挑了幾個有使用到<code>DependencyResolver</code>的使用點</p>
+<p>在<code>DefaultControllerActivator</code>建立Controller會利用當前使用的解析器來幫我們達成(預設<code>DefaultDependencyResolver</code>)</p>
+<p>如果我們不想要使用預設解析器也可自行替換自己的解析器(像Autofac第三方容器)來控制我們自己如何產生物件.</p>
+<p>能看到<code>Asp.net MVC</code>在設計上運用許多小巧思可讓系統可以更好的擴充且不用到到原本的程式碼</p>
+<p>這些設計技巧很值得我們還學習效法.</p>
+<p><strong>此文作者</strong>：Daniel Shih(石頭)<br><strong>此文地址</strong>： <a href="https://isdaniel.github.io/Ithelp-day14/">https://isdaniel.github.io/Ithelp-day14/</a> <br><strong>版權聲明</strong>：本博客所有文章除特別聲明外，均採用 <span class="exturl" data-url="aHR0cHM6Ly9jcmVhdGl2ZWNvbW1vbnMub3JnL2xpY2Vuc2VzL2J5LW5jLXNhLzMuMC90dy8=" title="https://creativecommons.org/licenses/by-nc-sa/3.0/tw/">CC BY-NC-SA 3.0 TW<i class="fa fa-external-link"></i></span> 許可協議。轉載請註明出處！</p>
 
       
     </div>
@@ -730,7 +672,7 @@
     <li class="popular-posts-item">
       
       
-      <div class="popular-posts-title"><a href="\Ithelp-day10\" rel="bookmark">透過MvcRouteHandler取得呼叫IHttphandler (第10天)</a></div>
+      <div class="popular-posts-title"><a href="\Ithelp-day1\" rel="bookmark">(開賽)Http 請求 Asp.net IIS伺服器架構 (第1天)</a></div>
       
     </li>
   
@@ -777,8 +719,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/HttpHandler-HttpModule/" rel="next" title="Asp.net HttpHandler vs HttpModule 詳細解說.">
-                <i class="fa fa-chevron-left"></i> Asp.net HttpHandler vs HttpModule 詳細解說.
+              <a href="/Ithelp-day13/" rel="next" title="Asp.net MVC如何實現IOC解析器 (第13天)">
+                <i class="fa fa-chevron-left"></i> Asp.net MVC如何實現IOC解析器 (第13天)
               </a>
             
           </div>
@@ -786,10 +728,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/Ithelp-day2/" rel="prev" title="Asp.Net支柱 IHttpMoudle & IHttphandler (第2天)">
-                Asp.Net支柱 IHttpMoudle & IHttphandler (第2天) <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -1140,7 +1078,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Agenda"><span class="nav-number">1.</span> <span class="nav-text">Agenda</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#開賽前言："><span class="nav-number">1.1.</span> <span class="nav-text">開賽前言：</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#為什麼想要選擇此主題"><span class="nav-number">1.1.1.</span> <span class="nav-text">為什麼想要選擇此主題</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#閱讀時建議事項"><span class="nav-number">1.1.2.</span> <span class="nav-text">閱讀時建議事項</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#文章收穫"><span class="nav-number">1.1.3.</span> <span class="nav-text">文章收穫</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#進入主題"><span class="nav-number">1.2.</span> <span class="nav-text">進入主題</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#瀏覽器請求IIS流程"><span class="nav-number">1.2.1.</span> <span class="nav-text">瀏覽器請求IIS流程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#如何辨別是否為靜態檔案"><span class="nav-number">1.2.2.</span> <span class="nav-text">如何辨別是否為靜態檔案?</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Net-CLR-Httpmodule-amp-Httphandler-核心模組"><span class="nav-number">1.2.3.</span> <span class="nav-text">.Net CLR Httpmodule &amp; Httphandler 核心模組</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#W3WP應用程式"><span class="nav-number">1.2.4.</span> <span class="nav-text">W3WP應用程式</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#小結"><span class="nav-number">1.3.</span> <span class="nav-text">小結</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Agenda"><span class="nav-number">1.</span> <span class="nav-text">Agenda</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#前言"><span class="nav-number">1.1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#DefaultControllerActivator"><span class="nav-number">1.2.</span> <span class="nav-text">DefaultControllerActivator</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#BuildManagerViewEngine"><span class="nav-number">1.3.</span> <span class="nav-text">BuildManagerViewEngine</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#FilterProviderCollection"><span class="nav-number">1.4.</span> <span class="nav-text">FilterProviderCollection</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Autofac對於MVC擴充解析器AutofacDependencyResolver"><span class="nav-number">1.5.</span> <span class="nav-text">Autofac對於MVC擴充解析器AutofacDependencyResolver</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#小結："><span class="nav-number">1.6.</span> <span class="nav-text">小結：</span></a></li></ol></li></ol></div>
             
 
           </div>
@@ -1362,9 +1300,9 @@
 
 <script>
   var disqus_config = function() {
-    this.page.url = "https://isdaniel.github.io/Ithelp-day1/";
-    this.page.identifier = "Ithelp-day1/";
-    this.page.title = '(開賽)Http 請求 Asp.net IIS伺服器架構 (第1天)';
+    this.page.url = "https://isdaniel.github.io/Ithelp-day14/";
+    this.page.identifier = "Ithelp-day14/";
+    this.page.title = '反轉起來~透過IOC解析來執行依賴反轉 (第14天)';
     };
   function loadComments() {
     var d = document, s = d.createElement('script');
