@@ -151,7 +151,7 @@
 <meta property="og:site_name" content="石頭的coding之路">
 <meta property="og:description" content="Agenda 前言 ControllerActionInvoker方法 重要InvokeAction方法 取得ControllerDescriptor(ReflectedControllerDescriptor)   ActionDescriptor(ReflectedActionDescriptor) ReflectedActionDescriptor 取得ActionMethod參數資訊">
 <meta property="og:locale" content="zh-tw">
-<meta property="og:updated_time" content="2019-09-29T04:00:26.083Z">
+<meta property="og:updated_time" content="2019-09-30T04:53:36.241Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Action方法如何被執行InvokeAction(二) (第17天)">
 <meta name="twitter:description" content="Agenda 前言 ControllerActionInvoker方法 重要InvokeAction方法 取得ControllerDescriptor(ReflectedControllerDescriptor)   ActionDescriptor(ReflectedActionDescriptor) ReflectedActionDescriptor 取得ActionMethod參數資訊">
@@ -351,7 +351,7 @@
       
     
 
-    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives<span class="badge">52</span></a>
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives<span class="badge">53</span></a>
 
   </li>
 
@@ -495,7 +495,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2019-09-29 04:00:26" itemprop="dateModified" datetime="2019-09-29T04:00:26+00:00">2019-09-29</time>
+                <time title="Modified: 2019-09-30 04:53:36" itemprop="dateModified" datetime="2019-09-30T04:53:36+00:00">2019-09-30</time>
               
             
           </span>
@@ -561,7 +561,7 @@
                 
                   <span class="post-meta-item-text">Symbols count in article: </span>
                 
-                <span title="Symbols count in article">9.9k</span>
+                <span title="Symbols count in article">10k</span>
               
 
               
@@ -652,12 +652,15 @@
 <ol>
 <li><code>MethodInfo</code>是從<code>ReflectedControllerDescriptor</code>利用反射取得執行<code>Action</code>方法資訊.</li>
 <li>利用<code>ExtractParameterFromDictionary</code>方法將<code>IDictionary&lt;string, object&gt; parameters</code>傳入參數轉成可傳入方法物件.</li>
-<li>執行<code>Action</code>方法(透過<code>ActionMethodDispatcher</code>物件)並將參數傳入</li>
+<li>透過<code>ActionMethodDispatcher</code>物件<code>Execute</code>方法執行<code>Action</code>方法(<code>ActionMethodDispatcher</code>透過<code>Expression</code>表達式動態建立方法並呼叫)</li>
 </ol>
+<blockquote>
+<p><code>ActionMethodDispatcher</code>的<code>Expression</code>表達式詳解會在後面做介紹</p>
+</blockquote>
+<div class="highlight-wrap" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true" data-rel="CSHARP"><figure class="iseeu highlight /csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> MethodInfo MethodInfo &#123; <span class="keyword">get</span>; <span class="keyword">private</span> <span class="keyword">set</span>; &#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">override</span> <span class="keyword">object</span> <span class="title">Execute</span>(<span class="params">ControllerContext controllerContext, IDictionary&lt;<span class="keyword">string</span>, <span class="keyword">object</span>&gt; parameters</span>)</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="comment">//....</span></span><br><span class="line">	ParameterInfo[] parameterInfos = MethodInfo.GetParameters();</span><br><span class="line">	<span class="keyword">object</span>[] parametersArray = <span class="keyword">new</span> <span class="keyword">object</span>[parameterInfos.Length];</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; parameterInfos.Length; i++)</span><br><span class="line">	&#123;</span><br><span class="line">		ParameterInfo parameterInfo = parameterInfos[i];</span><br><span class="line">		<span class="keyword">object</span> parameter = ExtractParameterFromDictionary(parameterInfo, parameters, MethodInfo);</span><br><span class="line">		parametersArray[i] = parameter;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	ActionMethodDispatcher dispatcher = DispatcherCache.GetDispatcher(MethodInfo);</span><br><span class="line">	<span class="keyword">object</span> actionReturnValue = dispatcher.Execute(controllerContext.Controller, parametersArray);</span><br><span class="line">	<span class="keyword">return</span> actionReturnValue;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
 <blockquote>
 <p><code>actionReturnValue</code> 是<code>Action</code>方法的回傳值.</p>
 </blockquote>
-<div class="highlight-wrap" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true" data-rel="CSHARP"><figure class="iseeu highlight /csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">public</span> MethodInfo MethodInfo &#123; <span class="keyword">get</span>; <span class="keyword">private</span> <span class="keyword">set</span>; &#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">override</span> <span class="keyword">object</span> <span class="title">Execute</span>(<span class="params">ControllerContext controllerContext, IDictionary&lt;<span class="keyword">string</span>, <span class="keyword">object</span>&gt; parameters</span>)</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="comment">//....</span></span><br><span class="line">	ParameterInfo[] parameterInfos = MethodInfo.GetParameters();</span><br><span class="line">	<span class="keyword">object</span>[] parametersArray = <span class="keyword">new</span> <span class="keyword">object</span>[parameterInfos.Length];</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; parameterInfos.Length; i++)</span><br><span class="line">	&#123;</span><br><span class="line">		ParameterInfo parameterInfo = parameterInfos[i];</span><br><span class="line">		<span class="keyword">object</span> parameter = ExtractParameterFromDictionary(parameterInfo, parameters, MethodInfo);</span><br><span class="line">		parametersArray[i] = parameter;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	ActionMethodDispatcher dispatcher = DispatcherCache.GetDispatcher(MethodInfo);</span><br><span class="line">	<span class="keyword">object</span> actionReturnValue = dispatcher.Execute(controllerContext.Controller, parametersArray);</span><br><span class="line">	<span class="keyword">return</span> actionReturnValue;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
 <h2 id="取得Action方法執行參數"><a href="#取得Action方法執行參數" class="headerlink" title="取得Action方法執行參數"></a>取得Action方法執行參數</h2><p>上面提到<code>Action</code>使用參數會轉換到一個<code>IDictionary&lt;string, object&gt;</code>裡面.</p>
 <ul>
 <li><code>key</code>：參數名稱</li>
@@ -707,14 +710,14 @@
     <li class="popular-posts-item">
       
       
-      <div class="popular-posts-title"><a href="\Ithelp-day16\" rel="bookmark">MVC Filter 機制解密 (第16天)</a></div>
+      <div class="popular-posts-title"><a href="\Ithelp-day19\" rel="bookmark">Http參數如何綁定到Action參數上(簡單和複雜模型綁定探討) (第19天)</a></div>
       
     </li>
   
     <li class="popular-posts-item">
       
       
-      <div class="popular-posts-title"><a href="\Ithelp-day5\" rel="bookmark">Asp.Net重要物件HttpApplication(一) 初始化建立IHttpMoudule (第5天)</a></div>
+      <div class="popular-posts-title"><a href="\Ithelp-day4\" rel="bookmark">掌控HttpApplication物件建立 - HttpApplicationFactory (第4天)</a></div>
       
     </li>
   
@@ -728,7 +731,7 @@
     <li class="popular-posts-item">
       
       
-      <div class="popular-posts-title"><a href="\Ithelp-day8\" rel="bookmark">揭密Mvc使用IHttpHandler by UrlRoutingModule-4.0 (第8天)</a></div>
+      <div class="popular-posts-title"><a href="\Ithelp-day7\" rel="bookmark">Asp.Net重要物件HttpApplication(三) 取得執行的IHttpHandler (第7天)</a></div>
       
     </li>
   
@@ -878,7 +881,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">52</span>
+                    <span class="site-state-item-count">53</span>
                     <span class="site-state-item-name">posts</span>
                   </a>
                 </div>
@@ -1178,7 +1181,7 @@
       <i class="fa fa-area-chart"></i>
     </span>
     
-    <span title="Symbols count total">234k</span>
+    <span title="Symbols count total">245k</span>
   
 
   
@@ -1187,7 +1190,7 @@
       <i class="fa fa-coffee"></i>
     </span>
     
-    <span title="Reading time total">7:06</span>
+    <span title="Reading time total">7:26</span>
   
 </div>
 
