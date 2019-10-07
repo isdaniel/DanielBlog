@@ -351,7 +351,7 @@
       
     
 
-    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives<span class="badge">58</span></a>
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives<span class="badge">60</span></a>
 
   </li>
 
@@ -433,6 +433,475 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://isdaniel.github.io/AutoMapperInit/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Daniel Shih">
+      <meta itemprop="description" content="好點子沒價值，有價值的是把好點子實現">
+      <meta itemprop="image" content="https://scontent.ftpe8-3.fna.fbcdn.net/v/t1.0-9/60180310_2282070531849602_6588071415033888768_n.jpg?_nc_cat=107&_nc_ht=scontent.ftpe8-3.fna&oh=e8ad93eddc7af4887fd8ab0434374fe0&oe=5D9577FC">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="石頭的coding之路">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/AutoMapperInit/" class="post-title-link" itemprop="url">(AutoMapper)反射自動註冊AutoMapper Profile</a>
+              
+            
+          </h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2019-06-10 22:30:11" itemprop="dateCreated datePublished" datetime="2019-06-10T22:30:11+00:00">2019-06-10</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2019-10-07 00:12:03" itemprop="dateModified" datetime="2019-10-07T00:12:03+00:00">2019-10-07</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/C/" itemprop="url" rel="index"><span itemprop="name">C#</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+              
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+            
+                <span class="post-meta-item-text">Comments: </span>
+                <a href="/AutoMapperInit/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="AutoMapperInit/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-symbolscount">
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Symbols count in article: </span>
+                
+                <span title="Symbols count in article">1.8k</span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Reading time &asymp;</span>
+                
+                <span title="Reading time">3 mins.</span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>
+              前言：AutoMapper 幫我我們方便管理物件跟物件之間屬性值格式轉換
+模型轉換這裡有兩個類別
+UserInfoModel 當作我們從DB撈取出來 模型資料
+public class UserInfoModel&#123;    public int RowId &#123; get; set; 
+              ...
+            </p>
+          <!--noindex-->
+          
+            <div class="post-button text-center">
+              <a class="btn" href="/AutoMapperInit/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://isdaniel.github.io/floatVSDouble/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Daniel Shih">
+      <meta itemprop="description" content="好點子沒價值，有價值的是把好點子實現">
+      <meta itemprop="image" content="https://scontent.ftpe8-3.fna.fbcdn.net/v/t1.0-9/60180310_2282070531849602_6588071415033888768_n.jpg?_nc_cat=107&_nc_ht=scontent.ftpe8-3.fna&oh=e8ad93eddc7af4887fd8ab0434374fe0&oe=5D9577FC">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="石頭的coding之路">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/floatVSDouble/" class="post-title-link" itemprop="url">為什麼 Float和Double會有誤差 (浮點數儲存原理)</a>
+              
+            
+          </h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2019-06-10 22:30:11" itemprop="dateCreated datePublished" datetime="2019-06-10T22:30:11+00:00">2019-06-10</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2019-10-07 00:12:03" itemprop="dateModified" datetime="2019-10-07T00:12:03+00:00">2019-10-07</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/C/" itemprop="url" rel="index"><span itemprop="name">C#</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+              
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+            
+                <span class="post-meta-item-text">Comments: </span>
+                <a href="/floatVSDouble/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="floatVSDouble/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-symbolscount">
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Symbols count in article: </span>
+                
+                <span title="Symbols count in article">1.9k</span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Reading time &asymp;</span>
+                
+                <span title="Reading time">3 mins.</span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>
+              前言：大家都知道float和double會有誤差 
+但原因是什麼呢? 
+今天就跟大家分享Float和Double會誤差的原因
+一. 浮點數介紹
+一開始先對於float和double做身家調查
+
+浮點類型的範圍
+
+
+類型
+最小值
+最大值
+
+
+
+
+float
+1.175494351 E – 38
+3.4
+              ...
+            </p>
+          <!--noindex-->
+          
+            <div class="post-button text-center">
+              <a class="btn" href="/floatVSDouble/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://isdaniel.github.io/Mediator-Pattern/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -495,7 +964,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2019-10-05 03:54:40" itemprop="dateModified" datetime="2019-10-05T03:54:40+00:00">2019-10-05</time>
+                <time title="Modified: 2019-10-07 00:12:03" itemprop="dateModified" datetime="2019-10-07T00:12:03+00:00">2019-10-07</time>
               
             
           </span>
@@ -733,7 +1202,7 @@ AbstractMediator (抽像中介者)：定義中介者和各個同事
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2019-10-05 03:54:40" itemprop="dateModified" datetime="2019-10-05T03:54:40+00:00">2019-10-05</time>
+                <time title="Modified: 2019-10-07 00:12:03" itemprop="dateModified" datetime="2019-10-07T00:12:03+00:00">2019-10-07</time>
               
             
           </span>
@@ -903,7 +1372,7 @@ AbstractMediator (抽像中介者)：定義中介者和各個同事
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://isdaniel.github.io/RabbitMQ-Fanout/">
+    <link itemprop="mainEntityOfPage" href="https://isdaniel.github.io/Oracle-CONNECT-BY/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Daniel Shih">
@@ -923,7 +1392,7 @@ AbstractMediator (抽像中介者)：定義中介者和各個同事
           <h2 class="post-title" itemprop="name headline">
                 
                 
-                <a href="/RabbitMQ-Fanout/" class="post-title-link" itemprop="url">RabbitMQ (三) Fanout 交換器</a>
+                <a href="/Oracle-CONNECT-BY/" class="post-title-link" itemprop="url">Oracle [CONNECT BY]</a>
               
             
           </h2>
@@ -965,7 +1434,7 @@ AbstractMediator (抽像中介者)：定義中介者和各個同事
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2019-10-05 03:54:40" itemprop="dateModified" datetime="2019-10-05T03:54:40+00:00">2019-10-05</time>
+                <time title="Modified: 2019-10-07 00:12:03" itemprop="dateModified" datetime="2019-10-07T00:12:03+00:00">2019-10-07</time>
               
             
           </span>
@@ -982,7 +1451,14 @@ AbstractMediator (抽像中介者)：定義中介者和各個同事
                 <span class="post-meta-item-text">In</span>
               
               
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/C/" itemprop="url" rel="index"><span itemprop="name">C#</span></a></span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/SQL/" itemprop="url" rel="index"><span itemprop="name">SQL</span></a></span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/SQL/Oracle/" itemprop="url" rel="index"><span itemprop="name">Oracle</span></a></span>
 
                 
                 
@@ -1001,8 +1477,8 @@ AbstractMediator (抽像中介者)：定義中介者和各個同事
                 </span>
             
                 <span class="post-meta-item-text">Comments: </span>
-                <a href="/RabbitMQ-Fanout/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="RabbitMQ-Fanout/" itemprop="commentCount"></span>
+                <a href="/Oracle-CONNECT-BY/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="Oracle-CONNECT-BY/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -1024,7 +1500,7 @@ AbstractMediator (抽像中介者)：定義中介者和各個同事
                 
                   <span class="post-meta-item-text">Symbols count in article: </span>
                 
-                <span title="Symbols count in article">3.4k</span>
+                <span title="Symbols count in article">1.8k</span>
               
 
               
@@ -1038,7 +1514,7 @@ AbstractMediator (抽像中介者)：定義中介者和各個同事
                 
                   <span class="post-meta-item-text">Reading time &asymp;</span>
                 
-                <span title="Reading time">6 mins.</span>
+                <span title="Reading time">3 mins.</span>
               
             </div>
           
@@ -1061,17 +1537,18 @@ AbstractMediator (抽像中介者)：定義中介者和各個同事
         
           
             <p>
-              前言：本篇範例使用Fanout 交換器 實現RabbitMQ
-在RabbitMQ中有很重要兩個角色，Producer和Consumer，下面這個範例使用c# console來實現
-Producer一開始我們宣告一個 ConnectionFactory 並設置RabbitMQ Server連接參數
+              之前有介紹 (SQL Server) CTE RECURSIVE (遞迴)製作月曆 在Oracle 有提供一個精簡的語法產生階層資料 CONNECT BY
+ CONNECT BY 有幾個常用Key Word.
 
-
+LEVEL目前在樹節點第幾階層
+START WITH 設定哪筆做為起始點開始樹
+PRIO
               ...
             </p>
           <!--noindex-->
           
             <div class="post-button text-center">
-              <a class="btn" href="/RabbitMQ-Fanout/#more" rel="contents">
+              <a class="btn" href="/Oracle-CONNECT-BY/#more" rel="contents">
                 Read more &raquo;
               </a>
             </div>
@@ -1193,7 +1670,7 @@ Producer一開始我們宣告一個 ConnectionFactory 並設置RabbitMQ Server�
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2019-10-05 03:54:40" itemprop="dateModified" datetime="2019-10-05T03:54:40+00:00">2019-10-05</time>
+                <time title="Modified: 2019-10-07 00:12:03" itemprop="dateModified" datetime="2019-10-07T00:12:03+00:00">2019-10-07</time>
               
             
           </span>
@@ -1426,7 +1903,7 @@ Autofac 有寫一個 Autofac.Extr
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2019-10-05 03:54:40" itemprop="dateModified" datetime="2019-10-05T03:54:40+00:00">2019-10-05</time>
+                <time title="Modified: 2019-10-07 00:12:03" itemprop="dateModified" datetime="2019-10-07T00:12:03+00:00">2019-10-07</time>
               
             
           </span>
@@ -1661,7 +2138,7 @@ Autofac是一個 Ioc 容器眼尖的讀者會發現我把Ioc跟容
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2019-10-05 03:54:40" itemprop="dateModified" datetime="2019-10-05T03:54:40+00:00">2019-10-05</time>
+                <time title="Modified: 2019-10-07 00:12:03" itemprop="dateModified" datetime="2019-10-07T00:12:03+00:00">2019-10-07</time>
               
             
           </span>
@@ -1895,7 +2372,7 @@ Autofac是一個 Ioc 容器眼尖的讀者會發現我把Ioc跟容
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2019-10-05 03:54:40" itemprop="dateModified" datetime="2019-10-05T03:54:40+00:00">2019-10-05</time>
+                <time title="Modified: 2019-10-07 00:12:03" itemprop="dateModified" datetime="2019-10-07T00:12:03+00:00">2019-10-07</time>
               
             
           </span>
@@ -2124,7 +2601,7 @@ Reflexil 是一個組譯編輯器插件
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2019-10-05 03:54:40" itemprop="dateModified" datetime="2019-10-05T03:54:40+00:00">2019-10-05</time>
+                <time title="Modified: 2019-10-07 00:12:03" itemprop="dateModified" datetime="2019-10-07T00:12:03+00:00">2019-10-07</time>
               
             
           </span>
@@ -2275,483 +2752,6 @@ Dynamic pivot核心概念其實是把我們要使用的pivot SQL`語法動態產
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://isdaniel.github.io/Oracle-CONNECT-BY/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Daniel Shih">
-      <meta itemprop="description" content="好點子沒價值，有價值的是把好點子實現">
-      <meta itemprop="image" content="https://scontent.ftpe8-3.fna.fbcdn.net/v/t1.0-9/60180310_2282070531849602_6588071415033888768_n.jpg?_nc_cat=107&_nc_ht=scontent.ftpe8-3.fna&oh=e8ad93eddc7af4887fd8ab0434374fe0&oe=5D9577FC">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="石頭的coding之路">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/Oracle-CONNECT-BY/" class="post-title-link" itemprop="url">Oracle [CONNECT BY]</a>
-              
-            
-          </h2>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-
-              
-                
-              
-
-              <time title="Created: 2019-06-02 22:30:11" itemprop="dateCreated datePublished" datetime="2019-06-02T22:30:11+00:00">2019-06-02</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Edited on</span>
-                
-                <time title="Modified: 2019-10-05 03:54:40" itemprop="dateModified" datetime="2019-10-05T03:54:40+00:00">2019-10-05</time>
-              
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/SQL/" itemprop="url" rel="index"><span itemprop="name">SQL</span></a></span>
-
-                
-                
-                  , 
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/SQL/Oracle/" itemprop="url" rel="index"><span itemprop="name">Oracle</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-            
-              
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-            
-                <span class="post-meta-item-text">Comments: </span>
-                <a href="/Oracle-CONNECT-BY/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="Oracle-CONNECT-BY/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-symbolscount">
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Symbols count in article: </span>
-                
-                <span title="Symbols count in article">1.8k</span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Reading time &asymp;</span>
-                
-                <span title="Reading time">3 mins.</span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>
-              之前有介紹 (SQL Server) CTE RECURSIVE (遞迴)製作月曆 在Oracle 有提供一個精簡的語法產生階層資料 CONNECT BY
- CONNECT BY 有幾個常用Key Word.
-
-LEVEL目前在樹節點第幾階層
-START WITH 設定哪筆做為起始點開始樹
-PRIO
-              ...
-            </p>
-          <!--noindex-->
-          
-            <div class="post-button text-center">
-              <a class="btn" href="/Oracle-CONNECT-BY/#more" rel="contents">
-                Read more &raquo;
-              </a>
-            </div>
-          
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://isdaniel.github.io/Bridge-Pattern/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Daniel Shih">
-      <meta itemprop="description" content="好點子沒價值，有價值的是把好點子實現">
-      <meta itemprop="image" content="https://scontent.ftpe8-3.fna.fbcdn.net/v/t1.0-9/60180310_2282070531849602_6588071415033888768_n.jpg?_nc_cat=107&_nc_ht=scontent.ftpe8-3.fna&oh=e8ad93eddc7af4887fd8ab0434374fe0&oe=5D9577FC">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="石頭的coding之路">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/Bridge-Pattern/" class="post-title-link" itemprop="url">橋接模式(BridgePattern)</a>
-              
-            
-          </h2>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-
-              
-                
-              
-
-              <time title="Created: 2019-06-02 22:30:11" itemprop="dateCreated datePublished" datetime="2019-06-02T22:30:11+00:00">2019-06-02</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Edited on</span>
-                
-                <time title="Modified: 2019-10-05 03:54:40" itemprop="dateModified" datetime="2019-10-05T03:54:40+00:00">2019-10-05</time>
-              
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/C/" itemprop="url" rel="index"><span itemprop="name">C#</span></a></span>
-
-                
-                
-                  , 
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/C/DesignPattern/" itemprop="url" rel="index"><span itemprop="name">DesignPattern</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-            
-              
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-            
-                <span class="post-meta-item-text">Comments: </span>
-                <a href="/Bridge-Pattern/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="Bridge-Pattern/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-symbolscount">
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Symbols count in article: </span>
-                
-                <span title="Symbols count in article">7.5k</span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Reading time &asymp;</span>
-                
-                <span title="Reading time">14 mins.</span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>
-              前言：目的：如果有兩大類模組是多對多的組合，如本次Smaple Code. Nick和Addidas 包包都有紅、藍、黃….或其他顏色
-就可能呈現下面6種組合
-
-Nick(紅)
-Nick(藍)
-Nick(黃)
-Addidas(紅)
-Addidas(藍)
-Addidas(黃)
-
-如果此建立類別的話 可
-              ...
-            </p>
-          <!--noindex-->
-          
-            <div class="post-button text-center">
-              <a class="btn" href="/Bridge-Pattern/#more" rel="contents">
-                Read more &raquo;
-              </a>
-            </div>
-          
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2800,7 +2800,7 @@ Addidas(黃)
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">58</span>
+                    <span class="site-state-item-count">60</span>
                     <span class="site-state-item-name">posts</span>
                   </a>
                 </div>
@@ -3083,7 +3083,7 @@ Addidas(黃)
       <i class="fa fa-area-chart"></i>
     </span>
     
-    <span title="Symbols count total">291k</span>
+    <span title="Symbols count total">303k</span>
   
 
   
@@ -3092,7 +3092,7 @@ Addidas(黃)
       <i class="fa fa-coffee"></i>
     </span>
     
-    <span title="Reading time total">8:49</span>
+    <span title="Reading time total">9:11</span>
   
 </div>
 

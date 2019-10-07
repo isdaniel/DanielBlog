@@ -152,7 +152,7 @@
 <meta property="og:description" content="Agenda 前言 DefaultControllerActivator BuildManagerViewEngine FilterProviderCollection Autofac對於MVC擴充解析器AutofacDependencyResolver 小結：  前言前一篇介紹Asp.net MVC可透過DependencyResolver.SetResolver替換成IOC容器注入控制器物件.">
 <meta property="og:locale" content="zh-tw">
 <meta property="og:image" content="https://raw.githubusercontent.com/isdaniel/MyBlog/master/source/images/itHelp/13/IOC_Asp.netMVC.png">
-<meta property="og:updated_time" content="2019-10-05T03:54:40.577Z">
+<meta property="og:updated_time" content="2019-10-07T00:12:03.734Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="反轉起來~透過IOC解析來執行依賴反轉 (第14天)">
 <meta name="twitter:description" content="Agenda 前言 DefaultControllerActivator BuildManagerViewEngine FilterProviderCollection Autofac對於MVC擴充解析器AutofacDependencyResolver 小結：  前言前一篇介紹Asp.net MVC可透過DependencyResolver.SetResolver替換成IOC容器注入控制器物件.">
@@ -353,7 +353,7 @@
       
     
 
-    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives<span class="badge">58</span></a>
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives<span class="badge">60</span></a>
 
   </li>
 
@@ -497,7 +497,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2019-10-05 03:54:40" itemprop="dateModified" datetime="2019-10-05T03:54:40+00:00">2019-10-05</time>
+                <time title="Modified: 2019-10-07 00:12:03" itemprop="dateModified" datetime="2019-10-07T00:12:03+00:00">2019-10-07</time>
               
             
           </span>
@@ -563,7 +563,7 @@
                 
                   <span class="post-meta-item-text">Symbols count in article: </span>
                 
-                <span title="Symbols count in article">9.4k</span>
+                <span title="Symbols count in article">9.5k</span>
               
 
               
@@ -615,7 +615,7 @@
 </blockquote>
 <h2 id="DefaultControllerActivator"><a href="#DefaultControllerActivator" class="headerlink" title="DefaultControllerActivator"></a>DefaultControllerActivator</h2><p>在<code>DefaultControllerFactory</code>建構子建立<code>DefaultControllerActivator</code>,而<code>DefaultControllerActivator</code>有一個<code>Create</code>方法使用他來建立<code>Controller</code>物件.</p>
 <div class="highlight-wrap" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true" data-rel="CSHARP"><figure class="iseeu highlight /csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">internal</span> <span class="title">DefaultControllerFactory</span>(<span class="params">IControllerActivator controllerActivator, IResolver&lt;IControllerActivator&gt; activatorResolver, IDependencyResolver dependencyResolver</span>)</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (controllerActivator != <span class="literal">null</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        _controllerActivator = controllerActivator;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">    &#123;</span><br><span class="line">        _activatorResolver = activatorResolver ?? <span class="keyword">new</span> SingleServiceResolver&lt;IControllerActivator&gt;(</span><br><span class="line">                                                        () =&gt; <span class="literal">null</span>,</span><br><span class="line">                                                        <span class="keyword">new</span> DefaultControllerActivator(dependencyResolver),</span><br><span class="line">                                                        <span class="string">"DefaultControllerFactory constructor"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
-<p><code>DefaultControllerActivator</code>類別幫助我們建立<code>Controller</code>物件透過<code>Create</code>方法.</p>
+<p>如果我們沒透過<code>DependencyResolver.SetResolver</code>方法設定其他解析器,預設使用<code>DefaultControllerActivator</code>類別幫助我們建立<code>Controller</code>物件透過<code>Create</code>方法.</p>
 <div class="highlight-wrap" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true" data-rel="CSHARP"><figure class="iseeu highlight /csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">class</span> <span class="title">DefaultControllerActivator</span> : <span class="title">IControllerActivator</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">private</span> Func&lt;IDependencyResolver&gt; _resolverThunk;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">DefaultControllerActivator</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function">        : <span class="title">this</span>(<span class="params"><span class="literal">null</span></span>)</span></span><br><span class="line"><span class="function"></span>    &#123;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">DefaultControllerActivator</span>(<span class="params">IDependencyResolver resolver</span>)</span></span><br><span class="line"><span class="function"></span>    &#123;</span><br><span class="line">        <span class="keyword">if</span> (resolver == <span class="literal">null</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            _resolverThunk = () =&gt; DependencyResolver.Current;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">        &#123;</span><br><span class="line">            _resolverThunk = () =&gt; resolver;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> IController <span class="title">Create</span>(<span class="params">RequestContext requestContext, Type controllerType</span>)</span></span><br><span class="line"><span class="function"></span>    &#123;</span><br><span class="line">        <span class="keyword">try</span></span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">return</span> (IController)(_resolverThunk().GetService(controllerType) ?? Activator.CreateInstance(controllerType));</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">catch</span> (Exception ex)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> InvalidOperationException(</span><br><span class="line">                String.Format(</span><br><span class="line">                    CultureInfo.CurrentCulture,</span><br><span class="line">                    MvcResources.DefaultControllerFactory_ErrorCreatingController,</span><br><span class="line">                    controllerType),</span><br><span class="line">                ex);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
 <p>因為<code>DependencyResolver.Current</code>建構子傳入參數<code>IDependencyResolver resolver</code>一般是<code>NULL</code>，所以會使用<code>DependencyResolver.Current</code>解析器.</p>
 <p><code>Create</code>方法預設利用<code>DefaultDependencyResolver.GetService</code>創建物件(使用<code>Activator.CreateInstance()</code>)</p>
@@ -656,14 +656,14 @@
     <li class="popular-posts-item">
       
       
-      <div class="popular-posts-title"><a href="\Ithelp-day2\" rel="bookmark">Asp.Net支柱 IHttpMoudle & IHttphandler (第2天)</a></div>
+      <div class="popular-posts-title"><a href="\Ithelp-day20\" rel="bookmark">探討Model上客製化標籤如何被解析使用 (第20天)</a></div>
       
     </li>
   
     <li class="popular-posts-item">
       
       
-      <div class="popular-posts-title"><a href="\Ithelp-day24\" rel="bookmark">探討ViewEngine機制 View是如何被建立(三) (第24天)</a></div>
+      <div class="popular-posts-title"><a href="\Ithelp-day25\" rel="bookmark">動態產生程式碼(WebViewPage) View是如何被建立(四) (第25天)</a></div>
       
     </li>
   
@@ -827,7 +827,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">58</span>
+                    <span class="site-state-item-count">60</span>
                     <span class="site-state-item-name">posts</span>
                   </a>
                 </div>
@@ -1127,7 +1127,7 @@
       <i class="fa fa-area-chart"></i>
     </span>
     
-    <span title="Symbols count total">291k</span>
+    <span title="Symbols count total">303k</span>
   
 
   
@@ -1136,7 +1136,7 @@
       <i class="fa fa-coffee"></i>
     </span>
     
-    <span title="Reading time total">8:49</span>
+    <span title="Reading time total">9:11</span>
   
 </div>
 
