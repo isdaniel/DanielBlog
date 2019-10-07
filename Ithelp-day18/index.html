@@ -154,7 +154,7 @@
 <meta property="og:image" content="https://raw.githubusercontent.com/isdaniel/MyBlog/master/source/images/itHelp/17/UML_Model.jpg">
 <meta property="og:image" content="https://raw.githubusercontent.com/isdaniel/MyBlog/master/source/images/itHelp/17/ValueProvider_Factory.jpg">
 <meta property="og:image" content="https://raw.githubusercontent.com/isdaniel/MyBlog/master/source/images/itHelp/17/UML_Model.jpg">
-<meta property="og:updated_time" content="2019-10-07T00:12:03.734Z">
+<meta property="og:updated_time" content="2019-10-07T12:57:12.528Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="提供ModelBing幾個重要功臣(Model) (第18天)">
 <meta name="twitter:description" content="Agenda 前言 IModelBinder(DefaultModelBinder) ModelBinders ModelBinderDictionary   IValueProvider 提供參數填值 ValueProvider工廠集合(ValueProviderFactories)   ValueProviderFactory JsonValueProviderFactory   取得IVal">
@@ -499,7 +499,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2019-10-07 00:12:03" itemprop="dateModified" datetime="2019-10-07T00:12:03+00:00">2019-10-07</time>
+                <time title="Modified: 2019-10-07 12:57:12" itemprop="dateModified" datetime="2019-10-07T12:57:12+00:00">2019-10-07</time>
               
             
           </span>
@@ -565,7 +565,7 @@
                 
                   <span class="post-meta-item-text">Symbols count in article: </span>
                 
-                <span title="Symbols count in article">9.1k</span>
+                <span title="Symbols count in article">9.3k</span>
               
 
               
@@ -630,12 +630,16 @@
 <p>實現<code>IValueProvider</code>來處理。</p>
 </blockquote>
 <h3 id="ModelBinders"><a href="#ModelBinders" class="headerlink" title="ModelBinders"></a>ModelBinders</h3><p><code>IModelBinder.BindModel</code>方法使用兩個參數</p>
+<div class="highlight-wrap" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true" data-rel="CSHARP"><figure class="iseeu highlight /csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">object</span> <span class="title">BindModel</span>(<span class="params">ControllerContext controllerContext, ModelBindingContext bindingContext</span>)</span></span><br></pre></td></tr></table></figure></div>
 <ol>
 <li><code>ControllerContext</code>:<code>Controller</code>資訊，</li>
 <li><code>ModelBindingContext</code>:當前參數綁定資訊</li>
 </ol>
-<p>我們能夠針對當前<code>Model</code>綁定建立相應<code>ModelBindingContext</code>物件，我們就能使用基於某個參數<code>ModelBinder</code>得到對應的參數值。關於<code>ModelBindingContext</code>建立我們會在後續部分進行的單獨介紹.</p>
-<p>在<code>IModelBinder.BindModel</code>方法中主要透過兩個<code>internal</code>方法建立<code>Model</code>參數物件.</p>
+<p><code>BindModel</code>方法機於<code>Http</code>請求傳送資料進行<code>Model</code>綁定(對於<code>Action</code>方法使用參數),其中<code>ModelBindingContext</code>參數會提供綁定使用的重要物件成員.</p>
+<blockquote>
+<p>關於<code>ModelBindingContext</code>建立我們會在後續部分進行的單獨介紹.</p>
+</blockquote>
+<p>在<code>IModelBinder.BindModel</code>方法中主要透過兩個重要<code>internal</code>方法.</p>
 <ul>
 <li><code>BindComplexModel</code>:複雜參數綁定</li>
 <li><code>BindSimpleModel</code>:簡單參數綁定</li>
@@ -645,18 +649,19 @@
 <blockquote>
 <p><code>ComplexModel</code>一個人可擁有多個房子,所以<code>Person</code>類別擁有<code>HouseCollection</code>引用.<br>取得使用<code>ModelBinder</code>機制。</p>
 </blockquote>
-<p>依照下面順序</p>
+<p>取得<code>ModelBinder</code>會依照下面順序</p>
 <ol>
 <li>參數掛有<code>ModelBinderAttribute</code>標籤並將<code>BinderType</code>屬性指向一個繼承<code>IModelBinder</code>型別.</li>
-<li>參數掛有繼承<code>CustomModelBinderAttribute</code>類型上()</li>
+<li>參數掛有繼承<code>CustomModelBinderAttribute</code>類型</li>
 <li>透過<code>ModelBinderProviderCollection</code>(預設<strong>MVC</strong>沒有提供<code>ModelBinderProvider</code>)</li>
 <li>預設<code>DefaultModelBinder</code></li>
 </ol>
 <p>下面兩個使用<code>ModelBinder</code>都是<code>DefaultModelBinder</code>,但一個是使用第一點,另一個使用第四點.</p>
 <div class="highlight-wrap" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true" data-rel="CSHARP"><figure class="iseeu highlight /csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> ActionResult <span class="title">HttpModules</span>(<span class="params">Person p</span>)</span></span><br><span class="line"><span class="function"></span></span><br><span class="line"><span class="function"><span class="keyword">public</span> ActionResult <span class="title">HttpModules</span>(<span class="params">[ModelBinder(<span class="keyword">typeof</span>(DefaultModelBinder</span>))]Person p)</span></span><br></pre></td></tr></table></figure></div>
-<p>也可透過<code>ModelBinders.Binders.Add</code>方法註冊綁定類型.</p>
-<p><code>ModelBinders.Binders.Add(typeof(Arg),new FooModelBinder());</code>.</p>
-<h3 id="ModelBinderDictionary"><a href="#ModelBinderDictionary" class="headerlink" title="ModelBinderDictionary"></a>ModelBinderDictionary</h3><p>一般的參數透過<code>DefaultModelBinder</code>來幫我們完成參數綁定.</p>
+<p>在<code>Global.cs</code>可透過<code>ModelBinders.Binders.Add</code>方法註冊綁定類型.</p>
+<p>如下面程式碼.</p>
+<div class="highlight-wrap" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true" data-rel="CSHARP"><figure class="iseeu highlight /csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ModelBinders.Binders.Add(<span class="keyword">typeof</span>(Arg),<span class="keyword">new</span> FooModelBinder());</span><br></pre></td></tr></table></figure></div>
+<h3 id="ModelBinderDictionary"><a href="#ModelBinderDictionary" class="headerlink" title="ModelBinderDictionary"></a>ModelBinderDictionary</h3><p>一般參數透過<code>DefaultModelBinder</code>來幫我們完成參數綁定.</p>
 <p>但有些特別的資料需要透過<code>ModelBinderDictionary</code>取得使用<code>ModelBinder</code>,例如上傳檔案,我們可以使用<code>HttpPostedFileBase</code>來取得檔案資訊流.</p>
 <p>那是因為在<code>ModelBinderDictionary</code>有註冊一個<code>HttpPostedFileBaseModelBinder</code>來幫我們做解析.</p>
 <div class="highlight-wrap" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true" data-rel="CSHARP"><figure class="iseeu highlight /csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">static</span> ModelBinderDictionary <span class="title">CreateDefaultBinderDictionary</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    ModelBinderDictionary binders = <span class="keyword">new</span> ModelBinderDictionary()</span><br><span class="line">    &#123;</span><br><span class="line">        &#123; <span class="keyword">typeof</span>(HttpPostedFileBase), <span class="keyword">new</span> HttpPostedFileBaseModelBinder() &#125;,</span><br><span class="line">        &#123; <span class="keyword">typeof</span>(<span class="keyword">byte</span>[]), <span class="keyword">new</span> ByteArrayModelBinder() &#125;,</span><br><span class="line">        &#123; <span class="keyword">typeof</span>(Binary), <span class="keyword">new</span> LinqBinaryModelBinder() &#125;,</span><br><span class="line">        &#123; <span class="keyword">typeof</span>(CancellationToken), <span class="keyword">new</span> CancellationTokenModelBinder() &#125;</span><br><span class="line">    &#125;;</span><br><span class="line">    <span class="keyword">return</span> binders;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
