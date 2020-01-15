@@ -313,7 +313,7 @@
       
     
 
-    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>Tags<span class="badge">61</span></a>
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>Tags<span class="badge">64</span></a>
 
   </li>
         
@@ -332,7 +332,7 @@
       
     
 
-    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>Categories<span class="badge">10</span></a>
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>Categories<span class="badge">12</span></a>
 
   </li>
         
@@ -351,7 +351,7 @@
       
     
 
-    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives<span class="badge">65</span></a>
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives<span class="badge">66</span></a>
 
   </li>
 
@@ -433,6 +433,244 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://isdaniel.github.io/c-func-3/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Daniel Shih">
+      <meta itemprop="description" content="好點子沒價值，有價值的是把好點子實現">
+      <meta itemprop="image" content="https://avatars0.githubusercontent.com/u/9159452?s=460&v=4">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="石頭的coding之路">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/c-func-3/" class="post-title-link" itemprop="url">(C#)委託delegate,Func<>,Action 解說系列(三)</a>
+              
+            
+          </h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2019-06-02 11:12:43" itemprop="dateCreated datePublished" datetime="2019-06-02T11:12:43+00:00">2019-06-02</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2020-01-15 01:52:49" itemprop="dateModified" datetime="2020-01-15T01:52:49+00:00">2020-01-15</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/C/" itemprop="url" rel="index"><span itemprop="name">C#</span></a></span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/C/Delegate/" itemprop="url" rel="index"><span itemprop="name">Delegate</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+              
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+            
+                <span class="post-meta-item-text">Comments: </span>
+                <a href="/c-func-3/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="c-func-3/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-symbolscount">
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Symbols count in article: </span>
+                
+                <span title="Symbols count in article">3.9k</span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Reading time &asymp;</span>
+                
+                <span title="Reading time">7 mins.</span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>
+              前文：在Func和Action泛型委託中 有 In , Out 兩個關鍵字
+那到底是神麼意思呢?  
+讓我們一起看下去….
+//Action delegate
+public delegate void Action&lt;in T&gt;(T obj);
+
+//fun delegate
+public
+              ...
+            </p>
+          <!--noindex-->
+          
+            <div class="post-button text-center">
+              <a class="btn" href="/c-func-3/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://isdaniel.github.io/c-func-2/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -495,7 +733,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2019-12-28 09:33:37" itemprop="dateModified" datetime="2019-12-28T09:33:37+00:00">2019-12-28</time>
+                <time title="Modified: 2020-01-15 01:52:49" itemprop="dateModified" datetime="2020-01-15T01:52:49+00:00">2020-01-15</time>
               
             
           </span>
@@ -729,7 +967,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2019-12-28 09:33:37" itemprop="dateModified" datetime="2019-12-28T09:33:37+00:00">2019-12-28</time>
+                <time title="Modified: 2020-01-15 01:52:49" itemprop="dateModified" datetime="2020-01-15T01:52:49+00:00">2020-01-15</time>
               
             
           </span>
@@ -965,7 +1203,7 @@ public delegate void voidDelegate();static void
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2019-12-28 09:33:37" itemprop="dateModified" datetime="2019-12-28T09:33:37+00:00">2019-12-28</time>
+                <time title="Modified: 2020-01-15 01:52:49" itemprop="dateModified" datetime="2020-01-15T01:52:49+00:00">2020-01-15</time>
               
             
           </span>
@@ -1204,7 +1442,7 @@ public delegate void voidDelegate();static void
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2019-12-28 09:33:37" itemprop="dateModified" datetime="2019-12-28T09:33:37+00:00">2019-12-28</time>
+                <time title="Modified: 2020-01-15 01:52:49" itemprop="dateModified" datetime="2020-01-15T01:52:49+00:00">2020-01-15</time>
               
             
           </span>
@@ -1433,7 +1671,7 @@ Base64就是用來將非ASCII字符的
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2019-12-28 09:33:37" itemprop="dateModified" datetime="2019-12-28T09:33:37+00:00">2019-12-28</time>
+                <time title="Modified: 2020-01-15 01:52:49" itemprop="dateModified" datetime="2020-01-15T01:52:49+00:00">2020-01-15</time>
               
             
           </span>
@@ -1663,7 +1901,7 @@ DECLARE  @t TABLE(    StartDate DATETIME,	EndDate DATETIME);INSE
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2019-12-28 09:33:37" itemprop="dateModified" datetime="2019-12-28T09:33:37+00:00">2019-12-28</time>
+                <time title="Modified: 2020-01-15 01:52:49" itemprop="dateModified" datetime="2020-01-15T01:52:49+00:00">2020-01-15</time>
               
             
           </span>
@@ -1899,7 +2137,7 @@ DECLARE  @t TABLE(    StartDate DATETIME,	EndDate DATETIME);INSE
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2019-12-28 09:33:37" itemprop="dateModified" datetime="2019-12-28T09:33:37+00:00">2019-12-28</time>
+                <time title="Modified: 2020-01-15 01:52:49" itemprop="dateModified" datetime="2020-01-15T01:52:49+00:00">2020-01-15</time>
               
             
           </span>
@@ -2125,7 +2363,7 @@ DECLARE  @t TABLE(    StartDate DATETIME,	EndDate DATETIME);INSE
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2019-12-28 09:33:37" itemprop="dateModified" datetime="2019-12-28T09:33:37+00:00">2019-12-28</time>
+                <time title="Modified: 2020-01-15 01:52:49" itemprop="dateModified" datetime="2020-01-15T01:52:49+00:00">2020-01-15</time>
               
             
           </span>
@@ -2360,7 +2598,7 @@ DECLARE  @t TABLE(    StartDate DATETIME,	EndDate DATETIME);INSE
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2019-12-28 09:33:37" itemprop="dateModified" datetime="2019-12-28T09:33:37+00:00">2019-12-28</time>
+                <time title="Modified: 2020-01-15 01:52:49" itemprop="dateModified" datetime="2020-01-15T01:52:49+00:00">2020-01-15</time>
               
             
           </span>
@@ -2518,246 +2756,6 @@ DECLARE  @t TABLE(    StartDate DATETIME,	EndDate DATETIME);INSE
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://isdaniel.github.io/cache-asp-net-2/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Daniel Shih">
-      <meta itemprop="description" content="好點子沒價值，有價值的是把好點子實現">
-      <meta itemprop="image" content="https://avatars0.githubusercontent.com/u/9159452?s=460&v=4">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="石頭的coding之路">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/cache-asp-net-2/" class="post-title-link" itemprop="url">Asp.net使用快取 (二)</a>
-              
-            
-          </h2>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-
-              
-                
-              
-
-              <time title="Created: 2019-05-27 14:52:47" itemprop="dateCreated datePublished" datetime="2019-05-27T14:52:47+00:00">2019-05-27</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Edited on</span>
-                
-                <time title="Modified: 2019-12-28 09:33:37" itemprop="dateModified" datetime="2019-12-28T09:33:37+00:00">2019-12-28</time>
-              
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/C/" itemprop="url" rel="index"><span itemprop="name">C#</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-            
-              
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-            
-                <span class="post-meta-item-text">Comments: </span>
-                <a href="/cache-asp-net-2/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="cache-asp-net-2/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-symbolscount">
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Symbols count in article: </span>
-                
-                <span title="Symbols count in article">5.9k</span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Reading time &asymp;</span>
-                
-                <span title="Reading time">11 mins.</span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>
-              Asp.net使用快取 (一)
-向大家簡單介紹
-
-快取是什麼
-為何要使用快取
-使用簡單HttpRuntime.Cache使用快取機制
-
-這篇是分享把快取程式碼變得更有彈性
-
-第二篇大綱
-提出介面,提高可替換性
-使用泛型改寫快取 讀取方式
-使用擴充方法改寫快取
-
-
-提出介面,提高可替換性情境:
-目前有
-              ...
-            </p>
-          <!--noindex-->
-          
-            <div class="post-button text-center">
-              <a class="btn" href="/cache-asp-net-2/#more" rel="contents">
-                Read more &raquo;
-              </a>
-            </div>
-          
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2806,7 +2804,7 @@ DECLARE  @t TABLE(    StartDate DATETIME,	EndDate DATETIME);INSE
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">65</span>
+                    <span class="site-state-item-count">66</span>
                     <span class="site-state-item-name">posts</span>
                   </a>
                 </div>
@@ -2843,7 +2841,11 @@ DECLARE  @t TABLE(    StartDate DATETIME,	EndDate DATETIME);INSE
                     
                       
                     
-                    <span class="site-state-item-count">10</span>
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">12</span>
                     <span class="site-state-item-name">categories</span>
                   </a>
                 </div>
@@ -2982,7 +2984,13 @@ DECLARE  @t TABLE(    StartDate DATETIME,	EndDate DATETIME);INSE
                     
                       
                     
-                    <span class="site-state-item-count">61</span>
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">64</span>
                     <span class="site-state-item-name">tags</span>
                   </a>
                 </div>
@@ -3079,7 +3087,7 @@ DECLARE  @t TABLE(    StartDate DATETIME,	EndDate DATETIME);INSE
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
   <span class="with-love" id="animate">
     <i class="fa fa-user"></i>
   </span>
@@ -3091,7 +3099,7 @@ DECLARE  @t TABLE(    StartDate DATETIME,	EndDate DATETIME);INSE
       <i class="fa fa-area-chart"></i>
     </span>
     
-    <span title="Symbols count total">326k</span>
+    <span title="Symbols count total">327k</span>
   
 
   
@@ -3100,7 +3108,7 @@ DECLARE  @t TABLE(    StartDate DATETIME,	EndDate DATETIME);INSE
       <i class="fa fa-coffee"></i>
     </span>
     
-    <span title="Reading time total">9:54</span>
+    <span title="Reading time total">9:55</span>
   
 </div>
 
