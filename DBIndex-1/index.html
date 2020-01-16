@@ -151,10 +151,13 @@
 <meta property="og:site_name" content="石頭的coding之路">
 <meta property="og:description" content="Agenda 前文 沒有Index的資料表 Index中的B+ tree Index優缺點 建立太多索引,小心降低新增、更新效率   Clustered Index(叢集索引) NonClustered Index(非叢集索引)  前文Index第一個欄位至關重要它會影響資料統計值結果，Index一般建立在查詢條件的欄位  每個Index都擁有自己的B+ tree.  沒有Index的資料表Ind">
 <meta property="og:locale" content="zh-tw">
-<meta property="og:updated_time" content="2020-01-15T01:52:49.230Z">
+<meta property="og:image" content="https://i.imgur.com/8CDe0Ms.png">
+<meta property="og:image" content="https://i.imgur.com/FnQlBUl.png">
+<meta property="og:updated_time" content="2020-01-16T02:06:44.878Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="石頭的coding之路">
 <meta name="twitter:description" content="Agenda 前文 沒有Index的資料表 Index中的B+ tree Index優缺點 建立太多索引,小心降低新增、更新效率   Clustered Index(叢集索引) NonClustered Index(非叢集索引)  前文Index第一個欄位至關重要它會影響資料統計值結果，Index一般建立在查詢條件的欄位  每個Index都擁有自己的B+ tree.  沒有Index的資料表Ind">
+<meta name="twitter:image" content="https://i.imgur.com/8CDe0Ms.png">
 
 
 
@@ -495,7 +498,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2020-01-15 01:52:49" itemprop="dateModified" datetime="2020-01-15T01:52:49+00:00">2020-01-15</time>
+                <time title="Modified: 2020-01-16 02:06:44" itemprop="dateModified" datetime="2020-01-16T02:06:44+00:00">2020-01-16</time>
               
             
           </span>
@@ -568,7 +571,7 @@
                 
                   <span class="post-meta-item-text">Symbols count in article: </span>
                 
-                <span title="Symbols count in article">863</span>
+                <span title="Symbols count in article">974</span>
               
 
               
@@ -622,7 +625,12 @@
 <blockquote>
 <p><code>B+ tree</code>是能夠保持資料穩定有序，其插入與修改擁有較穩定的對數時間複雜度。<code>B+ tree</code>元素由下而上插入，通過最大化在每個內部節點內的子節點的數目減少樹的高度，平衡操作不經常發生，而且效率增加了。這種價值得以確立通常需要每個節點在次級儲存中占據完整的磁碟塊或近似的大小。</p>
 </blockquote>
-<p>簡白來說<code>B+ tree</code>有一個特性是他會把資料存在子葉中並且透過連結把每個子葉串聯起來，提高他的穩定度.</p>
+<p>簡白來說<code>B+ tree</code>有一個特性是他會把資料存在子頁中並且透過連結把每個子頁串聯起來，提高他的穩定度.</p>
+<p><code>B+ tree</code>資料結構如下圖，這個資料結在在範圍查詢時較<code>B tree</code>來的更穩定</p>
+<p><img src="https://i.imgur.com/8CDe0Ms.png" alt></p>
+<p>真正Index <code>B+ tree</code>儲存比較類似於下圖</p>
+<p>此圖來自(Pro SQL Server Internals, 2nd edition)</p>
+<p><img src="https://i.imgur.com/FnQlBUl.png" alt></p>
 <h2 id="Index優缺點"><a href="#Index優缺點" class="headerlink" title="Index優缺點"></a>Index優缺點</h2><p>在<code>SQL-Server</code>上如果此資料表沒有建立<code>Index</code>就為<code>Heap</code>資料表.</p>
 <h3 id="建立太多索引-小心降低新增、更新效率"><a href="#建立太多索引-小心降低新增、更新效率" class="headerlink" title="建立太多索引,小心降低新增、更新效率"></a>建立太多索引,小心降低新增、更新效率</h3><p>之所以<code>Index</code>可以加快查詢速度，是<code>Index</code>以<strong>空間</strong>換取<strong>時間</strong>。</p>
 <p>基本上它使用的資源如下:</p>
