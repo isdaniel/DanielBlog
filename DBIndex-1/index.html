@@ -153,7 +153,7 @@
 <meta property="og:locale" content="zh-tw">
 <meta property="og:image" content="https://i.imgur.com/8CDe0Ms.png">
 <meta property="og:image" content="https://i.imgur.com/FnQlBUl.png">
-<meta property="og:updated_time" content="2020-01-16T16:22:18.094Z">
+<meta property="og:updated_time" content="2020-01-17T02:05:52.861Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="石頭的coding之路">
 <meta name="twitter:description" content="Agenda 前文 沒有Index的資料表 Index中的B+ tree Index優缺點 Clustered Index(叢集索引) NonClustered Index(非叢集索引) Key Lookup RID Lookup    前文Index第一個欄位至關重要它會影響資料統計值結果，Index一般建立在查詢條件的欄位  每個Index都擁有自己的B+ tree.  沒有Index的資料表">
@@ -498,7 +498,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2020-01-16 16:22:18" itemprop="dateModified" datetime="2020-01-16T16:22:18+00:00">2020-01-16</time>
+                <time title="Modified: 2020-01-17 02:05:52" itemprop="dateModified" datetime="2020-01-17T02:05:52+00:00">2020-01-17</time>
               
             
           </span>
@@ -661,12 +661,12 @@
 <blockquote>
 <p>這裡的<code>RID</code>是指向真實資料位子<code>RowID</code></p>
 </blockquote>
-<h3 id="Key-Lookup"><a href="#Key-Lookup" class="headerlink" title="Key Lookup"></a>Key Lookup</h3><p><code>NonClustered Index</code>中會存放此Row在<code>Clustered Index</code>相對位置，假如單單靠搜尋<code>Non-Clustered Index</code>沒有辦法滿足所有查詢需要資料就會去<code>Key Lookup</code>(by Clustered key)回<code>Clustered Index</code>取出相對應的資料.</p>
-<p>此存取就稱為<code>Lookup</code>，<code>lookup</code>會消耗<code>Disk I/O</code>，所以所耗的時間相對會比較大</p>
+<h3 id="Key-Lookup"><a href="#Key-Lookup" class="headerlink" title="Key Lookup"></a>Key Lookup</h3><p><code>NonClustered Index</code>中會存放此Row在<code>Clustered Index</code>相對位置，假如單單靠搜尋<code>Non-Clustered Index</code>沒有辦法滿足所有查詢需要資料就會去<code>Key Lookup</code>(by Clustered key)回找<code>Clustered Index</code>取出相對應的資料.</p>
 <h3 id="RID-Lookup"><a href="#RID-Lookup" class="headerlink" title="RID Lookup"></a>RID Lookup</h3><p>資料表沒有<code>Clustered Index</code>且使用<code>Index</code>所有查詢欄位不包含在<code>Converting Index</code>中就會透過<code>RID Lookup</code>查找確切Page上的Row(藉由<code>Row-Id</code>)</p>
 <blockquote>
-<p>RID Key:8 byte.</p>
+<p>RID Key的大小8 byte</p>
 </blockquote>
+<p><code>lookup</code>會消耗<code>Disk I/O</code>，所以所耗的時間相對會比較大.</p>
 <p><strong>此文作者</strong>：Daniel Shih(石頭)<br><strong>此文地址</strong>： <a href="https://isdaniel.github.io/DBIndex-1/">https://isdaniel.github.io/DBIndex-1/</a> <br><strong>版權聲明</strong>：本博客所有文章除特別聲明外，均採用 <span class="exturl" data-url="aHR0cHM6Ly9jcmVhdGl2ZWNvbW1vbnMub3JnL2xpY2Vuc2VzL2J5LW5jLXNhLzMuMC90dy8=" title="https://creativecommons.org/licenses/by-nc-sa/3.0/tw/">CC BY-NC-SA 3.0 TW<i class="fa fa-external-link"></i></span> 許可協議。轉載請註明出處！</p>
 
       
@@ -712,8 +712,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/c-func-3/" rel="next" title="(C#)委託delegate,Func<>,Action 解說系列(三)">
-                <i class="fa fa-chevron-left"></i> (C#)委託delegate,Func<>,Action 解說系列(三)
+              <a href="/c-func-2/" rel="next" title="(C#) 委託delegate,Func<>,Action 解說系列(二)">
+                <i class="fa fa-chevron-left"></i> (C#) 委託delegate,Func<>,Action 解說系列(二)
               </a>
             
           </div>
@@ -722,8 +722,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/github-hexo-appveyor/" rel="prev" title="建立自己Blog系列(一) 介紹 Github (hosting) + Hexo (Blog) + Appveyor(CICD)">
-                建立自己Blog系列(一) 介紹 Github (hosting) + Hexo (Blog) + Appveyor(CICD) <i class="fa fa-chevron-right"></i>
+              <a href="/c-func-3/" rel="prev" title="(C#)委託delegate,Func<>,Action 解說系列(三)">
+                (C#)委託delegate,Func<>,Action 解說系列(三) <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
