@@ -143,13 +143,13 @@
 
 
 
-  <meta name="description" content="Agenda 前文 沒有Index的資料表 Index中的B+ tree Index優缺點 Clustered Index(叢集索引) NonClustered Index(非叢集索引) RID Lookup Key Lookup   範例演示 建立一個 NonClustered Index   再建立一個 Clustered Index 有沒有辦法避免Key Lookup??    前文Inde">
+  <meta name="description" content="Agenda 前文 沒有Index的資料表 Index中的B+ tree Index優缺點 Clustered Index(叢集索引) NonClustered Index(非叢集索引) RID Lookup Key Lookup   範例演示 建立一個 NonClustered Index   再建立一個 Clustered Index  前文Index第一個欄位至關重要它會影響資料統計值結果，">
 <meta name="keywords" content="DataBase,Turning,Sql-server">
 <meta property="og:type" content="article">
 <meta property="og:title" content="石頭的coding之路">
 <meta property="og:url" content="https://isdaniel.github.io/DBIndex-1/index.html">
 <meta property="og:site_name" content="石頭的coding之路">
-<meta property="og:description" content="Agenda 前文 沒有Index的資料表 Index中的B+ tree Index優缺點 Clustered Index(叢集索引) NonClustered Index(非叢集索引) RID Lookup Key Lookup   範例演示 建立一個 NonClustered Index   再建立一個 Clustered Index 有沒有辦法避免Key Lookup??    前文Inde">
+<meta property="og:description" content="Agenda 前文 沒有Index的資料表 Index中的B+ tree Index優缺點 Clustered Index(叢集索引) NonClustered Index(非叢集索引) RID Lookup Key Lookup   範例演示 建立一個 NonClustered Index   再建立一個 Clustered Index  前文Index第一個欄位至關重要它會影響資料統計值結果，">
 <meta property="og:locale" content="zh-tw">
 <meta property="og:image" content="https://i.imgur.com/8CDe0Ms.png">
 <meta property="og:image" content="https://i.imgur.com/FnQlBUl.png">
@@ -157,10 +157,10 @@
 <meta property="og:image" content="https://i.imgur.com/37rnlmn.png">
 <meta property="og:image" content="https://i.imgur.com/E6WS5qL.png">
 <meta property="og:image" content="https://i.imgur.com/PPTDYcG.png">
-<meta property="og:updated_time" content="2020-01-18T05:00:19.422Z">
+<meta property="og:updated_time" content="2020-01-18T05:01:43.855Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="石頭的coding之路">
-<meta name="twitter:description" content="Agenda 前文 沒有Index的資料表 Index中的B+ tree Index優缺點 Clustered Index(叢集索引) NonClustered Index(非叢集索引) RID Lookup Key Lookup   範例演示 建立一個 NonClustered Index   再建立一個 Clustered Index 有沒有辦法避免Key Lookup??    前文Inde">
+<meta name="twitter:description" content="Agenda 前文 沒有Index的資料表 Index中的B+ tree Index優缺點 Clustered Index(叢集索引) NonClustered Index(非叢集索引) RID Lookup Key Lookup   範例演示 建立一個 NonClustered Index   再建立一個 Clustered Index  前文Index第一個欄位至關重要它會影響資料統計值結果，">
 <meta name="twitter:image" content="https://i.imgur.com/8CDe0Ms.png">
 
 
@@ -502,7 +502,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2020-01-18 05:00:19" itemprop="dateModified" datetime="2020-01-18T05:00:19+00:00">2020-01-18</time>
+                <time title="Modified: 2020-01-18 05:01:43" itemprop="dateModified" datetime="2020-01-18T05:01:43+00:00">2020-01-18</time>
               
             
           </span>
@@ -575,7 +575,7 @@
                 
                   <span class="post-meta-item-text">Symbols count in article: </span>
                 
-                <span title="Symbols count in article">3.1k</span>
+                <span title="Symbols count in article">2.9k</span>
               
 
               
@@ -589,7 +589,7 @@
                 
                   <span class="post-meta-item-text">Reading time &asymp;</span>
                 
-                <span title="Reading time">6 mins.</span>
+                <span title="Reading time">5 mins.</span>
               
             </div>
           
@@ -624,10 +624,7 @@
 <li><a href="#%e5%bb%ba%e7%ab%8b%e4%b8%80%e5%80%8b-nonclustered-index">建立一個 NonClustered Index</a></li>
 </ul>
 </li>
-<li><a href="#%e5%86%8d%e5%bb%ba%e7%ab%8b%e4%b8%80%e5%80%8b-clustered-index">再建立一個 Clustered Index</a><ul>
-<li><a href="#%e6%9c%89%e6%b2%92%e6%9c%89%e8%be%a6%e6%b3%95%e9%81%bf%e5%85%8dkey-lookup">有沒有辦法避免Key Lookup??</a></li>
-</ul>
-</li>
+<li><a href="#%e5%86%8d%e5%bb%ba%e7%ab%8b%e4%b8%80%e5%80%8b-clustered-index">再建立一個 Clustered Index</a></li>
 </ul>
 <h2 id="前文"><a href="#前文" class="headerlink" title="前文"></a>前文</h2><p><code>Index</code>第一個欄位至關重要它會影響資料<strong>統計值</strong>結果，<code>Index</code>一般建立在查詢條件的欄位</p>
 <blockquote>
@@ -697,10 +694,6 @@
 <div class="highlight-wrap" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true" data-rel="SQL"><figure class="iseeu highlight /sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> CLUSTERED <span class="keyword">INDEX</span> CIX_T_UserId <span class="keyword">on</span>  dbo.T(</span><br><span class="line">	UserId</span><br><span class="line">)</span><br></pre></td></tr></table></figure></div>
 <p>能看到執行計畫的不同了，已經透過<code>Key Lookup</code>回去查找資料，原因是目前資料表已經有<code>Clustered Index</code>但此查詢使用條件使用<code>NonClustered Index</code>所以導致需要<code>Lookup</code>回去<code>Clustered Index</code>的<code>B+ Tree</code>查找資料</p>
 <p><img src="https://i.imgur.com/PPTDYcG.png" alt></p>
-<h3 id="有沒有辦法避免Key-Lookup"><a href="#有沒有辦法避免Key-Lookup" class="headerlink" title="有沒有辦法避免Key Lookup??"></a>有沒有辦法避免Key Lookup??</h3><p>我們在上面說到<code>Key Lookup</code>就是會回去反查所需要的欄位，雖然這比全表掃描來的好但我如果<code>Key Lookup</code>回去就必須犧牲些<code>IO</code>讀取.</p>
-<p>我是否有辦法建立一個<code>Index</code>卻不用<code>Lookup</code>回去呢?</p>
-<p>答案是有辦法就是建立<code>Convering Index</code>.</p>
-<p>這個我們下次再來討論.</p>
 <p><strong>此文作者</strong>：Daniel Shih(石頭)<br><strong>此文地址</strong>： <a href="https://isdaniel.github.io/DBIndex-1/">https://isdaniel.github.io/DBIndex-1/</a> <br><strong>版權聲明</strong>：本博客所有文章除特別聲明外，均採用 <span class="exturl" data-url="aHR0cHM6Ly9jcmVhdGl2ZWNvbW1vbnMub3JnL2xpY2Vuc2VzL2J5LW5jLXNhLzMuMC90dy8=" title="https://creativecommons.org/licenses/by-nc-sa/3.0/tw/">CC BY-NC-SA 3.0 TW<i class="fa fa-external-link"></i></span> 許可協議。轉載請註明出處！</p>
 
       
@@ -1121,7 +1114,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Agenda"><span class="nav-number">1.</span> <span class="nav-text">Agenda</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#前文"><span class="nav-number">1.1.</span> <span class="nav-text">前文</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#沒有Index的資料表"><span class="nav-number">1.2.</span> <span class="nav-text">沒有Index的資料表</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Index中的B-tree"><span class="nav-number">1.3.</span> <span class="nav-text">Index中的B+ tree</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Index優缺點"><span class="nav-number">1.4.</span> <span class="nav-text">Index優缺點</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Clustered-Index-叢集索引"><span class="nav-number">1.5.</span> <span class="nav-text">Clustered Index(叢集索引)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#NonClustered-Index-非叢集索引"><span class="nav-number">1.6.</span> <span class="nav-text">NonClustered Index(非叢集索引)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#RID-Lookup"><span class="nav-number">1.6.1.</span> <span class="nav-text">RID Lookup</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Key-Lookup"><span class="nav-number">1.6.2.</span> <span class="nav-text">Key Lookup</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#範例演示"><span class="nav-number">1.7.</span> <span class="nav-text">範例演示</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#建立一個-NonClustered-Index"><span class="nav-number">1.7.1.</span> <span class="nav-text">建立一個 NonClustered Index</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#再建立一個-Clustered-Index"><span class="nav-number">1.8.</span> <span class="nav-text">再建立一個 Clustered Index</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#有沒有辦法避免Key-Lookup"><span class="nav-number">1.8.1.</span> <span class="nav-text">有沒有辦法避免Key Lookup??</span></a></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Agenda"><span class="nav-number">1.</span> <span class="nav-text">Agenda</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#前文"><span class="nav-number">1.1.</span> <span class="nav-text">前文</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#沒有Index的資料表"><span class="nav-number">1.2.</span> <span class="nav-text">沒有Index的資料表</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Index中的B-tree"><span class="nav-number">1.3.</span> <span class="nav-text">Index中的B+ tree</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Index優缺點"><span class="nav-number">1.4.</span> <span class="nav-text">Index優缺點</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Clustered-Index-叢集索引"><span class="nav-number">1.5.</span> <span class="nav-text">Clustered Index(叢集索引)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#NonClustered-Index-非叢集索引"><span class="nav-number">1.6.</span> <span class="nav-text">NonClustered Index(非叢集索引)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#RID-Lookup"><span class="nav-number">1.6.1.</span> <span class="nav-text">RID Lookup</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Key-Lookup"><span class="nav-number">1.6.2.</span> <span class="nav-text">Key Lookup</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#範例演示"><span class="nav-number">1.7.</span> <span class="nav-text">範例演示</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#建立一個-NonClustered-Index"><span class="nav-number">1.7.1.</span> <span class="nav-text">建立一個 NonClustered Index</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#再建立一個-Clustered-Index"><span class="nav-number">1.8.</span> <span class="nav-text">再建立一個 Clustered Index</span></a></li></ol></li></ol></div>
             
 
           </div>
@@ -1154,7 +1147,7 @@
       <i class="fa fa-area-chart"></i>
     </span>
     
-    <span title="Symbols count total">330k</span>
+    <span title="Symbols count total">329k</span>
   
 
   
