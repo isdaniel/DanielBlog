@@ -143,18 +143,20 @@
 
 
 
-  <meta name="description" content="Agenda 前言 RouteData 建立自己Route機制 小結:  前言UrlRoutingModule對於OnPostResolveRequestCache事件添加一個對於MVC很重要的動作,透過RouteCollection取得此次請求匹配RouteData物件. 利用此RouteData取得要使用的IHttpHandler來執行它. 1RouteData routeData = Rou">
-<meta name="keywords" content="C#,Asp.net,Asp.net-MVC,SourceCode,11th鐵人賽">
+  <meta name="description" content="Agenda 前文 Covering Index 加入INCLUDE欄位含意 案例解說   Filter Index Index Intersection Primary Key  前文在資料庫索引深入淺出(一)文章介紹 兩種基本索引  Clustered Index(叢集索引) NonClustered Index(非叢集索引)  兩種Lookup(如果NonClustered Index無法滿">
+<meta name="keywords" content="DataBase,Turning,Sql-server">
 <meta property="og:type" content="article">
-<meta property="og:title" content="動手DIY改造 Asp.net MVC- Route解析機制 (第26天)">
-<meta property="og:url" content="https://isdaniel.github.io/Ithelp-day26/index.html">
+<meta property="og:title" content="資料庫索引深入淺出(二)">
+<meta property="og:url" content="https://isdaniel.github.io/DBIndex-2/index.html">
 <meta property="og:site_name" content="石頭的coding之路">
-<meta property="og:description" content="Agenda 前言 RouteData 建立自己Route機制 小結:  前言UrlRoutingModule對於OnPostResolveRequestCache事件添加一個對於MVC很重要的動作,透過RouteCollection取得此次請求匹配RouteData物件. 利用此RouteData取得要使用的IHttpHandler來執行它. 1RouteData routeData = Rou">
+<meta property="og:description" content="Agenda 前文 Covering Index 加入INCLUDE欄位含意 案例解說   Filter Index Index Intersection Primary Key  前文在資料庫索引深入淺出(一)文章介紹 兩種基本索引  Clustered Index(叢集索引) NonClustered Index(非叢集索引)  兩種Lookup(如果NonClustered Index無法滿">
 <meta property="og:locale" content="zh-tw">
+<meta property="og:image" content="https://i.imgur.com/ivgZPGm.png">
 <meta property="og:updated_time" content="2020-01-18T14:13:12.045Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="動手DIY改造 Asp.net MVC- Route解析機制 (第26天)">
-<meta name="twitter:description" content="Agenda 前言 RouteData 建立自己Route機制 小結:  前言UrlRoutingModule對於OnPostResolveRequestCache事件添加一個對於MVC很重要的動作,透過RouteCollection取得此次請求匹配RouteData物件. 利用此RouteData取得要使用的IHttpHandler來執行它. 1RouteData routeData = Rou">
+<meta name="twitter:title" content="資料庫索引深入淺出(二)">
+<meta name="twitter:description" content="Agenda 前文 Covering Index 加入INCLUDE欄位含意 案例解說   Filter Index Index Intersection Primary Key  前文在資料庫索引深入淺出(一)文章介紹 兩種基本索引  Clustered Index(叢集索引) NonClustered Index(非叢集索引)  兩種Lookup(如果NonClustered Index無法滿">
+<meta name="twitter:image" content="https://i.imgur.com/ivgZPGm.png">
 
 
 
@@ -162,7 +164,7 @@
 
   
   
-  <link rel="canonical" href="https://isdaniel.github.io/Ithelp-day26/">
+  <link rel="canonical" href="https://isdaniel.github.io/DBIndex-2/">
 
 
 
@@ -172,7 +174,7 @@
   };
 </script>
 
-  <title>動手DIY改造 Asp.net MVC- Route解析機制 (第26天) | 石頭的coding之路</title>
+  <title>資料庫索引深入淺出(二) | 石頭的coding之路</title>
   
 
 
@@ -435,7 +437,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://isdaniel.github.io/Ithelp-day26/">
+    <link itemprop="mainEntityOfPage" href="https://isdaniel.github.io/DBIndex-2/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Daniel Shih">
@@ -452,7 +454,7 @@
 
         
         
-          <h2 class="post-title" itemprop="name headline">動手DIY改造 Asp.net MVC- Route解析機制 (第26天)
+          <h2 class="post-title" itemprop="name headline">資料庫索引深入淺出(二)
 
               
             
@@ -478,7 +480,7 @@
                 
               
 
-              <time title="Created: 2019-10-07 10:00:00" itemprop="dateCreated datePublished" datetime="2019-10-07T10:00:00+00:00">2019-10-07</time>
+              <time title="Created: 2019-01-20 23:10:43" itemprop="dateCreated datePublished" datetime="2019-01-20T23:10:43+00:00">2019-01-20</time>
             
 
             
@@ -512,7 +514,14 @@
                 <span class="post-meta-item-text">In</span>
               
               
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/11th鐵人賽/" itemprop="url" rel="index"><span itemprop="name">11th鐵人賽</span></a></span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/DataBase/" itemprop="url" rel="index"><span itemprop="name">DataBase</span></a></span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/DataBase/Turning/" itemprop="url" rel="index"><span itemprop="name">Turning</span></a></span>
 
                 
                 
@@ -531,8 +540,8 @@
                 </span>
             
                 <span class="post-meta-item-text">Comments: </span>
-                <a href="/Ithelp-day26/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="Ithelp-day26/" itemprop="commentCount"></span>
+                <a href="/DBIndex-2/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="DBIndex-2/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -561,7 +570,7 @@
                 
                   <span class="post-meta-item-text">Symbols count in article: </span>
                 
-                <span title="Symbols count in article">5.2k</span>
+                <span title="Symbols count in article">1.4k</span>
               
 
               
@@ -575,7 +584,7 @@
                 
                   <span class="post-meta-item-text">Reading time &asymp;</span>
                 
-                <span title="Reading time">9 mins.</span>
+                <span title="Reading time">2 mins.</span>
               
             </div>
           
@@ -596,62 +605,54 @@
 
       
         <h1 id="Agenda"><a href="#Agenda" class="headerlink" title="Agenda"></a>Agenda<!-- omit in toc --></h1><ul>
-<li><a href="#%e5%89%8d%e8%a8%80">前言</a></li>
-<li><a href="#routedata">RouteData</a></li>
-<li><a href="#%e5%bb%ba%e7%ab%8b%e8%87%aa%e5%b7%b1route%e6%a9%9f%e5%88%b6">建立自己Route機制</a></li>
-<li><a href="#%e5%b0%8f%e7%b5%90">小結:</a></li>
+<li><a href="#%e5%89%8d%e6%96%87">前文</a></li>
+<li><a href="#covering-index">Covering Index</a><ul>
+<li><a href="#%e5%8a%a0%e5%85%a5include%e6%ac%84%e4%bd%8d%e5%90%ab%e6%84%8f">加入INCLUDE欄位含意</a></li>
+<li><a href="#%e6%a1%88%e4%be%8b%e8%a7%a3%e8%aa%aa">案例解說</a></li>
 </ul>
-<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p><code>UrlRoutingModule</code>對於<code>OnPostResolveRequestCache</code>事件添加一個對於<strong>MVC</strong>很重要的動作,透過<code>RouteCollection</code>取得此次請求匹配<code>RouteData</code>物件.</p>
-<p>利用此<code>RouteData</code>取得要使用的<code>IHttpHandler</code>來執行它.</p>
-<div class="highlight-wrap" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true" data-rel="CSHARP"><figure class="iseeu highlight /csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">RouteData routeData = RouteCollection.GetRouteData(context);</span><br></pre></td></tr></table></figure></div>
-<p><code>RouteCollection</code>是全域路由註冊表.我們在一開始使用<code>MapRoute</code>註冊與之匹配<code>Controller</code>和<code>Action</code></p>
-<blockquote>
-<p><code>RouteCollection</code>是基於<code>RouteBase</code>物件集合,所以它可以存放所有繼承<code>RouteBase</code>物件,<code>RouteBase</code>這個類別有一個重要的方法來取得<code>RouteData</code>,<code>RouteData</code>封裝此次<code>Http</code>請求的<code>Controller</code>,<code>Action</code>…等資訊</p>
-</blockquote>
-<p>對於每個<code>Http</code>請求依序找尋第一個匹配路由規則</p>
-<div class="highlight-wrap" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true" data-rel="CSHARP"><figure class="iseeu highlight /csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">routes.MapRoute(</span><br><span class="line">    name: <span class="string">"Default"</span>,</span><br><span class="line">    url: <span class="string">"&#123;controller&#125;/&#123;action&#125;/&#123;id&#125;"</span>,</span><br><span class="line">    defaults: <span class="keyword">new</span> &#123; controller = <span class="string">"Home"</span>, action = <span class="string">"Index"</span>, id = UrlParameter.Optional &#125;</span><br><span class="line">);</span><br></pre></td></tr></table></figure></div>
-<h2 id="RouteData"><a href="#RouteData" class="headerlink" title="RouteData"></a>RouteData</h2><p>在<code>RouteData</code>類別中有幾個重要屬性.</p>
+</li>
+<li><a href="#filter-index">Filter Index</a></li>
+<li><a href="#index-intersection">Index Intersection</a></li>
+<li><a href="#primary-key">Primary Key</a></li>
+</ul>
+<h2 id="前文"><a href="#前文" class="headerlink" title="前文"></a>前文</h2><p>在<a href="https://isdaniel.github.io/DBIndex-1/">資料庫索引深入淺出(一)</a>文章介紹</p>
+<p>兩種基本索引</p>
 <ul>
-<li><code>RouteHandler</code>:存放<code>IRouteHandler</code>物件(提供<code>IHttpHander</code>並呼叫執行物件)</li>
-<li><code>Values</code>: 一個字典集合,存放Key為<code>Controller</code>和<code>Action</code>,<code>Value</code>是<code>URL</code>參數值相對位置參數</li>
-<li><code>GetRequiredString</code>:利用傳入<code>string</code>參數對於<code>Values</code>字典取匹配名稱.</li>
+<li>Clustered Index(叢集索引)</li>
+<li>NonClustered Index(非叢集索引)</li>
 </ul>
-<div class="highlight-wrap" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true" data-rel="CSHARP"><figure class="iseeu highlight /csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">RouteData</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">private</span> RouteValueDictionary _values = <span class="keyword">new</span> RouteValueDictionary();</span><br><span class="line">    <span class="keyword">private</span> RouteValueDictionary _dataTokens = <span class="keyword">new</span> RouteValueDictionary();</span><br><span class="line">    <span class="keyword">private</span> IRouteHandler _routeHandler;</span><br><span class="line"></span><br><span class="line">    <span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;summary&gt;</span></span></span><br><span class="line">    <span class="comment"><span class="doctag">///</span>   使用指定的路由及路由處理常式，初始化 <span class="doctag">&lt;see cref="T:System.Web.Routing.RouteData" /&gt;</span> 類別的新執行個體。</span></span><br><span class="line">    <span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;/summary&gt;</span></span></span><br><span class="line">    <span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;param name="route"&gt;</span>此物件會定義路由。<span class="doctag">&lt;/param&gt;</span></span></span><br><span class="line">    <span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;param name="routeHandler"&gt;</span>處理要求的物件。<span class="doctag">&lt;/param&gt;</span></span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">RouteData</span>(<span class="params">RouteBase route, IRouteHandler routeHandler</span>)</span></span><br><span class="line"><span class="function"></span>    &#123;</span><br><span class="line">      <span class="keyword">this</span>.Route = route;</span><br><span class="line">      <span class="keyword">this</span>.RouteHandler = routeHandler;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;summary&gt;</span></span></span><br><span class="line">    <span class="comment"><span class="doctag">///</span>   取得自訂值集合，當 ASP.NET 路由判斷路由是否符合要求時，會將這些值傳遞至路由處理常式但不會使用。</span></span><br><span class="line">    <span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;/summary&gt;</span></span></span><br><span class="line">    <span class="keyword">public</span> RouteValueDictionary DataTokens</span><br><span class="line">    &#123;</span><br><span class="line">      <span class="keyword">get</span></span><br><span class="line">      &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">this</span>._dataTokens;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;summary&gt;</span>取得或設定代表路由的物件。<span class="doctag">&lt;/summary&gt;</span></span></span><br><span class="line">    <span class="keyword">public</span> RouteBase Route &#123; <span class="keyword">get</span>; <span class="keyword">set</span>; &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;summary&gt;</span>取得或設定處理要求路由的物件。<span class="doctag">&lt;/summary&gt;</span></span></span><br><span class="line">    <span class="keyword">public</span> IRouteHandler RouteHandler</span><br><span class="line">    &#123;</span><br><span class="line">      <span class="keyword">get</span></span><br><span class="line">      &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">this</span>._routeHandler;</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">set</span></span><br><span class="line">      &#123;</span><br><span class="line">        <span class="keyword">this</span>._routeHandler = <span class="keyword">value</span>;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;summary&gt;</span>取得 URL 參數值和預設路由值的集合。<span class="doctag">&lt;/summary&gt;</span></span></span><br><span class="line">    <span class="keyword">public</span> RouteValueDictionary Values</span><br><span class="line">    &#123;</span><br><span class="line">      <span class="keyword">get</span></span><br><span class="line">      &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">this</span>._values;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;summary&gt;</span>擷取具有指定識別項的值。<span class="doctag">&lt;/summary&gt;</span></span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">string</span> <span class="title">GetRequiredString</span>(<span class="params"><span class="keyword">string</span> valueName</span>)</span></span><br><span class="line"><span class="function"></span>    &#123;</span><br><span class="line">      <span class="keyword">object</span> obj;</span><br><span class="line">      <span class="keyword">if</span> (<span class="keyword">this</span>.Values.TryGetValue(valueName, <span class="keyword">out</span> obj))</span><br><span class="line">      &#123;</span><br><span class="line">        <span class="keyword">string</span> str = obj <span class="keyword">as</span> <span class="keyword">string</span>;</span><br><span class="line">        <span class="keyword">if</span> (!<span class="keyword">string</span>.IsNullOrEmpty(str))</span><br><span class="line">          <span class="keyword">return</span> str;</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">throw</span> <span class="keyword">new</span> InvalidOperationException(<span class="keyword">string</span>.Format((IFormatProvider) CultureInfo.CurrentUICulture, System.Web.SR.GetString(<span class="string">"RouteData_RequiredValue"</span>), <span class="keyword">new</span> <span class="keyword">object</span>[<span class="number">1</span>]</span><br><span class="line">      &#123;</span><br><span class="line">        (<span class="keyword">object</span>) valueName</span><br><span class="line">      &#125;));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
-<p><code>RouteData</code>主要把<code>Client</code>傳送<strong>Http</strong>請求資訊經解析後存放在<code>Values</code>中.</p>
-<p><code>RouteBase</code>中有個<code>GetRouteData</code>方法，藉由我們的路由設定去解析當前是否匹配到路由規則，如果有就回傳一個<code>RouteData</code>物件，否則回傳<code>Null</code></p>
-<h2 id="建立自己Route機制"><a href="#建立自己Route機制" class="headerlink" title="建立自己Route機制"></a>建立自己Route機制</h2><p>一般使用<code>Route</code>這個物件是使用<code>/</code>當作註冊對應的規則</p>
-<p><code>{Controller}/{Action}</code>在<code>Domian</code>後用<code>/</code>當作分隔</p>
-<p>第一個區塊字串被當作<code>ControllerName</code></p>
-<p>第二個區塊字串被當作<code>ActionName</code></p>
-<blockquote>
-<p>因為在<strong>Asp.net MVC</strong>透過<code>RouteData.GetRequiredString</code>傳入<code>ControllerName</code>或<code>ActionName</code>取得相對應的值.</p>
-</blockquote>
-<p>這次例子我們希望可以透過<code>QueryString</code>來製作<code>Route</code>對應規則</p>
-<blockquote>
-<p><code>{domain}?controller=home&amp;action=about</code></p>
-</blockquote>
-<p>透過上面<code>URL</code>期望呼叫<code>HomeController.About</code>方法</p>
-<p>廢話不多說我們來看一下這個<code>QueryStringRoute</code>是如何被實現</p>
-<div class="highlight-wrap" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true" data-rel="CSHARP"><figure class="iseeu highlight /csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">QueryStringRoute</span> : <span class="title">RouteBase</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">string</span> Url &#123; <span class="keyword">get</span>; <span class="keyword">set</span>; &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">bool</span> <span class="title">Match</span>(<span class="params">NameValueCollection queryString, <span class="keyword">out</span> IDictionary&lt;<span class="keyword">string</span>, <span class="keyword">string</span>&gt; variables</span>)</span></span><br><span class="line"><span class="function"></span>    &#123;</span><br><span class="line">        variables = <span class="keyword">new</span> Dictionary&lt;<span class="keyword">string</span>, <span class="keyword">string</span>&gt;();</span><br><span class="line"></span><br><span class="line">        <span class="keyword">var</span> para = Url.Split(<span class="string">'&amp;'</span>);</span><br><span class="line">        <span class="keyword">if</span> (!para.All(x=&gt;queryString.AllKeys.Contains(x)))</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line"></span><br><span class="line">        variables = para.ToDictionary(x =&gt; x, y =&gt; queryString[y]);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">override</span> RouteData <span class="title">GetRouteData</span>(<span class="params">HttpContextBase httpContext</span>)</span></span><br><span class="line"><span class="function"></span>    &#123;</span><br><span class="line">        IDictionary&lt;<span class="keyword">string</span>, <span class="keyword">string</span>&gt; <span class="keyword">value</span>;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (Match(httpContext.Request.QueryString,<span class="keyword">out</span> <span class="keyword">value</span>))</span><br><span class="line">        &#123;</span><br><span class="line">            RouteData routeData = <span class="keyword">new</span> RouteData(<span class="keyword">this</span>, <span class="keyword">new</span> MvcRouteHandler());</span><br><span class="line"></span><br><span class="line">            <span class="keyword">foreach</span> (<span class="keyword">var</span> dict <span class="keyword">in</span> <span class="keyword">value</span>)</span><br><span class="line">                routeData.Values.Add(dict.Key,dict.Value);</span><br><span class="line"></span><br><span class="line">            <span class="keyword">return</span> routeData;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> <span class="literal">null</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">override</span> VirtualPathData <span class="title">GetVirtualPath</span>(<span class="params">RequestContext requestContext, RouteValueDictionary values</span>)</span></span><br><span class="line"><span class="function"></span>    &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">null</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
-<p>我們實現<code>RouteBase</code>抽象類別兩個方法</p>
+<p>兩種<code>Lookup</code>(如果<code>NonClustered Index</code>無法滿足查詢結果執行)</p>
 <ul>
-<li><code>GetRouteData</code></li>
-<li><code>GetVirtualPath</code></li>
+<li>RID Lookup</li>
+<li>Key Lookup</li>
 </ul>
-<p>其中<code>GetRouteData</code>是我們主要要實作方法</p>
-<p><code>Request.QueryString</code>這個集合封裝<strong>Http</strong> <code>QueryString</code>的資訊.</p>
-<p>首先我們先判斷此次請求<code>QueryString</code>是否由傳<code>Controller</code>,<code>Action</code>資料過來,如果有把值填入<code>RouteData.Values</code>字典集合中,反之不匹配此<code>Route</code>規則就回傳<code>NULL</code>.</p>
+<p>本篇會介紹其他種類<code>Index</code></p>
+<h2 id="Covering-Index"><a href="#Covering-Index" class="headerlink" title="Covering Index"></a>Covering Index</h2><p>我們先來看看<code>Covering Index</code>語法.</p>
+<p>最主要使在<code>NONCLUSTERED INDEX</code>後面加上<code>INCLUDE</code>欄位.</p>
+<div class="highlight-wrap" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true" data-rel="SQL"><figure class="iseeu highlight /sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> NONCLUSTERED <span class="keyword">INDEX</span> IX_T_Id_Convering <span class="keyword">on</span> dbo.T(</span><br><span class="line">	<span class="keyword">id</span></span><br><span class="line">) <span class="keyword">INCLUDE</span> (</span><br><span class="line">	UserId,</span><br><span class="line">	UserGroup</span><br><span class="line">)</span><br></pre></td></tr></table></figure></div>
+<h3 id="加入INCLUDE欄位含意"><a href="#加入INCLUDE欄位含意" class="headerlink" title="加入INCLUDE欄位含意"></a>加入INCLUDE欄位含意</h3><p>在<code>NONCLUSTERED INDEX</code>把<code>Column</code>加入<code>INCLUDE</code>區域後此<code>NONCLUSTERED INDEX</code>會把此欄位資料加入至子頁層.之後如果要查找資料時就不用在<code>Lookup</code>回去</p>
 <blockquote>
-<p><strong>MVC</strong>從<code>RouteData.Values</code>取得對應的資料.</p>
+<p>所以我們可以把<code>Covering Index</code>當作是偽<code>CLUSTERED INDEX</code>.</p>
 </blockquote>
-<p>使用上就可透過<code>RouteCollection.Add</code>將<code>Route</code>添加到集合中</p>
-<div class="highlight-wrap" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true" data-rel="CSHARP"><figure class="iseeu highlight /csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">RegisterRoutes</span>(<span class="params">RouteCollection routes</span>)</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    routes.Add(<span class="string">"customer"</span>,<span class="keyword">new</span> QueryStringRoute()</span><br><span class="line">    &#123;</span><br><span class="line">        Url = <span class="string">"controller&amp;action"</span></span><br><span class="line">    &#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
-<p><strong>Http</strong>請求就會依序找尋第一個匹配<code>Route</code>來執行.</p>
-<h2 id="小結"><a href="#小結" class="headerlink" title="小結:"></a>小結:</h2><p>透過繼承<code>RouteBase</code>抽象類別並實現<code>GetRouteData</code>方法透過返回<code>RouteData</code>物件對於<code>Http</code>請求資訊封裝到<code>RouteData.Values</code>字典集合.(在<strong>MVC</strong>框架中會對於<code>Values</code>字典中取<code>Key</code>為<code>Controller</code>和<code>Action</code>的值.)</p>
-<p>最後再把新建立<code>RouteBase</code>物件加入到全域<code>RouteCollection</code>中.</p>
-<p>希望大家看完這篇後可以了解並自行擴充自己<code>Route</code>機制.</p>
-<p>本次範例程式碼<span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2lzZGFuaWVsL0l0SGVscF9NVkNfMTB0aC90cmVlL0N1c3RvbWVyUm91dGU=" title="https://github.com/isdaniel/ItHelp_MVC_10th/tree/CustomerRoute">Git Sample<i class="fa fa-external-link"></i></span>(CustomerRoute Branch)</p>
-<p><strong>此文作者</strong>：Daniel Shih(石頭)<br><strong>此文地址</strong>： <a href="https://isdaniel.github.io/Ithelp-day26/">https://isdaniel.github.io/Ithelp-day26/</a> <br><strong>版權聲明</strong>：本博客所有文章除特別聲明外，均採用 <span class="exturl" data-url="aHR0cHM6Ly9jcmVhdGl2ZWNvbW1vbnMub3JnL2xpY2Vuc2VzL2J5LW5jLXNhLzMuMC90dy8=" title="https://creativecommons.org/licenses/by-nc-sa/3.0/tw/">CC BY-NC-SA 3.0 TW<i class="fa fa-external-link"></i></span> 許可協議。轉載請註明出處！</p>
+<blockquote>
+<p>如果每次只需要<code>SELECT</code>少部分欄位且範圍較大又須排序，<code>Covering Index</code>執行效率會比<code>CLUSTERED INDEX</code>來的快.</p>
+</blockquote>
+<p>適合<code>Covering Index</code>很適合用在查出來<code>Column</code>不需要當作<code>Key</code></p>
+<h3 id="案例解說"><a href="#案例解說" class="headerlink" title="案例解說"></a>案例解說</h3><p>樣本資料一樣使用上一篇的資料</p>
+<div class="highlight-wrap" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true" data-rel="SQL"><figure class="iseeu highlight /sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> *</span><br><span class="line"><span class="keyword">FROM</span> dbo.T</span><br><span class="line"><span class="keyword">WHERE</span> <span class="keyword">id</span> = <span class="number">10000</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">SELECT</span> *</span><br><span class="line"><span class="keyword">FROM</span> dbo.T <span class="keyword">with</span>(<span class="keyword">index</span>(IX_T_Id))</span><br><span class="line"><span class="keyword">WHERE</span> <span class="keyword">id</span> = <span class="number">10000</span></span><br></pre></td></tr></table></figure></div>
+<p>有兩段語法一段是有使用<code>Hint</code>，執行出來後會有兩個執行計畫.</p>
+<blockquote>
+<p>第一個執行計畫是上面的語法,第二個執行計畫是下面的語法</p>
+</blockquote>
+<p><img src="https://i.imgur.com/ivgZPGm.png" alt></p>
+<p>建立完<code>Convering Index</code>後我們使用的查詢就會變成只使用<code>Seek</code>，而且在執行成本也大幅降低.</p>
+<h2 id="Filter-Index"><a href="#Filter-Index" class="headerlink" title="Filter Index"></a>Filter Index</h2><p><code>Filter Index</code>語法就是在最後寫<code>where</code>條件</p>
+<div class="highlight-wrap" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true" data-rel="SQL"><figure class="iseeu highlight /sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> NONCLUSTERED <span class="keyword">INDEX</span> FIX_T_Id_UserGroup <span class="keyword">on</span>  dbo.T(</span><br><span class="line">	<span class="keyword">id</span></span><br><span class="line">) <span class="keyword">INCLUDE</span> (</span><br><span class="line">	UserId,</span><br><span class="line">	UserGroup</span><br><span class="line">)</span><br><span class="line"><span class="keyword">where</span> UserGroup = <span class="number">8</span></span><br></pre></td></tr></table></figure></div>
+<p>上面語法意思是只針對於<code>UserGroup = 8</code>的<code>Row</code>建立資料在子頁層，<code>Filter Index</code>主要是提升維護性和降低<code>Index</code>大小.</p>
+<blockquote>
+<p>注意:如果有使用到<code>Filter Index</code>的<code>SP</code>或<code>Script</code>，如果沒有加上<code>SET QUOTED_IDENTIFIER ON</code>就會造成錯誤，所以在撰寫<code>Script</code>時要養成加上上面語法的好習慣.</p>
+</blockquote>
+<h2 id="Index-Intersection"><a href="#Index-Intersection" class="headerlink" title="Index Intersection"></a>Index Intersection</h2><h2 id="Primary-Key"><a href="#Primary-Key" class="headerlink" title="Primary Key"></a>Primary Key</h2><p><strong>此文作者</strong>：Daniel Shih(石頭)<br><strong>此文地址</strong>： <a href="https://isdaniel.github.io/DBIndex-2/">https://isdaniel.github.io/DBIndex-2/</a> <br><strong>版權聲明</strong>：本博客所有文章除特別聲明外，均採用 <span class="exturl" data-url="aHR0cHM6Ly9jcmVhdGl2ZWNvbW1vbnMub3JnL2xpY2Vuc2VzL2J5LW5jLXNhLzMuMC90dy8=" title="https://creativecommons.org/licenses/by-nc-sa/3.0/tw/">CC BY-NC-SA 3.0 TW<i class="fa fa-external-link"></i></span> 許可協議。轉載請註明出處！</p>
 
       
     </div>
@@ -665,35 +666,7 @@
     <li class="popular-posts-item">
       
       
-      <div class="popular-posts-title"><a href="\Ithelp-day21\" rel="bookmark">探討Model驗證標籤(ValidationAttribute) (第21天)</a></div>
-      
-    </li>
-  
-    <li class="popular-posts-item">
-      
-      
-      <div class="popular-posts-title"><a href="\Ithelp-day27\" rel="bookmark">動手DIY改造 Asp.net MVC- 自己動作建立一個DependencyResolver解析器(Autofac) (第27天)</a></div>
-      
-    </li>
-  
-    <li class="popular-posts-item">
-      
-      
-      <div class="popular-posts-title"><a href="\Ithelp-day9\" rel="bookmark">進入MVC原始碼世界 Route & RouteTable 原始碼解析 (第9天)</a></div>
-      
-    </li>
-  
-    <li class="popular-posts-item">
-      
-      
-      <div class="popular-posts-title"><a href="\Ithelp-day8\" rel="bookmark">揭密Mvc使用IHttpHandler by UrlRoutingModule-4.0 (第8天)</a></div>
-      
-    </li>
-  
-    <li class="popular-posts-item">
-      
-      
-      <div class="popular-posts-title"><a href="\Ithelp-day1\" rel="bookmark">(開賽)Http 請求 Asp.net IIS伺服器架構 (第1天)</a></div>
+      <div class="popular-posts-title"><a href="\DBIndex-1\" rel="bookmark">資料庫索引深入淺出(一)</a></div>
       
     </li>
   
@@ -719,15 +692,11 @@
       
         <div class="post-tags">
           
-            <a href="/tags/C/" rel="tag"># C#</a>
+            <a href="/tags/DataBase/" rel="tag"># DataBase</a>
           
-            <a href="/tags/Asp-net/" rel="tag"># Asp.net</a>
+            <a href="/tags/Turning/" rel="tag"># Turning</a>
           
-            <a href="/tags/Asp-net-MVC/" rel="tag"># Asp.net-MVC</a>
-          
-            <a href="/tags/SourceCode/" rel="tag"># SourceCode</a>
-          
-            <a href="/tags/11th鐵人賽/" rel="tag"># 11th鐵人賽</a>
+            <a href="/tags/Sql-server/" rel="tag"># Sql-server</a>
           
         </div>
       
@@ -740,8 +709,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/Ithelp-day25/" rel="next" title="動態產生程式碼(WebViewPage) View是如何被建立(四) (第25天)">
-                <i class="fa fa-chevron-left"></i> 動態產生程式碼(WebViewPage) View是如何被建立(四) (第25天)
+              <a href="/DBIndex-1/" rel="next" title="資料庫索引深入淺出(一)">
+                <i class="fa fa-chevron-left"></i> 資料庫索引深入淺出(一)
               </a>
             
           </div>
@@ -750,8 +719,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/Ithelp-day27/" rel="prev" title="動手DIY改造 Asp.net MVC- 自己動作建立一個DependencyResolver解析器(Autofac) (第27天)">
-                動手DIY改造 Asp.net MVC- 自己動作建立一個DependencyResolver解析器(Autofac) (第27天) <i class="fa fa-chevron-right"></i>
+              <a href="/hash-encoding/" rel="prev" title="淺談-編碼(encoding) vs 加解密 vs 雜湊(Hash)">
+                淺談-編碼(encoding) vs 加解密 vs 雜湊(Hash) <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -1115,7 +1084,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Agenda"><span class="nav-number">1.</span> <span class="nav-text">Agenda</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#前言"><span class="nav-number">1.1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#RouteData"><span class="nav-number">1.2.</span> <span class="nav-text">RouteData</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#建立自己Route機制"><span class="nav-number">1.3.</span> <span class="nav-text">建立自己Route機制</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#小結"><span class="nav-number">1.4.</span> <span class="nav-text">小結:</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Agenda"><span class="nav-number">1.</span> <span class="nav-text">Agenda</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#前文"><span class="nav-number">1.1.</span> <span class="nav-text">前文</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Covering-Index"><span class="nav-number">1.2.</span> <span class="nav-text">Covering Index</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#加入INCLUDE欄位含意"><span class="nav-number">1.2.1.</span> <span class="nav-text">加入INCLUDE欄位含意</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#案例解說"><span class="nav-number">1.2.2.</span> <span class="nav-text">案例解說</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Filter-Index"><span class="nav-number">1.3.</span> <span class="nav-text">Filter Index</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Index-Intersection"><span class="nav-number">1.4.</span> <span class="nav-text">Index Intersection</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Primary-Key"><span class="nav-number">1.5.</span> <span class="nav-text">Primary Key</span></a></li></ol></li></ol></div>
             
 
           </div>
@@ -1337,9 +1306,9 @@
 
 <script>
   var disqus_config = function() {
-    this.page.url = "https://isdaniel.github.io/Ithelp-day26/";
-    this.page.identifier = "Ithelp-day26/";
-    this.page.title = '動手DIY改造 Asp.net MVC- Route解析機制 (第26天)';
+    this.page.url = "https://isdaniel.github.io/DBIndex-2/";
+    this.page.identifier = "DBIndex-2/";
+    this.page.title = '資料庫索引深入淺出(二)';
     };
   function loadComments() {
     var d = document, s = d.createElement('script');

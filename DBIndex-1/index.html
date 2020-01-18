@@ -143,13 +143,13 @@
 
 
 
-  <meta name="description" content="Agenda 前文 沒有Index的資料表 Index中的B+ tree Index優缺點 Clustered Index(叢集索引) NonClustered Index(非叢集索引) RID Lookup Key Lookup   範例演示 建立一個 NonClustered Index   再建立一個 Clustered Index  前文Index第一個欄位至關重要它會影響資料統計值結果，">
+  <meta name="description" content="Agenda 前文 Index使用的資料結構(B+ tree) Index優缺點 Clustered Index(叢集索引) NonClustered Index(非叢集索引) RID Lookup Key Lookup   範例演示 建立一個 NonClustered Index   再建立一個 Clustered Index  前文Index第一個欄位至關重要它會影響資料統計值結果，Index">
 <meta name="keywords" content="DataBase,Turning,Sql-server">
 <meta property="og:type" content="article">
-<meta property="og:title" content="石頭的coding之路">
+<meta property="og:title" content="資料庫索引深入淺出(一)">
 <meta property="og:url" content="https://isdaniel.github.io/DBIndex-1/index.html">
 <meta property="og:site_name" content="石頭的coding之路">
-<meta property="og:description" content="Agenda 前文 沒有Index的資料表 Index中的B+ tree Index優缺點 Clustered Index(叢集索引) NonClustered Index(非叢集索引) RID Lookup Key Lookup   範例演示 建立一個 NonClustered Index   再建立一個 Clustered Index  前文Index第一個欄位至關重要它會影響資料統計值結果，">
+<meta property="og:description" content="Agenda 前文 Index使用的資料結構(B+ tree) Index優缺點 Clustered Index(叢集索引) NonClustered Index(非叢集索引) RID Lookup Key Lookup   範例演示 建立一個 NonClustered Index   再建立一個 Clustered Index  前文Index第一個欄位至關重要它會影響資料統計值結果，Index">
 <meta property="og:locale" content="zh-tw">
 <meta property="og:image" content="https://i.imgur.com/8CDe0Ms.png">
 <meta property="og:image" content="https://i.imgur.com/FnQlBUl.png">
@@ -157,10 +157,10 @@
 <meta property="og:image" content="https://i.imgur.com/37rnlmn.png">
 <meta property="og:image" content="https://i.imgur.com/E6WS5qL.png">
 <meta property="og:image" content="https://i.imgur.com/PPTDYcG.png">
-<meta property="og:updated_time" content="2020-01-18T05:01:43.855Z">
+<meta property="og:updated_time" content="2020-01-18T14:13:12.045Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="石頭的coding之路">
-<meta name="twitter:description" content="Agenda 前文 沒有Index的資料表 Index中的B+ tree Index優缺點 Clustered Index(叢集索引) NonClustered Index(非叢集索引) RID Lookup Key Lookup   範例演示 建立一個 NonClustered Index   再建立一個 Clustered Index  前文Index第一個欄位至關重要它會影響資料統計值結果，">
+<meta name="twitter:title" content="資料庫索引深入淺出(一)">
+<meta name="twitter:description" content="Agenda 前文 Index使用的資料結構(B+ tree) Index優缺點 Clustered Index(叢集索引) NonClustered Index(非叢集索引) RID Lookup Key Lookup   範例演示 建立一個 NonClustered Index   再建立一個 Clustered Index  前文Index第一個欄位至關重要它會影響資料統計值結果，Index">
 <meta name="twitter:image" content="https://i.imgur.com/8CDe0Ms.png">
 
 
@@ -179,7 +179,7 @@
   };
 </script>
 
-  <title> | 石頭的coding之路</title>
+  <title>資料庫索引深入淺出(一) | 石頭的coding之路</title>
   
 
 
@@ -358,7 +358,7 @@
       
     
 
-    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives<span class="badge">66</span></a>
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives<span class="badge">67</span></a>
 
   </li>
 
@@ -459,7 +459,7 @@
 
         
         
-          <h2 class="post-title" itemprop="name headline">
+          <h2 class="post-title" itemprop="name headline">資料庫索引深入淺出(一)
 
               
             
@@ -485,7 +485,7 @@
                 
               
 
-              <time title="Created: 2019-06-02 11:12:43" itemprop="dateCreated datePublished" datetime="2019-06-02T11:12:43+00:00">2019-06-02</time>
+              <time title="Created: 2019-01-20 11:12:43" itemprop="dateCreated datePublished" datetime="2019-01-20T11:12:43+00:00">2019-01-20</time>
             
 
             
@@ -502,7 +502,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2020-01-18 05:01:43" itemprop="dateModified" datetime="2020-01-18T05:01:43+00:00">2020-01-18</time>
+                <time title="Modified: 2020-01-18 14:13:12" itemprop="dateModified" datetime="2020-01-18T14:13:12+00:00">2020-01-18</time>
               
             
           </span>
@@ -575,7 +575,7 @@
                 
                   <span class="post-meta-item-text">Symbols count in article: </span>
                 
-                <span title="Symbols count in article">2.9k</span>
+                <span title="Symbols count in article">3k</span>
               
 
               
@@ -611,8 +611,7 @@
       
         <h1 id="Agenda"><a href="#Agenda" class="headerlink" title="Agenda"></a>Agenda<!-- omit in toc --></h1><ul>
 <li><a href="#%e5%89%8d%e6%96%87">前文</a></li>
-<li><a href="#%e6%b2%92%e6%9c%89index%e7%9a%84%e8%b3%87%e6%96%99%e8%a1%a8">沒有Index的資料表</a></li>
-<li><a href="#index%e4%b8%ad%e7%9a%84b-tree">Index中的B+ tree</a></li>
+<li><a href="#index%e4%bd%bf%e7%94%a8%e7%9a%84%e8%b3%87%e6%96%99%e7%b5%90%e6%a7%8bb-tree">Index使用的資料結構(B+ tree)</a></li>
 <li><a href="#index%e5%84%aa%e7%bc%ba%e9%bb%9e">Index優缺點</a></li>
 <li><a href="#clustered-index%e5%8f%a2%e9%9b%86%e7%b4%a2%e5%bc%95">Clustered Index(叢集索引)</a></li>
 <li><a href="#nonclustered-index%e9%9d%9e%e5%8f%a2%e9%9b%86%e7%b4%a2%e5%bc%95">NonClustered Index(非叢集索引)</a><ul>
@@ -630,7 +629,7 @@
 <blockquote>
 <p>每個<code>Index</code>都擁有自己的<code>B+ tree</code>.</p>
 </blockquote>
-<h2 id="沒有Index的資料表"><a href="#沒有Index的資料表" class="headerlink" title="沒有Index的資料表"></a>沒有Index的資料表</h2><h2 id="Index中的B-tree"><a href="#Index中的B-tree" class="headerlink" title="Index中的B+ tree"></a>Index中的B+ tree</h2><p><code>B+ tree</code>是一種資料結構這個資料結構被<code>Index</code>拿來使用，關於<code>B+ tree</code>網路上有很多資源可再自行尋找，所以我們來談談為什麼<code>DataBase</code>會使用<code>B+ tree</code></p>
+<h2 id="Index使用的資料結構-B-tree"><a href="#Index使用的資料結構-B-tree" class="headerlink" title="Index使用的資料結構(B+ tree)"></a>Index使用的資料結構(B+ tree)</h2><p><code>B+ tree</code>是一種資料結構這個資料結構被<code>Index</code>拿來使用，關於<code>B+ tree</code>網路上有很多資源可再自行尋找，所以我們來談談為什麼<code>DataBase</code>會使用<code>B+ tree</code></p>
 <p>在<span class="exturl" data-url="aHR0cHM6Ly96aC53aWtpcGVkaWEub3JnL3dpa2kvQiUyQiVFNiVBMCU5MQ==" title="https://zh.wikipedia.org/wiki/B%2B%E6%A0%91">Wiki<i class="fa fa-external-link"></i></span>講述<code>B+ tree</code>有其中一段</p>
 <blockquote>
 <p><code>B+ tree</code>是能夠保持資料穩定有序，其插入與修改擁有較穩定的對數時間複雜度。<code>B+ tree</code>元素由下而上插入，通過最大化在每個內部節點內的子節點的數目減少樹的高度，平衡操作不經常發生，而且效率增加了。這種價值得以確立通常需要每個節點在次級儲存中占據完整的磁碟塊或近似的大小。</p>
@@ -657,8 +656,17 @@
 <li>常用於查詢欄位</li>
 <li>可識別度高(唯一性較高)</li>
 </ol>
-<h2 id="NonClustered-Index-非叢集索引"><a href="#NonClustered-Index-非叢集索引" class="headerlink" title="NonClustered Index(非叢集索引)"></a>NonClustered Index(非叢集索引)</h2><p>每個資料表能有許多<code>non-cluster index</code>，像每本書可以有很多種<code>Index</code>目錄，例如依照字母排序、依照附錄A、附錄B</p>
-<p><code>NonClustered Index</code>(index page)上所有分葉節點存放指標，如果資料表已存在<code>Clustered Index</code>，那麼該指標將會指<code>Clustered Index</code>，如不存在將指向資料真實存放位置</p>
+<h2 id="NonClustered-Index-非叢集索引"><a href="#NonClustered-Index-非叢集索引" class="headerlink" title="NonClustered Index(非叢集索引)"></a>NonClustered Index(非叢集索引)</h2><p>每個資料表能有許多<code>NonClustered Index</code>，像每本書可以有很多種附錄</p>
+<ol>
+<li>例如依照字母排序</li>
+<li>依照附錄A</li>
+<li>附錄B</li>
+<li>…..</li>
+</ol>
+<blockquote>
+<p><code>NonClustered Index</code>也按照<code>Key Column</code>排序</p>
+</blockquote>
+<p><code>NonClustered Index</code>(index page)上所有分葉節點存放指標，如果資料表已存在<code>Clustered Index</code>(<code>KeyID</code>)，那麼該指標將會指<code>Clustered Index</code>，如不存在將指向資料真實存放位置(<code>RID</code>)</p>
 <blockquote>
 <p>this is a very important point to remember. Nonclustered indexes do not store information about physical row location when a table has a clustered index. They store the value of the clustered index key instead.</p>
 </blockquote>
@@ -702,6 +710,18 @@
     
       
 
+  <div class="popular-posts-header">Related Posts</div>
+  <ul class="popular-posts">
+  
+    <li class="popular-posts-item">
+      
+      
+      <div class="popular-posts-title"><a href="\DBIndex-2\" rel="bookmark">資料庫索引深入淺出(二)</a></div>
+      
+    </li>
+  
+  </ul>
+
 
     
 
@@ -739,18 +759,14 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/c-func-3/" rel="next" title="(C#)委託delegate,Func<>,Action 解說系列(三)">
-                <i class="fa fa-chevron-left"></i> (C#)委託delegate,Func<>,Action 解說系列(三)
-              </a>
-            
           </div>
 
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/github-hexo-appveyor/" rel="prev" title="建立自己Blog系列(一) 介紹 Github (hosting) + Hexo (Blog) + Appveyor(CICD)">
-                建立自己Blog系列(一) 介紹 Github (hosting) + Hexo (Blog) + Appveyor(CICD) <i class="fa fa-chevron-right"></i>
+              <a href="/DBIndex-2/" rel="prev" title="資料庫索引深入淺出(二)">
+                資料庫索引深入淺出(二) <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -835,7 +851,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">66</span>
+                    <span class="site-state-item-count">67</span>
                     <span class="site-state-item-name">posts</span>
                   </a>
                 </div>
@@ -1114,7 +1130,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Agenda"><span class="nav-number">1.</span> <span class="nav-text">Agenda</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#前文"><span class="nav-number">1.1.</span> <span class="nav-text">前文</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#沒有Index的資料表"><span class="nav-number">1.2.</span> <span class="nav-text">沒有Index的資料表</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Index中的B-tree"><span class="nav-number">1.3.</span> <span class="nav-text">Index中的B+ tree</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Index優缺點"><span class="nav-number">1.4.</span> <span class="nav-text">Index優缺點</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Clustered-Index-叢集索引"><span class="nav-number">1.5.</span> <span class="nav-text">Clustered Index(叢集索引)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#NonClustered-Index-非叢集索引"><span class="nav-number">1.6.</span> <span class="nav-text">NonClustered Index(非叢集索引)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#RID-Lookup"><span class="nav-number">1.6.1.</span> <span class="nav-text">RID Lookup</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Key-Lookup"><span class="nav-number">1.6.2.</span> <span class="nav-text">Key Lookup</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#範例演示"><span class="nav-number">1.7.</span> <span class="nav-text">範例演示</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#建立一個-NonClustered-Index"><span class="nav-number">1.7.1.</span> <span class="nav-text">建立一個 NonClustered Index</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#再建立一個-Clustered-Index"><span class="nav-number">1.8.</span> <span class="nav-text">再建立一個 Clustered Index</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Agenda"><span class="nav-number">1.</span> <span class="nav-text">Agenda</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#前文"><span class="nav-number">1.1.</span> <span class="nav-text">前文</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Index使用的資料結構-B-tree"><span class="nav-number">1.2.</span> <span class="nav-text">Index使用的資料結構(B+ tree)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Index優缺點"><span class="nav-number">1.3.</span> <span class="nav-text">Index優缺點</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Clustered-Index-叢集索引"><span class="nav-number">1.4.</span> <span class="nav-text">Clustered Index(叢集索引)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#NonClustered-Index-非叢集索引"><span class="nav-number">1.5.</span> <span class="nav-text">NonClustered Index(非叢集索引)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#RID-Lookup"><span class="nav-number">1.5.1.</span> <span class="nav-text">RID Lookup</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Key-Lookup"><span class="nav-number">1.5.2.</span> <span class="nav-text">Key Lookup</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#範例演示"><span class="nav-number">1.6.</span> <span class="nav-text">範例演示</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#建立一個-NonClustered-Index"><span class="nav-number">1.6.1.</span> <span class="nav-text">建立一個 NonClustered Index</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#再建立一個-Clustered-Index"><span class="nav-number">1.7.</span> <span class="nav-text">再建立一個 Clustered Index</span></a></li></ol></li></ol></div>
             
 
           </div>
@@ -1147,7 +1163,7 @@
       <i class="fa fa-area-chart"></i>
     </span>
     
-    <span title="Symbols count total">329k</span>
+    <span title="Symbols count total">331k</span>
   
 
   
@@ -1156,7 +1172,7 @@
       <i class="fa fa-coffee"></i>
     </span>
     
-    <span title="Reading time total">9:59</span>
+    <span title="Reading time total">10:01</span>
   
 </div>
 
@@ -1338,7 +1354,7 @@
   var disqus_config = function() {
     this.page.url = "https://isdaniel.github.io/DBIndex-1/";
     this.page.identifier = "DBIndex-1/";
-    this.page.title = '';
+    this.page.title = '資料庫索引深入淺出(一)';
     };
   function loadComments() {
     var d = document, s = d.createElement('script');
