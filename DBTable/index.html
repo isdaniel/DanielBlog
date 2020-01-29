@@ -143,17 +143,24 @@
 
 
 
-  <meta name="description" content="好點子沒價值，有價值的是把好點子實現">
-<meta name="keywords" content="c#,Asp.net,Asp.net MVC,source code,後端,WebApi,SQL,SQL Server">
-<meta property="og:type" content="website">
-<meta property="og:title" content="石頭的coding之路">
-<meta property="og:url" content="https://isdaniel.github.io/tags/SQL/index.html">
+  <meta name="description" content="Agenda 前文 關於Page Heap資料表 IAM(index allocation map)   forwarding pointer forwarding pointer(Demo) RID Lookup    前文本篇會跟大家對於SQL-Server資料表深入淺出的介紹. 關於Page資料會存在Page中而一個Page大小為 8K/Page =&amp;gt; 8092(8060 bytes)">
+<meta name="keywords" content="DataBase,Turning,Sql-server">
+<meta property="og:type" content="article">
+<meta property="og:title" content="資料庫資料表">
+<meta property="og:url" content="https://isdaniel.github.io/DBTable/index.html">
 <meta property="og:site_name" content="石頭的coding之路">
-<meta property="og:description" content="好點子沒價值，有價值的是把好點子實現">
+<meta property="og:description" content="Agenda 前文 關於Page Heap資料表 IAM(index allocation map)   forwarding pointer forwarding pointer(Demo) RID Lookup    前文本篇會跟大家對於SQL-Server資料表深入淺出的介紹. 關於Page資料會存在Page中而一個Page大小為 8K/Page =&amp;gt; 8092(8060 bytes)">
 <meta property="og:locale" content="zh-tw">
+<meta property="og:image" content="https://i.imgur.com/Qw8Kx1q.png">
+<meta property="og:image" content="https://i.imgur.com/5drfCFZ.png">
+<meta property="og:image" content="https://i.imgur.com/7F9Kmcg.png">
+<meta property="og:image" content="https://i.imgur.com/ZcgdAhc.png">
+<meta property="og:image" content="https://i.imgur.com/e87YROd.png">
+<meta property="og:updated_time" content="2020-01-29T08:13:44.343Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="石頭的coding之路">
-<meta name="twitter:description" content="好點子沒價值，有價值的是把好點子實現">
+<meta name="twitter:title" content="資料庫資料表">
+<meta name="twitter:description" content="Agenda 前文 關於Page Heap資料表 IAM(index allocation map)   forwarding pointer forwarding pointer(Demo) RID Lookup    前文本篇會跟大家對於SQL-Server資料表深入淺出的介紹. 關於Page資料會存在Page中而一個Page大小為 8K/Page =&amp;gt; 8092(8060 bytes)">
+<meta name="twitter:image" content="https://i.imgur.com/Qw8Kx1q.png">
 
 
 
@@ -161,7 +168,7 @@
 
   
   
-  <link rel="canonical" href="https://isdaniel.github.io/tags/SQL/">
+  <link rel="canonical" href="https://isdaniel.github.io/DBTable/">
 
 
 
@@ -171,7 +178,7 @@
   };
 </script>
 
-  <title>Tag: SQL | 石頭的coding之路</title>
+  <title>資料庫資料表 | 石頭的coding之路</title>
   
 
 
@@ -220,7 +227,7 @@
     
   
 
-  <div class="container sidebar-position-left ">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -300,7 +307,7 @@
         
         
           
-          <li class="menu-item menu-item-tags menu-item-active">
+          <li class="menu-item menu-item-tags">
 
     
     
@@ -411,162 +418,380 @@
           
             
 
-    
-    
-      
-      
-    
-      
-      
-    
-      
-      
-    
-      
-      
-    
-      
-      
-    
-    
-
-  
-
-
 
           
           <div id="content" class="content">
             
 
+  <div id="posts" class="posts-expand">
+    
+
+  
+
   
   
   
-  <div class="post-block tag">
 
-    <div id="posts" class="posts-collapse">
-      <div class="collection-title">
-        <h2>SQL<small>Tag</small>
-        </h2>
-      </div>
-
-      
-        
+  
+    <div class="reading-progress-bar"></div>
+  
 
   <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://isdaniel.github.io/DBTable/">
 
-      <h3 class="post-title">
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Daniel Shih">
+      <meta itemprop="description" content="好點子沒價值，有價值的是把好點子實現">
+      <meta itemprop="image" content="https://avatars0.githubusercontent.com/u/9159452?s=460&v=4">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="石頭的coding之路">
+    </span>
+
+    
+      <header class="post-header">
+
         
-          <a class="post-title-link" href="/SQL-Gaps-and-Islands-problem/" itemprop="url">
-            
-              <span itemprop="name">Gaps and Islands problem (SQL) 連續範圍</span>
-            
-          </a>
         
-      </h3>
+          <h2 class="post-title" itemprop="name headline">資料庫資料表
 
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2019-06-10T22:30:11+00:00" content="2019-06-10">
-          06-10
-        </time>
-      </div>
+              
+            
+          </h2>
+        
 
-    </header>
-  </article>
+        <div class="post-meta">
+          <span class="post-time">
 
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2020-01-26 23:10:43" itemprop="dateCreated datePublished" datetime="2020-01-26T23:10:43+00:00">2020-01-26</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2020-01-29 08:13:44" itemprop="dateModified" datetime="2020-01-29T08:13:44+00:00">2020-01-29</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/DataBase/" itemprop="url" rel="index"><span itemprop="name">DataBase</span></a></span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/DataBase/Turning/" itemprop="url" rel="index"><span itemprop="name">Turning</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+              
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+            
+                <span class="post-meta-item-text">Comments: </span>
+                <a href="/DBTable/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="DBTable/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="post-meta-item-icon">
+            <i class="fa fa-eye"></i>
+             Views:  
+            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>
+            </span>
+          
+
+          
+            <div class="post-symbolscount">
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Symbols count in article: </span>
+                
+                <span title="Symbols count in article">2.8k</span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Reading time &asymp;</span>
+                
+                <span title="Reading time">5 mins.</span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
 
       
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h3 class="post-title">
-        
-          <a class="post-title-link" href="/Dynamic-pivot/" itemprop="url">
-            
-              <span itemprop="name">(SQL Server)Dynamic pivot 動態樞紐分析</span>
-            
-          </a>
-        
-      </h3>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2019-06-02T22:30:11+00:00" content="2019-06-02">
-          06-02
-        </time>
-      </div>
-
-    </header>
-  </article>
-
+      
 
       
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h3 class="post-title">
-        
-          <a class="post-title-link" href="/Oracle-CONNECT-BY/" itemprop="url">
-            
-              <span itemprop="name">Oracle [CONNECT BY]</span>
-            
-          </a>
-        
-      </h3>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2019-06-02T22:30:11+00:00" content="2019-06-02">
-          06-02
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-      
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h3 class="post-title">
-        
-          <a class="post-title-link" href="/CTE-RECURSIVE/" itemprop="url">
-            
-              <span itemprop="name">(SQL Server) CTE RECURSIVE (遞迴)製作月曆</span>
-            
-          </a>
-        
-      </h3>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2019-05-29T22:28:05+00:00" content="2019-05-29">
-          05-29
-        </time>
-      </div>
-
-    </header>
-  </article>
-
+        <h1 id="Agenda"><a href="#Agenda" class="headerlink" title="Agenda"></a>Agenda<!-- omit in toc --></h1><ul>
+<li><a href="#%e5%89%8d%e6%96%87">前文</a></li>
+<li><a href="#%e9%97%9c%e6%96%bcpage">關於Page</a></li>
+<li><a href="#heap%e8%b3%87%e6%96%99%e8%a1%a8">Heap資料表</a><ul>
+<li><a href="#iamindex-allocation-map">IAM(index allocation map)</a></li>
+</ul>
+</li>
+<li><a href="#forwarding-pointer">forwarding pointer</a><ul>
+<li><a href="#forwarding-pointerdemo">forwarding pointer(Demo)</a></li>
+<li><a href="#rid-lookup">RID Lookup</a></li>
+</ul>
+</li>
+</ul>
+<h2 id="前文"><a href="#前文" class="headerlink" title="前文"></a>前文</h2><p>本篇會跟大家對於<code>SQL-Server</code>資料表深入淺出的介紹.</p>
+<h2 id="關於Page"><a href="#關於Page" class="headerlink" title="關於Page"></a>關於Page</h2><p>資料會存在Page中<br>而一個<code>Page</code>大小為 8K/Page =&gt; 8092(8060 bytes)</p>
+<blockquote>
+<p>每個Page除了存取資料還會存放一些<code>MetaData</code>，我們可以先當作是每個Page大小是8K</p>
+</blockquote>
+<h2 id="Heap資料表"><a href="#Heap資料表" class="headerlink" title="Heap資料表"></a>Heap資料表</h2><p>如果一張資料表沒有<code>Clustered Index</code>就會為Heap資料表，這意味著<code>Heap</code>資料表的資料不會有排序一直把資料新增進資料表中，<code>Heap</code>資料表<code>Insert</code>資料快</p>
+<blockquote>
+<p>適合使用在Log資料表、Event資料表、稽核資料表….一直新增資料但比較少查詢表</p>
+</blockquote>
+<h3 id="IAM-index-allocation-map"><a href="#IAM-index-allocation-map" class="headerlink" title="IAM(index allocation map)"></a>IAM(index allocation map)</h3><p>當Heap資料表要搜尋資料<code>SQL-Server</code>透過IAM(index allocation map)去尋要掃描Page範圍，因為IAM會以範圍存在於檔案中的順序來表示它們，這代表循序的堆積掃描都將依檔案順序進行。</p>
+<blockquote>
+<p>使用IAM分頁設定掃描順序也表示堆積中的資料列通常不會依插入順序傳回</p>
+</blockquote>
+<p>IAM Page在讀取資料的示意圖</p>
+<p>可以看到讀取Page中資料順序和新增資料順序不一樣.</p>
+<p><img src="https://i.imgur.com/Qw8Kx1q.png" alt></p>
+<h2 id="forwarding-pointer"><a href="#forwarding-pointer" class="headerlink" title="forwarding pointer"></a>forwarding pointer</h2><p>假如在Heap資料表更新欄位資料，就可能會造成<code>forwarding pointer</code></p>
+<p>製造<code>forwarding pointer</code>是因為原本<code>Page</code>塞不下更新後資料就會先把資料搬到另一個新建立<code>Page</code>上並在原本<code>Page</code>建立一個類似指標東西指向它.</p>
+<blockquote>
+<p>這個指標會存在原本的Page大小是16 byte</p>
+</blockquote>
+<p><img src="https://i.imgur.com/5drfCFZ.png" alt></p>
+<h3 id="forwarding-pointer-Demo"><a href="#forwarding-pointer-Demo" class="headerlink" title="forwarding pointer(Demo)"></a>forwarding pointer(Demo)</h3><p>一個Page大小是8k</p>
+<p>我們建立一個<code>ForwardingPointers</code>資料表，並且新增3筆資料進去</p>
+<blockquote>
+<p>其中有一筆資料<code>replicate(&#39;2&#39;,7800)</code>佔據78xxBytes.</p>
+</blockquote>
+<div class="highlight-wrap" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true" data-rel="SQL"><figure class="iseeu highlight /sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">create</span> <span class="keyword">table</span> dbo.ForwardingPointers</span><br><span class="line">(</span><br><span class="line"> <span class="keyword">ID</span> <span class="built_in">int</span> <span class="keyword">not</span> <span class="literal">null</span>,</span><br><span class="line"> Val <span class="built_in">varchar</span>(<span class="number">8000</span>) <span class="literal">null</span></span><br><span class="line">);</span><br><span class="line"></span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> dbo.ForwardingPointers(<span class="keyword">ID</span>,Val)</span><br><span class="line"><span class="keyword">values</span>(<span class="number">1</span>,<span class="literal">null</span>),(<span class="number">2</span>,<span class="keyword">replicate</span>(<span class="string">'2'</span>,<span class="number">7800</span>)),(<span class="number">3</span>,<span class="literal">null</span>);</span><br></pre></td></tr></table></figure></div>
+<p>新增完後我們利用<code>DMV</code>查詢目前<code>ForwardingPointers</code>使用的Page數量可以看到只使用一頁</p>
+<blockquote>
+<p>因為目前資料大小可以放在同一個Page</p>
+</blockquote>
+<div class="highlight-wrap" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true" data-rel="SQL"><figure class="iseeu highlight /sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> page_count, avg_record_size_in_bytes, avg_page_space_used_in_percent</span><br><span class="line"> ,forwarded_record_count</span><br><span class="line"><span class="keyword">from</span> sys.dm_db_index_physical_stats(db_id(),object_id(N<span class="string">'dbo.ForwardingPointers'</span>),<span class="number">0</span></span><br><span class="line"> ,<span class="literal">null</span>,<span class="string">'DETAILED'</span>);</span><br></pre></td></tr></table></figure></div>
+<p><img src="https://i.imgur.com/7F9Kmcg.png" alt></p>
+<p>我們將<code>dbo.ForwardingPointers</code>另外兩個<br><code>Val IS NULL</code>更新成<code>replicate(&#39;2&#39;,7800)</code></p>
+<div class="highlight-wrap" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true" data-rel="SQL"><figure class="iseeu highlight /sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">UPDATE</span> dbo.ForwardingPointers</span><br><span class="line"><span class="keyword">SET</span> Val = <span class="keyword">replicate</span>(<span class="string">'2'</span>,<span class="number">7800</span>)</span><br><span class="line"><span class="keyword">WHERE</span> Val <span class="keyword">IS</span> <span class="literal">NULL</span></span><br></pre></td></tr></table></figure></div>
+<p>再查詢一次<code>dbo.ForwardingPointers</code>使用Page，能發現已經使用了3個Page(因為已經觸發<code>forwarding pointer</code>)</p>
+<p>已經把這次更新的資料搬到新Page上，因為更新後的資料大小已經超過目前Page可以負擔的大小</p>
+<p><img src="https://i.imgur.com/ZcgdAhc.png" alt></p>
+<h3 id="RID-Lookup"><a href="#RID-Lookup" class="headerlink" title="RID Lookup"></a>RID Lookup</h3><p>在<a href="https://isdaniel.github.io/DBIndex-1/">資料庫索引深入淺出(一)</a>有說，資料表沒有<code>Clustered Index</code>且使用<code>Index</code>所有查詢欄位不包含在<code>Converting Index</code>中就會透過<code>RID Lookup</code>查找確切Page上的Row(藉由Row-Id)</p>
+<blockquote>
+<p>此資料表是<code>Heap</code>資料表在<code>NonClustered Index</code>中會存放<code>Heap RID</code></p>
+</blockquote>
+<div class="highlight-wrap" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true" data-rel="SQL"><figure class="iseeu highlight /sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">DBCC traceon (3604);</span><br><span class="line">DBCC IND ('DEMO',T1,-1)</span><br><span class="line">DBCC Page ('DEMO',T1,-1)</span><br></pre></td></tr></table></figure></div>
+<p>透過<code>DBCC</code>可以看到查找資料表Page資料可以顯示如下結果集.</p>
+<p>如果是Heap資料表會有一個欄位是<code>Heap RID(Key)</code>欄位.</p>
+<blockquote>
+<p>HEAP RID:0x40110F0001002900<br>大小 8 bytes</p>
+<ul>
+<li>FID（2 bytes）</li>
+<li>PID（4 bytes）</li>
+<li>SLOT（2 bytes）</li>
+</ul>
+</blockquote>
+<p><img src="https://i.imgur.com/e87YROd.png" alt></p>
+<p>可藉由下面的Script來拆解<code>Heap RID(Key)</code>資料</p>
+<div class="highlight-wrap" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true" data-rel="SQL"><figure class="iseeu highlight /sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">--轉換RID為 FID:PID:slot格式</span></span><br><span class="line"><span class="keyword">declare</span> @Heaprid <span class="built_in">binary</span>(<span class="number">8</span>)</span><br><span class="line"><span class="keyword">set</span> @Heaprid = <span class="number">0x40110F0001002900</span></span><br><span class="line"><span class="keyword">select</span> [FID:PID:Slot]=      </span><br><span class="line">       <span class="keyword">CONVERT</span> (<span class="built_in">VARCHAR</span>(<span class="number">5</span>),</span><br><span class="line">       <span class="keyword">CONVERT</span>(<span class="built_in">INT</span>, <span class="keyword">SUBSTRING</span>(@Heaprid, <span class="number">6</span>, <span class="number">1</span>)</span><br><span class="line">       + <span class="keyword">SUBSTRING</span>(@Heaprid, <span class="number">5</span>, <span class="number">1</span>)))</span><br><span class="line">     + <span class="string">':'</span></span><br><span class="line">     + <span class="keyword">CONVERT</span>(<span class="built_in">VARCHAR</span>(<span class="number">10</span>),</span><br><span class="line">       <span class="keyword">CONVERT</span>(<span class="built_in">INT</span>, <span class="keyword">SUBSTRING</span>(@Heaprid, <span class="number">4</span>, <span class="number">1</span>)</span><br><span class="line">        + <span class="keyword">SUBSTRING</span>(@Heaprid, <span class="number">3</span>, <span class="number">1</span>)</span><br><span class="line">        + <span class="keyword">SUBSTRING</span>(@Heaprid, <span class="number">2</span>, <span class="number">1</span>)</span><br><span class="line">        + <span class="keyword">SUBSTRING</span>(@Heaprid, <span class="number">1</span>, <span class="number">1</span>)))</span><br><span class="line">     + <span class="string">':'</span></span><br><span class="line">          + <span class="keyword">CONVERT</span>(<span class="built_in">VARCHAR</span>(<span class="number">5</span>),</span><br><span class="line">          <span class="keyword">CONVERT</span>(<span class="built_in">INT</span>, <span class="keyword">SUBSTRING</span>(@Heaprid, <span class="number">8</span>, <span class="number">1</span>)</span><br><span class="line">          + <span class="keyword">SUBSTRING</span>(@Heaprid, <span class="number">7</span>, <span class="number">1</span>)))</span><br></pre></td></tr></table></figure></div>
+<p>透過上面Script我們可以得到<code>1:987456:41</code></p>
+<p>我們在透過</p>
+<div class="highlight-wrap" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true" data-rel="SQL"><figure class="iseeu highlight /sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">DBCC PAGE(AdventureWorks2012_Data,1,987456,3)</span><br></pre></td></tr></table></figure></div>
+<p>就可以查找到我們要的資料在<code>PID = 987456</code>這個Page中.</p>
+<p><strong>此文作者</strong>：Daniel Shih(石頭)<br><strong>此文地址</strong>： <a href="https://isdaniel.github.io/DBTable/">https://isdaniel.github.io/DBTable/</a> <br><strong>版權聲明</strong>：本博客所有文章除特別聲明外，均採用 <span class="exturl" data-url="aHR0cHM6Ly9jcmVhdGl2ZWNvbW1vbnMub3JnL2xpY2Vuc2VzL2J5LW5jLXNhLzMuMC90dy8=" title="https://creativecommons.org/licenses/by-nc-sa/3.0/tw/">CC BY-NC-SA 3.0 TW<i class="fa fa-external-link"></i></span> 許可協議。轉載請註明出處！</p>
 
       
     </div>
 
+    
+      
+
+  <div class="popular-posts-header">Related Posts</div>
+  <ul class="popular-posts">
+  
+    <li class="popular-posts-item">
+      
+      
+      <div class="popular-posts-title"><a href="\DBIndex-1\" rel="bookmark">資料庫索引深入淺出(一)</a></div>
+      
+    </li>
+  
+    <li class="popular-posts-item">
+      
+      
+      <div class="popular-posts-title"><a href="\DBIndex-2\" rel="bookmark">資料庫索引深入淺出(二)</a></div>
+      
+    </li>
+  
+  </ul>
+
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/DataBase/" rel="tag"># DataBase</a>
+          
+            <a href="/tags/Turning/" rel="tag"># Turning</a>
+          
+            <a href="/tags/Sql-server/" rel="tag"># Sql-server</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/DBIndex-2/" rel="next" title="資料庫索引深入淺出(二)">
+                <i class="fa fa-chevron-left"></i> 資料庫索引深入淺出(二)
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
   </div>
   
   
   
+  </article>
 
-  
 
+  </div>
+  <br>
+  <div style="text-align: center;">
+    如果本文對您幫助很大，可<a href="https://www.jkos.com/">街口支付</a>斗內鼓勵石頭^^
+</div>
+
+<img src="https://az787680.vo.msecnd.net/user/九桃/d658f826-157e-436a-8c52-df9dd1ce7909/1553740448_05878.png" style="width: 300px; height: 434px;">
 
 
           </div>
           
+
+  
+    <div class="comments" id="comments">
+      <div id="disqus_thread">
+        <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+      </div>
+    </div>
+
+  
+
+
 
         </div>
         
@@ -586,8 +811,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
 
-      <div class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <div class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -873,6 +1107,23 @@
       </div>
 
       
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Agenda"><span class="nav-number">1.</span> <span class="nav-text">Agenda</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#前文"><span class="nav-number">1.1.</span> <span class="nav-text">前文</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#關於Page"><span class="nav-number">1.2.</span> <span class="nav-text">關於Page</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Heap資料表"><span class="nav-number">1.3.</span> <span class="nav-text">Heap資料表</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#IAM-index-allocation-map"><span class="nav-number">1.3.1.</span> <span class="nav-text">IAM(index allocation map)</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#forwarding-pointer"><span class="nav-number">1.4.</span> <span class="nav-text">forwarding pointer</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#forwarding-pointer-Demo"><span class="nav-number">1.4.1.</span> <span class="nav-text">forwarding pointer(Demo)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#RID-Lookup"><span class="nav-number">1.4.2.</span> <span class="nav-text">RID Lookup</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
 
       
 
@@ -1055,6 +1306,17 @@
 
 
   
+  <script src="/js/scrollspy.js?v=7.1.1"></script>
+<script src="/js/post-details.js?v=7.1.1"></script>
+
+<!-- Global site tag (gtag.js) - Google Analytics --><script async src="https://www.googletagmanager.com/gtag/js?id=UA-141257985-1"></script><script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-141257985-1');
+</script>
+
 
   
 
@@ -1075,9 +1337,75 @@
   <script id="dsq-count-scr" src="https://danielshih.disqus.com/count.js" async></script>
 
 
+<script>
+  var disqus_config = function() {
+    this.page.url = "https://isdaniel.github.io/DBTable/";
+    this.page.identifier = "DBTable/";
+    this.page.title = '資料庫資料表';
+    };
+  function loadComments() {
+    var d = document, s = d.createElement('script');
+    s.src = 'https://danielshih.disqus.com/embed.js';
+    s.setAttribute('data-timestamp', '' + +new Date());
+    (d.head || d.body).appendChild(s);
+  }
+  
+    $(function() {
+      var offsetTop = $('#comments').offset().top - $(window).height();
+      if (offsetTop <= 0) {
+        // load directly when there's no a scrollbar
+        loadComments();
+      } else {
+        $(window).on('scroll.disqus_scroll', function() {
+          // offsetTop may changes because of manually resizing browser window or lazy loading images.
+          var offsetTop = $('#comments').offset().top - $(window).height();
+          var scrollTop = $(window).scrollTop();
+
+          // pre-load comments a bit? (margin or anything else)
+          if (offsetTop - scrollTop < 60) {
+            $(window).off('.disqus_scroll');
+            loadComments();
+          }
+        });
+      }
+    });
+  
+</script>
 
 
 
+
+
+  
+    
+
+<script src="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+
+
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css">
+
+
+
+<script src="//cdn.jsdelivr.net/npm/js-md5@0.7.3/src/md5.min.js"></script>
+
+<script>
+  var gitalk = new Gitalk({
+    clientID: '',
+    clientSecret: '',
+    repo: '',
+    owner: '',
+    admin: [''],
+    id: md5(location.pathname),
+    
+      language: window.navigator.language || window.navigator.userLanguage,
+    
+    distractionFreeMode: 'true'
+  });
+  gitalk.render('gitalk-container');
+</script>
+
+  
 
 
   
