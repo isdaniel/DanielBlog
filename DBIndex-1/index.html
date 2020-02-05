@@ -157,7 +157,7 @@
 <meta property="og:image" content="https://i.imgur.com/37rnlmn.png">
 <meta property="og:image" content="https://i.imgur.com/E6WS5qL.png">
 <meta property="og:image" content="https://i.imgur.com/PPTDYcG.png">
-<meta property="og:updated_time" content="2020-01-29T08:13:44.343Z">
+<meta property="og:updated_time" content="2020-02-05T09:08:34.651Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="資料庫索引深入淺出(一)">
 <meta name="twitter:description" content="Agenda 前文 Index使用的資料結構(B+ tree) Index優缺點 Clustered Index(叢集索引) NonClustered Index(非叢集索引) RID Lookup Key Lookup   範例演示 建立一個 NonClustered Index   再建立一個 Clustered Index  前文Index第一個欄位至關重要它會影響資料統計值結果，Index">
@@ -502,7 +502,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2020-01-29 08:13:44" itemprop="dateModified" datetime="2020-01-29T08:13:44+00:00">2020-01-29</time>
+                <time title="Modified: 2020-02-05 09:08:34" itemprop="dateModified" datetime="2020-02-05T09:08:34+00:00">2020-02-05</time>
               
             
           </span>
@@ -661,10 +661,9 @@
 <li>例如依照字母排序</li>
 <li>依照附錄A</li>
 <li>附錄B</li>
-<li>…..</li>
 </ol>
 <blockquote>
-<p><code>NonClustered Index</code>也按照<code>Key Column</code>排序</p>
+<p><code>NonClustered Index</code>按照<code>Key Column</code>排序，</p>
 </blockquote>
 <p><code>NonClustered Index</code>(index page)上所有分葉節點存放指標，如果資料表已存在<code>Clustered Index</code>(<code>KeyID</code>)，那麼該指標將會指<code>Clustered Index</code>，如不存在將指向資料真實存放位置(<code>RID</code>)</p>
 <blockquote>

@@ -152,7 +152,7 @@
 <meta property="og:description" content="Agenda 前文 Covering Index 加入INCLUDE欄位含意 案例解說   Filter Index Index Intersection Primary Key  前文本系列文章  資料庫索引深入淺出(一) 資料庫索引深入淺出(二) 資料庫索引深入淺出(三)  兩種基本索引  Clustered Index(叢集索引) NonClustered Index(非叢集索引)  兩種L">
 <meta property="og:locale" content="zh-tw">
 <meta property="og:image" content="https://i.imgur.com/ivgZPGm.png">
-<meta property="og:updated_time" content="2020-01-29T08:13:44.343Z">
+<meta property="og:updated_time" content="2020-02-05T09:08:34.651Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="資料庫索引深入淺出(二)">
 <meta name="twitter:description" content="Agenda 前文 Covering Index 加入INCLUDE欄位含意 案例解說   Filter Index Index Intersection Primary Key  前文本系列文章  資料庫索引深入淺出(一) 資料庫索引深入淺出(二) 資料庫索引深入淺出(三)  兩種基本索引  Clustered Index(叢集索引) NonClustered Index(非叢集索引)  兩種L">
@@ -497,7 +497,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2020-01-29 08:13:44" itemprop="dateModified" datetime="2020-01-29T08:13:44+00:00">2020-01-29</time>
+                <time title="Modified: 2020-02-05 09:08:34" itemprop="dateModified" datetime="2020-02-05T09:08:34+00:00">2020-02-05</time>
               
             
           </span>
@@ -570,7 +570,7 @@
                 
                   <span class="post-meta-item-text">Symbols count in article: </span>
                 
-                <span title="Symbols count in article">2.1k</span>
+                <span title="Symbols count in article">2.2k</span>
               
 
               
@@ -666,16 +666,19 @@
 <p>注意:把<code>Index</code>猜成兩個或許可以增加查詢效率，但每個<code>Index</code>就是一個<code>B+ Tree</code>這會造成</p>
 </blockquote>
 <div class="highlight-wrap" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true" data-rel="SQL"><figure class="iseeu highlight /sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> CLUSTERED <span class="keyword">INDEX</span> IX_T_UserId <span class="keyword">on</span> dbo.T(</span><br><span class="line">	UserId</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="keyword">CREATE</span> CLUSTERED <span class="keyword">INDEX</span> IX_T_Id <span class="keyword">on</span>  dbo.T(</span><br><span class="line">	<span class="keyword">Id</span></span><br><span class="line">)</span><br></pre></td></tr></table></figure></div>
-<h2 id="Primary-Key"><a href="#Primary-Key" class="headerlink" title="Primary Key"></a>Primary Key</h2><p>在<code>SQL-Server</code>很常使用<code>Primary Key</code>但你知道他代表甚麼含意嗎?</p>
-<p><code>Primary Key</code>是也是一個<code>Index</code>，他可以設定<code>NonClustered Index</code>或是<code>Clustered Index</code></p>
-<p><code>PRIMARY KEY</code>有幾個特徵</p>
+<h2 id="Primary-Key"><a href="#Primary-Key" class="headerlink" title="Primary Key"></a>Primary Key</h2><p>在<code>SQL-Server</code>很常使用PRIMARY KEY但你知道他代表甚麼含意嗎?</p>
+<p>PRIMARY KEY是也是一個<code>Index</code>，他可以設定<code>NonClustered Index</code>或是<code>Clustered Index</code></p>
+<p>PRIMARY KEY有幾個特徵</p>
 <ol>
 <li>資料不能重複(Unique)</li>
 <li>Columns都必須定義成<code>NOT NULL</code></li>
+<li>PRIMARY KEY是一個<code>Index</code></li>
 </ol>
 <blockquote>
-<p>一般在建立<code>Primary Key</code>是<code>Clustered Index</code>，但我們可以自行建立為<code>NonClustered Index</code>的<code>Primary Key</code></p>
+<p>預設建立的PRIMARY KEY是<code>Clustered Index</code>，但我們使用語法自行建立為<code>NonClustered Index</code>的PRIMARY KEY</p>
 </blockquote>
+<p>如下範例我們可以建立一個<code>NONCLUSTERED</code>的PRIMARY KEY</p>
+<div class="highlight-wrap" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true" data-rel="SQL"><figure class="iseeu highlight /sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> T(</span><br><span class="line">    <span class="keyword">ID</span> <span class="built_in">INT</span> <span class="keyword">NOT</span> <span class="literal">NULL</span>,  </span><br><span class="line">    <span class="keyword">CONSTRAINT</span> [PK_T] PRIMARY <span class="keyword">KEY</span> NONCLUSTERED (</span><br><span class="line">        <span class="keyword">ID</span></span><br><span class="line">    )</span><br><span class="line">)</span><br></pre></td></tr></table></figure></div>
 <p><strong>此文作者</strong>：Daniel Shih(石頭)<br><strong>此文地址</strong>： <a href="https://isdaniel.github.io/DBIndex-2/">https://isdaniel.github.io/DBIndex-2/</a> <br><strong>版權聲明</strong>：本博客所有文章除特別聲明外，均採用 <span class="exturl" data-url="aHR0cHM6Ly9jcmVhdGl2ZWNvbW1vbnMub3JnL2xpY2Vuc2VzL2J5LW5jLXNhLzMuMC90dy8=" title="https://creativecommons.org/licenses/by-nc-sa/3.0/tw/">CC BY-NC-SA 3.0 TW<i class="fa fa-external-link"></i></span> 許可協議。轉載請註明出處！</p>
 
       
