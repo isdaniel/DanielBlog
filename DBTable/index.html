@@ -146,7 +146,7 @@
   <meta name="description" content="Agenda 前文 關於Page Heap資料表 IAM(index allocation map)   forwarding pointer forwarding pointer(Demo) RID Lookup    前文本篇會跟大家對於SQL-Server資料表深入淺出的介紹. 關於Page資料會存在Page中而一個Page大小為 8K/Page =&amp;gt; 8092(8060 bytes)">
 <meta name="keywords" content="DataBase,Turning,Sql-server">
 <meta property="og:type" content="article">
-<meta property="og:title" content="資料庫資料表">
+<meta property="og:title" content="SqlServer資料表深入淺出">
 <meta property="og:url" content="https://isdaniel.github.io/DBTable/index.html">
 <meta property="og:site_name" content="石頭的coding之路">
 <meta property="og:description" content="Agenda 前文 關於Page Heap資料表 IAM(index allocation map)   forwarding pointer forwarding pointer(Demo) RID Lookup    前文本篇會跟大家對於SQL-Server資料表深入淺出的介紹. 關於Page資料會存在Page中而一個Page大小為 8K/Page =&amp;gt; 8092(8060 bytes)">
@@ -156,9 +156,9 @@
 <meta property="og:image" content="https://i.imgur.com/7F9Kmcg.png">
 <meta property="og:image" content="https://i.imgur.com/ZcgdAhc.png">
 <meta property="og:image" content="https://i.imgur.com/e87YROd.png">
-<meta property="og:updated_time" content="2020-02-05T11:06:04.695Z">
+<meta property="og:updated_time" content="2020-02-16T09:15:50.133Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="資料庫資料表">
+<meta name="twitter:title" content="SqlServer資料表深入淺出">
 <meta name="twitter:description" content="Agenda 前文 關於Page Heap資料表 IAM(index allocation map)   forwarding pointer forwarding pointer(Demo) RID Lookup    前文本篇會跟大家對於SQL-Server資料表深入淺出的介紹. 關於Page資料會存在Page中而一個Page大小為 8K/Page =&amp;gt; 8092(8060 bytes)">
 <meta name="twitter:image" content="https://i.imgur.com/Qw8Kx1q.png">
 
@@ -178,7 +178,7 @@
   };
 </script>
 
-  <title>資料庫資料表 | 石頭的coding之路</title>
+  <title>SqlServer資料表深入淺出 | 石頭的coding之路</title>
   
 
 
@@ -458,7 +458,7 @@
 
         
         
-          <h2 class="post-title" itemprop="name headline">資料庫資料表
+          <h2 class="post-title" itemprop="name headline">SqlServer資料表深入淺出
 
               
             
@@ -501,7 +501,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2020-02-05 11:06:04" itemprop="dateModified" datetime="2020-02-05T11:06:04+00:00">2020-02-05</time>
+                <time title="Modified: 2020-02-16 09:15:50" itemprop="dateModified" datetime="2020-02-16T09:15:50+00:00">2020-02-16</time>
               
             
           </span>
@@ -664,7 +664,11 @@
 <blockquote>
 <p>此資料表是<code>Heap</code>資料表在<code>NonClustered Index</code>中會存放<code>Heap RID</code></p>
 </blockquote>
-<div class="highlight-wrap" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true" data-rel="SQL"><figure class="iseeu highlight /sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">DBCC traceon (3604);</span><br><span class="line">DBCC IND ('DEMO',T1,-1)</span><br><span class="line">DBCC Page ('DEMO',T1,-1)</span><br></pre></td></tr></table></figure></div>
+<p><img src="https://i.imgur.com/e87YROd.png" alt></p>
+<blockquote>
+<p>記得在<code>DBCC IND</code>取得的PID是要找<code>PageType = 2</code></p>
+</blockquote>
+<div class="highlight-wrap" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true" data-rel="SQL"><figure class="iseeu highlight /sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">DBCC traceon (3604);</span><br><span class="line">DBCC IND ([Your DataBase],T1,-1)</span><br><span class="line">DBCC PAGE([Your DataBase],1,[Your PID],3)</span><br></pre></td></tr></table></figure></div>
 <p>透過<code>DBCC</code>可以看到查找資料表Page資料可以顯示如下結果集.</p>
 <p>如果是Heap資料表會有一個欄位是<code>Heap RID(Key)</code>欄位.</p>
 <blockquote>
@@ -675,7 +679,6 @@
 <li>SLOT（2 bytes）</li>
 </ul>
 </blockquote>
-<p><img src="https://i.imgur.com/e87YROd.png" alt></p>
 <p>可藉由下面的Script來拆解<code>Heap RID(Key)</code>資料</p>
 <div class="highlight-wrap" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true" data-rel="SQL"><figure class="iseeu highlight /sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">--轉換RID為 FID:PID:slot格式</span></span><br><span class="line"><span class="keyword">declare</span> @Heaprid <span class="built_in">binary</span>(<span class="number">8</span>)</span><br><span class="line"><span class="keyword">set</span> @Heaprid = <span class="number">0x40110F0001002900</span></span><br><span class="line"><span class="keyword">select</span> [FID:PID:Slot]=      </span><br><span class="line">       <span class="keyword">CONVERT</span> (<span class="built_in">VARCHAR</span>(<span class="number">5</span>),</span><br><span class="line">       <span class="keyword">CONVERT</span>(<span class="built_in">INT</span>, <span class="keyword">SUBSTRING</span>(@Heaprid, <span class="number">6</span>, <span class="number">1</span>)</span><br><span class="line">       + <span class="keyword">SUBSTRING</span>(@Heaprid, <span class="number">5</span>, <span class="number">1</span>)))</span><br><span class="line">     + <span class="string">':'</span></span><br><span class="line">     + <span class="keyword">CONVERT</span>(<span class="built_in">VARCHAR</span>(<span class="number">10</span>),</span><br><span class="line">       <span class="keyword">CONVERT</span>(<span class="built_in">INT</span>, <span class="keyword">SUBSTRING</span>(@Heaprid, <span class="number">4</span>, <span class="number">1</span>)</span><br><span class="line">        + <span class="keyword">SUBSTRING</span>(@Heaprid, <span class="number">3</span>, <span class="number">1</span>)</span><br><span class="line">        + <span class="keyword">SUBSTRING</span>(@Heaprid, <span class="number">2</span>, <span class="number">1</span>)</span><br><span class="line">        + <span class="keyword">SUBSTRING</span>(@Heaprid, <span class="number">1</span>, <span class="number">1</span>)))</span><br><span class="line">     + <span class="string">':'</span></span><br><span class="line">          + <span class="keyword">CONVERT</span>(<span class="built_in">VARCHAR</span>(<span class="number">5</span>),</span><br><span class="line">          <span class="keyword">CONVERT</span>(<span class="built_in">INT</span>, <span class="keyword">SUBSTRING</span>(@Heaprid, <span class="number">8</span>, <span class="number">1</span>)</span><br><span class="line">          + <span class="keyword">SUBSTRING</span>(@Heaprid, <span class="number">7</span>, <span class="number">1</span>)))</span><br></pre></td></tr></table></figure></div>
 <p>透過上面Script我們可以得到<code>1:987456:41</code></p>
@@ -1352,7 +1355,7 @@
   var disqus_config = function() {
     this.page.url = "https://isdaniel.github.io/DBTable/";
     this.page.identifier = "DBTable/";
-    this.page.title = '資料庫資料表';
+    this.page.title = 'SqlServer資料表深入淺出';
     };
   function loadComments() {
     var d = document, s = d.createElement('script');
