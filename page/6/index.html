@@ -433,7 +433,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://isdaniel.github.io/Autofac-introduce/">
+    <link itemprop="mainEntityOfPage" href="https://isdaniel.github.io/Bridge-Pattern/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Daniel Shih">
@@ -453,7 +453,7 @@
           <h2 class="post-title" itemprop="name headline">
                 
                 
-                <a href="/Autofac-introduce/" class="post-title-link" itemprop="url">Autofac (IOC)容器介紹</a>
+                <a href="/Bridge-Pattern/" class="post-title-link" itemprop="url">橋接模式(BridgePattern)</a>
               
             
           </h2>
@@ -495,7 +495,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2020-02-16 09:15:50" itemprop="dateModified" datetime="2020-02-16T09:15:50+00:00">2020-02-16</time>
+                <time title="Modified: 2020-02-16 09:20:45" itemprop="dateModified" datetime="2020-02-16T09:20:45+00:00">2020-02-16</time>
               
             
           </span>
@@ -519,7 +519,7 @@
                   , 
                 
               
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/C/IOC/" itemprop="url" rel="index"><span itemprop="name">IOC</span></a></span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/C/DesignPattern/" itemprop="url" rel="index"><span itemprop="name">DesignPattern</span></a></span>
 
                 
                 
@@ -538,8 +538,8 @@
                 </span>
             
                 <span class="post-meta-item-text">Comments: </span>
-                <a href="/Autofac-introduce/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="Autofac-introduce/" itemprop="commentCount"></span>
+                <a href="/Bridge-Pattern/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="Bridge-Pattern/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -561,7 +561,7 @@
                 
                   <span class="post-meta-item-text">Symbols count in article: </span>
                 
-                <span title="Symbols count in article">2.3k</span>
+                <span title="Symbols count in article">7.5k</span>
               
 
               
@@ -575,7 +575,7 @@
                 
                   <span class="post-meta-item-text">Reading time &asymp;</span>
                 
-                <span title="Reading time">4 mins.</span>
+                <span title="Reading time">14 mins.</span>
               
             </div>
           
@@ -598,17 +598,23 @@
         
           
             <p>
-              前言：市面上有許多IoC容器 Ninject,Unity….
-雖然容器眾多但要解決的問題和概念是一樣
-今天使用Autofac 介紹一下IoC容器
-不了解 IoC 概念可參考 我之前寫 IOC(控制反轉)，DI(依賴注入) 深入淺出~~
-Autofac是一個 Ioc 容器眼尖的讀者會發現我把Ioc跟容
+              前言：目的：如果有兩大類模組是多對多的組合，如本次Smaple Code. Nick和Addidas 包包都有紅、藍、黃….或其他顏色
+就可能呈現下面6種組合
+
+Nick(紅)
+Nick(藍)
+Nick(黃)
+Addidas(紅)
+Addidas(藍)
+Addidas(黃)
+
+如果此建立類別的話 可
               ...
             </p>
           <!--noindex-->
           
             <div class="post-button text-center">
-              <a class="btn" href="/Autofac-introduce/#more" rel="contents">
+              <a class="btn" href="/Bridge-Pattern/#more" rel="contents">
                 Read more &raquo;
               </a>
             </div>
@@ -730,7 +736,7 @@ Autofac是一個 Ioc 容器眼尖的讀者會發現我把Ioc跟容
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2020-02-16 09:15:50" itemprop="dateModified" datetime="2020-02-16T09:15:50+00:00">2020-02-16</time>
+                <time title="Modified: 2020-02-16 09:20:45" itemprop="dateModified" datetime="2020-02-16T09:20:45+00:00">2020-02-16</time>
               
             
           </span>
@@ -963,7 +969,7 @@ Blog Code這個Repository是利用Hexo cli樣板來撰寫Blog.
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2020-02-16 09:15:50" itemprop="dateModified" datetime="2020-02-16T09:15:50+00:00">2020-02-16</time>
+                <time title="Modified: 2020-02-16 09:20:45" itemprop="dateModified" datetime="2020-02-16T09:20:45+00:00">2020-02-16</time>
               
             
           </span>
@@ -1190,7 +1196,7 @@ Blog Code這個Repository是利用Hexo cli樣板來撰寫Blog.
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2020-02-16 09:15:50" itemprop="dateModified" datetime="2020-02-16T09:15:50+00:00">2020-02-16</time>
+                <time title="Modified: 2020-02-16 09:20:45" itemprop="dateModified" datetime="2020-02-16T09:20:45+00:00">2020-02-16</time>
               
             
           </span>
@@ -1428,7 +1434,7 @@ public
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2020-02-16 09:15:50" itemprop="dateModified" datetime="2020-02-16T09:15:50+00:00">2020-02-16</time>
+                <time title="Modified: 2020-02-16 09:20:45" itemprop="dateModified" datetime="2020-02-16T09:20:45+00:00">2020-02-16</time>
               
             
           </span>
@@ -1662,7 +1668,7 @@ public
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2020-02-16 09:15:50" itemprop="dateModified" datetime="2020-02-16T09:15:50+00:00">2020-02-16</time>
+                <time title="Modified: 2020-02-16 09:20:45" itemprop="dateModified" datetime="2020-02-16T09:20:45+00:00">2020-02-16</time>
               
             
           </span>
@@ -1898,7 +1904,7 @@ public delegate void voidDelegate();static void
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2020-02-16 09:15:50" itemprop="dateModified" datetime="2020-02-16T09:15:50+00:00">2020-02-16</time>
+                <time title="Modified: 2020-02-16 09:20:45" itemprop="dateModified" datetime="2020-02-16T09:20:45+00:00">2020-02-16</time>
               
             
           </span>
@@ -2137,7 +2143,7 @@ public delegate void voidDelegate();static void
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2020-02-16 09:15:50" itemprop="dateModified" datetime="2020-02-16T09:15:50+00:00">2020-02-16</time>
+                <time title="Modified: 2020-02-16 09:20:45" itemprop="dateModified" datetime="2020-02-16T09:20:45+00:00">2020-02-16</time>
               
             
           </span>
@@ -2366,7 +2372,7 @@ Base64就是用來將非ASCII字符的
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2020-02-16 09:15:50" itemprop="dateModified" datetime="2020-02-16T09:15:50+00:00">2020-02-16</time>
+                <time title="Modified: 2020-02-16 09:20:45" itemprop="dateModified" datetime="2020-02-16T09:20:45+00:00">2020-02-16</time>
               
             
           </span>
@@ -2596,7 +2602,7 @@ DECLARE  @t TABLE(    StartDate DATETIME,	EndDate DATETIME);INSE
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2020-02-16 09:15:50" itemprop="dateModified" datetime="2020-02-16T09:15:50+00:00">2020-02-16</time>
+                <time title="Modified: 2020-02-16 09:20:45" itemprop="dateModified" datetime="2020-02-16T09:20:45+00:00">2020-02-16</time>
               
             
           </span>
