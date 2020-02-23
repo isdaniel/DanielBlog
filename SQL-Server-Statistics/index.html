@@ -151,12 +151,13 @@
 <meta property="og:site_name" content="石頭的coding之路">
 <meta property="og:description" content="title: SqlServer資料表深入淺出date: 2020-02-16 23:10:43tags: [DataBase,Turning,Sql-server] categories: [DataBase,Turning]什麼是統計值SQL Server的QO(Query Optimizer)透過cost-based model來選擇一個最合適計畫(估算成本最低)來執行查詢  　注意每個執">
 <meta property="og:locale" content="zh-tw">
+<meta property="og:image" content="https://i.imgur.com/0IKcsNG.png">
 <meta property="og:image" content="https://www.virtual-dba.com/media/sql-server-chart.jpg">
-<meta property="og:updated_time" content="2020-02-23T14:10:24.859Z">
+<meta property="og:updated_time" content="2020-02-23T15:34:10.057Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="石頭的coding之路">
 <meta name="twitter:description" content="title: SqlServer資料表深入淺出date: 2020-02-16 23:10:43tags: [DataBase,Turning,Sql-server] categories: [DataBase,Turning]什麼是統計值SQL Server的QO(Query Optimizer)透過cost-based model來選擇一個最合適計畫(估算成本最低)來執行查詢  　注意每個執">
-<meta name="twitter:image" content="https://www.virtual-dba.com/media/sql-server-chart.jpg">
+<meta name="twitter:image" content="https://i.imgur.com/0IKcsNG.png">
 
 
 
@@ -480,7 +481,7 @@
                 
               
 
-              <time title="Created: 2020-02-23 14:10:24" itemprop="dateCreated datePublished" datetime="2020-02-23T14:10:24+00:00">2020-02-23</time>
+              <time title="Created: 2020-02-23 15:34:10" itemprop="dateCreated datePublished" datetime="2020-02-23T15:34:10+00:00">2020-02-23</time>
             
 
             
@@ -529,7 +530,7 @@
                 
                   <span class="post-meta-item-text">Symbols count in article: </span>
                 
-                <span title="Symbols count in article">2.2k</span>
+                <span title="Symbols count in article">2.7k</span>
               
 
               
@@ -543,7 +544,7 @@
                 
                   <span class="post-meta-item-text">Reading time &asymp;</span>
                 
-                <span title="Reading time">4 mins.</span>
+                <span title="Reading time">5 mins.</span>
               
             </div>
           
@@ -574,15 +575,36 @@
 <p>過期的統計值資料導致QO誤判產生不良執行計畫</p>
 <p>何時建立統計值?</p>
 <p>如果查詢的條件欄位沒有統計值，Query Optimizer會在編譯前作統計值建立或有門檻條件性的更新。</p>
-<h2 id="DBCC-SHOW-STATISTICS"><a href="#DBCC-SHOW-STATISTICS" class="headerlink" title="DBCC SHOW_STATISTICS"></a>DBCC SHOW_STATISTICS</h2><div class="highlight-wrap" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true" data-rel="SQL"><figure class="iseeu highlight /sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">DBCC SHOW_STATISTICS</span><br></pre></td></tr></table></figure></div>
+<h2 id="查詢資料表統計值-amp-了解統計值欄位含意"><a href="#查詢資料表統計值-amp-了解統計值欄位含意" class="headerlink" title="查詢資料表統計值 &amp; 了解統計值欄位含意"></a>查詢資料表統計值 &amp; 了解統計值欄位含意</h2><p>想要查詢資料表索引的統計值可以輸入<code>DBCC SHOW_STATISTICS</code>，第一個參數是查詢資料表，第二個參數是查詢的索引或統計值.</p>
+<div class="highlight-wrap" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true" data-rel="SQL"><figure class="iseeu highlight /sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">DBCC SHOW_STATISTICS('dbo.posts','PK_Posts')</span><br></pre></td></tr></table></figure></div>
+<p>使用上語法查詢會出現三個結果集</p>
+<p><img src="https://i.imgur.com/0IKcsNG.png" alt></p>
+<p>第一個結果集</p>
+<p>顯示出此統計值的基本資訊其中有幾個重要的欄位</p>
+<ul>
+<li>最後更新時間</li>
+<li>密度</li>
+<li>統計值Key的欄位大小</li>
+</ul>
+<p>第二個結果集</p>
+<p>密度分布,使用常數查詢,直接使用子方圖進行資料筆數估計</p>
+<p>第三個結果集</p>
+<p><code>RANGE_HI_KEY</code>:每個區域資料的分佈。<br><code>RANGE_ROWS</code>:上圖列出(120 + 1) ~(126)區間的Row是57.175筆資料<br><code>EQ_ROWS</code>:代表這個區間值。<br><code>DISTINCT_RANGE_ROWS</code>:代表這個區間裏面有幾個特殊/單一(Unique)值。<br><code>AVG_RANGE_ROWS</code>:代表這個區間每個特殊值平均有幾筆</p>
 <h3 id="觸發統計值更新"><a href="#觸發統計值更新" class="headerlink" title="觸發統計值更新"></a>觸發統計值更新</h3><p>假如有設定自動更新統計值，異動資料筆數超過 (500 + 20%)資料，會觸發統計值更新</p>
 <blockquote>
 <p>如果是大資料表容易造成統計值不準確，因為要達到自動更新門檻有點困難</p>
 </blockquote>
 <p>找尋是否有<strong>同一個欄位名稱的統計值重複</strong>，如果有建立刪除語法</p>
-<div class="highlight-wrap" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true" data-rel="SQL"><figure class="iseeu highlight /sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">WITH</span>    autostats(object_id, stats_id, <span class="keyword">name</span>, column_id)</span><br><span class="line"><span class="keyword">AS</span> (</span><br><span class="line"><span class="keyword">SELECT</span>  sys.stats.object_id ,</span><br><span class="line">        sys.stats.stats_id ,</span><br><span class="line">        sys.stats.name ,</span><br><span class="line">        sys.stats_columns.column_id</span><br><span class="line"><span class="keyword">FROM</span>    sys.stats</span><br><span class="line">        <span class="keyword">INNER</span> <span class="keyword">JOIN</span> sys.stats_columns <span class="keyword">ON</span> sys.stats.object_id = sys.stats_columns.object_id</span><br><span class="line">                                        <span class="keyword">AND</span> sys.stats.stats_id = sys.stats_columns.stats_id</span><br><span class="line"><span class="keyword">WHERE</span>   sys.stats.auto_created = <span class="number">1</span></span><br><span class="line">        <span class="keyword">AND</span> sys.stats_columns.stats_column_id = <span class="number">1</span></span><br><span class="line">)</span><br><span class="line"><span class="keyword">SELECT</span>  OBJECT_NAME(sys.stats.object_id) <span class="keyword">AS</span> [<span class="keyword">Table</span>] ,</span><br><span class="line">		sys.columns.name <span class="keyword">AS</span> [<span class="keyword">Column</span>] ,</span><br><span class="line">		sys.stats.name <span class="keyword">AS</span> [Overlapped] ,</span><br><span class="line">		autostats.name <span class="keyword">AS</span> [Overlapping] ,</span><br><span class="line">		<span class="string">'DROP STATISTICS ['</span> + OBJECT_SCHEMA_NAME(sys.stats.object_id) + <span class="string">'].['</span> + OBJECT_NAME(sys.stats.object_id) + <span class="string">'].['</span> + autostats.name + <span class="string">']'</span></span><br><span class="line"><span class="keyword">FROM</span>    sys.stats</span><br><span class="line">		<span class="keyword">INNER</span> <span class="keyword">JOIN</span> sys.stats_columns <span class="keyword">ON</span> sys.stats.object_id = sys.stats_columns.object_id</span><br><span class="line">										<span class="keyword">AND</span> sys.stats.stats_id = sys.stats_columns.stats_id</span><br><span class="line">		<span class="keyword">INNER</span> <span class="keyword">JOIN</span> autostats <span class="keyword">ON</span> sys.stats_columns.object_id = autostats.object_id</span><br><span class="line">								<span class="keyword">AND</span> sys.stats_columns.column_id = autostats.column_id</span><br><span class="line">		<span class="keyword">INNER</span> <span class="keyword">JOIN</span> sys.columns <span class="keyword">ON</span> sys.stats.object_id = sys.columns.object_id</span><br><span class="line">									<span class="keyword">AND</span> sys.stats_columns.column_id = sys.columns.column_id</span><br><span class="line"><span class="keyword">WHERE</span>   sys.stats.auto_created = <span class="number">0</span></span><br><span class="line">		<span class="keyword">AND</span> sys.stats_columns.stats_column_id = <span class="number">1</span></span><br><span class="line">		<span class="keyword">AND</span> sys.stats_columns.stats_id != autostats.stats_id</span><br><span class="line">		<span class="keyword">AND</span> OBJECTPROPERTY(sys.stats.object_id, <span class="string">'IsMsShipped'</span>) = <span class="number">0</span>;</span><br><span class="line">```    </span><br><span class="line"></span><br><span class="line"><span class="comment">## 更新統計值優化</span></span><br><span class="line"></span><br><span class="line">SQL2017之前版本建議啟用TF2371</span><br><span class="line"></span><br><span class="line">```sql</span><br><span class="line">DBCC TRACEON (2371,-1)</span><br></pre></td></tr></table></figure></div>
+<div class="highlight-wrap" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true" data-rel="SQL"><figure class="iseeu highlight /sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">WITH</span>    autostats(object_id, stats_id, <span class="keyword">name</span>, column_id)</span><br><span class="line"><span class="keyword">AS</span> (</span><br><span class="line"><span class="keyword">SELECT</span>  sys.stats.object_id ,</span><br><span class="line">        sys.stats.stats_id ,</span><br><span class="line">        sys.stats.name ,</span><br><span class="line">        sys.stats_columns.column_id</span><br><span class="line"><span class="keyword">FROM</span>    sys.stats</span><br><span class="line">        <span class="keyword">INNER</span> <span class="keyword">JOIN</span> sys.stats_columns <span class="keyword">ON</span> sys.stats.object_id = sys.stats_columns.object_id</span><br><span class="line">                                        <span class="keyword">AND</span> sys.stats.stats_id = sys.stats_columns.stats_id</span><br><span class="line"><span class="keyword">WHERE</span>   sys.stats.auto_created = <span class="number">1</span></span><br><span class="line">        <span class="keyword">AND</span> sys.stats_columns.stats_column_id = <span class="number">1</span></span><br><span class="line">)</span><br><span class="line"><span class="keyword">SELECT</span>  OBJECT_NAME(sys.stats.object_id) <span class="keyword">AS</span> [<span class="keyword">Table</span>] ,</span><br><span class="line">		sys.columns.name <span class="keyword">AS</span> [<span class="keyword">Column</span>] ,</span><br><span class="line">		sys.stats.name <span class="keyword">AS</span> [Overlapped] ,</span><br><span class="line">		autostats.name <span class="keyword">AS</span> [Overlapping] ,</span><br><span class="line">		<span class="string">'DROP STATISTICS ['</span> + OBJECT_SCHEMA_NAME(sys.stats.object_id) + <span class="string">'].['</span> + OBJECT_NAME(sys.stats.object_id) + <span class="string">'].['</span> + autostats.name + <span class="string">']'</span></span><br><span class="line"><span class="keyword">FROM</span>    sys.stats</span><br><span class="line">		<span class="keyword">INNER</span> <span class="keyword">JOIN</span> sys.stats_columns <span class="keyword">ON</span> sys.stats.object_id = sys.stats_columns.object_id</span><br><span class="line">										<span class="keyword">AND</span> sys.stats.stats_id = sys.stats_columns.stats_id</span><br><span class="line">		<span class="keyword">INNER</span> <span class="keyword">JOIN</span> autostats <span class="keyword">ON</span> sys.stats_columns.object_id = autostats.object_id</span><br><span class="line">								<span class="keyword">AND</span> sys.stats_columns.column_id = autostats.column_id</span><br><span class="line">		<span class="keyword">INNER</span> <span class="keyword">JOIN</span> sys.columns <span class="keyword">ON</span> sys.stats.object_id = sys.columns.object_id</span><br><span class="line">									<span class="keyword">AND</span> sys.stats_columns.column_id = sys.columns.column_id</span><br><span class="line"><span class="keyword">WHERE</span>   sys.stats.auto_created = <span class="number">0</span></span><br><span class="line">		<span class="keyword">AND</span> sys.stats_columns.stats_column_id = <span class="number">1</span></span><br><span class="line">		<span class="keyword">AND</span> sys.stats_columns.stats_id != autostats.stats_id</span><br><span class="line">		<span class="keyword">AND</span> OBJECTPROPERTY(sys.stats.object_id, <span class="string">'IsMsShipped'</span>) = <span class="number">0</span>;</span><br></pre></td></tr></table></figure></div>
+<h2 id="更新統計值優化"><a href="#更新統計值優化" class="headerlink" title="更新統計值優化"></a>更新統計值優化</h2><p>SQL2017之前版本建議啟用TF2371</p>
+<div class="highlight-wrap" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true" data-rel="SQL"><figure class="iseeu highlight /sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">DBCC TRACEON (2371,-1)</span><br></pre></td></tr></table></figure></div>
 <p>啟動後大資料就不會只使用(500 + 20%)條件來更新統計值，會依照資料表筆數來判斷(如下圖)</p>
 <p><img src="https://www.virtual-dba.com/media/sql-server-chart.jpg" alt="image alt"></p>
+<blockquote>
+<p>假如使用執行計畫很不準確可以查看，當前的統計值是否是正確</p>
+</blockquote>
+<p>如果要更新統計值可以使用下面語法.</p>
+<div class="highlight-wrap" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true" data-rel="SQL"><figure class="iseeu highlight /sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">UPDATE</span> <span class="keyword">STATISTICS</span> dbo.T1;  <span class="comment">--更新統計值</span></span><br><span class="line">DBCC SHOW_STATISTICS ('dbo.T1', idx1) <span class="comment">--顯示統計值</span></span><br></pre></td></tr></table></figure></div>
 <p><strong>此文作者</strong>：Daniel Shih(石頭)<br><strong>此文地址</strong>： <a href="https://isdaniel.github.io/SQL-Server-Statistics/">https://isdaniel.github.io/SQL-Server-Statistics/</a> <br><strong>版權聲明</strong>：本博客所有文章除特別聲明外，均採用 <span class="exturl" data-url="aHR0cHM6Ly9jcmVhdGl2ZWNvbW1vbnMub3JnL2xpY2Vuc2VzL2J5LW5jLXNhLzMuMC90dy8=" title="https://creativecommons.org/licenses/by-nc-sa/3.0/tw/">CC BY-NC-SA 3.0 TW<i class="fa fa-external-link"></i></span> 許可協議。轉載請註明出處！</p>
 
       
@@ -991,7 +1013,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#categories-DataBase-Turning"><span class="nav-number">1.</span> <span class="nav-text">categories: [DataBase,Turning]</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#什麼是統計值"><span class="nav-number">2.</span> <span class="nav-text">什麼是統計值</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#DBCC-SHOW-STATISTICS"><span class="nav-number">3.</span> <span class="nav-text">DBCC SHOW_STATISTICS</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#觸發統計值更新"><span class="nav-number">3.1.</span> <span class="nav-text">觸發統計值更新</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#categories-DataBase-Turning"><span class="nav-number">1.</span> <span class="nav-text">categories: [DataBase,Turning]</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#什麼是統計值"><span class="nav-number">2.</span> <span class="nav-text">什麼是統計值</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#查詢資料表統計值-amp-了解統計值欄位含意"><span class="nav-number">3.</span> <span class="nav-text">查詢資料表統計值 &amp; 了解統計值欄位含意</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#觸發統計值更新"><span class="nav-number">3.1.</span> <span class="nav-text">觸發統計值更新</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#更新統計值優化"><span class="nav-number">4.</span> <span class="nav-text">更新統計值優化</span></a></li></ol></div>
             
 
           </div>
@@ -1033,7 +1055,7 @@
       <i class="fa fa-coffee"></i>
     </span>
     
-    <span title="Reading time total">10:16</span>
+    <span title="Reading time total">10:17</span>
   
 </div>
 
