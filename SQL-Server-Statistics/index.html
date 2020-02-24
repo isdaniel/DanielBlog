@@ -143,21 +143,23 @@
 
 
 
-  <meta name="description" content="title: SqlServer資料表深入淺出date: 2020-02-16 23:10:43tags: [DataBase,Turning,Sql-server] categories: [DataBase,Turning]什麼是統計值SQL Server的QO(Query Optimizer)透過cost-based model來選擇一個最合適計畫(估算成本最低)來執行查詢  　注意每個執">
+  <meta name="description" content="title: 影響Query Optimizer產生執行計畫的關鍵(統計值)date: 2020-02-20 23:10:43tags: [DataBase,Turning,Sql-server] categories: [DataBase,Turning]什麼是統計值SQL Server的QO(Query Optimizer)透過cost-based model來選擇一個最合適計畫(估算成本最">
 <meta name="keywords" content="c#,Asp.net,Asp.net MVC,source code,後端,WebApi,SQL,SQL Server">
 <meta property="og:type" content="article">
 <meta property="og:title" content="石頭的coding之路">
 <meta property="og:url" content="https://isdaniel.github.io/SQL-Server-Statistics/index.html">
 <meta property="og:site_name" content="石頭的coding之路">
-<meta property="og:description" content="title: SqlServer資料表深入淺出date: 2020-02-16 23:10:43tags: [DataBase,Turning,Sql-server] categories: [DataBase,Turning]什麼是統計值SQL Server的QO(Query Optimizer)透過cost-based model來選擇一個最合適計畫(估算成本最低)來執行查詢  　注意每個執">
+<meta property="og:description" content="title: 影響Query Optimizer產生執行計畫的關鍵(統計值)date: 2020-02-20 23:10:43tags: [DataBase,Turning,Sql-server] categories: [DataBase,Turning]什麼是統計值SQL Server的QO(Query Optimizer)透過cost-based model來選擇一個最合適計畫(估算成本最">
 <meta property="og:locale" content="zh-tw">
+<meta property="og:image" content="https://i.imgur.com/7TiCaUh.png">
+<meta property="og:image" content="https://i.imgur.com/WYcY8VW.png">
 <meta property="og:image" content="https://i.imgur.com/0IKcsNG.png">
 <meta property="og:image" content="https://www.virtual-dba.com/media/sql-server-chart.jpg">
-<meta property="og:updated_time" content="2020-02-23T15:34:10.057Z">
+<meta property="og:updated_time" content="2020-02-24T16:25:08.275Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="石頭的coding之路">
-<meta name="twitter:description" content="title: SqlServer資料表深入淺出date: 2020-02-16 23:10:43tags: [DataBase,Turning,Sql-server] categories: [DataBase,Turning]什麼是統計值SQL Server的QO(Query Optimizer)透過cost-based model來選擇一個最合適計畫(估算成本最低)來執行查詢  　注意每個執">
-<meta name="twitter:image" content="https://i.imgur.com/0IKcsNG.png">
+<meta name="twitter:description" content="title: 影響Query Optimizer產生執行計畫的關鍵(統計值)date: 2020-02-20 23:10:43tags: [DataBase,Turning,Sql-server] categories: [DataBase,Turning]什麼是統計值SQL Server的QO(Query Optimizer)透過cost-based model來選擇一個最合適計畫(估算成本最">
+<meta name="twitter:image" content="https://i.imgur.com/7TiCaUh.png">
 
 
 
@@ -481,7 +483,7 @@
                 
               
 
-              <time title="Created: 2020-02-23 15:34:10" itemprop="dateCreated datePublished" datetime="2020-02-23T15:34:10+00:00">2020-02-23</time>
+              <time title="Created: 2020-02-24 16:25:08" itemprop="dateCreated datePublished" datetime="2020-02-24T16:25:08+00:00">2020-02-24</time>
             
 
             
@@ -530,7 +532,7 @@
                 
                   <span class="post-meta-item-text">Symbols count in article: </span>
                 
-                <span title="Symbols count in article">2.7k</span>
+                <span title="Symbols count in article">2.8k</span>
               
 
               
@@ -565,16 +567,19 @@
 
       
         <hr>
-<p>title: SqlServer資料表深入淺出<br>date: 2020-02-16 23:10:43<br>tags: [DataBase,Turning,Sql-server]</p>
+<p>title: 影響Query Optimizer產生執行計畫的關鍵(統計值)<br>date: 2020-02-20 23:10:43<br>tags: [DataBase,Turning,Sql-server]</p>
 <h2 id="categories-DataBase-Turning"><a href="#categories-DataBase-Turning" class="headerlink" title="categories: [DataBase,Turning]"></a>categories: [DataBase,Turning]</h2><h2 id="什麼是統計值"><a href="#什麼是統計值" class="headerlink" title="什麼是統計值"></a>什麼是統計值</h2><p>SQL Server的QO(Query Optimizer)透過<code>cost-based model</code>來選擇一個最合適計畫(估算成本最低)來執行查詢</p>
 <blockquote>
 <p>　注意每個執行計畫是使用CPU來做估算，使用過的執行計畫一般會Cache起來已便下次使用</p>
 </blockquote>
-<p>QO會依照基數估計(Cardinality estimation)來產生執行計畫，所以基數估計扮演一個很重要的角色</p>
+<p>QO會依照基數估計(Cardinality estimation)來產生執行計畫，基數估計扮演一個很重要的角色</p>
 <p>SQL Server統計值是對於每個Index或欄位資料分布做紀錄，任何型態都支援統計值資料.</p>
 <p>過期的統計值資料導致QO誤判產生不良執行計畫</p>
-<p>何時建立統計值?</p>
-<p>如果查詢的條件欄位沒有統計值，Query Optimizer會在編譯前作統計值建立或有門檻條件性的更新。</p>
+<h3 id="何時建立統計值"><a href="#何時建立統計值" class="headerlink" title="何時建立統計值?"></a>何時建立統計值?</h3><p>每個索引都會有自己個統計資訊，在<code>UI</code>查看統計資訊如下圖.</p>
+<p><img src="https://i.imgur.com/7TiCaUh.png" alt></p>
+<p>如果查詢條件欄位沒有統計值，<code>Query Optimizer</code>會在編譯前將<strong>統計值建立或有門檻條件性的更新</strong>。</p>
+<p>如下圖我們使用<code>C3</code>沒有建立索引欄位來查詢，SQL-Server就會幫我們自動產生<code>_WA_Sys_00000003_6EF57B66</code>這個統計資訊來讓<code>QO</code>產生執行計畫時有個依據.</p>
+<p><img src="https://i.imgur.com/WYcY8VW.png" alt></p>
 <h2 id="查詢資料表統計值-amp-了解統計值欄位含意"><a href="#查詢資料表統計值-amp-了解統計值欄位含意" class="headerlink" title="查詢資料表統計值 &amp; 了解統計值欄位含意"></a>查詢資料表統計值 &amp; 了解統計值欄位含意</h2><p>想要查詢資料表索引的統計值可以輸入<code>DBCC SHOW_STATISTICS</code>，第一個參數是查詢資料表，第二個參數是查詢的索引或統計值.</p>
 <div class="highlight-wrap" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true" data-rel="SQL"><figure class="iseeu highlight /sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">DBCC SHOW_STATISTICS('dbo.posts','PK_Posts')</span><br></pre></td></tr></table></figure></div>
 <p>使用上語法查詢會出現三個結果集</p>
@@ -601,7 +606,7 @@
 <p>啟動後大資料就不會只使用(500 + 20%)條件來更新統計值，會依照資料表筆數來判斷(如下圖)</p>
 <p><img src="https://www.virtual-dba.com/media/sql-server-chart.jpg" alt="image alt"></p>
 <blockquote>
-<p>假如使用執行計畫很不準確可以查看，當前的統計值是否是正確</p>
+<p>假如使用執行計畫(估計值)很不準確可以查看，當前的統計值是否是正確</p>
 </blockquote>
 <p>如果要更新統計值可以使用下面語法.</p>
 <div class="highlight-wrap" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true" data-rel="SQL"><figure class="iseeu highlight /sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">UPDATE</span> <span class="keyword">STATISTICS</span> dbo.T1;  <span class="comment">--更新統計值</span></span><br><span class="line">DBCC SHOW_STATISTICS ('dbo.T1', idx1) <span class="comment">--顯示統計值</span></span><br></pre></td></tr></table></figure></div>
@@ -1013,7 +1018,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#categories-DataBase-Turning"><span class="nav-number">1.</span> <span class="nav-text">categories: [DataBase,Turning]</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#什麼是統計值"><span class="nav-number">2.</span> <span class="nav-text">什麼是統計值</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#查詢資料表統計值-amp-了解統計值欄位含意"><span class="nav-number">3.</span> <span class="nav-text">查詢資料表統計值 &amp; 了解統計值欄位含意</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#觸發統計值更新"><span class="nav-number">3.1.</span> <span class="nav-text">觸發統計值更新</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#更新統計值優化"><span class="nav-number">4.</span> <span class="nav-text">更新統計值優化</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#categories-DataBase-Turning"><span class="nav-number">1.</span> <span class="nav-text">categories: [DataBase,Turning]</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#什麼是統計值"><span class="nav-number">2.</span> <span class="nav-text">什麼是統計值</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#何時建立統計值"><span class="nav-number">2.1.</span> <span class="nav-text">何時建立統計值?</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#查詢資料表統計值-amp-了解統計值欄位含意"><span class="nav-number">3.</span> <span class="nav-text">查詢資料表統計值 &amp; 了解統計值欄位含意</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#觸發統計值更新"><span class="nav-number">3.1.</span> <span class="nav-text">觸發統計值更新</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#更新統計值優化"><span class="nav-number">4.</span> <span class="nav-text">更新統計值優化</span></a></li></ol></div>
             
 
           </div>
@@ -1046,7 +1051,7 @@
       <i class="fa fa-area-chart"></i>
     </span>
     
-    <span title="Symbols count total">339k</span>
+    <span title="Symbols count total">340k</span>
   
 
   
