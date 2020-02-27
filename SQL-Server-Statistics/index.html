@@ -143,22 +143,22 @@
 
 
 
-  <meta name="description" content="title: 影響Query Optimizer產生執行計畫的關鍵(統計值)date: 2020-02-20 23:10:43tags: [DataBase,Turning,Sql-server] categories: [DataBase,Turning]什麼是統計值SQL Server的QO(Query Optimizer)透過cost-based model來選擇一個最合適計畫(估算成本最">
+  <meta name="description" content="title: 影響Query Optimizer產生執行計畫的關鍵(統計值)date: 2020-02-25 23:10:43tags: [DataBase,Turning,Sql-server] categories: [DataBase,Turning]什麼是統計值SQL Server的QO(Query Optimizer)透過cost-based model來選擇一個最合適計畫(估算成本最">
 <meta name="keywords" content="c#,Asp.net,Asp.net MVC,source code,後端,WebApi,SQL,SQL Server">
 <meta property="og:type" content="article">
 <meta property="og:title" content="石頭的coding之路">
 <meta property="og:url" content="https://isdaniel.github.io/SQL-Server-Statistics/index.html">
 <meta property="og:site_name" content="石頭的coding之路">
-<meta property="og:description" content="title: 影響Query Optimizer產生執行計畫的關鍵(統計值)date: 2020-02-20 23:10:43tags: [DataBase,Turning,Sql-server] categories: [DataBase,Turning]什麼是統計值SQL Server的QO(Query Optimizer)透過cost-based model來選擇一個最合適計畫(估算成本最">
+<meta property="og:description" content="title: 影響Query Optimizer產生執行計畫的關鍵(統計值)date: 2020-02-25 23:10:43tags: [DataBase,Turning,Sql-server] categories: [DataBase,Turning]什麼是統計值SQL Server的QO(Query Optimizer)透過cost-based model來選擇一個最合適計畫(估算成本最">
 <meta property="og:locale" content="zh-tw">
 <meta property="og:image" content="https://i.imgur.com/7TiCaUh.png">
 <meta property="og:image" content="https://i.imgur.com/WYcY8VW.png">
 <meta property="og:image" content="https://i.imgur.com/0IKcsNG.png">
 <meta property="og:image" content="https://www.virtual-dba.com/media/sql-server-chart.jpg">
-<meta property="og:updated_time" content="2020-02-24T16:25:08.275Z">
+<meta property="og:updated_time" content="2020-02-27T01:23:22.330Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="石頭的coding之路">
-<meta name="twitter:description" content="title: 影響Query Optimizer產生執行計畫的關鍵(統計值)date: 2020-02-20 23:10:43tags: [DataBase,Turning,Sql-server] categories: [DataBase,Turning]什麼是統計值SQL Server的QO(Query Optimizer)透過cost-based model來選擇一個最合適計畫(估算成本最">
+<meta name="twitter:description" content="title: 影響Query Optimizer產生執行計畫的關鍵(統計值)date: 2020-02-25 23:10:43tags: [DataBase,Turning,Sql-server] categories: [DataBase,Turning]什麼是統計值SQL Server的QO(Query Optimizer)透過cost-based model來選擇一個最合適計畫(估算成本最">
 <meta name="twitter:image" content="https://i.imgur.com/7TiCaUh.png">
 
 
@@ -483,7 +483,7 @@
                 
               
 
-              <time title="Created: 2020-02-24 16:25:08" itemprop="dateCreated datePublished" datetime="2020-02-24T16:25:08+00:00">2020-02-24</time>
+              <time title="Created: 2020-02-27 01:23:22" itemprop="dateCreated datePublished" datetime="2020-02-27T01:23:22+00:00">2020-02-27</time>
             
 
             
@@ -567,7 +567,7 @@
 
       
         <hr>
-<p>title: 影響Query Optimizer產生執行計畫的關鍵(統計值)<br>date: 2020-02-20 23:10:43<br>tags: [DataBase,Turning,Sql-server]</p>
+<p>title: 影響Query Optimizer產生執行計畫的關鍵(統計值)<br>date: 2020-02-25 23:10:43<br>tags: [DataBase,Turning,Sql-server]</p>
 <h2 id="categories-DataBase-Turning"><a href="#categories-DataBase-Turning" class="headerlink" title="categories: [DataBase,Turning]"></a>categories: [DataBase,Turning]</h2><h2 id="什麼是統計值"><a href="#什麼是統計值" class="headerlink" title="什麼是統計值"></a>什麼是統計值</h2><p>SQL Server的QO(Query Optimizer)透過<code>cost-based model</code>來選擇一個最合適計畫(估算成本最低)來執行查詢</p>
 <blockquote>
 <p>　注意每個執行計畫是使用CPU來做估算，使用過的執行計畫一般會Cache起來已便下次使用</p>
