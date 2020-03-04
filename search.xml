@@ -1,9 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title></title>
-    <url>%2FSQL-Server-Statistics%2F</url>
-    <content type="text"><![CDATA[title: 影響Query Optimizer產生執行計畫的關鍵(統計值)date: 2020-02-25 23:10:43tags: [DataBase,Turning,Sql-server] categories: [DataBase,Turning]什麼是統計值SQL Server的QO(Query Optimizer)透過cost-based model來選擇一個最合適計畫(估算成本最低)來執行查詢 注意每個執行計畫是使用CPU來做估算，使用過的執行計畫一般會Cache起來已便下次使用 QO會依照基數估計(Cardinality estimation)來產生執行計畫，基數估計扮演一個很重要的角色 SQL Server統計值是對於每個Index或欄位資料分布做紀錄，任何型態都支援統計值資料. 過期的統計值資料導致QO誤判產生不良執行計畫 在我們建立Index時，統計值會自動創建。此外當欄位在查詢裡被使用(作為WHERE條件的一部分,group by子句,join條件)統計值會被自動建立 何時建立統計值?每個索引都會有自己個統計資訊，在UI查看統計資訊如下圖. 如果查詢條件欄位沒有統計值，Query Optimizer會在編譯前將統計值建立或有門檻條件性的更新。 如下圖我們使用C3沒有建立索引欄位來查詢，SQL-Server就會幫我們自動產生_WA_Sys_00000003_6EF57B66這個統計資訊來讓QO產生執行計畫時有個依據. 查詢資料表統計值 &amp; 了解統計值欄位含意想要查詢資料表索引的統計值可以輸入DBCC SHOW_STATISTICS，第一個參數是查詢資料表，第二個參數是查詢的索引或統計值. 1DBCC SHOW_STATISTICS('dbo.posts','PK_Posts') 使用上語法查詢會出現三個結果集 第一個結果集 顯示出此統計值的基本資訊其中有幾個重要的欄位 最後更新時間 密度 統計值Key的欄位大小 第二個結果集 密度分布,使用常數查詢,直接使用子方圖進行資料筆數估計 第三個結果集 RANGE_HI_KEY:每個區域資料的分佈。RANGE_ROWS:上圖列出(120 + 1) ~(126)區間的Row是57.175筆資料EQ_ROWS:代表這個區間值。DISTINCT_RANGE_ROWS:代表這個區間裏面有幾個特殊/單一(Unique)值。AVG_RANGE_ROWS:代表這個區間每個特殊值平均有幾筆 觸發統計值更新假如有設定自動更新統計值，異動資料筆數超過 (500 + 20%)資料，會觸發統計值更新 如果是大資料表容易造成統計值不準確，因為要達到自動更新門檻有點困難 找尋是否有同一個欄位名稱的統計值重複，如果有建立刪除語法 12345678910111213141516171819202122232425262728WITH autostats(object_id, stats_id, name, column_id)AS (SELECT sys.stats.object_id , sys.stats.stats_id , sys.stats.name , sys.stats_columns.column_idFROM sys.stats INNER JOIN sys.stats_columns ON sys.stats.object_id = sys.stats_columns.object_id AND sys.stats.stats_id = sys.stats_columns.stats_idWHERE sys.stats.auto_created = 1 AND sys.stats_columns.stats_column_id = 1)SELECT OBJECT_NAME(sys.stats.object_id) AS [Table] , sys.columns.name AS [Column] , sys.stats.name AS [Overlapped] , autostats.name AS [Overlapping] , 'DROP STATISTICS [' + OBJECT_SCHEMA_NAME(sys.stats.object_id) + '].[' + OBJECT_NAME(sys.stats.object_id) + '].[' + autostats.name + ']'FROM sys.stats INNER JOIN sys.stats_columns ON sys.stats.object_id = sys.stats_columns.object_id AND sys.stats.stats_id = sys.stats_columns.stats_id INNER JOIN autostats ON sys.stats_columns.object_id = autostats.object_id AND sys.stats_columns.column_id = autostats.column_id INNER JOIN sys.columns ON sys.stats.object_id = sys.columns.object_id AND sys.stats_columns.column_id = sys.columns.column_idWHERE sys.stats.auto_created = 0 AND sys.stats_columns.stats_column_id = 1 AND sys.stats_columns.stats_id != autostats.stats_id AND OBJECTPROPERTY(sys.stats.object_id, 'IsMsShipped') = 0; 更新統計值優化SQL2017之前版本建議啟用TF2371 1DBCC TRACEON (2371,-1) 啟動後大資料就不會只使用(500 + 20%)條件來更新統計值，會依照資料表筆數來判斷(如下圖) 假如使用執行計畫(估計值)很不準確可以查看，當前的統計值是否是正確 如果要更新統計值可以使用下面語法. 12UPDATE STATISTICS dbo.T1; --更新統計值DBCC SHOW_STATISTICS ('dbo.T1', idx1) --顯示統計值 此文作者：Daniel Shih(石頭)此文地址： https://isdaniel.github.io/SQL-Server-Statistics/ 版權聲明：本博客所有文章除特別聲明外，均採用 CC BY-NC-SA 3.0 TW 許可協議。轉載請註明出處！]]></content>
+    <title><![CDATA[影響Query Optimizer產生執行計畫的關鍵(統計值)]]></title>
+    <url>%2FSQLServer-Statistics%2F</url>
+    <content type="text"><![CDATA[什麼是統計值SQL Server的QO(Query Optimizer)透過cost-based model來選擇一個最合適計畫(估算成本最低)來執行查詢 注意每個執行計畫是使用CPU來做估算，使用過的執行計畫一般會Cache起來已便下次使用 QO會依照基數估計(Cardinality estimation)來產生執行計畫，基數估計扮演一個很重要的角色 SQL Server統計值是對於每個Index或欄位資料分布做紀錄，任何型態都支援統計值資料. 過期的統計值資料導致QO誤判產生不良執行計畫 在我們建立Index時，統計值會自動創建。此外當欄位在查詢裡被使用(作為WHERE條件的一部分,group by子句,join條件)統計值會被自動建立 何時建立統計值?每個索引都會有自己個統計資訊，在UI查看統計資訊如下圖. 如果查詢條件欄位沒有統計值，Query Optimizer會在編譯前將統計值建立或有門檻條件性的更新。 如下圖我們使用C3沒有建立索引欄位來查詢，SQL-Server就會幫我們自動產生_WA_Sys_00000003_6EF57B66這個統計資訊來讓QO產生執行計畫時有個依據. 查詢資料表統計值 &amp; 了解統計值欄位含意想要查詢資料表索引的統計值可以輸入DBCC SHOW_STATISTICS，第一個參數是查詢資料表，第二個參數是查詢的索引或統計值. 1DBCC SHOW_STATISTICS('dbo.posts','PK_Posts') 使用上語法查詢會出現三個結果集 第一個結果集 顯示出此統計值的基本資訊其中有幾個重要的欄位 最後更新時間 密度 統計值Key的欄位大小 第二個結果集 密度分布,使用常數查詢,直接使用子方圖進行資料筆數估計 第三個結果集 RANGE_HI_KEY:每個區域資料的分佈。RANGE_ROWS:上圖列出(120 + 1) ~(126)區間的Row是57.175筆資料EQ_ROWS:代表這個區間值。DISTINCT_RANGE_ROWS:代表這個區間裏面有幾個特殊/單一(Unique)值。AVG_RANGE_ROWS:代表這個區間每個特殊值平均有幾筆 觸發統計值更新假如有設定自動更新統計值，異動資料筆數超過 (500 + 20%)資料，會觸發統計值更新 如果是大資料表容易造成統計值不準確，因為要達到自動更新門檻有點困難 找尋是否有同一個欄位名稱的統計值重複，如果有建立刪除語法 12345678910111213141516171819202122232425262728WITH autostats(object_id, stats_id, name, column_id)AS (SELECT sys.stats.object_id , sys.stats.stats_id , sys.stats.name , sys.stats_columns.column_idFROM sys.stats INNER JOIN sys.stats_columns ON sys.stats.object_id = sys.stats_columns.object_id AND sys.stats.stats_id = sys.stats_columns.stats_idWHERE sys.stats.auto_created = 1 AND sys.stats_columns.stats_column_id = 1)SELECT OBJECT_NAME(sys.stats.object_id) AS [Table] , sys.columns.name AS [Column] , sys.stats.name AS [Overlapped] , autostats.name AS [Overlapping] , 'DROP STATISTICS [' + OBJECT_SCHEMA_NAME(sys.stats.object_id) + '].[' + OBJECT_NAME(sys.stats.object_id) + '].[' + autostats.name + ']'FROM sys.stats INNER JOIN sys.stats_columns ON sys.stats.object_id = sys.stats_columns.object_id AND sys.stats.stats_id = sys.stats_columns.stats_id INNER JOIN autostats ON sys.stats_columns.object_id = autostats.object_id AND sys.stats_columns.column_id = autostats.column_id INNER JOIN sys.columns ON sys.stats.object_id = sys.columns.object_id AND sys.stats_columns.column_id = sys.columns.column_idWHERE sys.stats.auto_created = 0 AND sys.stats_columns.stats_column_id = 1 AND sys.stats_columns.stats_id != autostats.stats_id AND OBJECTPROPERTY(sys.stats.object_id, 'IsMsShipped') = 0; 更新統計值優化SQL2017之前版本建議啟用TF2371 1DBCC TRACEON (2371,-1) 啟動後大資料就不會只使用(500 + 20%)條件來更新統計值，會依照資料表筆數來判斷(如下圖) 假如使用執行計畫(估計值)很不準確可以查看，當前的統計值是否是正確 如果要更新統計值可以使用下面語法. 12UPDATE STATISTICS dbo.T1; --更新統計值DBCC SHOW_STATISTICS ('dbo.T1', idx1) --顯示統計值 此文作者：Daniel Shih(石頭)此文地址： https://isdaniel.github.io/SQLServer-Statistics/ 版權聲明：本博客所有文章除特別聲明外，均採用 CC BY-NC-SA 3.0 TW 許可協議。轉載請註明出處！]]></content>
+      <categories>
+        <category>DataBase</category>
+        <category>Turning</category>
+      </categories>
+      <tags>
+        <tag>DataBase</tag>
+        <tag>Turning</tag>
+        <tag>Sql-server</tag>
+      </tags>
   </entry>
   <entry>
     <title><![CDATA[撰寫SQL的建議]]></title>
@@ -543,20 +552,6 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[State Pattern(狀態者模式)]]></title>
-    <url>%2FStatusPattern%2F</url>
-    <content type="text"><![CDATA[前言：狀態者模式 優勢在可將複雜的物件狀態條件,以物件方式來減少條件式的判斷程式 可由物件自身的狀態，決定之後的動作行為. 狀態者模式 說明：需求簡易流程如下 這是一個簡單的訂單流程圖 我們可看到從建立訂單開始-&gt;最後判斷成功或取消訂單 看似簡單但需要寫一定程度的判斷條件式,而且也要做一定程度的逆向流程防呆. 這裡先貼上 未使用狀態者模式的程式碼: PaymentContext.cs 12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849505152535455565758596061626364656667686970public class PaymentContext&#123; Product _Item &#123; get; set; &#125; PayStatus _status &#123; get; set; &#125; public PaymentContext(Product p) &#123; _Item = p; _status = PayStatus.Init; &#125; /// &lt;summary&gt; /// 設置狀態 /// &lt;/summary&gt; /// &lt;param name="status"&gt;&lt;/param&gt; public string SetStatus(PayStatus status) &#123; string result = $"修改成功&#123;status.ToString()&#125;"; switch (_status) &#123; case PayStatus.Init: if (status == PayStatus.Init) result = "請勿重新建立訂單"; else _status = status; break; case PayStatus.Success: result = "訂單成功請勿修改"; break; case PayStatus.Cancel: result = "訂單取消請勿修改"; break; case PayStatus.Processing: if (status == PayStatus.Init) result = "請勿重新建立訂單"; else _status = status; break; &#125; return result; &#125; /// &lt;summary&gt; /// 跑流程 /// &lt;/summary&gt; /// &lt;returns&gt;&lt;/returns&gt; public string RunProcess() &#123; switch (_status) &#123; case PayStatus.Init: _status = PayStatus.Processing; return "交易建立中..."; case PayStatus.Success: return "交易完成"; case PayStatus.Cancel: return "交易取消完成"; case PayStatus.Processing: if (_Item.Price &gt; 300) &#123; _status = PayStatus.Cancel; return "物件超過300元 交易取消中"; &#125; _status = PayStatus.Success; return "交易中請稍後"; &#125; return "不在狀態內"; &#125;&#125; 裡面有SetStatus 和 RunProcess 方法 RunProcess 方法 就是將商品一個往下一個流程推進 SetStatus 方法 可以改變商品狀態 上面類別中的程式碼 目前有點小複雜但還算簡單,但等日後需求越來越多 後人一直把程式碼寫入Switch case 或if ... else 中就會導致程式碼越來越複雜 這個情境我們可以嘗試使用 State Pattern(狀態者模式) 幫助我們將每個自身狀態封裝到物件裡面,由每個狀態來決定後面動作 我們可發現 每個流程都可以使用 RunningProcee 和 SetSatus 這兩個動作 就可開出一個抽象類別,裡面有這兩個抽象方法,給之後的狀態子類去實現. 1234567public abstract class PaymentSatusBase&#123; protected PaymentGate _gate; public abstract string Running(Product p); public abstract string SetSatus(PayStatus s);&#125; PaymentGate 是給外部呼叫端使用的類別,我們可比較上面之前PaymentContext類別可看到if....else 全部不見了, 因為狀態封裝到各個類別中了 1234567891011121314151617181920212223242526272829303132public class PaymentGate&#123; Product _product; internal PaymentSatusBase CurrnetProceess &#123; get; set; &#125; // 這裡擁有下個流程的引用 public PaymentGate(Product p) &#123; _product = p; CurrnetProceess = new InitSatus(this); &#125; internal PayStatus CurrnetStatus &#123; get; set; &#125; /// &lt;summary&gt; /// 設置狀態 /// &lt;/summary&gt; /// &lt;param name="status"&gt;&lt;/param&gt; public string SetStatus(PayStatus status) &#123; return CurrnetProceess.SetSatus(status); &#125; /// &lt;summary&gt; /// 跑流程 /// &lt;/summary&gt; /// &lt;returns&gt;&lt;/returns&gt; public string RunProcess() &#123; return CurrnetProceess.Running(_product); &#125;&#125; 如何新建一個流程物件? 首先我們需要先取得當前使用者使用的 PaymentGate引用並傳入建構子當作參數 實現Running和SetStatus方法,並將此狀態的邏輯寫上 執行完後需要更改下個流程,可以將值賦予給CurrnetProceess 屬性 1234567891011121314151617181920212223242526272829public class ProcessSatus : PaymentSatusBase&#123; public ProcessSatus(PaymentGate g) &#123; _gate = g; &#125; public override string Running(Product p) &#123; string result = "交易中請稍後"; if (p.Price &gt; 300) &#123; result = "物件超過300元 交易取消中"; _gate.CurrnetProceess = new CancelSatus(_gate); &#125; else _gate.CurrnetProceess = new SuccessSatus(_gate); return result; &#125; public override string SetSatus(PayStatus s) &#123; string result = string.Empty; if (s == PayStatus.Init) result = "請勿重新建立訂單"; return result; &#125;&#125; 說明:以流程進行中為例子. 他會判斷商品使用超過300元,來決定下個流程 所以我們就把這個邏輯寫在此類中. 另外後面幾個流程比照辦理一一搬入類別中 12345678910111213141516171819202122232425262728293031323334353637383940public class CancelSatus : PaymentSatusBase&#123; public CancelSatus(PaymentGate g) &#123; _gate = g; &#125; public override string Running(Product p) &#123; return "交易取消完成"; &#125; public override string SetSatus(PayStatus s) &#123; string result = string.Empty; if (s == PayStatus.Init) result = "訂單取消請勿修改"; return result; &#125;&#125;public class SuccessSatus : PaymentSatusBase&#123; public SuccessSatus(PaymentGate g) &#123; _gate = g; &#125; public override string Running(Product p) &#123; return "交易完成"; &#125; public override string SetSatus(PayStatus s) &#123; string result = string.Empty; if (s == PayStatus.Init) result = "訂單成功請勿修改"; return result; &#125;&#125; 最後外部程式使用如下 12345678910Product p = new Product();p.Name = "電腦";p.Price = 300000;PaymentGate context = new PaymentGate(p);Console.WriteLine(context.RunProcess());Console.WriteLine(context.RunProcess());Console.WriteLine(context.RunProcess());context.SetStatus(PayStatus.Init);Console.WriteLine(context.RunProcess()); 程式碼放在github上 此文作者：Daniel Shih(石頭)此文地址： https://isdaniel.github.io/StatusPattern/ 版權聲明：本博客所有文章除特別聲明外，均採用 CC BY-NC-SA 3.0 TW 許可協議。轉載請註明出處！]]></content>
-      <categories>
-        <category>C#</category>
-        <category>DesignPattern</category>
-      </categories>
-      <tags>
-        <tag>C#</tag>
-        <tag>DesignPattern</tag>
-        <tag>StatePattern</tag>
-      </tags>
-  </entry>
-  <entry>
     <title><![CDATA[(AutoMapper)反射自動註冊AutoMapper Profile]]></title>
     <url>%2FAutoMapperInit%2F</url>
     <content type="text"><![CDATA[前言：AutoMapper 幫我我們方便管理物件跟物件之間屬性值格式轉換 模型轉換這裡有兩個類別 UserInfoModel 當作我們從DB撈取出來 模型資料 123456public class UserInfoModel&#123; public int RowId &#123; get; set; &#125; public string Name &#123; get; set; &#125; public int Age &#123; get; set; &#125;&#125; UserInfoViewModel 是呈現在UI或其他地方的模型 其中 Detail欄位由 UserInfoModel的 Name和 Age屬性組成的 1234public class UserInfoViewModel&#123; public string Detail &#123; get; set; &#125;&#125; 這時我們就會引用 AutoMapper 幫我們統一管理轉換模型上的問題 建立一個Profile設置UserInfoModel對於 UserInfoViewModel之前的欄位轉換 123456789public class UserInfoProfile : Profile&#123; public UserInfoProfile() &#123; CreateMap&lt;UserInfoModel, UserInfoViewModel&gt;() .ForMember(t =&gt; t.Detail, s =&gt; s.MapFrom(_ =&gt; $"DetailInfo:&#123;_.Name&#125; &#123;_.Age&#125;")); &#125;&#125; 而我們在註冊時會呼叫 AddProfile方法 1Mapper.Initialize(x =&gt; x.AddProfile&lt;UserInfoProfile&gt;()); 但每次新加Profile這邊都需要設置新的Profile，我們就會想有沒有方法可以讓他自動註冊？ 我們可以使用反射來完成 反射自動註冊AutoMapper Profile此程式我使用我的 ExtenionTool 1234567var profiles = Assembly.GetExecutingAssembly() .GetInstancesByAssembly&lt;Profile&gt;();foreach (var profile in profiles)&#123; Mapper.Initialize(x =&gt; x.AddProfile(profile));&#125; 上面程式碼很簡單清晰，呼叫 取得目前組件所有的 Profile物件實體並且加到Profile中，我們將上面程式碼在初始化執行一次 1234567public static IEnumerable&lt;TResult&gt; GetInstancesByAssembly&lt;TResult&gt;(this Assembly ass)&#123; return ass.GetTypes() .Where(x =&gt; typeof(TResult).IsAssignableFrom(x) &amp;&amp; x.IsNormalClass()) .Select(x =&gt; Activator.CreateInstance(x)) .Cast&lt;TResult&gt;();&#125; 核心程式使用Linq 動態取得你所需的類型並使用反射創建 之後我們就可以不用在手動把Profile加至AutoMapper容器中了 Source Code 此文作者：Daniel Shih(石頭)此文地址： https://isdaniel.github.io/AutoMapperInit/ 版權聲明：本博客所有文章除特別聲明外，均採用 CC BY-NC-SA 3.0 TW 許可協議。轉載請註明出處！]]></content>
@@ -567,6 +562,20 @@
         <tag>C#</tag>
         <tag>Automapper</tag>
         <tag>Model</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[為什麼 Float和Double會有誤差 (浮點數儲存原理)]]></title>
+    <url>%2FfloatVSDouble%2F</url>
+    <content type="text"><![CDATA[前言：大家都知道float和double會有誤差 但原因是什麼呢? 今天就跟大家分享Float和Double會誤差的原因 一. 浮點數介紹 一開始先對於float和double做身家調查 浮點類型的範圍 類型 最小值 最大值 float 1.175494351 E – 38 3.402823466 E + 38 double 2.2250738585072014 E – 308 1.7976931348623158 E + 308 浮點類型 類型 有效數字 位元組數 float 6 – 7 4 double 15 – 16 8 二. 浮點數產生以float來說可以儲存4 byte = 32 bit 是說最多可以存32個 0 or 1 但 float 和 int都是 32 bit 使用方式卻完全不一樣 浮點數計算方式是由 IEEE 754 進位浮點數算術標準創立 他把浮點數分成三部分 Sign(符號), Exponent(指數), Mantissa(尾數) 來表示他的值** 表示方式 1111 1111 1111 1111 1111 1111 1111 1111 Sign(符號) 第1個 bit ​ (紅色) 0 = 正數 1 = 負數 Exponent(指數) 第2個 ~ 第9個 bit (藍色) 總共8 bit 最大值 255 (二進至值) 127 為中間值原點 Mantissa(尾數) 第10個 ~ 第32個 bit (棕色) 計算之後的尾數 到目前因該是有看沒有懂XD 等等帶個範例大家就會比較清楚了 三. 實例解說 後面看到 X 代表等待計算的值 12.5f 為例子 如何計算出 32 bit 如何儲存這個值? 判斷是正數還是負數決定Sign(符號) 因為12.5f是正數 0XXX XXXX XXXX XXXX XXXX XXXX XXXX XXXX 計算Exponent(指數)​​ 將12.5f轉成二進制 12.5f = 1100.1 將數值底數變成 1&lt;底數&lt;2 1100.1​ = 1.1001 * 2 ^ 3 2^3 二的三次方就是 指數​要加的值 127 + 3 = 130 (1000 0010) *1011 1111 1XXX XXXX XXXX XXXX XXXX XXXX *0000 0001 1XXX XXXX XXXX XXXX XXXX XXXX *———————————————————————– *1100 0001 0XXX XXXX XXXX XXXX XXXX XXXX Mantissa(尾數)​ 計算​ 最後將 1.1001 小數點後的值 .1001追加到(指數​)後面 ​1100 0001 0000 0000 0000 0000 0000 0000 ​​ + 0000 0000 0100 1000 0000 0000 0000 0000 ​ ————————————————————— 0100 0001 0100 1000 0000 0000 0000 0000 所以我們可以得出 12.5f 在 32bit 中是 0100 0001 0100 1000 0000 0000 0000 0000 這裡有個工具 Float (IEEE754 Single precision 32-bit) 可以方便我們來驗算值是否正確 他很貼心幫我們列出 Sign(符號), Exponent(指數), Mantissa(尾數) 位置給我們對應 四,為什麼會不精準現在我們知道計算 Exponent(指數)​​ 需要將值轉成二進制 ,但如果是12.53f 轉成二進制會變成這樣1100.100000111100111....... 極限值就會和原本的值出現誤差 如圖 我們可以看到 12.53f 其實會變成 1.252999973297119140625E1 這就是float不準確的原因 float介紹完了 double和float概念一樣只是儲存空間更大而已^^ 小結因為為了節省空間浮點數 使用特別儲存方式來節省空間,有一好沒兩好這樣就少了精準度 此文作者：Daniel Shih(石頭)此文地址： https://isdaniel.github.io/floatVSDouble/ 版權聲明：本博客所有文章除特別聲明外，均採用 CC BY-NC-SA 3.0 TW 許可協議。轉載請註明出處！]]></content>
+      <categories>
+        <category>C#</category>
+      </categories>
+      <tags>
+        <tag>C#</tag>
+        <tag>float</tag>
+        <tag>double</tag>
+        <tag>number</tag>
       </tags>
   </entry>
   <entry>
@@ -585,20 +594,6 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[為什麼 Float和Double會有誤差 (浮點數儲存原理)]]></title>
-    <url>%2FfloatVSDouble%2F</url>
-    <content type="text"><![CDATA[前言：大家都知道float和double會有誤差 但原因是什麼呢? 今天就跟大家分享Float和Double會誤差的原因 一. 浮點數介紹 一開始先對於float和double做身家調查 浮點類型的範圍 類型 最小值 最大值 float 1.175494351 E – 38 3.402823466 E + 38 double 2.2250738585072014 E – 308 1.7976931348623158 E + 308 浮點類型 類型 有效數字 位元組數 float 6 – 7 4 double 15 – 16 8 二. 浮點數產生以float來說可以儲存4 byte = 32 bit 是說最多可以存32個 0 or 1 但 float 和 int都是 32 bit 使用方式卻完全不一樣 浮點數計算方式是由 IEEE 754 進位浮點數算術標準創立 他把浮點數分成三部分 Sign(符號), Exponent(指數), Mantissa(尾數) 來表示他的值** 表示方式 1111 1111 1111 1111 1111 1111 1111 1111 Sign(符號) 第1個 bit ​ (紅色) 0 = 正數 1 = 負數 Exponent(指數) 第2個 ~ 第9個 bit (藍色) 總共8 bit 最大值 255 (二進至值) 127 為中間值原點 Mantissa(尾數) 第10個 ~ 第32個 bit (棕色) 計算之後的尾數 到目前因該是有看沒有懂XD 等等帶個範例大家就會比較清楚了 三. 實例解說 後面看到 X 代表等待計算的值 12.5f 為例子 如何計算出 32 bit 如何儲存這個值? 判斷是正數還是負數決定Sign(符號) 因為12.5f是正數 0XXX XXXX XXXX XXXX XXXX XXXX XXXX XXXX 計算Exponent(指數)​​ 將12.5f轉成二進制 12.5f = 1100.1 將數值底數變成 1&lt;底數&lt;2 1100.1​ = 1.1001 * 2 ^ 3 2^3 二的三次方就是 指數​要加的值 127 + 3 = 130 (1000 0010) *1011 1111 1XXX XXXX XXXX XXXX XXXX XXXX *0000 0001 1XXX XXXX XXXX XXXX XXXX XXXX *———————————————————————– *1100 0001 0XXX XXXX XXXX XXXX XXXX XXXX Mantissa(尾數)​ 計算​ 最後將 1.1001 小數點後的值 .1001追加到(指數​)後面 ​1100 0001 0000 0000 0000 0000 0000 0000 ​​ + 0000 0000 0100 1000 0000 0000 0000 0000 ​ ————————————————————— 0100 0001 0100 1000 0000 0000 0000 0000 所以我們可以得出 12.5f 在 32bit 中是 0100 0001 0100 1000 0000 0000 0000 0000 這裡有個工具 Float (IEEE754 Single precision 32-bit) 可以方便我們來驗算值是否正確 他很貼心幫我們列出 Sign(符號), Exponent(指數), Mantissa(尾數) 位置給我們對應 四,為什麼會不精準現在我們知道計算 Exponent(指數)​​ 需要將值轉成二進制 ,但如果是12.53f 轉成二進制會變成這樣1100.100000111100111....... 極限值就會和原本的值出現誤差 如圖 我們可以看到 12.53f 其實會變成 1.252999973297119140625E1 這就是float不準確的原因 float介紹完了 double和float概念一樣只是儲存空間更大而已^^ 小結因為為了節省空間浮點數 使用特別儲存方式來節省空間,有一好沒兩好這樣就少了精準度 此文作者：Daniel Shih(石頭)此文地址： https://isdaniel.github.io/floatVSDouble/ 版權聲明：本博客所有文章除特別聲明外，均採用 CC BY-NC-SA 3.0 TW 許可協議。轉載請註明出處！]]></content>
-      <categories>
-        <category>C#</category>
-      </categories>
-      <tags>
-        <tag>C#</tag>
-        <tag>float</tag>
-        <tag>double</tag>
-        <tag>number</tag>
-      </tags>
-  </entry>
-  <entry>
     <title><![CDATA[發布自己的Nuget專案]]></title>
     <url>%2FDeploy-OwnNuget%2F</url>
     <content type="text"><![CDATA[前言：前陣子在被面試官說：我有電子發票開源專案，是否有上到Nuget上 我回答:沒有. 我就突然想到我也可以把我的專案放到Nuget上讓更多人方便使用 我就查詢資料去了解整個上板流程,並打成文章跟大家分享 下載Nuget Commandline Tool下載Nuget Commandline Tool 之後你會取得 nuget.exe 這個檔案 把它放到你要打包Nuget的專案資料夾中 之後打開cmd 並在專案資料夾打上 nuget spce 之後在你資料夾中會出現 xxxx.nuspec的XML檔案,這個檔案是描述你要打包的專案 123456789101112131415161718&lt;code class="language-xml"&gt;&lt;?xml version="1.0"?&gt;&lt;package &gt; &lt;metadata&gt; &lt;id&gt;&lt;/id&gt; &lt;version&gt;&lt;/version&gt; &lt;title&gt;&lt;/title&gt; &lt;authors&gt;&lt;/authors&gt; &lt;owners&gt;&lt;/owners&gt; &lt;licenseUrl&gt;&lt;/licenseUrl&gt; &lt;projectUrl&gt;&lt;/projectUrl&gt; &lt;iconUrl&gt;&lt;/iconUrl&gt; &lt;requireLicenseAcceptance&gt;false&lt;/requireLicenseAcceptance&gt; &lt;description&gt;This is a AOP framework&lt;/description&gt; &lt;releaseNotes&gt;Summary of changes made in this release of the package.&lt;/releaseNotes&gt; &lt;copyright&gt;Copyright 2018&lt;/copyright&gt; &lt;tags&gt;c# AOP&lt;/tags&gt; &lt;/metadata&gt;&lt;/package&gt; 必填欄位 ID：不區分大小寫的套件識別碼，在整個 nuget.org 或套件所在的任何組件庫中都必須是唯一的。 識別碼可能不包含對 URL 而言無效的空格或字元，而且通常會遵循 .NET 命名空間規則。 如需指導方針，請參閱選擇唯一的套件識別碼。 Version：套件版本，遵循 major.minor.patch 模式。 版本號碼可以包含預先發行版本的後置詞，如套件版本控制中所述。 Description：UI 顯示中的套件詳細描述。 Authors：以逗號分隔的套件作者清單，與 nuget.org 上的設定檔名稱相符。這些名稱會顯示在 nuget.org 的 NuGet 組件庫中，並用來交互參照相同作者的其他套件。 打包Nuget填完資料後就可以回到commandline 並打另一個指令nuget pack將專案打包成 xxx.nupkg 檔案 以提供上傳 之後申辦一個Nuget帳號,並產生一個API Key 產生完後在上面的選單選擇 Upload 按鈕 之後按下Browse按鈕並上傳你的 xxxx.nupkg檔案,上傳完畢後就按下Submit按鈕 將此專案提交上去 上傳完畢後Nuget他會審核你的專案,等審核完後大家就可以下載使用你的專案摟^^ 石頭已經打包專案這兩個是我已經發布的專案 AwesomeProxy.Net ElectronicInvoice_TW Note如果要查nuget指令可以打 nuget ? 參考連結：.nuspec 參考 此文作者：Daniel Shih(石頭)此文地址： https://isdaniel.github.io/Deploy-OwnNuget/ 版權聲明：本博客所有文章除特別聲明外，均採用 CC BY-NC-SA 3.0 TW 許可協議。轉載請註明出處！]]></content>
@@ -608,6 +603,20 @@
       <tags>
         <tag>C#</tag>
         <tag>Nuget</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[State Pattern(狀態者模式)]]></title>
+    <url>%2FStatusPattern%2F</url>
+    <content type="text"><![CDATA[前言：狀態者模式 優勢在可將複雜的物件狀態條件,以物件方式來減少條件式的判斷程式 可由物件自身的狀態，決定之後的動作行為. 狀態者模式 說明：需求簡易流程如下 這是一個簡單的訂單流程圖 我們可看到從建立訂單開始-&gt;最後判斷成功或取消訂單 看似簡單但需要寫一定程度的判斷條件式,而且也要做一定程度的逆向流程防呆. 這裡先貼上 未使用狀態者模式的程式碼: PaymentContext.cs 12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849505152535455565758596061626364656667686970public class PaymentContext&#123; Product _Item &#123; get; set; &#125; PayStatus _status &#123; get; set; &#125; public PaymentContext(Product p) &#123; _Item = p; _status = PayStatus.Init; &#125; /// &lt;summary&gt; /// 設置狀態 /// &lt;/summary&gt; /// &lt;param name="status"&gt;&lt;/param&gt; public string SetStatus(PayStatus status) &#123; string result = $"修改成功&#123;status.ToString()&#125;"; switch (_status) &#123; case PayStatus.Init: if (status == PayStatus.Init) result = "請勿重新建立訂單"; else _status = status; break; case PayStatus.Success: result = "訂單成功請勿修改"; break; case PayStatus.Cancel: result = "訂單取消請勿修改"; break; case PayStatus.Processing: if (status == PayStatus.Init) result = "請勿重新建立訂單"; else _status = status; break; &#125; return result; &#125; /// &lt;summary&gt; /// 跑流程 /// &lt;/summary&gt; /// &lt;returns&gt;&lt;/returns&gt; public string RunProcess() &#123; switch (_status) &#123; case PayStatus.Init: _status = PayStatus.Processing; return "交易建立中..."; case PayStatus.Success: return "交易完成"; case PayStatus.Cancel: return "交易取消完成"; case PayStatus.Processing: if (_Item.Price &gt; 300) &#123; _status = PayStatus.Cancel; return "物件超過300元 交易取消中"; &#125; _status = PayStatus.Success; return "交易中請稍後"; &#125; return "不在狀態內"; &#125;&#125; 裡面有SetStatus 和 RunProcess 方法 RunProcess 方法 就是將商品一個往下一個流程推進 SetStatus 方法 可以改變商品狀態 上面類別中的程式碼 目前有點小複雜但還算簡單,但等日後需求越來越多 後人一直把程式碼寫入Switch case 或if ... else 中就會導致程式碼越來越複雜 這個情境我們可以嘗試使用 State Pattern(狀態者模式) 幫助我們將每個自身狀態封裝到物件裡面,由每個狀態來決定後面動作 我們可發現 每個流程都可以使用 RunningProcee 和 SetSatus 這兩個動作 就可開出一個抽象類別,裡面有這兩個抽象方法,給之後的狀態子類去實現. 1234567public abstract class PaymentSatusBase&#123; protected PaymentGate _gate; public abstract string Running(Product p); public abstract string SetSatus(PayStatus s);&#125; PaymentGate 是給外部呼叫端使用的類別,我們可比較上面之前PaymentContext類別可看到if....else 全部不見了, 因為狀態封裝到各個類別中了 1234567891011121314151617181920212223242526272829303132public class PaymentGate&#123; Product _product; internal PaymentSatusBase CurrnetProceess &#123; get; set; &#125; // 這裡擁有下個流程的引用 public PaymentGate(Product p) &#123; _product = p; CurrnetProceess = new InitSatus(this); &#125; internal PayStatus CurrnetStatus &#123; get; set; &#125; /// &lt;summary&gt; /// 設置狀態 /// &lt;/summary&gt; /// &lt;param name="status"&gt;&lt;/param&gt; public string SetStatus(PayStatus status) &#123; return CurrnetProceess.SetSatus(status); &#125; /// &lt;summary&gt; /// 跑流程 /// &lt;/summary&gt; /// &lt;returns&gt;&lt;/returns&gt; public string RunProcess() &#123; return CurrnetProceess.Running(_product); &#125;&#125; 如何新建一個流程物件? 首先我們需要先取得當前使用者使用的 PaymentGate引用並傳入建構子當作參數 實現Running和SetStatus方法,並將此狀態的邏輯寫上 執行完後需要更改下個流程,可以將值賦予給CurrnetProceess 屬性 1234567891011121314151617181920212223242526272829public class ProcessSatus : PaymentSatusBase&#123; public ProcessSatus(PaymentGate g) &#123; _gate = g; &#125; public override string Running(Product p) &#123; string result = "交易中請稍後"; if (p.Price &gt; 300) &#123; result = "物件超過300元 交易取消中"; _gate.CurrnetProceess = new CancelSatus(_gate); &#125; else _gate.CurrnetProceess = new SuccessSatus(_gate); return result; &#125; public override string SetSatus(PayStatus s) &#123; string result = string.Empty; if (s == PayStatus.Init) result = "請勿重新建立訂單"; return result; &#125;&#125; 說明:以流程進行中為例子. 他會判斷商品使用超過300元,來決定下個流程 所以我們就把這個邏輯寫在此類中. 另外後面幾個流程比照辦理一一搬入類別中 12345678910111213141516171819202122232425262728293031323334353637383940public class CancelSatus : PaymentSatusBase&#123; public CancelSatus(PaymentGate g) &#123; _gate = g; &#125; public override string Running(Product p) &#123; return "交易取消完成"; &#125; public override string SetSatus(PayStatus s) &#123; string result = string.Empty; if (s == PayStatus.Init) result = "訂單取消請勿修改"; return result; &#125;&#125;public class SuccessSatus : PaymentSatusBase&#123; public SuccessSatus(PaymentGate g) &#123; _gate = g; &#125; public override string Running(Product p) &#123; return "交易完成"; &#125; public override string SetSatus(PayStatus s) &#123; string result = string.Empty; if (s == PayStatus.Init) result = "訂單成功請勿修改"; return result; &#125;&#125; 最後外部程式使用如下 12345678910Product p = new Product();p.Name = "電腦";p.Price = 300000;PaymentGate context = new PaymentGate(p);Console.WriteLine(context.RunProcess());Console.WriteLine(context.RunProcess());Console.WriteLine(context.RunProcess());context.SetStatus(PayStatus.Init);Console.WriteLine(context.RunProcess()); 程式碼放在github上 此文作者：Daniel Shih(石頭)此文地址： https://isdaniel.github.io/StatusPattern/ 版權聲明：本博客所有文章除特別聲明外，均採用 CC BY-NC-SA 3.0 TW 許可協議。轉載請註明出處！]]></content>
+      <categories>
+        <category>C#</category>
+        <category>DesignPattern</category>
+      </categories>
+      <tags>
+        <tag>C#</tag>
+        <tag>DesignPattern</tag>
+        <tag>StatePattern</tag>
       </tags>
   </entry>
   <entry>
@@ -639,16 +648,18 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[Oracle [CONNECT BY]]]></title>
-    <url>%2FOracle-CONNECT-BY%2F</url>
-    <content type="text"><![CDATA[之前有介紹 (SQL Server) CTE RECURSIVE (遞迴)製作月曆 在Oracle 有提供一個精簡的語法產生階層資料 CONNECT BY CONNECT BY 有幾個常用Key Word. LEVEL目前在樹節點第幾階層 START WITH 設定哪筆做為起始點開始樹 PRIOR用於指定父資料欄位 製造出的階層樹，概念如下 [圖來自Oracle] 範例一建立連續數字 1~10 &lt;code class=&quot;language-sql&quot;&gt;SELECT X + LEVEL FROM ( SELECT 0 X FROM DUAL ) CONNECT BY LEVEL &lt;= 10 此範例使用 LEVEL 在 CONNECT BY 上當條件 建立列值到LEVEL 大於等於 10 sqlfiddle 範例二建立日曆表 &lt;code class=&quot;language-sql&quot;&gt;SELECT startDt + LEVEL - 1 FROM ( SELECT sysdate endDt, (sysdate -10) startDt FROM DUAL )t1 CONNECT BY startDt - endDt + LEVEL &lt;= 0 一開始有兩個欄位 StartDt 起始時間(10天前) EndDt 最後時間(現在時間) 期望建立一個結果集從10天前日期到現在，一樣是使用LEVEL在當Offset的時間 範例三CONNECT BY 最強大的地方是在於建立階層表 樣本資料： CREATE TABLE HierarchyDemo ( PartNo INT, NAME VARCHAR2(16), ParentPartNo INT ); INSERT INTO HierarchyDemo VALUES(1,&apos;Boss&apos;,0); INSERT INTO HierarchyDemo VALUES(2,&apos;Jack&apos;,1); INSERT INTO HierarchyDemo VALUES(3,&apos;TOM&apos;,2); INSERT INTO HierarchyDemo VALUES(4,&apos;AMY&apos;,3); INSERT INTO HierarchyDemo VALUES(5,&apos;Daniel&apos;,2); SQL腳本： SELECT t1.*,LEVEL FROM HierarchyDemo t1 START WITH ParentPartNo = 0 CONNECT BY PRIOR PartNo = ParentPartNo START WITH ParentPartNo = 0 設置為起始點，開始找尋建立子階級 PRIOR PartNo 代表下一次由PartNo當作根結點 找尋 PartNo = ParentPartNo 的列 最後變成下圖 | PARTNO | NAME | PARENTPARTNO | LEVEL | |--------|--------|--------------|-------| | 1 | Boss | 0 | 1 | | 2 | Jack | 1 | 2 | | 3 | TOM | 2 | 3 | | 4 | AMY | 3 | 4 | | 5 | Daniel | 2 | 3 | 參考資料：Oracle Hierarchical Queries 此文作者：Daniel Shih(石頭)此文地址： https://isdaniel.github.io/Oracle-CONNECT-BY/ 版權聲明：本博客所有文章除特別聲明外，均採用 CC BY-NC-SA 3.0 TW 許可協議。轉載請註明出處！]]></content>
+    <title><![CDATA[Autofac (IOC)容器介紹]]></title>
+    <url>%2FAutofac-introduce%2F</url>
+    <content type="text"><![CDATA[前言：市面上有許多IoC容器 Ninject,Unity…. 雖然容器眾多但要解決的問題和概念是一樣 今天使用Autofac 介紹一下IoC容器 不了解 IoC 概念可參考 我之前寫 IOC(控制反轉)，DI(依賴注入) 深入淺出~~ Autofac是一個 Ioc 容器眼尖的讀者會發現我把Ioc跟容器這兩個字使用兩個不同顏色 原因是Autofac這個框架其實做到兩個概念. IoC(Inversion of Control) 管理物件的容器 Autofac框架幫我們實現可以管理物件生命週期並提供依賴注入相對應的物件中 為何使用Autofac在我們專案中?我們先來看看在專案中常使用的撰寫方式,我們需要讀取使用者資料 透過UserDao來幫我們完成. public UserService { private UserDao _userDao = new UserDao(); public UserModel GetUserById(string Id){ return _userDao.GetUserById(Id); } } _userDao物件跟依賴UserService，導致兩個狀況 UserDao物件掌控於 UserService,假如有其他類別也使用UserDao物件各自掌控UserDao物件,這導致許多不必要的資源浪費. 日後要替換讀取 GetUserById方式(從db改讀成其他地方 如API) 需要異動全部有建立UserDao的類別 我們可以使用IoC容器解決上面兩個問題 使用Autofac 容器一般容器有多種注入方式：建構子注入，屬性注入，參數注入 按照以下四個步驟 簡單使用Autofac 建立ContainerBuilder物件 註冊型別(可限制創建物件生命週期) 建立IContainer 取得我們需要的物件. 此範例使用建構子注入方式 //1.建立ContainerBuilder物件 ContainerBuilder builder = new ContainerBuilder(); //2.註冊型別(可限制創建物件生命週期) builder.RegisterType&lt;UserDao&gt;().As&lt;IUser&gt;(); //3.建立IContainer IContainer container = builder.Build(); //4.使用IContainer取得我們需要的物件. IUser user = container.Resolve&lt;IUser&gt;(); 我們新建一個IUser來給UserDao繼承當作解耦合點(介面可利於日後替換使用) public interface IUser{ UserModel GetUserById(string Id); } public UserService { private IUser _userDao; public UserService(IUser userdao){ _userDao = userdao; } public UserModel GetUserById(string Id){ return _userDao.GetUserById(Id); } } 可能還感受不到IoC容器威力，因為目前依賴的複雜度還沒有太大 目前模組依賴關係 如下UML圖 模組複雜程度像下圖 如果沒有容器幫我們做物件控制管理,想想就覺得可怕 ** 上圖是我Inovce SDK框架的UML圖 其中我們可以發現 ApiBase這個抽象類別 依賴於 IConfig介面(日後可能依賴更多其他物件或介面) ContainerBuilder builder = new ContainerBuilder(); builder.RegisterType&lt;AppsettingConfig&gt;().As&lt;IConfig&gt;().InstancePerRequest(); builder.RegisterGeneric(typeof(ApiBase&lt;&gt;)).PropertiesAutowired(); builder.RegisterType&lt;InvoiceApiFactory&gt;().InstancePerRequest(); 如果使用Autofac我們可不用擔心這些 只需要將被依賴的物件,介面註冊到容器中，剩下配對注入動作容器都會幫我們達成 已上面的例子來說：我只需要用 InvoiceApiFactory產生繼承ApiBase&lt;&gt;物件，使用IConfig將會被容器自動注入其中。 Autofac 常用三種注射方式. Constructor injection Property injection Method injection constructor injection Property injection Method injection 小結：系統越來越複雜越能表現IoC容器的優勢，如果系統沒那麼複雜其實也不一定要使用他﹐看情境如何 此文作者：Daniel Shih(石頭)此文地址： https://isdaniel.github.io/Autofac-introduce/ 版權聲明：本博客所有文章除特別聲明外，均採用 CC BY-NC-SA 3.0 TW 許可協議。轉載請註明出處！]]></content>
       <categories>
-        <category>SQL</category>
-        <category>Oracle</category>
+        <category>C#</category>
+        <category>IOC</category>
       </categories>
       <tags>
-        <tag>SQL</tag>
-        <tag>Oracle</tag>
+        <tag>C#</tag>
+        <tag>IOC</tag>
+        <tag>Autofac</tag>
+        <tag>AOP</tag>
       </tags>
   </entry>
   <entry>
@@ -664,6 +675,20 @@
         <tag>IOC</tag>
         <tag>Autofac</tag>
         <tag>AOP</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[樣板模式(TemplatePattern)]]></title>
+    <url>%2FTemplate-Pattern%2F</url>
+    <content type="text"><![CDATA[前言：如果目前場景遇到一定流程階段，但流程內容依照邏輯或情境不同也有所不一樣. 這時可以考慮使用樣板模式(TemplatePattern) 生活舉例：因為十二年國教，所以基本上每個人都有上學的經驗 每天上學最少要經歷下面過程(我做一些簡化) 到學校=&gt;上午上課=&gt;吃午餐=&gt;下午上課=&gt;放學回家 可以看到不管是國小、國中、高中 至少都有上述的過程 但每個過程內容可能會依照年級階段不同，也有所不一樣 例如： 吃中餐：高中可能是吃便當，但國小是吃營養午餐，雖然都是吃飯但內容不一樣。 上午上課：都是教數學，但高中教微積分，國小教加減乘除。 重點:流程雖一樣但細部邏輯交由學校去實施實現 常見例子：我們常見的測試框架 MSTest,NUnit..... 都有樣板模式的思想。 一般來說測試框架都有生命週期，只是每個框架命名不一樣但核心原理差不多 SetUpClass (每個測試類別只都執行一次) SetUpUnitTest (每次執行測試方法時都執行一次) UnitTest (執行測試方法) 如下圖 (圖片來自網路上) 程式碼範例：此範例使用Console來模擬單元測試框架流程： 建立一個 UnitFlowBase 抽像類別，裡面有三個方法 SetUpClass (每個測試類別只都執行一次) SetUpUnitTest (每次執行測試方法時都執行一次) UnitTest (執行測試方法) 此抽象類別提供3個Hock讓子類實做細節。 UnitFlowBase只提供框架 public abstract class UnitFlowBase { protected UnitFlowBase() { SetUpClass(); } protected virtual void SetUpClass() { } protected virtual void SetUpUnitTest() { } protected abstract bool Execute(); public void UnitTest() { SetUpUnitTest(); Console.WriteLine(Execute() ? &quot;Assert Successful.&quot; : &quot;Assert Fail.&quot;); } } 建立另一個類別UnitCounter 實現那三個方法 特別是Execute方法 我顯示目前 ClassCount 跟 MethodCount 執行次數 public class UnitCounter : UnitFlowBase { private int _classCounter = 0; private int _methodCounter = 0; protected override void SetUpClass() { _classCounter++; } protected override void SetUpUnitTest() { _methodCounter++; } protected override bool Execute() { Console.WriteLine($&quot;ClassCounter : {_classCounter}&quot;); Console.WriteLine($&quot;MethodCounter: { _methodCounter}&quot;); return true; } } 呼叫實我們建立一個UnitCounter類別，但執行三次UnitTest方法 class Program { static void Main(string[] args) { UnitCounter unitMock = new UnitCounter(); unitMock.UnitTest(); unitMock.UnitTest(); unitMock.UnitTest(); Console.ReadKey(); } } 執行結果如下圖： 雖然執行3次 UnitTest 方法 但 ClassCounter 值卻一直是1而 MethodCounter 會依照執行幾次就加幾次. 小結:日後測試程式只需關注我們需要如何實現邏輯細解（重寫三個方法），核心流程順序就交由UnitFlowBase決定。 此文作者：Daniel Shih(石頭)此文地址： https://isdaniel.github.io/Template-Pattern/ 版權聲明：本博客所有文章除特別聲明外，均採用 CC BY-NC-SA 3.0 TW 許可協議。轉載請註明出處！]]></content>
+      <categories>
+        <category>C#</category>
+        <category>DesignPattern</category>
+      </categories>
+      <tags>
+        <tag>C#</tag>
+        <tag>DesignPattern</tag>
+        <tag>TemplatePattern</tag>
       </tags>
   </entry>
   <entry>
@@ -693,18 +718,16 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[Autofac (IOC)容器介紹]]></title>
-    <url>%2FAutofac-introduce%2F</url>
-    <content type="text"><![CDATA[前言：市面上有許多IoC容器 Ninject,Unity…. 雖然容器眾多但要解決的問題和概念是一樣 今天使用Autofac 介紹一下IoC容器 不了解 IoC 概念可參考 我之前寫 IOC(控制反轉)，DI(依賴注入) 深入淺出~~ Autofac是一個 Ioc 容器眼尖的讀者會發現我把Ioc跟容器這兩個字使用兩個不同顏色 原因是Autofac這個框架其實做到兩個概念. IoC(Inversion of Control) 管理物件的容器 Autofac框架幫我們實現可以管理物件生命週期並提供依賴注入相對應的物件中 為何使用Autofac在我們專案中?我們先來看看在專案中常使用的撰寫方式,我們需要讀取使用者資料 透過UserDao來幫我們完成. public UserService { private UserDao _userDao = new UserDao(); public UserModel GetUserById(string Id){ return _userDao.GetUserById(Id); } } _userDao物件跟依賴UserService，導致兩個狀況 UserDao物件掌控於 UserService,假如有其他類別也使用UserDao物件各自掌控UserDao物件,這導致許多不必要的資源浪費. 日後要替換讀取 GetUserById方式(從db改讀成其他地方 如API) 需要異動全部有建立UserDao的類別 我們可以使用IoC容器解決上面兩個問題 使用Autofac 容器一般容器有多種注入方式：建構子注入，屬性注入，參數注入 按照以下四個步驟 簡單使用Autofac 建立ContainerBuilder物件 註冊型別(可限制創建物件生命週期) 建立IContainer 取得我們需要的物件. 此範例使用建構子注入方式 //1.建立ContainerBuilder物件 ContainerBuilder builder = new ContainerBuilder(); //2.註冊型別(可限制創建物件生命週期) builder.RegisterType&lt;UserDao&gt;().As&lt;IUser&gt;(); //3.建立IContainer IContainer container = builder.Build(); //4.使用IContainer取得我們需要的物件. IUser user = container.Resolve&lt;IUser&gt;(); 我們新建一個IUser來給UserDao繼承當作解耦合點(介面可利於日後替換使用) public interface IUser{ UserModel GetUserById(string Id); } public UserService { private IUser _userDao; public UserService(IUser userdao){ _userDao = userdao; } public UserModel GetUserById(string Id){ return _userDao.GetUserById(Id); } } 可能還感受不到IoC容器威力，因為目前依賴的複雜度還沒有太大 目前模組依賴關係 如下UML圖 模組複雜程度像下圖 如果沒有容器幫我們做物件控制管理,想想就覺得可怕 ** 上圖是我Inovce SDK框架的UML圖 其中我們可以發現 ApiBase這個抽象類別 依賴於 IConfig介面(日後可能依賴更多其他物件或介面) ContainerBuilder builder = new ContainerBuilder(); builder.RegisterType&lt;AppsettingConfig&gt;().As&lt;IConfig&gt;().InstancePerRequest(); builder.RegisterGeneric(typeof(ApiBase&lt;&gt;)).PropertiesAutowired(); builder.RegisterType&lt;InvoiceApiFactory&gt;().InstancePerRequest(); 如果使用Autofac我們可不用擔心這些 只需要將被依賴的物件,介面註冊到容器中，剩下配對注入動作容器都會幫我們達成 已上面的例子來說：我只需要用 InvoiceApiFactory產生繼承ApiBase&lt;&gt;物件，使用IConfig將會被容器自動注入其中。 Autofac 常用三種注射方式. Constructor injection Property injection Method injection constructor injection Property injection Method injection 小結：系統越來越複雜越能表現IoC容器的優勢，如果系統沒那麼複雜其實也不一定要使用他﹐看情境如何 此文作者：Daniel Shih(石頭)此文地址： https://isdaniel.github.io/Autofac-introduce/ 版權聲明：本博客所有文章除特別聲明外，均採用 CC BY-NC-SA 3.0 TW 許可協議。轉載請註明出處！]]></content>
+    <title><![CDATA[Oracle [CONNECT BY]]]></title>
+    <url>%2FOracle-CONNECT-BY%2F</url>
+    <content type="text"><![CDATA[之前有介紹 (SQL Server) CTE RECURSIVE (遞迴)製作月曆 在Oracle 有提供一個精簡的語法產生階層資料 CONNECT BY CONNECT BY 有幾個常用Key Word. LEVEL目前在樹節點第幾階層 START WITH 設定哪筆做為起始點開始樹 PRIOR用於指定父資料欄位 製造出的階層樹，概念如下 [圖來自Oracle] 範例一建立連續數字 1~10 &lt;code class=&quot;language-sql&quot;&gt;SELECT X + LEVEL FROM ( SELECT 0 X FROM DUAL ) CONNECT BY LEVEL &lt;= 10 此範例使用 LEVEL 在 CONNECT BY 上當條件 建立列值到LEVEL 大於等於 10 sqlfiddle 範例二建立日曆表 &lt;code class=&quot;language-sql&quot;&gt;SELECT startDt + LEVEL - 1 FROM ( SELECT sysdate endDt, (sysdate -10) startDt FROM DUAL )t1 CONNECT BY startDt - endDt + LEVEL &lt;= 0 一開始有兩個欄位 StartDt 起始時間(10天前) EndDt 最後時間(現在時間) 期望建立一個結果集從10天前日期到現在，一樣是使用LEVEL在當Offset的時間 範例三CONNECT BY 最強大的地方是在於建立階層表 樣本資料： CREATE TABLE HierarchyDemo ( PartNo INT, NAME VARCHAR2(16), ParentPartNo INT ); INSERT INTO HierarchyDemo VALUES(1,&apos;Boss&apos;,0); INSERT INTO HierarchyDemo VALUES(2,&apos;Jack&apos;,1); INSERT INTO HierarchyDemo VALUES(3,&apos;TOM&apos;,2); INSERT INTO HierarchyDemo VALUES(4,&apos;AMY&apos;,3); INSERT INTO HierarchyDemo VALUES(5,&apos;Daniel&apos;,2); SQL腳本： SELECT t1.*,LEVEL FROM HierarchyDemo t1 START WITH ParentPartNo = 0 CONNECT BY PRIOR PartNo = ParentPartNo START WITH ParentPartNo = 0 設置為起始點，開始找尋建立子階級 PRIOR PartNo 代表下一次由PartNo當作根結點 找尋 PartNo = ParentPartNo 的列 最後變成下圖 | PARTNO | NAME | PARENTPARTNO | LEVEL | |--------|--------|--------------|-------| | 1 | Boss | 0 | 1 | | 2 | Jack | 1 | 2 | | 3 | TOM | 2 | 3 | | 4 | AMY | 3 | 4 | | 5 | Daniel | 2 | 3 | 參考資料：Oracle Hierarchical Queries 此文作者：Daniel Shih(石頭)此文地址： https://isdaniel.github.io/Oracle-CONNECT-BY/ 版權聲明：本博客所有文章除特別聲明外，均採用 CC BY-NC-SA 3.0 TW 許可協議。轉載請註明出處！]]></content>
       <categories>
-        <category>C#</category>
-        <category>IOC</category>
+        <category>SQL</category>
+        <category>Oracle</category>
       </categories>
       <tags>
-        <tag>C#</tag>
-        <tag>IOC</tag>
-        <tag>Autofac</tag>
-        <tag>AOP</tag>
+        <tag>SQL</tag>
+        <tag>Oracle</tag>
       </tags>
   </entry>
   <entry>
@@ -732,20 +755,6 @@
         <tag>C#</tag>
         <tag>DesignPattern</tag>
         <tag>BridgePattern</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title><![CDATA[樣板模式(TemplatePattern)]]></title>
-    <url>%2FTemplate-Pattern%2F</url>
-    <content type="text"><![CDATA[前言：如果目前場景遇到一定流程階段，但流程內容依照邏輯或情境不同也有所不一樣. 這時可以考慮使用樣板模式(TemplatePattern) 生活舉例：因為十二年國教，所以基本上每個人都有上學的經驗 每天上學最少要經歷下面過程(我做一些簡化) 到學校=&gt;上午上課=&gt;吃午餐=&gt;下午上課=&gt;放學回家 可以看到不管是國小、國中、高中 至少都有上述的過程 但每個過程內容可能會依照年級階段不同，也有所不一樣 例如： 吃中餐：高中可能是吃便當，但國小是吃營養午餐，雖然都是吃飯但內容不一樣。 上午上課：都是教數學，但高中教微積分，國小教加減乘除。 重點:流程雖一樣但細部邏輯交由學校去實施實現 常見例子：我們常見的測試框架 MSTest,NUnit..... 都有樣板模式的思想。 一般來說測試框架都有生命週期，只是每個框架命名不一樣但核心原理差不多 SetUpClass (每個測試類別只都執行一次) SetUpUnitTest (每次執行測試方法時都執行一次) UnitTest (執行測試方法) 如下圖 (圖片來自網路上) 程式碼範例：此範例使用Console來模擬單元測試框架流程： 建立一個 UnitFlowBase 抽像類別，裡面有三個方法 SetUpClass (每個測試類別只都執行一次) SetUpUnitTest (每次執行測試方法時都執行一次) UnitTest (執行測試方法) 此抽象類別提供3個Hock讓子類實做細節。 UnitFlowBase只提供框架 public abstract class UnitFlowBase { protected UnitFlowBase() { SetUpClass(); } protected virtual void SetUpClass() { } protected virtual void SetUpUnitTest() { } protected abstract bool Execute(); public void UnitTest() { SetUpUnitTest(); Console.WriteLine(Execute() ? &quot;Assert Successful.&quot; : &quot;Assert Fail.&quot;); } } 建立另一個類別UnitCounter 實現那三個方法 特別是Execute方法 我顯示目前 ClassCount 跟 MethodCount 執行次數 public class UnitCounter : UnitFlowBase { private int _classCounter = 0; private int _methodCounter = 0; protected override void SetUpClass() { _classCounter++; } protected override void SetUpUnitTest() { _methodCounter++; } protected override bool Execute() { Console.WriteLine($&quot;ClassCounter : {_classCounter}&quot;); Console.WriteLine($&quot;MethodCounter: { _methodCounter}&quot;); return true; } } 呼叫實我們建立一個UnitCounter類別，但執行三次UnitTest方法 class Program { static void Main(string[] args) { UnitCounter unitMock = new UnitCounter(); unitMock.UnitTest(); unitMock.UnitTest(); unitMock.UnitTest(); Console.ReadKey(); } } 執行結果如下圖： 雖然執行3次 UnitTest 方法 但 ClassCounter 值卻一直是1而 MethodCounter 會依照執行幾次就加幾次. 小結:日後測試程式只需關注我們需要如何實現邏輯細解（重寫三個方法），核心流程順序就交由UnitFlowBase決定。 此文作者：Daniel Shih(石頭)此文地址： https://isdaniel.github.io/Template-Pattern/ 版權聲明：本博客所有文章除特別聲明外，均採用 CC BY-NC-SA 3.0 TW 許可協議。轉載請註明出處！]]></content>
-      <categories>
-        <category>C#</category>
-        <category>DesignPattern</category>
-      </categories>
-      <tags>
-        <tag>C#</tag>
-        <tag>DesignPattern</tag>
-        <tag>TemplatePattern</tag>
       </tags>
   </entry>
   <entry>
