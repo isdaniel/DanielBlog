@@ -143,23 +143,23 @@
 
 
 
-  <meta name="description" content="Agenda 前文 關於Page Heap資料表 IAM(index allocation map)   forwarding pointer forwarding pointer(Demo) RID Lookup    前文本篇會跟大家對於SQL-Server資料表深入淺出的介紹. 關於Page資料會存在Page中而一個Page大小為 8K/Page =&amp;gt; 8092(8060 bytes)">
+  <meta name="description" content="Agenda 前文 關於Page Heap資料表 IAM(index allocation map)   forwarding pointer forwarding pointer(Demo) RID Lookup   dbcc page 語法  前文本篇會跟大家對於SQL-Server資料表深入淺出的介紹. 關於Page資料會存在Page中而一個Page大小為 8K/Page =&amp;gt; 809">
 <meta name="keywords" content="DataBase,Turning,Sql-server">
 <meta property="og:type" content="article">
 <meta property="og:title" content="SqlServer資料表深入淺出">
 <meta property="og:url" content="https://isdaniel.github.io/DBTable/index.html">
 <meta property="og:site_name" content="石頭的coding之路">
-<meta property="og:description" content="Agenda 前文 關於Page Heap資料表 IAM(index allocation map)   forwarding pointer forwarding pointer(Demo) RID Lookup    前文本篇會跟大家對於SQL-Server資料表深入淺出的介紹. 關於Page資料會存在Page中而一個Page大小為 8K/Page =&amp;gt; 8092(8060 bytes)">
+<meta property="og:description" content="Agenda 前文 關於Page Heap資料表 IAM(index allocation map)   forwarding pointer forwarding pointer(Demo) RID Lookup   dbcc page 語法  前文本篇會跟大家對於SQL-Server資料表深入淺出的介紹. 關於Page資料會存在Page中而一個Page大小為 8K/Page =&amp;gt; 809">
 <meta property="og:locale" content="zh-tw">
 <meta property="og:image" content="https://i.imgur.com/Qw8Kx1q.png">
 <meta property="og:image" content="https://i.imgur.com/5drfCFZ.png">
 <meta property="og:image" content="https://i.imgur.com/7F9Kmcg.png">
 <meta property="og:image" content="https://i.imgur.com/ZcgdAhc.png">
 <meta property="og:image" content="https://i.imgur.com/e87YROd.png">
-<meta property="og:updated_time" content="2020-03-04T15:24:52.267Z">
+<meta property="og:updated_time" content="2020-03-07T09:46:26.077Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="SqlServer資料表深入淺出">
-<meta name="twitter:description" content="Agenda 前文 關於Page Heap資料表 IAM(index allocation map)   forwarding pointer forwarding pointer(Demo) RID Lookup    前文本篇會跟大家對於SQL-Server資料表深入淺出的介紹. 關於Page資料會存在Page中而一個Page大小為 8K/Page =&amp;gt; 8092(8060 bytes)">
+<meta name="twitter:description" content="Agenda 前文 關於Page Heap資料表 IAM(index allocation map)   forwarding pointer forwarding pointer(Demo) RID Lookup   dbcc page 語法  前文本篇會跟大家對於SQL-Server資料表深入淺出的介紹. 關於Page資料會存在Page中而一個Page大小為 8K/Page =&amp;gt; 809">
 <meta name="twitter:image" content="https://i.imgur.com/Qw8Kx1q.png">
 
 
@@ -501,7 +501,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2020-03-04 15:24:52" itemprop="dateModified" datetime="2020-03-04T15:24:52+00:00">2020-03-04</time>
+                <time title="Modified: 2020-03-07 09:46:26" itemprop="dateModified" datetime="2020-03-07T09:46:26+00:00">2020-03-07</time>
               
             
           </span>
@@ -574,7 +574,7 @@
                 
                   <span class="post-meta-item-text">Symbols count in article: </span>
                 
-                <span title="Symbols count in article">2.8k</span>
+                <span title="Symbols count in article">4.1k</span>
               
 
               
@@ -588,7 +588,7 @@
                 
                   <span class="post-meta-item-text">Reading time &asymp;</span>
                 
-                <span title="Reading time">5 mins.</span>
+                <span title="Reading time">7 mins.</span>
               
             </div>
           
@@ -620,6 +620,7 @@
 <li><a href="#rid-lookup">RID Lookup</a></li>
 </ul>
 </li>
+<li><a href="#dbcc-page-%e8%aa%9e%e6%b3%95">dbcc page 語法</a></li>
 </ul>
 <h2 id="前文"><a href="#前文" class="headerlink" title="前文"></a>前文</h2><p>本篇會跟大家對於<code>SQL-Server</code>資料表深入淺出的介紹.</p>
 <h2 id="關於Page"><a href="#關於Page" class="headerlink" title="關於Page"></a>關於Page</h2><p>資料會存在Page中<br>而一個<code>Page</code>大小為 8K/Page =&gt; 8092(8060 bytes)</p>
@@ -685,6 +686,30 @@
 <p>我們在透過</p>
 <div class="highlight-wrap" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true" data-rel="SQL"><figure class="iseeu highlight /sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">DBCC PAGE(AdventureWorks2012_Data,1,987456,3)</span><br></pre></td></tr></table></figure></div>
 <p>就可以查找到我們要的資料在<code>PID = 987456</code>這個Page中.</p>
+<h2 id="dbcc-page-語法"><a href="#dbcc-page-語法" class="headerlink" title="dbcc page 語法"></a>dbcc page 語法</h2><p>下面語法透過<code>dbcc page</code>可以了解資料表存取資訊</p>
+<div class="highlight-wrap" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true" data-rel="SQL"><figure class="iseeu highlight /sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* 建立測試資料表 */</span></span><br><span class="line"><span class="keyword">drop</span> <span class="keyword">table</span> <span class="keyword">if</span> <span class="keyword">exists</span> dbo.T;</span><br><span class="line"><span class="keyword">create</span> <span class="keyword">table</span> dbo.T</span><br><span class="line">(</span><br><span class="line">	<span class="keyword">Name</span>	<span class="keyword">nvarchar</span>(<span class="number">10</span>) <span class="keyword">not</span> <span class="literal">null</span>,</span><br><span class="line">	EmpID	<span class="built_in">int</span> <span class="keyword">not</span> <span class="literal">null</span>,</span><br><span class="line">	CouID	<span class="built_in">int</span> <span class="keyword">not</span> <span class="literal">null</span>,</span><br><span class="line">	<span class="keyword">Locate</span>	<span class="keyword">nchar</span>(<span class="number">2</span>) <span class="keyword">not</span> <span class="literal">null</span>,</span><br><span class="line">	Dist	<span class="keyword">nchar</span>(<span class="number">1</span>) <span class="keyword">not</span> <span class="literal">null</span>,</span><br><span class="line">	BDate	datetime <span class="keyword">not</span> <span class="literal">null</span>,</span><br><span class="line">	Address	<span class="keyword">nvarchar</span>(<span class="number">100</span>) <span class="literal">null</span>,</span><br><span class="line">	CheckID	<span class="built_in">int</span> <span class="keyword">not</span> <span class="literal">null</span></span><br><span class="line">);</span><br><span class="line">go</span><br><span class="line"></span><br><span class="line"><span class="comment">/* 寫入測試資料 */</span></span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> dbo.T</span><br><span class="line">	(<span class="keyword">Name</span>, EmpID, CouID, <span class="keyword">Locate</span>, Dist, BDate, Address, CheckID)</span><br><span class="line"><span class="keyword">values</span></span><br><span class="line">	(N<span class="string">'Daniel'</span>,<span class="number">1</span>,<span class="number">950</span>,N<span class="string">'TW'</span>,N<span class="string">'M'</span>,<span class="string">'2020-01-01 00:00:00'</span>,N<span class="string">'Taipei City'</span>,<span class="number">9</span>);</span><br><span class="line">go</span><br><span class="line"></span><br><span class="line"><span class="comment">/* 先取得Page的位置 */</span></span><br><span class="line">dbcc ind ('DEMO','dbo.T', -1);</span><br><span class="line"><span class="comment">/* 16776 - 不會一樣, 依照產出的資料配置dbcc page */</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/* 查看Page內容 */</span></span><br><span class="line">dbcc traceon (3604);</span><br><span class="line">dbcc page ('DEMO', 1, 16776, 3)</span><br><span class="line">dbcc traceoff (3604);</span><br></pre></td></tr></table></figure></div>
+<p>PageType – the page type. Some common ones are:</p>
+<ul>
+<li>1 – data page</li>
+<li>2 – index page</li>
+<li>3 and 4 – text pages</li>
+<li>8 – GAM page</li>
+<li>9 – SGAM page</li>
+<li>10 – IAM page</li>
+<li>11 – PFS page</li>
+</ul>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">dbcc traceon (3604);</span><br><span class="line">DBCC IND ( &#123; ‘dbname’ | dbid &#125;, &#123; ‘objname’ | objid &#125;,&#123; nonclustered indid | 1 | 0 | -1 | -2 &#125; [, partition_number] )</span><br></pre></td></tr></table></figure>
+<ul>
+<li>第一個參數是數據庫名或數據庫ID。</li>
+<li>第二個參數是數據庫中的對象名或對象ID，對象可以是表或者索引視圖。</li>
+<li>第三個參數是一個非聚集索引ID或者 1, 0, 1, or 2. 值的含義：<ul>
+<li>0: 只顯示對象的in-row data頁和 in-row IAM 頁。</li>
+<li>1: 顯示對象的全部頁, 包含IAM 頁, in-row數據頁, LOB 數據頁row-overflow 數據頁 . 如果請求的對象含有聚集所以則索引頁也包括。</li>
+<li>-1: 顯示全部IAM頁,數據頁, 索引頁 也包括 LOB 和row-overflow 數據頁。</li>
+<li>-2: 顯示全部IAM頁。</li>
+</ul>
+</li>
+</ul>
 <p><strong>此文作者</strong>：Daniel Shih(石頭)<br><strong>此文地址</strong>： <a href="https://isdaniel.github.io/DBTable/">https://isdaniel.github.io/DBTable/</a> <br><strong>版權聲明</strong>：本博客所有文章除特別聲明外，均採用 <span class="exturl" data-url="aHR0cHM6Ly9jcmVhdGl2ZWNvbW1vbnMub3JnL2xpY2Vuc2VzL2J5LW5jLXNhLzMuMC90dy8=" title="https://creativecommons.org/licenses/by-nc-sa/3.0/tw/">CC BY-NC-SA 3.0 TW<i class="fa fa-external-link"></i></span> 許可協議。轉載請註明出處！</p>
 
       
@@ -1140,7 +1165,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Agenda"><span class="nav-number">1.</span> <span class="nav-text">Agenda</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#前文"><span class="nav-number">1.1.</span> <span class="nav-text">前文</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#關於Page"><span class="nav-number">1.2.</span> <span class="nav-text">關於Page</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Heap資料表"><span class="nav-number">1.3.</span> <span class="nav-text">Heap資料表</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#IAM-index-allocation-map"><span class="nav-number">1.3.1.</span> <span class="nav-text">IAM(index allocation map)</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#forwarding-pointer"><span class="nav-number">1.4.</span> <span class="nav-text">forwarding pointer</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#forwarding-pointer-Demo"><span class="nav-number">1.4.1.</span> <span class="nav-text">forwarding pointer(Demo)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#RID-Lookup"><span class="nav-number">1.4.2.</span> <span class="nav-text">RID Lookup</span></a></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Agenda"><span class="nav-number">1.</span> <span class="nav-text">Agenda</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#前文"><span class="nav-number">1.1.</span> <span class="nav-text">前文</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#關於Page"><span class="nav-number">1.2.</span> <span class="nav-text">關於Page</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Heap資料表"><span class="nav-number">1.3.</span> <span class="nav-text">Heap資料表</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#IAM-index-allocation-map"><span class="nav-number">1.3.1.</span> <span class="nav-text">IAM(index allocation map)</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#forwarding-pointer"><span class="nav-number">1.4.</span> <span class="nav-text">forwarding pointer</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#forwarding-pointer-Demo"><span class="nav-number">1.4.1.</span> <span class="nav-text">forwarding pointer(Demo)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#RID-Lookup"><span class="nav-number">1.4.2.</span> <span class="nav-text">RID Lookup</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#dbcc-page-語法"><span class="nav-number">1.5.</span> <span class="nav-text">dbcc page 語法</span></a></li></ol></li></ol></div>
             
 
           </div>
@@ -1173,7 +1198,7 @@
       <i class="fa fa-area-chart"></i>
     </span>
     
-    <span title="Symbols count total">339k</span>
+    <span title="Symbols count total">341k</span>
   
 
   
@@ -1182,7 +1207,7 @@
       <i class="fa fa-coffee"></i>
     </span>
     
-    <span title="Reading time total">10:17</span>
+    <span title="Reading time total">10:19</span>
   
 </div>
 
