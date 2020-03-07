@@ -143,23 +143,23 @@
 
 
 
-  <meta name="description" content="Agenda 前文 關於Page Heap資料表 IAM(index allocation map)   forwarding pointer forwarding pointer(Demo) RID Lookup   dbcc page 語法  前文本篇會跟大家對於SQL-Server資料表深入淺出的介紹. 關於Page資料會存在Page中而一個Page大小為 8K/Page =&amp;gt; 809">
+  <meta name="description" content="前文本篇會跟大家對於SQL-Server資料表深入淺出的介紹. 關於子頁層資料會存在子頁層中(page),一個Page大小為 8K/Page =&amp;gt; 8092(8060 bytes)  每個Page除了存取資料還會存放一些MetaData，我們可以先當作是每個Page大小是8K  Heap資料表如果一張資料表沒有Clustered Index就會為Heap資料表，這意味著Heap資料表的資料不">
 <meta name="keywords" content="DataBase,Turning,Sql-server">
 <meta property="og:type" content="article">
 <meta property="og:title" content="SqlServer資料表深入淺出">
 <meta property="og:url" content="https://isdaniel.github.io/DBTable/index.html">
 <meta property="og:site_name" content="石頭的coding之路">
-<meta property="og:description" content="Agenda 前文 關於Page Heap資料表 IAM(index allocation map)   forwarding pointer forwarding pointer(Demo) RID Lookup   dbcc page 語法  前文本篇會跟大家對於SQL-Server資料表深入淺出的介紹. 關於Page資料會存在Page中而一個Page大小為 8K/Page =&amp;gt; 809">
+<meta property="og:description" content="前文本篇會跟大家對於SQL-Server資料表深入淺出的介紹. 關於子頁層資料會存在子頁層中(page),一個Page大小為 8K/Page =&amp;gt; 8092(8060 bytes)  每個Page除了存取資料還會存放一些MetaData，我們可以先當作是每個Page大小是8K  Heap資料表如果一張資料表沒有Clustered Index就會為Heap資料表，這意味著Heap資料表的資料不">
 <meta property="og:locale" content="zh-tw">
 <meta property="og:image" content="https://i.imgur.com/Qw8Kx1q.png">
 <meta property="og:image" content="https://i.imgur.com/5drfCFZ.png">
 <meta property="og:image" content="https://i.imgur.com/7F9Kmcg.png">
 <meta property="og:image" content="https://i.imgur.com/ZcgdAhc.png">
 <meta property="og:image" content="https://i.imgur.com/e87YROd.png">
-<meta property="og:updated_time" content="2020-03-07T09:46:26.077Z">
+<meta property="og:updated_time" content="2020-03-07T14:47:09.140Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="SqlServer資料表深入淺出">
-<meta name="twitter:description" content="Agenda 前文 關於Page Heap資料表 IAM(index allocation map)   forwarding pointer forwarding pointer(Demo) RID Lookup   dbcc page 語法  前文本篇會跟大家對於SQL-Server資料表深入淺出的介紹. 關於Page資料會存在Page中而一個Page大小為 8K/Page =&amp;gt; 809">
+<meta name="twitter:description" content="前文本篇會跟大家對於SQL-Server資料表深入淺出的介紹. 關於子頁層資料會存在子頁層中(page),一個Page大小為 8K/Page =&amp;gt; 8092(8060 bytes)  每個Page除了存取資料還會存放一些MetaData，我們可以先當作是每個Page大小是8K  Heap資料表如果一張資料表沒有Clustered Index就會為Heap資料表，這意味著Heap資料表的資料不">
 <meta name="twitter:image" content="https://i.imgur.com/Qw8Kx1q.png">
 
 
@@ -501,7 +501,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2020-03-07 09:46:26" itemprop="dateModified" datetime="2020-03-07T09:46:26+00:00">2020-03-07</time>
+                <time title="Modified: 2020-03-07 14:47:09" itemprop="dateModified" datetime="2020-03-07T14:47:09+00:00">2020-03-07</time>
               
             
           </span>
@@ -574,7 +574,7 @@
                 
                   <span class="post-meta-item-text">Symbols count in article: </span>
                 
-                <span title="Symbols count in article">4.1k</span>
+                <span title="Symbols count in article">4k</span>
               
 
               
@@ -608,22 +608,8 @@
       
 
       
-        <h1 id="Agenda"><a href="#Agenda" class="headerlink" title="Agenda"></a>Agenda<!-- omit in toc --></h1><ul>
-<li><a href="#%e5%89%8d%e6%96%87">前文</a></li>
-<li><a href="#%e9%97%9c%e6%96%bcpage">關於Page</a></li>
-<li><a href="#heap%e8%b3%87%e6%96%99%e8%a1%a8">Heap資料表</a><ul>
-<li><a href="#iamindex-allocation-map">IAM(index allocation map)</a></li>
-</ul>
-</li>
-<li><a href="#forwarding-pointer">forwarding pointer</a><ul>
-<li><a href="#forwarding-pointerdemo">forwarding pointer(Demo)</a></li>
-<li><a href="#rid-lookup">RID Lookup</a></li>
-</ul>
-</li>
-<li><a href="#dbcc-page-%e8%aa%9e%e6%b3%95">dbcc page 語法</a></li>
-</ul>
-<h2 id="前文"><a href="#前文" class="headerlink" title="前文"></a>前文</h2><p>本篇會跟大家對於<code>SQL-Server</code>資料表深入淺出的介紹.</p>
-<h2 id="關於Page"><a href="#關於Page" class="headerlink" title="關於Page"></a>關於Page</h2><p>資料會存在Page中<br>而一個<code>Page</code>大小為 8K/Page =&gt; 8092(8060 bytes)</p>
+        <h2 id="前文"><a href="#前文" class="headerlink" title="前文"></a>前文</h2><p>本篇會跟大家對於<code>SQL-Server</code>資料表深入淺出的介紹.</p>
+<h2 id="關於子頁層"><a href="#關於子頁層" class="headerlink" title="關於子頁層"></a>關於子頁層</h2><p>資料會存在子頁層中(page),一個<code>Page</code>大小為 8K/Page =&gt; 8092(8060 bytes)</p>
 <blockquote>
 <p>每個Page除了存取資料還會存放一些<code>MetaData</code>，我們可以先當作是每個Page大小是8K</p>
 </blockquote>
@@ -1165,7 +1151,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Agenda"><span class="nav-number">1.</span> <span class="nav-text">Agenda</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#前文"><span class="nav-number">1.1.</span> <span class="nav-text">前文</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#關於Page"><span class="nav-number">1.2.</span> <span class="nav-text">關於Page</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Heap資料表"><span class="nav-number">1.3.</span> <span class="nav-text">Heap資料表</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#IAM-index-allocation-map"><span class="nav-number">1.3.1.</span> <span class="nav-text">IAM(index allocation map)</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#forwarding-pointer"><span class="nav-number">1.4.</span> <span class="nav-text">forwarding pointer</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#forwarding-pointer-Demo"><span class="nav-number">1.4.1.</span> <span class="nav-text">forwarding pointer(Demo)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#RID-Lookup"><span class="nav-number">1.4.2.</span> <span class="nav-text">RID Lookup</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#dbcc-page-語法"><span class="nav-number">1.5.</span> <span class="nav-text">dbcc page 語法</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#前文"><span class="nav-number">1.</span> <span class="nav-text">前文</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#關於子頁層"><span class="nav-number">2.</span> <span class="nav-text">關於子頁層</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Heap資料表"><span class="nav-number">3.</span> <span class="nav-text">Heap資料表</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#IAM-index-allocation-map"><span class="nav-number">3.1.</span> <span class="nav-text">IAM(index allocation map)</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#forwarding-pointer"><span class="nav-number">4.</span> <span class="nav-text">forwarding pointer</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#forwarding-pointer-Demo"><span class="nav-number">4.1.</span> <span class="nav-text">forwarding pointer(Demo)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#RID-Lookup"><span class="nav-number">4.2.</span> <span class="nav-text">RID Lookup</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#dbcc-page-語法"><span class="nav-number">5.</span> <span class="nav-text">dbcc page 語法</span></a></li></ol></div>
             
 
           </div>
