@@ -143,19 +143,19 @@
 
 
 
-  <meta name="description" content="Agenda 前文 Covering Index 加入INCLUDE欄位含意 案例解說   Filter Index Index Intersection Primary Key  前文本系列文章  資料庫索引深入淺出(一) 資料庫索引深入淺出(二)  兩種基本索引  Clustered Index(叢集索引) NonClustered Index(非叢集索引)  兩種Lookup(如果NonCl">
+  <meta name="description" content="Agenda 前文 Covering Index 加入INCLUDE欄位含意 案例解說   Filter Index filter index的限制 Index Intersection Primary Key  前文本系列文章  資料庫索引深入淺出(一) 資料庫索引深入淺出(二)  兩種基本索引  Clustered Index(叢集索引) NonClustered Index(非叢集索引)">
 <meta name="keywords" content="DataBase,Turning,Sql-server,Index">
 <meta property="og:type" content="article">
 <meta property="og:title" content="資料庫索引深入淺出(二)">
 <meta property="og:url" content="https://isdaniel.github.io/DBIndex-2/index.html">
 <meta property="og:site_name" content="石頭的coding之路">
-<meta property="og:description" content="Agenda 前文 Covering Index 加入INCLUDE欄位含意 案例解說   Filter Index Index Intersection Primary Key  前文本系列文章  資料庫索引深入淺出(一) 資料庫索引深入淺出(二)  兩種基本索引  Clustered Index(叢集索引) NonClustered Index(非叢集索引)  兩種Lookup(如果NonCl">
+<meta property="og:description" content="Agenda 前文 Covering Index 加入INCLUDE欄位含意 案例解說   Filter Index filter index的限制 Index Intersection Primary Key  前文本系列文章  資料庫索引深入淺出(一) 資料庫索引深入淺出(二)  兩種基本索引  Clustered Index(叢集索引) NonClustered Index(非叢集索引)">
 <meta property="og:locale" content="zh-tw">
 <meta property="og:image" content="https://i.imgur.com/ivgZPGm.png">
-<meta property="og:updated_time" content="2020-03-12T10:49:21.216Z">
+<meta property="og:updated_time" content="2020-03-22T15:19:41.973Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="資料庫索引深入淺出(二)">
-<meta name="twitter:description" content="Agenda 前文 Covering Index 加入INCLUDE欄位含意 案例解說   Filter Index Index Intersection Primary Key  前文本系列文章  資料庫索引深入淺出(一) 資料庫索引深入淺出(二)  兩種基本索引  Clustered Index(叢集索引) NonClustered Index(非叢集索引)  兩種Lookup(如果NonCl">
+<meta name="twitter:description" content="Agenda 前文 Covering Index 加入INCLUDE欄位含意 案例解說   Filter Index filter index的限制 Index Intersection Primary Key  前文本系列文章  資料庫索引深入淺出(一) 資料庫索引深入淺出(二)  兩種基本索引  Clustered Index(叢集索引) NonClustered Index(非叢集索引)">
 <meta name="twitter:image" content="https://i.imgur.com/ivgZPGm.png">
 
 
@@ -497,7 +497,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2020-03-12 10:49:21" itemprop="dateModified" datetime="2020-03-12T10:49:21+00:00">2020-03-12</time>
+                <time title="Modified: 2020-03-22 15:19:41" itemprop="dateModified" datetime="2020-03-22T15:19:41+00:00">2020-03-22</time>
               
             
           </span>
@@ -570,7 +570,7 @@
                 
                   <span class="post-meta-item-text">Symbols count in article: </span>
                 
-                <span title="Symbols count in article">2.2k</span>
+                <span title="Symbols count in article">2.9k</span>
               
 
               
@@ -584,7 +584,7 @@
                 
                   <span class="post-meta-item-text">Reading time &asymp;</span>
                 
-                <span title="Reading time">4 mins.</span>
+                <span title="Reading time">5 mins.</span>
               
             </div>
           
@@ -612,6 +612,7 @@
 </ul>
 </li>
 <li><a href="#filter-index">Filter Index</a></li>
+<li><a href="#filter-index%e7%9a%84%e9%99%90%e5%88%b6">filter index的限制</a></li>
 <li><a href="#index-intersection">Index Intersection</a></li>
 <li><a href="#primary-key">Primary Key</a></li>
 </ul>
@@ -650,11 +651,20 @@
 </blockquote>
 <p><img src="https://i.imgur.com/ivgZPGm.png" alt></p>
 <p>建立完<code>Convering Index</code>後我們使用的查詢就會變成只使用<code>Seek</code>，而且在執行成本也大幅降低.</p>
-<h2 id="Filter-Index"><a href="#Filter-Index" class="headerlink" title="Filter Index"></a>Filter Index</h2><p><code>Filter Index</code>語法就是在最後寫<code>where</code>條件</p>
+<h2 id="Filter-Index"><a href="#Filter-Index" class="headerlink" title="Filter Index"></a>Filter Index</h2><p>在SQL-Server 2008之後,支援使用filter index.他可以節省index大小和維護成本</p>
+<p><code>Filter Index</code>語法就是在最後寫<code>where</code>條件</p>
 <div class="highlight-wrap" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true" data-rel="SQL"><figure class="iseeu highlight /sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> NONCLUSTERED <span class="keyword">INDEX</span> FIX_T_Id_UserGroup <span class="keyword">on</span>  dbo.T(</span><br><span class="line">	<span class="keyword">id</span></span><br><span class="line">) <span class="keyword">INCLUDE</span> (</span><br><span class="line">	UserId,</span><br><span class="line">	UserGroup</span><br><span class="line">)</span><br><span class="line"><span class="keyword">where</span> UserGroup = <span class="number">8</span></span><br></pre></td></tr></table></figure></div>
 <p>上面語法意思是只針對於<code>UserGroup = 8</code>的<code>Row</code>建立資料在子頁層，<code>Filter Index</code>主要是提升維護性和降低<code>Index</code>大小.</p>
+<h2 id="filter-index的限制"><a href="#filter-index的限制" class="headerlink" title="filter index的限制"></a>filter index的限制</h2><ol>
+<li>filter index只支援<strong>簡單過濾條件</strong>，在<code>where</code>查詢如果有使用到<code>OR</code>、function、計算欄位,可能會讓filter index失效</li>
+<li>因為sql-server會cache執行計畫,所以filter index無法在參數化查詢發揮作用</li>
+</ol>
+<p>關於第二點我們可以看下面查詢,假如我們建立一個fitler index(<code>IDX_Data_Unprocessed_Filtered</code>)因為我們使用參數化查詢所以導致此index無法正常發揮</p>
+<div class="highlight-wrap" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true" data-rel="SQL"><figure class="iseeu highlight /sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">create</span> nonclustered <span class="keyword">index</span> IDX_Data_Unprocessed_Filtered</span><br><span class="line"><span class="keyword">on</span> dbo.Data(RecId)</span><br><span class="line"><span class="keyword">include</span>(Processed)</span><br><span class="line"><span class="keyword">where</span> Processed = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">select</span> top <span class="number">1000</span> RecId</span><br><span class="line"><span class="keyword">from</span> dbo.Data</span><br><span class="line"><span class="keyword">where</span> Processed = @Processed</span><br><span class="line"><span class="keyword">order</span> <span class="keyword">by</span> RecId;</span><br></pre></td></tr></table></figure></div>
+<p>所以假如此查詢有使用到filter index請在查詢使用硬變數或是可以使用<code>option(recompile)</code>不讓執行計畫被cache.</p>
+<div class="highlight-wrap" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true" data-rel="SQL"><figure class="iseeu highlight /sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> top <span class="number">1000</span> RecId</span><br><span class="line"><span class="keyword">from</span> dbo.Data</span><br><span class="line"><span class="keyword">where</span> Processed = <span class="number">0</span></span><br><span class="line"><span class="keyword">order</span> <span class="keyword">by</span> RecId; </span><br><span class="line"></span><br><span class="line"><span class="keyword">select</span> top <span class="number">1000</span> RecId</span><br><span class="line"><span class="keyword">from</span> dbo.Data</span><br><span class="line"><span class="keyword">where</span> Processed = @Processed</span><br><span class="line"><span class="keyword">order</span> <span class="keyword">by</span> RecId; </span><br><span class="line">option(recompile)</span><br></pre></td></tr></table></figure></div>
 <blockquote>
-<p>注意:如果有使用到<code>Filter Index</code>的<code>SP</code>或<code>Script</code>，如果沒有加上<code>SET QUOTED_IDENTIFIER ON</code>就會造成錯誤，所以在撰寫<code>Script</code>時要養成加上上面語法的好習慣.</p>
+<p>注意:如果有使用到<code>Filter Index</code>的<code>SP</code>或<code>Script</code>，如果沒有加上<code>SET QUOTED_IDENTIFIER ON</code>就會造成錯誤，所以在撰寫<code>Script</code>時要養成加上面語法的好習慣.</p>
 </blockquote>
 <h2 id="Index-Intersection"><a href="#Index-Intersection" class="headerlink" title="Index Intersection"></a>Index Intersection</h2><p><code>SQL-Server</code>可透過多個<code>Index</code>完成一段查詢(通常選擇子集合較小)在透過<code>JOIN</code>完成查詢</p>
 <p>假如我們有兩個一個查詢會用到<code>UserId</code>和<code>Id</code> Column當作條件我們可能會建立下面這個索引.</p>
@@ -699,14 +709,14 @@
     <li class="popular-posts-item">
       
       
-      <div class="popular-posts-title"><a href="\DBTable\" rel="bookmark">SqlServer資料表深入淺出</a></div>
+      <div class="popular-posts-title"><a href="\DBNote\" rel="bookmark">撰寫SQL的建議</a></div>
       
     </li>
   
     <li class="popular-posts-item">
       
       
-      <div class="popular-posts-title"><a href="\DBNote\" rel="bookmark">撰寫SQL的建議</a></div>
+      <div class="popular-posts-title"><a href="\DBTable\" rel="bookmark">SqlServer資料表深入淺出</a></div>
       
     </li>
   
@@ -768,8 +778,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/DBNote/" rel="prev" title="撰寫SQL的建議">
-                撰寫SQL的建議 <i class="fa fa-chevron-right"></i>
+              <a href="/DBTable/" rel="prev" title="SqlServer資料表深入淺出">
+                SqlServer資料表深入淺出 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -1135,7 +1145,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Agenda"><span class="nav-number">1.</span> <span class="nav-text">Agenda</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#前文"><span class="nav-number">1.1.</span> <span class="nav-text">前文</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Covering-Index"><span class="nav-number">1.2.</span> <span class="nav-text">Covering Index</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#加入INCLUDE欄位含意"><span class="nav-number">1.2.1.</span> <span class="nav-text">加入INCLUDE欄位含意</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#案例解說"><span class="nav-number">1.2.2.</span> <span class="nav-text">案例解說</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Filter-Index"><span class="nav-number">1.3.</span> <span class="nav-text">Filter Index</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Index-Intersection"><span class="nav-number">1.4.</span> <span class="nav-text">Index Intersection</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Primary-Key"><span class="nav-number">1.5.</span> <span class="nav-text">Primary Key</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Agenda"><span class="nav-number">1.</span> <span class="nav-text">Agenda</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#前文"><span class="nav-number">1.1.</span> <span class="nav-text">前文</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Covering-Index"><span class="nav-number">1.2.</span> <span class="nav-text">Covering Index</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#加入INCLUDE欄位含意"><span class="nav-number">1.2.1.</span> <span class="nav-text">加入INCLUDE欄位含意</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#案例解說"><span class="nav-number">1.2.2.</span> <span class="nav-text">案例解說</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Filter-Index"><span class="nav-number">1.3.</span> <span class="nav-text">Filter Index</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#filter-index的限制"><span class="nav-number">1.4.</span> <span class="nav-text">filter index的限制</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Index-Intersection"><span class="nav-number">1.5.</span> <span class="nav-text">Index Intersection</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Primary-Key"><span class="nav-number">1.6.</span> <span class="nav-text">Primary Key</span></a></li></ol></li></ol></div>
             
 
           </div>
@@ -1177,7 +1187,7 @@
       <i class="fa fa-coffee"></i>
     </span>
     
-    <span title="Reading time total">10:23</span>
+    <span title="Reading time total">10:25</span>
   
 </div>
 
