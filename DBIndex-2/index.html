@@ -151,12 +151,13 @@
 <meta property="og:site_name" content="石頭的coding之路">
 <meta property="og:description" content="Agenda 前文 Covering Index 加入INCLUDE欄位含意 案例解說   Filter Index filter index的限制 Index Intersection Primary Key  前文本系列文章  資料庫索引深入淺出(一) 資料庫索引深入淺出(二)  兩種基本索引  Clustered Index(叢集索引) NonClustered Index(非叢集索引)">
 <meta property="og:locale" content="zh-tw">
+<meta property="og:image" content="https://i.imgur.com/8TvUoRY.png">
 <meta property="og:image" content="https://i.imgur.com/ivgZPGm.png">
-<meta property="og:updated_time" content="2020-03-22T15:19:41.973Z">
+<meta property="og:updated_time" content="2020-04-03T13:34:14.299Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="資料庫索引深入淺出(二)">
 <meta name="twitter:description" content="Agenda 前文 Covering Index 加入INCLUDE欄位含意 案例解說   Filter Index filter index的限制 Index Intersection Primary Key  前文本系列文章  資料庫索引深入淺出(一) 資料庫索引深入淺出(二)  兩種基本索引  Clustered Index(叢集索引) NonClustered Index(非叢集索引)">
-<meta name="twitter:image" content="https://i.imgur.com/ivgZPGm.png">
+<meta name="twitter:image" content="https://i.imgur.com/8TvUoRY.png">
 
 
 
@@ -497,7 +498,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2020-03-22 15:19:41" itemprop="dateModified" datetime="2020-03-22T15:19:41+00:00">2020-03-22</time>
+                <time title="Modified: 2020-04-03 13:34:14" itemprop="dateModified" datetime="2020-04-03T13:34:14+00:00">2020-04-03</time>
               
             
           </span>
@@ -570,7 +571,7 @@
                 
                   <span class="post-meta-item-text">Symbols count in article: </span>
                 
-                <span title="Symbols count in article">2.9k</span>
+                <span title="Symbols count in article">3k</span>
               
 
               
@@ -642,6 +643,9 @@
 <blockquote>
 <p>如果每次只需要<code>SELECT</code>少部分欄位且範圍較大又須排序，<code>Covering Index</code>執行效率會比<code>CLUSTERED INDEX</code>來的快.</p>
 </blockquote>
+<p><code>Covering</code>欄位只會在子頁層儲存資料，並不會在中葉層儲存相關資訊。</p>
+<p>儲存方式如下圖會把資料存在子頁層中，並不會把Include資料存在中葉層</p>
+<p><img src="https://i.imgur.com/8TvUoRY.png" alt></p>
 <p>適合<code>Covering Index</code>很適合用在查出來<code>Column</code>不需要當作<code>Key</code></p>
 <h3 id="案例解說"><a href="#案例解說" class="headerlink" title="案例解說"></a>案例解說</h3><p>樣本資料一樣使用上一篇的資料</p>
 <div class="highlight-wrap" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true" data-rel="SQL"><figure class="iseeu highlight /sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> *</span><br><span class="line"><span class="keyword">FROM</span> dbo.T</span><br><span class="line"><span class="keyword">WHERE</span> <span class="keyword">id</span> = <span class="number">10000</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">SELECT</span> *</span><br><span class="line"><span class="keyword">FROM</span> dbo.T <span class="keyword">with</span>(<span class="keyword">index</span>(IX_T_Id))</span><br><span class="line"><span class="keyword">WHERE</span> <span class="keyword">id</span> = <span class="number">10000</span></span><br></pre></td></tr></table></figure></div>
@@ -1178,7 +1182,7 @@
       <i class="fa fa-area-chart"></i>
     </span>
     
-    <span title="Symbols count total">343k</span>
+    <span title="Symbols count total">344k</span>
   
 
   
