@@ -152,8 +152,7 @@
 <meta property="og:description" content="前言：如果目前場景遇到一定流程階段，但流程內容依照邏輯或情境不同也有所不一樣. 這時可以考慮使用樣板模式(TemplatePattern) 生活舉例：因為十二年國教，所以基本上每個人都有上學的經驗 每天上學最少要經歷下面過程(我做一些簡化) 到學校=&amp;gt;上午上課=&amp;gt;吃午餐=&amp;gt;下午上課=&amp;gt;放學回家  可以看到不管是國小、國中、高中 至少都有上述的過程 但每個過程內容可能會依照年">
 <meta property="og:locale" content="zh-tw">
 <meta property="og:image" content="https://camo.githubusercontent.com/685889c0eb69ee7e13072476fe868a653e32090b/68747470733a2f2f7777772e636f646570726f6a6563742e636f6d2f4b422f63732f61757470312f746573745375697465466c6f772e6a7067">
-<meta property="og:image" content="https://github.com/isdaniel/DesignPattern/raw/master/DesignPattern/img/TemplateMethod/TemplateMethod.PNG">
-<meta property="og:updated_time" content="2020-04-19T14:42:17.788Z">
+<meta property="og:updated_time" content="2020-05-08T10:20:14.923Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="樣板模式(TemplatePattern)">
 <meta name="twitter:description" content="前言：如果目前場景遇到一定流程階段，但流程內容依照邏輯或情境不同也有所不一樣. 這時可以考慮使用樣板模式(TemplatePattern) 生活舉例：因為十二年國教，所以基本上每個人都有上學的經驗 每天上學最少要經歷下面過程(我做一些簡化) 到學校=&amp;gt;上午上課=&amp;gt;吃午餐=&amp;gt;下午上課=&amp;gt;放學回家  可以看到不管是國小、國中、高中 至少都有上述的過程 但每個過程內容可能會依照年">
@@ -498,7 +497,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2020-04-19 14:42:17" itemprop="dateModified" datetime="2020-04-19T14:42:17+00:00">2020-04-19</time>
+                <time title="Modified: 2020-05-08 10:20:14" itemprop="dateModified" datetime="2020-05-08T10:20:14+00:00">2020-05-08</time>
               
             
           </span>
@@ -571,7 +570,7 @@
                 
                   <span class="post-meta-item-text">Symbols count in article: </span>
                 
-                <span title="Symbols count in article">2.2k</span>
+                <span title="Symbols count in article">2.6k</span>
               
 
               
@@ -585,7 +584,7 @@
                 
                   <span class="post-meta-item-text">Reading time &asymp;</span>
                 
-                <span title="Reading time">4 mins.</span>
+                <span title="Reading time">5 mins.</span>
               
             </div>
           
@@ -632,77 +631,33 @@
 <p>(圖片來自網路上)</p>
 <hr>
 <h3 id="程式碼範例："><a href="#程式碼範例：" class="headerlink" title="程式碼範例："></a>程式碼範例：</h3><p>此範例使用Console來模擬單元測試框架流程：</p>
-<p>建立一個 <code>UnitFlowBase</code> 抽像類別，裡面有三個方法</p>
+<p>建立一個 <code>UnitFlowBase</code> 抽像類別依照<code>Nunit</code>生命週期來實現下面方法.</p>
 <ol>
-<li>SetUpClass (每個測試類別只都執行一次)</li>
-<li>SetUpUnitTest (每次執行測試方法時都執行一次)</li>
-<li>UnitTest (執行測試方法)</li>
+<li><code>OneTimeSetUp</code> (每個測試類別只都執行一次)</li>
+<li><code>Dispose</code> (每次執行測試方法時都執行一次)</li>
+<li><code>SetUp</code> 每次執行<code>TestCase</code>前資料初始化</li>
+<li><code>TearDown</code> 每次執行<code>TestCase</code>後釋放資源</li>
 </ol>
-<p>此抽象類別提供3個Hock讓子類實做細節。 <code>UnitFlowBase</code>只提供框架</p>
-<pre><code>public abstract class UnitFlowBase
-{
-    protected UnitFlowBase()
-    {
-        SetUpClass();
-    }
-
-    protected virtual void SetUpClass()
-    {
-    }
-
-    protected virtual void SetUpUnitTest()
-    {
-    }
-
-    protected abstract bool Execute();
-
-    public void UnitTest()
-    {
-        SetUpUnitTest();
-        Console.WriteLine(Execute() ? &quot;Assert Successful.&quot; : &quot;Assert Fail.&quot;);
-    }
-}
-</code></pre><p>建立另一個類別<code>UnitCounter</code> 實現那三個方法 特別是<code>Execute</code>方法 我顯示目前 <code>ClassCount</code> 跟 <code>MethodCount</code> 執行次數</p>
-<pre><code>public class UnitCounter : UnitFlowBase
-{
-    private int _classCounter = 0;
-
-    private int _methodCounter = 0;
-
-    protected override void SetUpClass()
-    {
-        _classCounter++;
-    }
-
-    protected override void SetUpUnitTest()
-    {
-        _methodCounter++;
-    }
-
-    protected override bool Execute()
-    {
-        Console.WriteLine($&quot;ClassCounter : {_classCounter}&quot;);
-        Console.WriteLine($&quot;MethodCounter: { _methodCounter}&quot;);
-
-        return true;
-    }
-}
-</code></pre><p>呼叫實我們建立一個<code>UnitCounter</code>類別，但執行三次<code>UnitTest</code>方法</p>
-<pre><code>class Program
-{
-    static void Main(string[] args)
-    {
-        UnitCounter unitMock = new UnitCounter();
-        unitMock.UnitTest();
-        unitMock.UnitTest();
-        unitMock.UnitTest();
-
-        Console.ReadKey();
-    }
-}
-</code></pre><p>執行結果如下圖：</p>
-<p><span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2lzZGFuaWVsL0Rlc2lnblBhdHRlcm4vYmxvYi9tYXN0ZXIvRGVzaWduUGF0dGVybi9pbWcvVGVtcGxhdGVNZXRob2QvVGVtcGxhdGVNZXRob2QuUE5H" title="https://github.com/isdaniel/DesignPattern/blob/master/DesignPattern/img/TemplateMethod/TemplateMethod.PNG"><img src="https://github.com/isdaniel/DesignPattern/raw/master/DesignPattern/img/TemplateMethod/TemplateMethod.PNG" alt="img"><i class="fa fa-external-link"></i></span></p>
-<p>雖然執行3次 <code>UnitTest</code> 方法 但 <code>ClassCounter</code> 值卻一直是1而 <code>MethodCounter</code> 會依照執行幾次就加幾次.</p>
+<p>此抽象類別提供幾個Hock讓子類實做細節。 <code>UnitFlowBase</code>只提供框架</p>
+<p><code>UnitTest</code>對外提供一個<code>void UnitTest(IEnumerable&lt;Func&lt;bool&gt;&gt; testCases)</code>方法.</p>
+<blockquote>
+<p>可以傳入要驗證動作一個<code>IEnumerable&lt;Func&lt;bool&gt;&gt;</code>型別.</p>
+</blockquote>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">class</span> <span class="title">UnitFlowBase</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">OneTimeSetUp</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function"></span>    &#123;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">Dispose</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function"></span>    &#123;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">SetUp</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function"></span>    &#123;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">TearDown</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function"></span>    &#123;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">UnitTest</span>(<span class="params">IEnumerable&lt;Func&lt;<span class="keyword">bool</span>&gt;&gt; testCases</span>)</span></span><br><span class="line"><span class="function"></span>    &#123;</span><br><span class="line">        OneTimeSetUp();</span><br><span class="line">        <span class="keyword">foreach</span> (<span class="keyword">var</span> testCase <span class="keyword">in</span> testCases)</span><br><span class="line">        &#123;</span><br><span class="line">            SetUp();</span><br><span class="line">            Console.WriteLine(testCase() ? <span class="string">"Assert Successful."</span> : <span class="string">"Assert Fail."</span>);</span><br><span class="line">            TearDown();</span><br><span class="line">        &#125;</span><br><span class="line">        Dispose();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>建立另一個類別<code>UnitCounter</code>重載<code>SetUp</code>,<code>OneTimeSetUp</code>方法.</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">UnitCounter</span> : <span class="title">UnitFlowBase</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">override</span> <span class="keyword">void</span> <span class="title">SetUp</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function"></span>    &#123;</span><br><span class="line">        Console.WriteLine(<span class="string">"Set up UnitCounter thing."</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">override</span> <span class="keyword">void</span> <span class="title">OneTimeSetUp</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function"></span>    &#123;</span><br><span class="line">        Console.WriteLine(<span class="string">"OneTimeSetUp!!"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>呼叫實我們建立一個<code>UnitCounter</code>類別,並傳入一個<code>IEnumerable&lt;Func&lt;bool&gt;&gt;</code>的資料集合</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title">Program</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">Main</span>(<span class="params"><span class="keyword">string</span>[] args</span>)</span></span><br><span class="line"><span class="function"></span>    &#123;</span><br><span class="line">        </span><br><span class="line">        UnitCounter unitCounter = <span class="keyword">new</span> UnitCounter();</span><br><span class="line">        unitCounter.UnitTest(<span class="keyword">new</span> List&lt;Func&lt;<span class="keyword">bool</span>&gt;&gt;()</span><br><span class="line">        &#123;</span><br><span class="line">            ()=&gt;<span class="literal">true</span>,</span><br><span class="line">            ()=&gt;<span class="literal">false</span>,</span><br><span class="line">            ()=&gt;<span class="literal">false</span>,</span><br><span class="line">            ()=&gt;<span class="literal">true</span></span><br><span class="line">        &#125;);</span><br><span class="line"></span><br><span class="line">        Console.ReadKey();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="實際案例"><a href="#實際案例" class="headerlink" title="實際案例"></a>實際案例</h2><p>在我一個開源專案中<span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2lzZGFuaWVsL0VsZWN0cm9uaWNJbnZvaWNlX1RX" title="https://github.com/isdaniel/ElectronicInvoice_TW">ElectronicInvoice_TW<i class="fa fa-external-link"></i></span>,有使用到<code>Template Method Pattern</code></p>
+<p>因為在大平台傳送資料有些固定的流程,這個就很適合使用此Pattern.</p>
+<ol>
+<li>參數需要按照字首排序.</li>
+<li>參數製作簽章防偽造.</li>
+<li>利用Http類別請求大平台.</li>
+</ol>
+<p>對於每個API來說有一個變化是傳入參數,所以我就把它當作是此系列類別需要<code>override</code>方法.</p>
+<p>而在<code>ApiBase.cs</code>是所有大平台API的<code>Base</code>類別在裡面有一個<code>string ExecuteApi(TModel mode)</code>方法提供給外部呼叫.</p>
+<p>詳細資料可自行參閱我的原始碼.</p>
 <hr>
 <h2 id="小結"><a href="#小結" class="headerlink" title="小結:"></a>小結:</h2><p>日後測試程式只需關注我們需要如何實現邏輯細解（重寫三個方法），核心流程順序就交由<code>UnitFlowBase</code>決定。</p>
 <p><strong>此文作者</strong>：Daniel Shih(石頭)<br><strong>此文地址</strong>： <a href="https://isdaniel.github.io/Template-Pattern/">https://isdaniel.github.io/Template-Pattern/</a> <br><strong>版權聲明</strong>：本博客所有文章除特別聲明外，均採用 <span class="exturl" data-url="aHR0cHM6Ly9jcmVhdGl2ZWNvbW1vbnMub3JnL2xpY2Vuc2VzL2J5LW5jLXNhLzMuMC90dy8=" title="https://creativecommons.org/licenses/by-nc-sa/3.0/tw/">CC BY-NC-SA 3.0 TW<i class="fa fa-external-link"></i></span> 許可協議。轉載請註明出處！</p>
@@ -790,8 +745,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/Oracle-CONNECT-BY/" rel="next" title="Oracle [CONNECT BY]">
-                <i class="fa fa-chevron-left"></i> Oracle [CONNECT BY]
+              <a href="/Bridge-Pattern/" rel="next" title="橋接模式(BridgePattern)">
+                <i class="fa fa-chevron-left"></i> 橋接模式(BridgePattern)
               </a>
             
           </div>
@@ -800,8 +755,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/NoSourceCode-ModifyCode/" rel="prev" title="沒有Source Code 如何修改程式??">
-                沒有Source Code 如何修改程式?? <i class="fa fa-chevron-right"></i>
+              <a href="/Autofac-AOP/" rel="prev" title="Autofac + Interceptors(AOP) 動態代理">
+                Autofac + Interceptors(AOP) 動態代理 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -1167,7 +1122,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#前言："><span class="nav-number">1.</span> <span class="nav-text">前言：</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#生活舉例："><span class="nav-number">1.1.</span> <span class="nav-text">生活舉例：</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#常見例子："><span class="nav-number">2.</span> <span class="nav-text">常見例子：</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#程式碼範例："><span class="nav-number">2.1.</span> <span class="nav-text">程式碼範例：</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#小結"><span class="nav-number">3.</span> <span class="nav-text">小結:</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#前言："><span class="nav-number">1.</span> <span class="nav-text">前言：</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#生活舉例："><span class="nav-number">1.1.</span> <span class="nav-text">生活舉例：</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#常見例子："><span class="nav-number">2.</span> <span class="nav-text">常見例子：</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#程式碼範例："><span class="nav-number">2.1.</span> <span class="nav-text">程式碼範例：</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#實際案例"><span class="nav-number">3.</span> <span class="nav-text">實際案例</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#小結"><span class="nav-number">4.</span> <span class="nav-text">小結:</span></a></li></ol></div>
             
 
           </div>
