@@ -151,14 +151,14 @@
 <meta property="og:site_name" content="石頭的coding之路">
 <meta property="og:description" content="前言:Boxing跟UnBoxing在.net中,我們可能在無意識使用到但這個事情確會造成一些效能影響… .NET兩種類型在.NET有分兩種類型  值類型(int,double,char….) 參考類型(自行宣告的類別,string….)  而存放資料的方式也有兩種:  堆疊Stack   堆積Heap  談談Boxing和UnBoxing之前，我們先來了解Stack和Heap 值類型(Value">
 <meta property="og:locale" content="zh-tw">
-<meta property="og:image" content="https://az787680.vo.msecnd.net/user/%E4%B9%9D%E6%A1%83/dc60b613-5aab-4031-b07e-ba95b3eb8c59/1519278342_30764.png">
-<meta property="og:image" content="https://az787680.vo.msecnd.net/user/九桃/62a967a6-4b35-4ca6-a9d1-90318cd12cdc/1556535346_2245.png">
-<meta property="og:image" content="https://az787680.vo.msecnd.net/user/九桃/62a967a6-4b35-4ca6-a9d1-90318cd12cdc/1556535644_50214.png">
-<meta property="og:updated_time" content="2020-05-14T09:06:04.456Z">
+<meta property="og:image" content="https://dotblogsfile.blob.core.windows.net/user/%E4%B9%9D%E6%A1%83/dc60b613-5aab-4031-b07e-ba95b3eb8c59/1519278342_30764.png">
+<meta property="og:image" content="https://dotblogsfile.blob.core.windows.net/user/九桃/62a967a6-4b35-4ca6-a9d1-90318cd12cdc/1556535346_2245.png">
+<meta property="og:image" content="https://dotblogsfile.blob.core.windows.net/user/九桃/62a967a6-4b35-4ca6-a9d1-90318cd12cdc/1556535644_50214.png">
+<meta property="og:updated_time" content="2020-05-14T15:33:32.013Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="C# Boxing vs UnBoxing">
 <meta name="twitter:description" content="前言:Boxing跟UnBoxing在.net中,我們可能在無意識使用到但這個事情確會造成一些效能影響… .NET兩種類型在.NET有分兩種類型  值類型(int,double,char….) 參考類型(自行宣告的類別,string….)  而存放資料的方式也有兩種:  堆疊Stack   堆積Heap  談談Boxing和UnBoxing之前，我們先來了解Stack和Heap 值類型(Value">
-<meta name="twitter:image" content="https://az787680.vo.msecnd.net/user/%E4%B9%9D%E6%A1%83/dc60b613-5aab-4031-b07e-ba95b3eb8c59/1519278342_30764.png">
+<meta name="twitter:image" content="https://dotblogsfile.blob.core.windows.net/user/%E4%B9%9D%E6%A1%83/dc60b613-5aab-4031-b07e-ba95b3eb8c59/1519278342_30764.png">
 
 
 
@@ -499,7 +499,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2020-05-14 09:06:04" itemprop="dateModified" datetime="2020-05-14T09:06:04+00:00">2020-05-14</time>
+                <time title="Modified: 2020-05-14 15:33:32" itemprop="dateModified" datetime="2020-05-14T15:33:32+00:00">2020-05-14</time>
               
             
           </span>
@@ -621,7 +621,7 @@
 <p>值類型(Value Type)會存取在<code>Stack</code>記憶體區塊中</p>
 <p>參考類型(Reference Type)內容會在<code>Heap</code>記憶體區塊上，Stack會指向Heap上記憶體位置(有點像c++傳址)</p>
 <p>如下圖</p>
-<p><img src="https://az787680.vo.msecnd.net/user/%E4%B9%9D%E6%A1%83/dc60b613-5aab-4031-b07e-ba95b3eb8c59/1519278342_30764.png" alt></p>
+<p><img src="https://dotblogsfile.blob.core.windows.net/user/%E4%B9%9D%E6%A1%83/dc60b613-5aab-4031-b07e-ba95b3eb8c59/1519278342_30764.png" alt></p>
 <p>了解<code>Stack</code>和<code>Heap</code>後</p>
 <p>我們來談談<code>Boxing</code>和<code>UnBoxing</code></p>
 <h2 id="Boxing"><a href="#Boxing" class="headerlink" title="Boxing:"></a>Boxing:</h2><p>型態由大轉小</p>
@@ -633,13 +633,13 @@
 <p>因為Object是ReferType型別,這個現象就是<code>Boxing</code></p>
 </blockquote>
 <p>如下圖</p>
-<p><img src="https://az787680.vo.msecnd.net/user/九桃/62a967a6-4b35-4ca6-a9d1-90318cd12cdc/1556535346_2245.png" alt></p>
+<p><img src="https://dotblogsfile.blob.core.windows.net/user/九桃/62a967a6-4b35-4ca6-a9d1-90318cd12cdc/1556535346_2245.png" alt></p>
 <h2 id="UnBoxing"><a href="#UnBoxing" class="headerlink" title="UnBoxing:"></a>UnBoxing:</h2><p>型態由小轉大(小轉大會有轉型出錯的問題)</p>
 <figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> i=<span class="number">20</span>;</span><br><span class="line"><span class="keyword">object</span> o=(<span class="keyword">object</span>)i;</span><br><span class="line"><span class="keyword">int</span> j=(<span class="keyword">int</span>)o;</span><br></pre></td></tr></table></figure>
 <p>將<code>Object</code>強轉成<code>int</code>在這個案例不會有問題，但如果是將o轉為char就會有問題 </p>
 <p>在執行<code>UnBoxing</code>如下圖 </p>
 <p>可以看到原本存在<code>Heap</code>上值 我們會把他搬回<code>Stack</code>並附值給<code>J</code></p>
-<p><img src="https://az787680.vo.msecnd.net/user/九桃/62a967a6-4b35-4ca6-a9d1-90318cd12cdc/1556535644_50214.png" alt></p>
+<p><img src="https://dotblogsfile.blob.core.windows.net/user/九桃/62a967a6-4b35-4ca6-a9d1-90318cd12cdc/1556535644_50214.png" alt></p>
 <blockquote>
 <p>把<code>Heap</code>上直搬回<code>Stake</code>上就會遇到UnBoxing.</p>
 </blockquote>
