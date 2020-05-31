@@ -151,12 +151,14 @@
 <meta property="og:site_name" content="石頭的coding之路">
 <meta property="og:description" content="前言：下面有兩個虛擬程式碼 12345int times = 30000000;string s = string.Empty;s = $&quot;&amp;#123;times&amp;#125;&quot;;s = $&quot;&amp;#123;times.ToString()&amp;#125;&quot;; 請問下面這兩段程式碼有沒有差別? 12s = $&quot;&amp;#123;times&amp;#125;&quot;;s = $&quot;&amp;#123;times.ToString()&amp;#">
 <meta property="og:locale" content="zh-tw">
-<meta property="og:image" content="https://isdaniel.github.io/images/2020-05-14_152514.png">
-<meta property="og:updated_time" content="2020-05-14T15:33:32.044Z">
+<meta property="og:image" content="https://i.imgur.com/NzlZgu1.png">
+<meta property="og:image" content="https://dotblogsfile.blob.core.windows.net/user/%E4%B9%9D%E6%A1%83/62a967a6-4b35-4ca6-a9d1-90318cd12cdc/1556535346_2245.png">
+<meta property="og:image" content="https://dotblogsfile.blob.core.windows.net/user/%E4%B9%9D%E6%A1%83/62a967a6-4b35-4ca6-a9d1-90318cd12cdc/1556535644_50214.png">
+<meta property="og:updated_time" content="2020-05-31T14:58:55.912Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="那些年String.Format中的Boxing和UnBoxing">
 <meta name="twitter:description" content="前言：下面有兩個虛擬程式碼 12345int times = 30000000;string s = string.Empty;s = $&quot;&amp;#123;times&amp;#125;&quot;;s = $&quot;&amp;#123;times.ToString()&amp;#125;&quot;; 請問下面這兩段程式碼有沒有差別? 12s = $&quot;&amp;#123;times&amp;#125;&quot;;s = $&quot;&amp;#123;times.ToString()&amp;#">
-<meta name="twitter:image" content="https://isdaniel.github.io/images/2020-05-14_152514.png">
+<meta name="twitter:image" content="https://i.imgur.com/NzlZgu1.png">
 
 
 
@@ -497,7 +499,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2020-05-14 15:33:32" itemprop="dateModified" datetime="2020-05-14T15:33:32+00:00">2020-05-14</time>
+                <time title="Modified: 2020-05-31 14:58:55" itemprop="dateModified" datetime="2020-05-31T14:58:55+00:00">2020-05-31</time>
               
             
           </span>
@@ -570,7 +572,7 @@
                 
                   <span class="post-meta-item-text">Symbols count in article: </span>
                 
-                <span title="Symbols count in article">1.5k</span>
+                <span title="Symbols count in article">2.2k</span>
               
 
               
@@ -584,7 +586,7 @@
                 
                   <span class="post-meta-item-text">Reading time &asymp;</span>
                 
-                <span title="Reading time">3 mins.</span>
+                <span title="Reading time">4 mins.</span>
               
             </div>
           
@@ -621,12 +623,36 @@
 <p>執行時間<code>$&quot;{times}&quot;;</code>永遠都會比<code>$&quot;{times.ToString()}&quot;;</code>來的多</p>
 <figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title">Program</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">Main</span>(<span class="params"><span class="keyword">string</span>[] args</span>)</span></span><br><span class="line"><span class="function"></span>    &#123;</span><br><span class="line">        <span class="keyword">int</span> times = <span class="number">30000000</span>;</span><br><span class="line">        <span class="keyword">string</span> s = <span class="keyword">string</span>.Empty;</span><br><span class="line">        Stopwatch sw = <span class="keyword">new</span> Stopwatch();</span><br><span class="line">        sw.Start();</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; times ; i++)</span><br><span class="line">        &#123;</span><br><span class="line">            s = <span class="string">$"<span class="subst">&#123;times&#125;</span>"</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        sw.Stop();</span><br><span class="line">        Console.WriteLine(sw.ElapsedMilliseconds);</span><br><span class="line"></span><br><span class="line">        sw.Restart();</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; times ; i++)</span><br><span class="line">        &#123;</span><br><span class="line">            s = <span class="string">$"<span class="subst">&#123;times.ToString()&#125;</span>"</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        sw.Stop();</span><br><span class="line">        Console.WriteLine(sw.ElapsedMilliseconds);</span><br><span class="line">        Console.ReadKey();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>執行時間如上圖</p>
-<p><img src="../images/2020-05-14_152514.png" alt="img"></p>
+<p><img src="https://i.imgur.com/NzlZgu1.png" alt="img"></p>
 <p><span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2lzZGFuaWVsL0Jsb2dTYW1wbGUvdHJlZS9tYXN0ZXIvc3JjL1NhbXBsZXMvQm94X1VuQm94aW5n" title="https://github.com/isdaniel/BlogSample/tree/master/src/Samples/Box_UnBoxing">Source Code<i class="fa fa-external-link"></i></span></p>
 <p>這是為什麼呢??</p>
 <p>原因出在Boxing和UnBoxing上…</p>
-<h2 id="Boxing-和-UnBoxing"><a href="#Boxing-和-UnBoxing" class="headerlink" title="Boxing 和 UnBoxing."></a>Boxing 和 UnBoxing.</h2><p>在說<code>Boxing</code>和<code>UnBoxing</code>之前</p>
-<p>我們要了解.Net中的Refer Type和Value Type在記憶體存放上差別.</p>
+<h2 id="Boxing-和-UnBoxing"><a href="#Boxing-和-UnBoxing" class="headerlink" title="Boxing 和 UnBoxing"></a>Boxing 和 UnBoxing</h2><p>在說<code>Boxing</code>和<code>UnBoxing</code>之前</p>
+<p>我們要了解.Net中的<code>Refer Type</code>和<code>Value Type</code>在記憶體存放上差別.</p>
+<blockquote>
+<p>想了解<code>Refer Type</code>和<code>Value Type</code>的人,可以參考我之前寫文章 <a href>【C#】 參考類型 , 值類型 Equals方法 和 ==</a>.</p>
+</blockquote>
+<p>假如已經了解<code>Refer Type</code>和<code>Value Type</code>,在.Net中有分Stack記憶體區段和Heap記憶體區段.</p>
+<ul>
+<li>Stack:存放Value Type(struct)資料</li>
+<li>Heap:存放Refer Type資料</li>
+</ul>
+<h3 id="Boxing"><a href="#Boxing" class="headerlink" title="Boxing"></a>Boxing</h3><p>因為在Boxing時我們會把<code>Value Type</code>資料<strong>複製</strong>一份資料到<code>Refer Type</code>記憶體中.</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> i=<span class="number">20</span>;</span><br><span class="line"><span class="keyword">object</span> o=(<span class="keyword">object</span>)i;</span><br></pre></td></tr></table></figure>
+<p>上面程式碼大概會如下圖操作</p>
+<p><img src="https://dotblogsfile.blob.core.windows.net/user/%E4%B9%9D%E6%A1%83/62a967a6-4b35-4ca6-a9d1-90318cd12cdc/1556535346_2245.png" alt></p>
+<blockquote>
+<p>int強制轉型為object 因為我們所有物件都是繼承於object物件</p>
+</blockquote>
+<h3 id="UnBoxing"><a href="#UnBoxing" class="headerlink" title="UnBoxing"></a>UnBoxing</h3><p>至於<code>UnBoxing</code>動作就如下面程式碼</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> i=<span class="number">20</span>;</span><br><span class="line"><span class="keyword">object</span> o=(<span class="keyword">object</span>)i;</span><br><span class="line"><span class="keyword">int</span> j=(<span class="keyword">int</span>)o;</span><br></pre></td></tr></table></figure>
+<p><code>UnBoxing</code>會將原本存在Heap的值,會把他搬回Stack並附值給<code>J</code></p>
+<p><img src="https://dotblogsfile.blob.core.windows.net/user/%E4%B9%9D%E6%A1%83/62a967a6-4b35-4ca6-a9d1-90318cd12cdc/1556535644_50214.png" alt></p>
+<blockquote>
+<p><code>o Object</code>強轉成<code>int</code>在這個案例不會有問題，但如果是將<code>o</code>轉為<code>char</code>就會有問題 </p>
+</blockquote>
+<h2 id="解答-String-Format兩個範例-效能差異"><a href="#解答-String-Format兩個範例-效能差異" class="headerlink" title="(解答)String.Format兩個範例 效能差異"></a>(解答)String.Format兩個範例 效能差異</h2><p>如果有從頭看到尾小夥伴,相信應該可以了解到問什麼會有沒有<code>.ToString</code>會造成差異性了吧.</p>
+<p>因為<code>Boxing</code>會造成系統無形中消耗,如果我們先把傳入<code>Value Type</code>資料轉成<code>String</code>再傳入就可以避免<code>Boxing</code>問題.</p>
 <p><strong>此文作者</strong>：Daniel Shih(石頭)<br><strong>此文地址</strong>： <a href="https://isdaniel.github.io/StringFormat_Compare/">https://isdaniel.github.io/StringFormat_Compare/</a> <br><strong>版權聲明</strong>：本博客所有文章除特別聲明外，均採用 <span class="exturl" data-url="aHR0cHM6Ly9jcmVhdGl2ZWNvbW1vbnMub3JnL2xpY2Vuc2VzL2J5LW5jLXNhLzMuMC90dy8=" title="https://creativecommons.org/licenses/by-nc-sa/3.0/tw/">CC BY-NC-SA 3.0 TW<i class="fa fa-external-link"></i></span> 許可協議。轉載請註明出處！</p>
 
       
@@ -1083,7 +1109,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#前言："><span class="nav-number">1.</span> <span class="nav-text">前言：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#String-Format方法簽章"><span class="nav-number">2.</span> <span class="nav-text">String.Format方法簽章</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#”-times-”-vs-”-times-ToString-”"><span class="nav-number">2.1.</span> <span class="nav-text">$”{times}” vs $”{times.ToString()}”</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Boxing-和-UnBoxing"><span class="nav-number">3.</span> <span class="nav-text">Boxing 和 UnBoxing.</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#前言："><span class="nav-number">1.</span> <span class="nav-text">前言：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#String-Format方法簽章"><span class="nav-number">2.</span> <span class="nav-text">String.Format方法簽章</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#”-times-”-vs-”-times-ToString-”"><span class="nav-number">2.1.</span> <span class="nav-text">$”{times}” vs $”{times.ToString()}”</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Boxing-和-UnBoxing"><span class="nav-number">3.</span> <span class="nav-text">Boxing 和 UnBoxing</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Boxing"><span class="nav-number">3.1.</span> <span class="nav-text">Boxing</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#UnBoxing"><span class="nav-number">3.2.</span> <span class="nav-text">UnBoxing</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#解答-String-Format兩個範例-效能差異"><span class="nav-number">4.</span> <span class="nav-text">(解答)String.Format兩個範例 效能差異</span></a></li></ol></div>
             
 
           </div>
@@ -1116,7 +1142,7 @@
       <i class="fa fa-area-chart"></i>
     </span>
     
-    <span title="Symbols count total">347k</span>
+    <span title="Symbols count total">348k</span>
   
 
   
@@ -1125,7 +1151,7 @@
       <i class="fa fa-coffee"></i>
     </span>
     
-    <span title="Reading time total">10:31</span>
+    <span title="Reading time total">10:32</span>
   
 </div>
 
