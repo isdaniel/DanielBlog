@@ -351,7 +351,7 @@
       
     
 
-    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives<span class="badge">73</span></a>
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives<span class="badge">74</span></a>
 
   </li>
 
@@ -433,6 +433,250 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://isdaniel.github.io/Join-Index-Improve/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Daniel Shih">
+      <meta itemprop="description" content="好點子沒價值，有價值的是把好點子實現">
+      <meta itemprop="image" content="https://avatars0.githubusercontent.com/u/9159452?s=460&v=4">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="石頭的coding之路">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/Join-Index-Improve/" class="post-title-link" itemprop="url">JOIN範圍條件Index優化</a>
+              
+            
+          </h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2020-06-28 23:10:43" itemprop="dateCreated datePublished" datetime="2020-06-28T23:10:43+00:00">2020-06-28</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2020-06-29 01:03:26" itemprop="dateModified" datetime="2020-06-29T01:03:26+00:00">2020-06-29</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/DataBase/" itemprop="url" rel="index"><span itemprop="name">DataBase</span></a></span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/DataBase/Turning/" itemprop="url" rel="index"><span itemprop="name">Turning</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+              
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+            
+                <span class="post-meta-item-text">Comments: </span>
+                <a href="/Join-Index-Improve/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="Join-Index-Improve/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-symbolscount">
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Symbols count in article: </span>
+                
+                <span title="Symbols count in article">3.4k</span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Reading time &asymp;</span>
+                
+                <span title="Reading time">6 mins.</span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>
+              Agenda
+前文
+資料初始化
+建立Index
+查詢語法
+
+
+
+前文範圍查詢時JOIN統計資訊容易不準確,這也間接導致執行計畫會跑掉.
+如果我們想要提升範圍查詢效能並讓Index可以發揮最大最用可以怎麼做?
+讓我利用一個範例來跟大家分享.
+此範例有使用到三張表
+
+Product表:擁有1-10編號產
+              ...
+            </p>
+          <!--noindex-->
+          
+            <div class="post-button text-center">
+              <a class="btn" href="/Join-Index-Improve/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://isdaniel.github.io/SQLServer-Merge-condition-problem/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -495,7 +739,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2020-06-22 02:30:45" itemprop="dateModified" datetime="2020-06-22T02:30:45+00:00">2020-06-22</time>
+                <time title="Modified: 2020-06-29 01:03:26" itemprop="dateModified" datetime="2020-06-29T01:03:26+00:00">2020-06-29</time>
               
             
           </span>
@@ -726,7 +970,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2020-06-22 02:30:45" itemprop="dateModified" datetime="2020-06-22T02:30:45+00:00">2020-06-22</time>
+                <time title="Modified: 2020-06-29 01:03:26" itemprop="dateModified" datetime="2020-06-29T01:03:26+00:00">2020-06-29</time>
               
             
           </span>
@@ -960,7 +1204,7 @@ s = $"&#123;
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2020-06-22 02:30:45" itemprop="dateModified" datetime="2020-06-22T02:30:45+00:00">2020-06-22</time>
+                <time title="Modified: 2020-06-29 01:03:26" itemprop="dateModified" datetime="2020-06-29T01:03:26+00:00">2020-06-29</time>
               
             
           </span>
@@ -1200,7 +1444,7 @@ s = $"&#123;
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2020-06-22 02:30:45" itemprop="dateModified" datetime="2020-06-22T02:30:45+00:00">2020-06-22</time>
+                <time title="Modified: 2020-06-29 01:03:26" itemprop="dateModified" datetime="2020-06-29T01:03:26+00:00">2020-06-29</time>
               
             
           </span>
@@ -1435,7 +1679,7 @@ QO會依照基數估計(Cardinality est
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2020-06-22 02:30:45" itemprop="dateModified" datetime="2020-06-22T02:30:45+00:00">2020-06-22</time>
+                <time title="Modified: 2020-06-29 01:03:26" itemprop="dateModified" datetime="2020-06-29T01:03:26+00:00">2020-06-29</time>
               
             
           </span>
@@ -1679,7 +1923,7 @@ QO會依照基數估計(Cardinality est
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2020-06-22 02:30:45" itemprop="dateModified" datetime="2020-06-22T02:30:45+00:00">2020-06-22</time>
+                <time title="Modified: 2020-06-29 01:03:26" itemprop="dateModified" datetime="2020-06-29T01:03:26+00:00">2020-06-29</time>
               
             
           </span>
@@ -1915,7 +2159,7 @@ Heap資料表
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2020-06-22 02:30:45" itemprop="dateModified" datetime="2020-06-22T02:30:45+00:00">2020-06-22</time>
+                <time title="Modified: 2020-06-29 01:03:26" itemprop="dateModified" datetime="2020-06-29T01:03:26+00:00">2020-06-29</time>
               
             
           </span>
@@ -2164,7 +2408,7 @@ Primary Key
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2020-06-22 02:30:45" itemprop="dateModified" datetime="2020-06-22T02:30:45+00:00">2020-06-22</time>
+                <time title="Modified: 2020-06-29 01:03:26" itemprop="dateModified" datetime="2020-06-29T01:03:26+00:00">2020-06-29</time>
               
             
           </span>
@@ -2409,7 +2653,7 @@ Key Lookup
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2020-06-22 02:30:45" itemprop="dateModified" datetime="2020-06-22T02:30:45+00:00">2020-06-22</time>
+                <time title="Modified: 2020-06-29 01:03:26" itemprop="dateModified" datetime="2020-06-29T01:03:26+00:00">2020-06-29</time>
               
             
           </span>
@@ -2564,239 +2808,6 @@ Null可能引申出來問題我們知道在.Net或Java中大部分都是參考�
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://isdaniel.github.io/Ithelp-day30/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Daniel Shih">
-      <meta itemprop="description" content="好點子沒價值，有價值的是把好點子實現">
-      <meta itemprop="image" content="https://avatars0.githubusercontent.com/u/9159452?s=460&v=4">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="石頭的coding之路">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/Ithelp-day30/" class="post-title-link" itemprop="url">鐵人賽完賽＆總結　(第30天)</a>
-              
-            
-          </h2>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-
-              
-                
-              
-
-              <time title="Created: 2019-10-11 10:00:00" itemprop="dateCreated datePublished" datetime="2019-10-11T10:00:00+00:00">2019-10-11</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Edited on</span>
-                
-                <time title="Modified: 2020-06-22 02:30:45" itemprop="dateModified" datetime="2020-06-22T02:30:45+00:00">2020-06-22</time>
-              
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/11th鐵人賽/" itemprop="url" rel="index"><span itemprop="name">11th鐵人賽</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-            
-              
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-            
-                <span class="post-meta-item-text">Comments: </span>
-                <a href="/Ithelp-day30/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="Ithelp-day30/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-symbolscount">
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Symbols count in article: </span>
-                
-                <span title="Symbols count in article">3.2k</span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Reading time &asymp;</span>
-                
-                <span title="Reading time">6 mins.</span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>
-              Agenda
-完賽感想
-感謝這次的夥伴 [IT成長團]
-學習到新知識 (Expression表達式)
-設計模式運用在實戰中
-透過MVC某區塊概念,引發建立開源專案想法
-文章目錄
-01 ~ 08 Day 介紹Http請求到MVC前Asp.net做了些什麼事情
-09 ~ 25 Day 介紹MVC原始碼
-
-              ...
-            </p>
-          <!--noindex-->
-          
-            <div class="post-button text-center">
-              <a class="btn" href="/Ithelp-day30/#more" rel="contents">
-                Read more &raquo;
-              </a>
-            </div>
-          
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2845,7 +2856,7 @@ Null可能引申出來問題我們知道在.Net或Java中大部分都是參考�
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">73</span>
+                    <span class="site-state-item-count">74</span>
                     <span class="site-state-item-name">posts</span>
                   </a>
                 </div>
@@ -3150,7 +3161,7 @@ Null可能引申出來問題我們知道在.Net或Java中大部分都是參考�
       <i class="fa fa-area-chart"></i>
     </span>
     
-    <span title="Symbols count total">354k</span>
+    <span title="Symbols count total">358k</span>
   
 
   
@@ -3159,7 +3170,7 @@ Null可能引申出來問題我們知道在.Net或Java中大部分都是參考�
       <i class="fa fa-coffee"></i>
     </span>
     
-    <span title="Reading time total">10:44</span>
+    <span title="Reading time total">10:50</span>
   
 </div>
 
