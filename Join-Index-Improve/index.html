@@ -152,7 +152,10 @@
 <meta property="og:description" content="Agenda 前文 資料初始化 建立Index 查詢語法    前文範圍查詢時JOIN統計資訊容易不準確,這也間接導致執行計畫會跑掉. 如果我們想要提升範圍查詢效能並讓Index可以發揮最大最用可以怎麼做? 讓我利用一個範例來跟大家分享. 此範例有使用到三張表  Product表:擁有1-10編號產品 ReportPeriod表:存放產每期報表的資訊(時間,和是否產報表) T99表:線上產品訂單資">
 <meta property="og:locale" content="zh-tw">
 <meta property="og:image" content="https://i.imgur.com/QGNtlUr.png">
-<meta property="og:updated_time" content="2020-06-29T01:03:26.584Z">
+<meta property="og:image" content="https://i.imgur.com/3Z2dy2E.png">
+<meta property="og:image" content="https://i.imgur.com/QGNtlUr.png">
+<meta property="og:image" content="https://i.imgur.com/ZPsyQgH.png">
+<meta property="og:updated_time" content="2020-06-30T16:45:40.671Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="JOIN範圍條件Index優化">
 <meta name="twitter:description" content="Agenda 前文 資料初始化 建立Index 查詢語法    前文範圍查詢時JOIN統計資訊容易不準確,這也間接導致執行計畫會跑掉. 如果我們想要提升範圍查詢效能並讓Index可以發揮最大最用可以怎麼做? 讓我利用一個範例來跟大家分享. 此範例有使用到三張表  Product表:擁有1-10編號產品 ReportPeriod表:存放產每期報表的資訊(時間,和是否產報表) T99表:線上產品訂單資">
@@ -497,7 +500,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2020-06-29 01:03:26" itemprop="dateModified" datetime="2020-06-29T01:03:26+00:00">2020-06-29</time>
+                <time title="Modified: 2020-06-30 16:45:40" itemprop="dateModified" datetime="2020-06-30T16:45:40+00:00">2020-06-30</time>
               
             
           </span>
@@ -570,7 +573,7 @@
                 
                   <span class="post-meta-item-text">Symbols count in article: </span>
                 
-                <span title="Symbols count in article">3.4k</span>
+                <span title="Symbols count in article">4.6k</span>
               
 
               
@@ -584,7 +587,7 @@
                 
                   <span class="post-meta-item-text">Reading time &asymp;</span>
                 
-                <span title="Reading time">6 mins.</span>
+                <span title="Reading time">8 mins.</span>
               
             </div>
           
@@ -638,8 +641,33 @@
 <div class="highlight-wrap" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true" data-rel="SQL"><figure class="iseeu highlight /sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> CLUSTERED <span class="keyword">INDEX</span> [CIX_ReportPeriod_StartDate] <span class="keyword">ON</span> [dbo].[ReportPeriod]</span><br><span class="line">(</span><br><span class="line">	[StartDate] <span class="keyword">ASC</span>,</span><br><span class="line">    [EndDate] <span class="keyword">ASC</span></span><br><span class="line">)</span><br></pre></td></tr></table></figure></div>
 <p><img src="https://i.imgur.com/QGNtlUr.png" alt></p>
 <blockquote>
-<p>原因出在範圍條件.</p>
+<p>原因出在範圍條件會因為查找範圍過大導致預估值不準確</p>
 </blockquote>
+<p>甚麼意思? 讓我們看看下圖(代表<code>ReportPeriod</code>內含日期資料)</p>
+<p><img src="https://i.imgur.com/3Z2dy2E.png" alt></p>
+<p>而我們在<code>JOIN</code>條件只有<code>t.CreateDate BETWEEN p.StartDate AND p.EndDate</code>這就會導致,我們需要查找<code>ReportPeriod</code>日期資料在挑出符合的資料</p>
+<div class="highlight-wrap" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true" data-rel="SQL"><figure class="iseeu highlight /sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">JOIN [dbo].[ReportPeriod] p ON t.CreateDate BETWEEN p.StartDate AND p.EndDate</span><br><span class="line">JOIN @Transaction t1 ON t.TransactionId = t1.TransactionId AND  p.ProductId = t1.ProductId</span><br></pre></td></tr></table></figure></div>
+<p>最後就會看到走針的估計值</p>
+<p><img src="https://i.imgur.com/QGNtlUr.png" alt></p>
+<h3 id="如何優化"><a href="#如何優化" class="headerlink" title="如何優化?"></a>如何優化?</h3><blockquote>
+<p>效能差問題,選擇對Index和撰寫合理的查詢可以改善40%左右問題</p>
+</blockquote>
+<p>我們思考一下如果可以把範圍條件改成精準<code>=</code>查找條件不就可以更精準預估資訊了?</p>
+<div class="highlight-wrap" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true" data-rel="SQL"><figure class="iseeu highlight /sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">t.CreateDate BETWEEN p.StartDate AND p.EndDate</span><br></pre></td></tr></table></figure></div>
+<p>那我們怎麼把上面條件使用<code>=</code>取代<code>BETWEEN</code>範圍查詢呢?</p>
+<blockquote>
+<p>這時我們可以利用空間來換取時間</p>
+</blockquote>
+<p>建立一個新的<code>COLUMN</code>運用算法來計算每個期數<code>StartTime</code></p>
+<p>例如:<code>CreateDate = 2020/01/03 10:08:55</code>會歸類在<code>2020/01/03 10:05:00</code>中</p>
+<div class="highlight-wrap" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true" data-rel="SQL"><figure class="iseeu highlight /sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">ALTER</span> <span class="keyword">TABLE</span> dbo.T99 <span class="keyword">ADD</span> PeriodDate <span class="keyword">AS</span> <span class="keyword">DATEADD</span>(<span class="keyword">MINUTE</span>,<span class="keyword">DATEPART</span>(<span class="keyword">MINUTE</span>,CreateDate) %<span class="number">5</span> * <span class="number">-1</span>,</span><br><span class="line">	DATETIMEFROMPARTS(</span><br><span class="line">	<span class="keyword">DATEPART</span>(<span class="keyword">YEAR</span>,CreateDate),</span><br><span class="line">	<span class="keyword">DATEPART</span>(<span class="keyword">MONTH</span>,CreateDate),</span><br><span class="line">	<span class="keyword">DATEPART</span>(<span class="keyword">DAY</span>,CreateDate),</span><br><span class="line">	<span class="keyword">DATEPART</span>(<span class="keyword">HOUR</span>,CreateDate),</span><br><span class="line">	<span class="keyword">DATEPART</span>(<span class="keyword">MINUTE</span>,CreateDate),<span class="number">0</span>,<span class="number">0</span>)</span><br><span class="line">)</span><br></pre></td></tr></table></figure></div>
+<p>建立完新<code>COLUMN</code>後別忘記加入一個<code>Index</code>給此<code>COLUMN</code>.</p>
+<div class="highlight-wrap" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true" data-rel="SQL"><figure class="iseeu highlight /sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">INDEX</span> IX_PeriodDate_T99 <span class="keyword">ON</span> dbo.T99(</span><br><span class="line">	PeriodDate</span><br><span class="line">)</span><br></pre></td></tr></table></figure></div>
+<p>最後我們修改一下查詢語法</p>
+<div class="highlight-wrap" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true" data-rel="SQL"><figure class="iseeu highlight /sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> p.*</span><br><span class="line"><span class="keyword">FROM</span> dbo.T99 t </span><br><span class="line"><span class="keyword">JOIN</span> [dbo].[ReportPeriod] p <span class="keyword">ON</span> p.StartDate = t.PeriodDate</span><br><span class="line"><span class="keyword">JOIN</span> @<span class="keyword">Transaction</span> t1 <span class="keyword">ON</span> t.TransactionId = t1.TransactionId <span class="keyword">AND</span>  p.ProductId = t1.ProductId</span><br></pre></td></tr></table></figure></div>
+<p><img src="https://i.imgur.com/ZPsyQgH.png" alt></p>
+<p>預估值和讀取值已經可以大幅降低了!!</p>
+<h2 id="小結"><a href="#小結" class="headerlink" title="小結:"></a>小結:</h2><p>在<code>JOIN</code>範圍條件差效能問題,可以思考一下是否有辦法利用算法或是公式來優化查詢效能，如此次範例一樣.</p>
 <p><strong>此文作者</strong>：Daniel Shih(石頭)<br><strong>此文地址</strong>： <a href="https://isdaniel.github.io/Join-Index-Improve/">https://isdaniel.github.io/Join-Index-Improve/</a> <br><strong>版權聲明</strong>：本博客所有文章除特別聲明外，均採用 <span class="exturl" data-url="aHR0cHM6Ly9jcmVhdGl2ZWNvbW1vbnMub3JnL2xpY2Vuc2VzL2J5LW5jLXNhLzMuMC90dy8=" title="https://creativecommons.org/licenses/by-nc-sa/3.0/tw/">CC BY-NC-SA 3.0 TW<i class="fa fa-external-link"></i></span> 許可協議。轉載請註明出處！</p>
 
       
@@ -1108,7 +1136,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Agenda"><span class="nav-number">1.</span> <span class="nav-text">Agenda</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#前文"><span class="nav-number">1.1.</span> <span class="nav-text">前文</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#資料初始化"><span class="nav-number">1.1.1.</span> <span class="nav-text">資料初始化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#建立Index"><span class="nav-number">1.1.2.</span> <span class="nav-text">建立Index</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#查詢語法"><span class="nav-number">1.1.3.</span> <span class="nav-text">查詢語法</span></a></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Agenda"><span class="nav-number">1.</span> <span class="nav-text">Agenda</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#前文"><span class="nav-number">1.1.</span> <span class="nav-text">前文</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#資料初始化"><span class="nav-number">1.1.1.</span> <span class="nav-text">資料初始化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#建立Index"><span class="nav-number">1.1.2.</span> <span class="nav-text">建立Index</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#查詢語法"><span class="nav-number">1.1.3.</span> <span class="nav-text">查詢語法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#如何優化"><span class="nav-number">1.1.4.</span> <span class="nav-text">如何優化?</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#小結"><span class="nav-number">1.2.</span> <span class="nav-text">小結:</span></a></li></ol></li></ol></div>
             
 
           </div>
@@ -1141,7 +1169,7 @@
       <i class="fa fa-area-chart"></i>
     </span>
     
-    <span title="Symbols count total">358k</span>
+    <span title="Symbols count total">359k</span>
   
 
   
@@ -1150,7 +1178,7 @@
       <i class="fa fa-coffee"></i>
     </span>
     
-    <span title="Reading time total">10:50</span>
+    <span title="Reading time total">10:53</span>
   
 </div>
 
