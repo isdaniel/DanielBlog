@@ -495,7 +495,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2020-06-30 16:45:40" itemprop="dateModified" datetime="2020-06-30T16:45:40+00:00">2020-06-30</time>
+                <time title="Modified: 2020-07-01 01:34:49" itemprop="dateModified" datetime="2020-07-01T01:34:49+00:00">2020-07-01</time>
               
             
           </span>
@@ -606,12 +606,13 @@
 
 
 
-前文範圍查詢時JOIN統計資訊容易不準確,這也間接導致執行計畫會跑掉.
-如果我們想要提升範圍查詢效能並讓Index可以發揮最大最用可以怎麼做?
-讓我利用一個範例來跟大家分享.
-此範例有使用到三張表
+前文JOIN條件範圍時,執行計畫預估值容易不準確,這也間接導致查詢效能不好.
 
-Product表:擁有1-10編號產
+就算有建立Index也會遇到上述問題
+
+假如我們想要提升JOIN條件範圍效能並讓Index可以發揮最大最用可以怎麼做?
+就讓我利用一個範例來跟大家分享.
+案
               ...
             </p>
           <!--noindex-->
@@ -739,7 +740,7 @@ Product表:擁有1-10編號產
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2020-06-30 16:45:40" itemprop="dateModified" datetime="2020-06-30T16:45:40+00:00">2020-06-30</time>
+                <time title="Modified: 2020-07-01 01:34:49" itemprop="dateModified" datetime="2020-07-01T01:34:49+00:00">2020-07-01</time>
               
             
           </span>
@@ -970,7 +971,7 @@ Product表:擁有1-10編號產
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2020-06-30 16:45:40" itemprop="dateModified" datetime="2020-06-30T16:45:40+00:00">2020-06-30</time>
+                <time title="Modified: 2020-07-01 01:34:49" itemprop="dateModified" datetime="2020-07-01T01:34:49+00:00">2020-07-01</time>
               
             
           </span>
@@ -1204,7 +1205,7 @@ s = $"&#123;
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2020-06-30 16:45:40" itemprop="dateModified" datetime="2020-06-30T16:45:40+00:00">2020-06-30</time>
+                <time title="Modified: 2020-07-01 01:34:49" itemprop="dateModified" datetime="2020-07-01T01:34:49+00:00">2020-07-01</time>
               
             
           </span>
@@ -1444,7 +1445,7 @@ s = $"&#123;
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2020-06-30 16:45:40" itemprop="dateModified" datetime="2020-06-30T16:45:40+00:00">2020-06-30</time>
+                <time title="Modified: 2020-07-01 01:34:49" itemprop="dateModified" datetime="2020-07-01T01:34:49+00:00">2020-07-01</time>
               
             
           </span>
@@ -1679,7 +1680,7 @@ QO會依照基數估計(Cardinality est
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2020-06-30 16:45:40" itemprop="dateModified" datetime="2020-06-30T16:45:40+00:00">2020-06-30</time>
+                <time title="Modified: 2020-07-01 01:34:49" itemprop="dateModified" datetime="2020-07-01T01:34:49+00:00">2020-07-01</time>
               
             
           </span>
@@ -1923,7 +1924,7 @@ QO會依照基數估計(Cardinality est
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2020-06-30 16:45:40" itemprop="dateModified" datetime="2020-06-30T16:45:40+00:00">2020-06-30</time>
+                <time title="Modified: 2020-07-01 01:34:49" itemprop="dateModified" datetime="2020-07-01T01:34:49+00:00">2020-07-01</time>
               
             
           </span>
@@ -2159,7 +2160,7 @@ Heap資料表
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2020-06-30 16:45:40" itemprop="dateModified" datetime="2020-06-30T16:45:40+00:00">2020-06-30</time>
+                <time title="Modified: 2020-07-01 01:34:49" itemprop="dateModified" datetime="2020-07-01T01:34:49+00:00">2020-07-01</time>
               
             
           </span>
@@ -2408,7 +2409,7 @@ Primary Key
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2020-06-30 16:45:40" itemprop="dateModified" datetime="2020-06-30T16:45:40+00:00">2020-06-30</time>
+                <time title="Modified: 2020-07-01 01:34:49" itemprop="dateModified" datetime="2020-07-01T01:34:49+00:00">2020-07-01</time>
               
             
           </span>
@@ -2653,7 +2654,7 @@ Key Lookup
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2020-06-30 16:45:40" itemprop="dateModified" datetime="2020-06-30T16:45:40+00:00">2020-06-30</time>
+                <time title="Modified: 2020-07-01 01:34:49" itemprop="dateModified" datetime="2020-07-01T01:34:49+00:00">2020-07-01</time>
               
             
           </span>
