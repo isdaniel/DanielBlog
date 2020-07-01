@@ -143,22 +143,22 @@
 
 
 
-  <meta name="description" content="Agenda 前文 資料初始化 建立Index 查詢語法    前文JOIN條件範圍時,執行計畫預估值容易不準確,這也間接導致查詢效能不好.  就算有建立Index也會遇到上述問題  假如我們想要提升JOIN條件範圍效能並讓Index可以發揮最大最用可以怎麼做? 就讓我利用一個範例來跟大家分享. 案例此範例有使用到三張表  Product表:擁有1-10編號產品 ReportPeriod表:存放產">
+  <meta name="description" content="Agenda 前文 案例 資料初始化 建立Index 查詢語法 如何優化?   小結:  前文JOIN條件範圍時,執行計畫預估值容易不準確,這也間接導致查詢效能不好.  就算有建立Index也會遇到上述問題  假如我們想要提升JOIN條件範圍效能並讓Index可以發揮最大最用可以怎麼做? 就讓我利用一個範例來跟大家分享. 案例此範例有使用到三張表  Product表:擁有1-10編號產品 Repo">
 <meta name="keywords" content="DataBase,Turning,Sql-server,Index">
 <meta property="og:type" content="article">
 <meta property="og:title" content="JOIN範圍條件Index優化">
 <meta property="og:url" content="https://isdaniel.github.io/Join-Index-Improve/index.html">
 <meta property="og:site_name" content="石頭的coding之路">
-<meta property="og:description" content="Agenda 前文 資料初始化 建立Index 查詢語法    前文JOIN條件範圍時,執行計畫預估值容易不準確,這也間接導致查詢效能不好.  就算有建立Index也會遇到上述問題  假如我們想要提升JOIN條件範圍效能並讓Index可以發揮最大最用可以怎麼做? 就讓我利用一個範例來跟大家分享. 案例此範例有使用到三張表  Product表:擁有1-10編號產品 ReportPeriod表:存放產">
+<meta property="og:description" content="Agenda 前文 案例 資料初始化 建立Index 查詢語法 如何優化?   小結:  前文JOIN條件範圍時,執行計畫預估值容易不準確,這也間接導致查詢效能不好.  就算有建立Index也會遇到上述問題  假如我們想要提升JOIN條件範圍效能並讓Index可以發揮最大最用可以怎麼做? 就讓我利用一個範例來跟大家分享. 案例此範例有使用到三張表  Product表:擁有1-10編號產品 Repo">
 <meta property="og:locale" content="zh-tw">
 <meta property="og:image" content="https://i.imgur.com/QGNtlUr.png">
 <meta property="og:image" content="https://i.imgur.com/3Z2dy2E.png">
 <meta property="og:image" content="https://i.imgur.com/QGNtlUr.png">
 <meta property="og:image" content="https://i.imgur.com/ZPsyQgH.png">
-<meta property="og:updated_time" content="2020-07-01T01:34:49.659Z">
+<meta property="og:updated_time" content="2020-07-01T02:46:23.775Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="JOIN範圍條件Index優化">
-<meta name="twitter:description" content="Agenda 前文 資料初始化 建立Index 查詢語法    前文JOIN條件範圍時,執行計畫預估值容易不準確,這也間接導致查詢效能不好.  就算有建立Index也會遇到上述問題  假如我們想要提升JOIN條件範圍效能並讓Index可以發揮最大最用可以怎麼做? 就讓我利用一個範例來跟大家分享. 案例此範例有使用到三張表  Product表:擁有1-10編號產品 ReportPeriod表:存放產">
+<meta name="twitter:description" content="Agenda 前文 案例 資料初始化 建立Index 查詢語法 如何優化?   小結:  前文JOIN條件範圍時,執行計畫預估值容易不準確,這也間接導致查詢效能不好.  就算有建立Index也會遇到上述問題  假如我們想要提升JOIN條件範圍效能並讓Index可以發揮最大最用可以怎麼做? 就讓我利用一個範例來跟大家分享. 案例此範例有使用到三張表  Product表:擁有1-10編號產品 Repo">
 <meta name="twitter:image" content="https://i.imgur.com/QGNtlUr.png">
 
 
@@ -500,7 +500,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2020-07-01 01:34:49" itemprop="dateModified" datetime="2020-07-01T01:34:49+00:00">2020-07-01</time>
+                <time title="Modified: 2020-07-01 02:46:23" itemprop="dateModified" datetime="2020-07-01T02:46:23+00:00">2020-07-01</time>
               
             
           </span>
@@ -573,7 +573,7 @@
                 
                   <span class="post-meta-item-text">Symbols count in article: </span>
                 
-                <span title="Symbols count in article">4.6k</span>
+                <span title="Symbols count in article">4.7k</span>
               
 
               
@@ -608,12 +608,15 @@
 
       
         <h1 id="Agenda"><a href="#Agenda" class="headerlink" title="Agenda"></a>Agenda<!-- omit in toc --></h1><ul>
-<li><a href="#%e5%89%8d%e6%96%87">前文</a><ul>
-<li><a href="#%e8%b3%87%e6%96%99%e5%88%9d%e5%a7%8b%e5%8c%96">資料初始化</a></li>
-<li><a href="#%e5%bb%ba%e7%ab%8bindex">建立Index</a></li>
-<li><a href="#%e6%9f%a5%e8%a9%a2%e8%aa%9e%e6%b3%95">查詢語法</a></li>
+<li><a href="#前文">前文</a></li>
+<li><a href="#案例">案例</a><ul>
+<li><a href="#資料初始化">資料初始化</a></li>
+<li><a href="#建立index">建立Index</a></li>
+<li><a href="#查詢語法">查詢語法</a></li>
+<li><a href="#如何優化">如何優化?</a></li>
 </ul>
 </li>
+<li><a href="#小結">小結:</a></li>
 </ul>
 <h2 id="前文"><a href="#前文" class="headerlink" title="前文"></a>前文</h2><p><code>JOIN</code>條件範圍時,執行計畫<strong>預估值</strong>容易不準確,這也間接導致查詢效能不好.</p>
 <blockquote>
