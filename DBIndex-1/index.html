@@ -159,7 +159,7 @@
 <meta property="og:image" content="https://i.imgur.com/37rnlmn.png">
 <meta property="og:image" content="https://i.imgur.com/E6WS5qL.png">
 <meta property="og:image" content="https://i.imgur.com/PPTDYcG.png">
-<meta property="og:updated_time" content="2020-07-09T10:05:35.191Z">
+<meta property="og:updated_time" content="2020-07-10T08:29:02.696Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="資料庫索引深入淺出(一)">
 <meta name="twitter:description" content="Agenda 前文 Index使用的資料結構(B+ tree) Index優缺點 Clustered Index(叢集索引) NonClustered Index(非叢集索引) RID Lookup Key Lookup   範例演示 建立一個 NonClustered Index   再建立一個 Clustered Index  前文Index第一個欄位至關重要它會影響資料統計值結果，Index">
@@ -504,7 +504,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2020-07-09 10:05:35" itemprop="dateModified" datetime="2020-07-09T10:05:35+00:00">2020-07-09</time>
+                <time title="Modified: 2020-07-10 08:29:02" itemprop="dateModified" datetime="2020-07-10T08:29:02+00:00">2020-07-10</time>
               
             
           </span>
@@ -706,6 +706,9 @@
 </ol>
 <blockquote>
 <p>這裡的<code>RID</code>是指向真實資料位子<code>RowID</code></p>
+</blockquote>
+<blockquote>
+<p>如果Nonclustered index可以建立Unique盡量宣告成Unique,因為Leaf page就可以減少存取<code>Row-id</code>欄位,減少儲存空間.</p>
 </blockquote>
 <h3 id="RID-Lookup"><a href="#RID-Lookup" class="headerlink" title="RID Lookup"></a>RID Lookup</h3><p>資料表沒有<code>Clustered Index</code>且使用<code>Index</code>所有查詢欄位不包含在<code>Converting Index</code>中就會透過<code>RID Lookup</code>查找確切Page上的Row(藉由<code>Row-Id</code>)</p>
 <blockquote>
@@ -1236,7 +1239,7 @@
       <i class="fa fa-area-chart"></i>
     </span>
     
-    <span title="Symbols count total">362k</span>
+    <span title="Symbols count total">363k</span>
   
 
   
