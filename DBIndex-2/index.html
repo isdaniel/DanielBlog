@@ -15,7 +15,7 @@
 
 
 <html class="theme-next gemini use-motion" lang="zh-tw">
-<head><meta name="generator" content="Hexo 3.8.0">
+<head><meta name="generator" content="Hexo 3.9.0">
   
   <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -153,7 +153,8 @@
 <meta property="og:locale" content="zh-tw">
 <meta property="og:image" content="https://i.imgur.com/8TvUoRY.png">
 <meta property="og:image" content="https://i.imgur.com/ivgZPGm.png">
-<meta property="og:updated_time" content="2020-07-10T08:29:02.696Z">
+<meta property="og:image" content="https://i.imgur.com/8TvUoRY.png">
+<meta property="og:updated_time" content="2020-08-17T14:37:00.915Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="資料庫索引深入淺出(二)">
 <meta name="twitter:description" content="Agenda 前文 Covering Index 加入INCLUDE欄位含意 案例解說   Filter Index filter index的限制 Index Intersection Primary Key  前文本系列文章  資料庫索引深入淺出(一) 資料庫索引深入淺出(二)  兩種基本索引  Clustered Index(叢集索引) NonClustered Index(非叢集索引)">
@@ -316,7 +317,7 @@
       
     
 
-    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>Tags<span class="badge">67</span></a>
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>Tags<span class="badge">68</span></a>
 
   </li>
         
@@ -354,7 +355,7 @@
       
     
 
-    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives<span class="badge">75</span></a>
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives<span class="badge">76</span></a>
 
   </li>
 
@@ -498,7 +499,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2020-07-10 08:29:02" itemprop="dateModified" datetime="2020-07-10T08:29:02+00:00">2020-07-10</time>
+                <time title="Modified: 2020-08-17 14:37:00" itemprop="dateModified" datetime="2020-08-17T14:37:00+00:00">2020-08-17</time>
               
             
           </span>
@@ -585,7 +586,7 @@
                 
                   <span class="post-meta-item-text">Reading time &asymp;</span>
                 
-                <span title="Reading time">5 mins.</span>
+                <span title="Reading time">6 mins.</span>
               
             </div>
           
@@ -606,14 +607,14 @@
 
       
         <h1 id="Agenda"><a href="#Agenda" class="headerlink" title="Agenda"></a>Agenda<!-- omit in toc --></h1><ul>
-<li><a href="#%e5%89%8d%e6%96%87">前文</a></li>
+<li><a href="#前文">前文</a></li>
 <li><a href="#covering-index">Covering Index</a><ul>
-<li><a href="#%e5%8a%a0%e5%85%a5include%e6%ac%84%e4%bd%8d%e5%90%ab%e6%84%8f">加入INCLUDE欄位含意</a></li>
-<li><a href="#%e6%a1%88%e4%be%8b%e8%a7%a3%e8%aa%aa">案例解說</a></li>
+<li><a href="#加入include欄位含意">加入INCLUDE欄位含意</a></li>
+<li><a href="#案例解說">案例解說</a></li>
 </ul>
 </li>
 <li><a href="#filter-index">Filter Index</a></li>
-<li><a href="#filter-index%e7%9a%84%e9%99%90%e5%88%b6">filter index的限制</a></li>
+<li><a href="#filter-index的限制">filter index的限制</a></li>
 <li><a href="#index-intersection">Index Intersection</a></li>
 <li><a href="#primary-key">Primary Key</a></li>
 </ul>
@@ -655,6 +656,15 @@
 </blockquote>
 <p><img src="https://i.imgur.com/ivgZPGm.png" alt></p>
 <p>建立完<code>Convering Index</code>後我們使用的查詢就會變成只使用<code>Seek</code>，而且在執行成本也大幅降低.</p>
+<p>Convering Index有幾個缺點</p>
+<ol>
+<li>假如在此次update有包含index include columns時,此次修改也會對於Index子頁層進行資料更新，這會增加I/O和Transaction log.</li>
+<li>因為會把include columns增加在NonClustered Index子頁層這會增加硬碟儲存Index的額外空間.</li>
+</ol>
+<p>所以建議只新增有用到的include columns.</p>
+<p><code>Covering</code>欄位只會在子頁層儲存資料，並不會在中葉層儲存相關資訊。</p>
+<p>儲存方式如下圖會把資料存在子頁層中，並不會把Include資料存在中葉層</p>
+<p><img src="https://i.imgur.com/8TvUoRY.png" alt></p>
 <h2 id="Filter-Index"><a href="#Filter-Index" class="headerlink" title="Filter Index"></a>Filter Index</h2><p>在SQL-Server 2008之後,支援使用filter index.他可以節省index大小和維護成本</p>
 <p><code>Filter Index</code>語法就是在最後寫<code>where</code>條件</p>
 <div class="highlight-wrap" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true" data-rel="SQL"><figure class="iseeu highlight /sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> NONCLUSTERED <span class="keyword">INDEX</span> FIX_T_Id_UserGroup <span class="keyword">on</span>  dbo.T(</span><br><span class="line">	<span class="keyword">id</span></span><br><span class="line">) <span class="keyword">INCLUDE</span> (</span><br><span class="line">	UserId,</span><br><span class="line">	UserGroup</span><br><span class="line">)</span><br><span class="line"><span class="keyword">where</span> UserGroup = <span class="number">8</span></span><br></pre></td></tr></table></figure></div>
@@ -720,6 +730,13 @@
     <li class="popular-posts-item">
       
       
+      <div class="popular-posts-title"><a href="\DBLock-1\" rel="bookmark">淺談SqlServer Lock(一)</a></div>
+      
+    </li>
+  
+    <li class="popular-posts-item">
+      
+      
       <div class="popular-posts-title"><a href="\DBNote\" rel="bookmark">撰寫SQL的建議</a></div>
       
     </li>
@@ -728,13 +745,6 @@
       
       
       <div class="popular-posts-title"><a href="\DBTable\" rel="bookmark">SqlServer資料表深入淺出</a></div>
-      
-    </li>
-  
-    <li class="popular-posts-item">
-      
-      
-      <div class="popular-posts-title"><a href="\SQLServer-Statistics\" rel="bookmark">影響Query Optimizer產生執行計畫的關鍵(統計值)</a></div>
       
     </li>
   
@@ -789,8 +799,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/DBTable/" rel="prev" title="SqlServer資料表深入淺出">
-                SqlServer資料表深入淺出 <i class="fa fa-chevron-right"></i>
+              <a href="/DBNote/" rel="prev" title="撰寫SQL的建議">
+                撰寫SQL的建議 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -813,7 +823,7 @@
     如果本文對您幫助很大，可<a href="https://www.jkos.com/">街口支付</a>斗內鼓勵石頭^^
 </div>
 
-<img src="https://az787680.vo.msecnd.net/user/九桃/d658f826-157e-436a-8c52-df9dd1ce7909/1553740448_05878.png" style="width: 300px; height: 434px;">
+<img src="https://i.imgur.com/1D2UpQk.png">
 
 
           </div>
@@ -875,7 +885,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">75</span>
+                    <span class="site-state-item-count">76</span>
                     <span class="site-state-item-name">posts</span>
                   </a>
                 </div>
@@ -1071,7 +1081,9 @@
                     
                       
                     
-                    <span class="site-state-item-count">67</span>
+                      
+                    
+                    <span class="site-state-item-count">68</span>
                     <span class="site-state-item-name">tags</span>
                   </a>
                 </div>
@@ -1197,7 +1209,7 @@
       <i class="fa fa-area-chart"></i>
     </span>
     
-    <span title="Symbols count total">363k</span>
+    <span title="Symbols count total">330k</span>
   
 
   
@@ -1206,13 +1218,13 @@
       <i class="fa fa-coffee"></i>
     </span>
     
-    <span title="Reading time total">10:59</span>
+    <span title="Reading time total">10:01</span>
   
 </div>
 
 
 
-  <div class="powered-by">Powered by <a rel="external nofollow" class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> v3.8.0</div>
+  <div class="powered-by">Powered by <a rel="external nofollow" class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> v3.9.0</div>
 
 
 
