@@ -154,7 +154,7 @@
 <meta property="og:image" content="https://i.imgur.com/8TvUoRY.png">
 <meta property="og:image" content="https://i.imgur.com/ivgZPGm.png">
 <meta property="og:image" content="https://i.imgur.com/8TvUoRY.png">
-<meta property="og:updated_time" content="2020-08-17T14:40:05.593Z">
+<meta property="og:updated_time" content="2020-10-16T09:45:47.463Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="資料庫索引深入淺出(二)">
 <meta name="twitter:description" content="Agenda 前文 Covering Index 加入INCLUDE欄位含意 案例解說   Filter Index filter index的限制 Index Intersection Primary Key  前文本系列文章  資料庫索引深入淺出(一) 資料庫索引深入淺出(二)  兩種基本索引  Clustered Index(叢集索引) NonClustered Index(非叢集索引)">
@@ -499,7 +499,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2020-08-17 14:40:05" itemprop="dateModified" datetime="2020-08-17T14:40:05+00:00">2020-08-17</time>
+                <time title="Modified: 2020-10-16 09:45:47" itemprop="dateModified" datetime="2020-10-16T09:45:47+00:00">2020-10-16</time>
               
             
           </span>
@@ -686,7 +686,7 @@
 <p>但除了同時利用<code>UserId</code>和<code>Id</code> Column當作條件外還可能個別當作查詢條件.</p>
 <p>我們就可以考慮把這個<code>Index</code>拆開成兩個，這樣可以提高索引使用率（因為執行計畫透過統計值來產生，而<code>Index</code>統計值計算是由<code>Index</code>第一個Column來當計算）</p>
 <blockquote>
-<p>注意:把<code>Index</code>猜成兩個或許可以增加查詢效率，但每個<code>Index</code>就是一個<code>B+ Tree</code>這會造成</p>
+<p>注意:把<code>Index</code>拆成兩個或許可以增加查詢效率，但每個<code>Index</code>就是一個<code>B+ Tree</code>,這會造成維護上成本</p>
 </blockquote>
 <div class="highlight-wrap" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true" data-rel="SQL"><figure class="iseeu highlight /sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> CLUSTERED <span class="keyword">INDEX</span> IX_T_UserId <span class="keyword">on</span> dbo.T(</span><br><span class="line">	UserId</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="keyword">CREATE</span> CLUSTERED <span class="keyword">INDEX</span> IX_T_Id <span class="keyword">on</span>  dbo.T(</span><br><span class="line">	<span class="keyword">Id</span></span><br><span class="line">)</span><br></pre></td></tr></table></figure></div>
 <h2 id="Primary-Key"><a href="#Primary-Key" class="headerlink" title="Primary Key"></a>Primary Key</h2><p>在<code>SQL-Server</code>很常使用PRIMARY KEY但你知道他代表甚麼含意嗎?</p>
